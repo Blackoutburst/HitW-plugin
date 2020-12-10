@@ -1,0 +1,34 @@
+main: main.Main
+name: Hitw
+version: 1.0
+api-version: 1.13
+author: Blackoutburst
+description: HitW
+commands:
+  fly:
+    description: Toggle Fly mode
+    usage: /fly
+  play:
+    description: Start game
+    usage: /play {time:score} [value]
+  leave:
+    description: Stop game
+    usage: /leave
+  spawn:
+    description: Teleport the player to spawn
+    usage: /spawn
+  discord:
+    description: Give HitW discord link
+    usage: /discord
+  color:
+    description: Teleport the player to the color editor
+    usage: /color
+  delay:
+    description: Change the lever delay
+    usage: /delay [seconds]
+  tourney:
+    description: Tourney management
+    usage: /tourney too much shit
+  spectate:
+    description: Spectate the tournament
+    usage: /spectate
