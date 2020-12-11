@@ -19,6 +19,7 @@ public class CommandPlay {
 	public static boolean onUse(GamePlayer player, String[] args) {
 		if (player.isInTourney()) {
 			player.getPlayer().sendMessage("§cYou can't do that while in tournament!");
+			return true;
 		}
 		StageManager.start(player, args);
 		return true;

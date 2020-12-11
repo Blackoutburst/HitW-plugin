@@ -12,7 +12,7 @@ import java.net.URLConnection;
  */
 public class Request {
 	
-	private static final String API = "api key here";
+	private static final String API = "";
 	
 	/**
 	 * Get player data from Hypixel API

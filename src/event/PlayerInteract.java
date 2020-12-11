@@ -130,7 +130,9 @@ public class PlayerInteract {
 			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
 	            @Override
 	            public void run(){
-	            	player.getPlayer().getInventory().addItem(new ItemStack(Material.STAINED_GLASS, 64, (short)(player.getGlassColor())));
+	            	if (player.isInGame()) {
+	            		player.getPlayer().getInventory().addItem(new ItemStack(Material.STAINED_GLASS, 64, (short)(player.getGlassColor())));
+	            	}
 	            	if (player.getStage().equals("Qualification")) {
 	            		WallsManager.clearPlayField(Values.gamesQ.get(player.getGameID()).getPlay(), Values.gamesQ.get(player.getGameID()).getWall());
 	            	} else if (player.getStage().equals("Finals")) {
@@ -143,13 +145,14 @@ public class PlayerInteract {
             @Override
             public void run(){
             	if (player.getStage().equals("Qualification")) {
+            		if (player.isInGame()) {
+            			player.getPlayer().getInventory().addItem(new ItemStack(Material.STAINED_GLASS, 64, (short)(player.getGlassColor())));
+            		}
 	            	if (!player.isInClassicGame()) {
-	            		player.getPlayer().getInventory().addItem(new ItemStack(Material.STAINED_GLASS, 64, (short)(player.getGlassColor())));
 	            		WallsManager.clearPlayField(Values.gamesQ.get(player.getGameID()).getPlay(), Values.gamesQ.get(player.getGameID()).getWall());
 	            	}
             	} else if (player.getStage().equals("Finals")) {
             		if (!player.isInClassicGame()) {
-	            		player.getPlayer().getInventory().addItem(new ItemStack(Material.STAINED_GLASS, 64, (short)(player.getGlassColor())));
 	            		WallsManager.clearPlayField(Values.gamesF.get(player.getGameID()).getPlay(), Values.gamesF.get(player.getGameID()).getWall());
 	            	}
             	}

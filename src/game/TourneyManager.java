@@ -117,6 +117,8 @@ public class TourneyManager {
 		if (Main.player2.getGameID() == -1) {Main.player2.setStage("none");player.getPlayer().sendMessage("§cPlayer2 is missing start canceled!");return;}
 		Main.player1.setInClassicGame(true);
 		Main.player2.setInClassicGame(true);
+		Main.player1.setPerfectwalls(0);
+		Main.player2.setPerfectwalls(0);
 		StageManager.setStageData(Main.player1);
 		StageManager.setStageData(Main.player2);
 		for (GamePlayer p : Main.players) {
@@ -294,6 +296,8 @@ public class TourneyManager {
 		Main.InTourney = false;
 		Main.tourneyStage = "none";
 		Main.stageTime = 0;
+		StageManager.resetPlayerStats(Main.player1);
+		StageManager.resetPlayerStats(Main.player2);
 		Main.player1 = null;
 		Main.player2 = null;
 		for (GamePlayer p : Main.players) {

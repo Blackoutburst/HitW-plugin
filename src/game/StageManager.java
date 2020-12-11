@@ -25,6 +25,7 @@ public class StageManager {
 	 */
 	public static void pullLastWallTime(GamePlayer player) {
 		PlayerInteract interaction = new PlayerInteract();
+		player.setInGame(false);
 		interaction.pullWall(player);
 	}
 	
@@ -104,7 +105,7 @@ public class StageManager {
 	 * @param player player starting a new game
 	 * @author Blackoutburst
 	 */
-	private static void resetPlayerStats(GamePlayer player) {
+	public static void resetPlayerStats(GamePlayer player) {
 		player.setWalls(0);
 		player.setPerfectwalls(0);
 		player.setMissing(0);
