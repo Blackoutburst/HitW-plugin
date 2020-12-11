@@ -10,7 +10,7 @@ commands:
     usage: /fly
   play:
     description: Start game
-    usage: /play {time:score} [value]
+    usage: /play
   leave:
     description: Stop game
     usage: /leave
@@ -25,10 +25,10 @@ commands:
     usage: /color
   delay:
     description: Change the lever delay
-    usage: /delay [seconds]
+    usage: /delay
   tourney:
     description: Tourney management
-    usage: /tourney too much shit
+    usage: /tourney
   spectate:
     description: Spectate the tournament
     usage: /spectate
