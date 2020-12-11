@@ -23,7 +23,7 @@ public class StageManager {
 	 * @param player player playing
 	 * @author Blackoutburst
 	 */
-	private static void pullLastWallTime(GamePlayer player) {
+	public static void pullLastWallTime(GamePlayer player) {
 		PlayerInteract interaction = new PlayerInteract();
 		interaction.pullWall(player);
 	}
@@ -33,7 +33,7 @@ public class StageManager {
 	 * @param player player starting the game
 	 * @author Blackoutburst
 	 */
-	private static void setStage(GamePlayer player) {
+	public static void setStage(GamePlayer player) {
 		player.setGameID(InsideArea.inGameAreaID(player.getPlayer().getLocation(), Values.gamesQ));
 		player.setStage("Finals");
 		if (player.getGameID() == -1) {
@@ -83,7 +83,7 @@ public class StageManager {
 	 * @param player player starting a game
 	 * @author Blackoutburst
 	 */
-	private static void setStageData(GamePlayer player) {
+	public static void setStageData(GamePlayer player) {
 		if (player.getStage().equals("Qualification")) {
 			Values.gamesQ.get(player.getGameID()).setRunning(true);
 		} else {

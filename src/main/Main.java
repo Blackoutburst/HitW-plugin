@@ -42,6 +42,7 @@ public class Main extends JavaPlugin implements Listener {
 	public static boolean InTourney = false;
 	public static String tourneyStage = "none";
 	public static int stageTime = 0;
+	public static int tourneyClock = 0;
 	public static GamePlayer player1 = null;
 	public static GamePlayer player2 = null;
 	

@@ -47,11 +47,7 @@ public class RankManager {
 	 * @author Blackoutburst
 	 */
 	private static String getRank(Player player, int qualification, int finals) {
-		if (player.getUniqueId().toString().replace("-", "").equals("b8ef1c7615e04b958d474ca133561f5a")) {
-			return(ChatColor.LIGHT_PURPLE + "[Staff] ");//Blackout
-		} else if (player.getUniqueId().toString().replace("-", "").equals("bedb53e2dd754786a2ac1ec80023aabe")) {
-			return(ChatColor.LIGHT_PURPLE + "[Staff] ");//Mason
-		} else if (player.getUniqueId().toString().replace("-", "").equals("082e28e178724b21ba12b3231f7a872c")) {
+		if (player.getUniqueId().toString().replace("-", "").equals("082e28e178724b21ba12b3231f7a872c")) {
 			return(ChatColor.GOLD + "[Legend] ");//Teddy
 		} else if (qualification >= 400 || finals >= 400) {
 			return(ChatColor.BLACK + "[400+] ");

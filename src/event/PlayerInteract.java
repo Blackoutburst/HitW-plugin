@@ -52,7 +52,17 @@ public class PlayerInteract {
 		player.getPlayer().getPlayer().getInventory().clear();
 		player.setWalls(player.getWalls() + 1);
 		setScore(player);
-		genNextWall(player);
+		if (player.isInTourney()) {
+			if (player.getStage().equals("Qualification")) {
+				WallsManager.copyWall(player, Values.gamesQ.get(player.getGameID()).getWall(), Values.gamesQ.get(player.getGameID()).getPlay(), new int[] {-617 - player.getWalls(), 7, 639, -617 - player.getWalls(), 10, 633});
+				delayedAction(player);
+			} else {
+				WallsManager.copyWall(player, Values.gamesF.get(player.getGameID()).getWall(), Values.gamesF.get(player.getGameID()).getPlay(), new int[] {-717 - player.getWalls(), 7, 639, -717 - player.getWalls(), 11, 629});
+				delayedAction(player);
+			}
+		} else {
+			genNextWall(player);
+		}
 	}
 	
 	/**

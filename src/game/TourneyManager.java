@@ -2,10 +2,13 @@ package game;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
 
 import main.GamePlayer;
 import main.Main;
 import utils.ScoreboardManager;
+import utils.Values;
 
 /**
  * Manage every tournament function
@@ -73,13 +76,100 @@ public class TourneyManager {
 	}
 	
 	/**
+	 * Send final result message to every player in the tournament
+	 * @author Blackoutburst
+	 */
+	private static void broadcastEndMessage() {
+		for (GamePlayer p : Main.players) {
+			if (p.isInTourney()) {
+				if (Main.player1.getScore() > Main.player2.getScore()) {
+					p.getPlayer().sendMessage("§6§l========================================");
+					p.getPlayer().sendMessage("§6§l#1 :"+Main.player1.getPlayer().getDisplayName()+" §6§l: §r§a"+Main.player1.getScore());
+					p.getPlayer().sendMessage("§l#2 : "+Main.player2.getPlayer().getDisplayName()+" §l: §r§a"+Main.player2.getScore());
+					p.getPlayer().sendMessage("§6§l========================================");
+				}
+				if (Main.player1.getScore() < Main.player2.getScore()) {
+					p.getPlayer().sendMessage("§6§l========================================");
+					p.getPlayer().sendMessage("§6§l#1 :"+Main.player2.getPlayer().getDisplayName()+" §6§l: §r§a"+Main.player2.getScore());
+					p.getPlayer().sendMessage("§l#2 : "+Main.player1.getPlayer().getDisplayName()+" §l: §r§a"+Main.player1.getScore());
+					p.getPlayer().sendMessage("§6§l========================================");
+				}
+				if (Main.player1.getScore() == Main.player2.getScore()) {
+					p.getPlayer().sendMessage("§6§l========================================");
+					p.getPlayer().sendMessage("§lTie : "+Main.player1.getPlayer().getDisplayName()+" §l: §r§a"+Main.player1.getScore());
+					p.getPlayer().sendMessage("§lTie : "+Main.player2.getPlayer().getDisplayName()+" §l: §r§a"+Main.player2.getScore());
+					p.getPlayer().sendMessage("§6§l========================================");
+				}
+			}
+		}
+	}
+	
+	/**
 	 * Start the tournament stage
 	 * @param player commands sender
 	 * @param args commands arguments
 	 * @author Blackoutburst
 	 */
 	private static void startStage(GamePlayer player, String[] args) {
-		//Later
+		StageManager.setStage(Main.player1);
+		if (Main.player1.getGameID() == -1) {Main.player1.setStage("none");player.getPlayer().sendMessage("§cPlayer1 is missing start canceled!");return;}
+		StageManager.setStage(Main.player2);
+		if (Main.player2.getGameID() == -1) {Main.player2.setStage("none");player.getPlayer().sendMessage("§cPlayer2 is missing start canceled!");return;}
+		Main.player1.setInClassicGame(true);
+		Main.player2.setInClassicGame(true);
+		StageManager.setStageData(Main.player1);
+		StageManager.setStageData(Main.player2);
+		for (GamePlayer p : Main.players) {
+			if (p.isInTourney()) {
+				p.getPlayer().sendMessage("§aThe game will start in 5 seconds!");
+			}
+		}
+		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
+            @Override
+            public void run(){
+            	setupGame(Main.player1);
+            	setupGame(Main.player2);
+				Main.tourneyClock = Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(Main.getPlugin(Main.class), new Runnable(){
+					@Override
+					public void run() {
+						Main.stageTime--;
+						for (GamePlayer p : Main.players) {
+							if (p.isInTourney()) {
+								ScoreboardManager.update(p);
+							}
+						}
+						if (Main.stageTime <= 0) {
+							StageManager.pullLastWallTime(Main.player1);
+							StageManager.pullLastWallTime(Main.player2);
+							StageManager.autostop(Main.player1);
+							StageManager.autostop(Main.player2);
+							broadcastEndMessage();
+							Bukkit.getScheduler().cancelTask(Main.tourneyClock);
+						}
+					}
+				}, 0L,  20L);	
+            }
+		}, 100L);
+	}
+	
+	/**
+	 * Setup the game
+	 * clear play field and generate walls
+	 * @param player player starting a new game
+	 * @author Blackoutburst
+	 */
+	private static void setupGame(GamePlayer player) {
+		player.setInGame(true);
+		player.setWalls(1);
+    	player.getPlayer().getInventory().addItem(new ItemStack(Material.STAINED_GLASS, 64, (short)(player.getGlassColor())));
+    	if (player.getStage().equals("Qualification")) {
+        	WallsManager.clearPlayField(Values.gamesQ.get(player.getGameID()).getPlay(), Values.gamesQ.get(player.getGameID()).getWall());
+        	WallsManager.copyWall(player, Values.gamesQ.get(player.getGameID()).getWall(), Values.gamesQ.get(player.getGameID()).getPlay(), new int[] {-617 - player.getWalls(), 7, 639, -617 - player.getWalls(), 10, 633});
+    	} else if (player.getStage().equals("Finals")) {
+    		WallsManager.clearPlayField(Values.gamesF.get(player.getGameID()).getPlay(), Values.gamesF.get(player.getGameID()).getWall());
+    		WallsManager.copyWall(player, Values.gamesF.get(player.getGameID()).getWall(), Values.gamesF.get(player.getGameID()).getPlay(), new int[] {-717 - player.getWalls(), 7, 639, -717 - player.getWalls(), 11, 629});
+    		
+    	}
 	}
 	
 	/**
@@ -95,6 +185,7 @@ public class TourneyManager {
 			for (int i = 1; i < 100; i++) {
 				Wall[0] --;
 				Wall[3] --;
+				if (i == 2) {player.setWalls(2);player.setInClassicGame(true);} else {player.setWalls(0);player.setInClassicGame(false);}
 				WallsManager.genWall(playField, Wall, getHoleCount(stage,i), player);
 			}
 		} else {
@@ -103,6 +194,7 @@ public class TourneyManager {
 			for (int i = 1; i < 100; i++) {
 				Wall[0] --;
 				Wall[3] --;
+				if (i == 2) {player.setWalls(2);player.setInClassicGame(true);} else {player.setWalls(0);player.setInClassicGame(false);}
 				WallsManager.genWall(playField, Wall, getHoleCount(stage,i), player);
 			}
 		}

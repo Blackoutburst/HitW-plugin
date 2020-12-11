@@ -133,6 +133,53 @@ public class WallsManager {
 	}
 	
 	/**
+	 * Copy wall from generated walls
+	 * @param player current player playing
+	 * @param wall player wall
+	 * @param wallStock all walls generated
+	 * @author Blackoutburst
+	 */
+	@SuppressWarnings("deprecation")
+	public static void copyWall(GamePlayer player, int[] wall, int[] play, int[] wallStock) {
+		boolean onZ = false;
+		int xo = 0;
+		int zo = 0;
+		if (play[0] == wall[0] || play[0] == wall[3]) {
+			onZ = true;
+		}
+		
+		int x1 = 0;int x2 = 3;if (wallStock[3] < wallStock[0]) {x1 = 3;x2 = 0;}
+		int y1 = 1;int y2 = 4;if (wallStock[4] < wallStock[1]) {y1 = 4;y2 = 1;}
+		int z1 = 2;int z2 = 5;if (wallStock[5] < wallStock[2]) {z1 = 5;z2 = 2;}
+		
+		if (onZ) {
+			for (int x = wallStock[x1]; x <= wallStock[x2]; x++) {
+				for (int y = wallStock[y1]; y <= wallStock[y2]; y++) {
+					xo = 0;
+					for (int z = wallStock[z1]; z <= wallStock[z2]; z++) {
+						Block b = world.getBlockAt(x, y, z);
+						world.getBlockAt(wall[0] + xo, y, wall[2]).setType(b.getType());
+						world.getBlockAt(wall[0] + xo, y, wall[2]).setData((byte)(player.getWallColor()));
+						xo--;
+					}
+				}
+			}
+		} else {
+			for (int x = wallStock[x1]; x <= wallStock[x2]; x++) {
+				for (int y = wallStock[y1]; y <= wallStock[y2]; y++) {
+					zo = 0;
+					for (int z = wallStock[z1]; z <= wallStock[z2]; z++) {
+						Block b = world.getBlockAt(x, y, z);
+						world.getBlockAt(wall[0], y, wall[2] + zo).setType(b.getType());
+						world.getBlockAt(wall[0], y, wall[2] + zo).setData((byte)(player.getWallColor()));
+						zo--;
+					}
+				}
+			}
+		}
+	}
+	
+	/**
 	 * Clear the play field
 	 * @param play play field
 	 * @param wall wall
