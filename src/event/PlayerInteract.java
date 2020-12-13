@@ -119,7 +119,9 @@ public class PlayerInteract {
             @Override
             public void run(){
             	if (!player.isInClassicGame()) {
-            		player.getPlayer().getInventory().addItem(new ItemStack(Material.STAINED_GLASS, 64, (short)(player.getGlassColor())));
+            		if (player.isInGame()) {
+            			player.getPlayer().getInventory().addItem(new ItemStack(Material.STAINED_GLASS, 64, (short)(player.getGlassColor())));
+            		}
             		WallsManager.clearPlayField(Values.games.get(player.getGameID()).getPlay(), Values.games.get(player.getGameID()).getWall());
             	}
             	player.setLeverPulled(false);

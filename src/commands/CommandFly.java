@@ -21,9 +21,11 @@ public class CommandFly {
 			return true;
 		}
 		if (player.getPlayer().getAllowFlight()) {
+			player.getPlayer().sendMessage("§bYou can no longer fly");
 			player.getPlayer().setAllowFlight(false);
 		} else {
 			player.getPlayer().setAllowFlight(true);
+			player.getPlayer().sendMessage("§bYou can now fly");
 		}
 		ScoreboardManager.update(player);
 		return true;

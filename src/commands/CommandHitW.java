@@ -17,6 +17,10 @@ public class CommandHitW {
 	 * @author Blackoutburst
 	 */
 	public static boolean onUse(GamePlayer player, String[] args) {
+		if (args.length == 0) {
+			player.getPlayer().sendMessage("§cMissing arguments");
+			return true;
+		}
 		if (player.getPlayer().isOp()) {
 			if (args[0].toLowerCase().equals("reload")) {
 				Values.initValue();

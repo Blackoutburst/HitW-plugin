@@ -325,9 +325,9 @@ public class WallsManager {
 								world.getBlockAt(wall[0], wall[1], wall[2]).setType(Material.STAINED_CLAY);
 								world.getBlockAt(wall[0], wall[1], wall[2]).setData((byte)(player.getWallColor()));
 							}
-							if (world.getBlockAt(wall[3], wall[1], wall[2]).getType().equals(Material.AIR)) {
-								world.getBlockAt(wall[3], wall[1], wall[2]).setType(Material.STAINED_CLAY);
-								world.getBlockAt(wall[3], wall[1], wall[2]).setData((byte)(player.getWallColor()));
+							if (world.getBlockAt(wall[0], wall[1], wall[5]).getType().equals(Material.AIR)) {
+								world.getBlockAt(wall[0], wall[1], wall[5]).setType(Material.STAINED_CLAY);
+								world.getBlockAt(wall[0], wall[1], wall[5]).setData((byte)(player.getWallColor()));
 							}
 						}
 					}

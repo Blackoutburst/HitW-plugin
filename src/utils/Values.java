@@ -36,15 +36,18 @@ public class Values {
 	public static Location cam2F = new Location(null, 0, 0, 0);
 	
 	/**
-	 * Initilize / reload all plugins value
+	 * Initialize / reload all plugins value
 	 * @author Blackoutburst
 	 */
 	public static void initValue() {
+		games.clear();
 		locationFile = YamlConfiguration.loadConfiguration(new File("./plugins/HitW/locations.yml"));
 		wallsFile = YamlConfiguration.loadConfiguration(new File("./plugins/HitW/walls.yml"));
 		loadLocation();
+		int walls = Integer.valueOf(wallsFile.getString("count"));
 		
-		for (int i = 0; i < 13; i++) {
+		
+		for (int i = 0; i < walls; i++) {
 			String[] strArea = wallsFile.getString(i+".area").split(", ");
 			String[] strPlay = wallsFile.getString(i+".play").split(", ");
 			String[] strWall = wallsFile.getString(i+".wall").split(", ");

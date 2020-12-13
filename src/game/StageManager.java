@@ -101,6 +101,7 @@ public class StageManager {
 	 * @author Blackoutburst
 	 */
 	public static void resetPlayerStats(GamePlayer player) {
+		if (player == null) {return;}
 		player.getPlayer().getPlayer().getInventory().clear();
 		player.setWalls(0);
 		player.setPerfectwalls(0);
