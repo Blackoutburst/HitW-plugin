@@ -33,7 +33,7 @@ public class CommandDelay {
 			return true;
 		}
 		player.setLeverDelay(Float.valueOf(args[0]));
-		File f = new File("player data/"+player.getPlayer().getUniqueId().toString().replace("-", ""));
+		File f = new File("./plugins/HitW/player data/"+player.getPlayer().getUniqueId().toString().replace("-", ""));
 
 		PrintWriter writer;
 		try {

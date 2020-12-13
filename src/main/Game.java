@@ -9,16 +9,20 @@ public class Game {
 	int[] area;
 	int[] play;
 	int[] wall;
+	int[] holes;
 	boolean running;
 	int clock;
+	String type;
 	
-	public Game(int[] area, int[] play, int[] wall, boolean running, boolean classic, int clock) {
+	public Game(int[] area, int[] play, int[] wall, int[] holes, boolean running, boolean classic, int clock, String type) {
 		super();
 		this.area = area;
 		this.play = play;
 		this.wall = wall;
+		this.holes = holes;
 		this.running = running;
 		this.clock = clock;
+		this.type = type;
 	}
 
 	public int[] getArea() {
@@ -45,6 +49,14 @@ public class Game {
 		this.wall = wall;
 	}
 
+	public int[] getHoles() {
+		return holes;
+	}
+	
+	public void setHoles(int[] holes) {
+		this.holes = holes;
+	}
+	
 	public boolean isRunning() {
 		return running;
 	}
@@ -60,5 +72,14 @@ public class Game {
 	public void setClock(int clock) {
 		this.clock = clock;
 	}
+	
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+	
 	
 }

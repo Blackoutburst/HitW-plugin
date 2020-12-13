@@ -1,10 +1,7 @@
 package commands;
 
-import org.bukkit.Bukkit;
-
-import org.bukkit.Location;
-
 import main.GamePlayer;
+import utils.Values;
 
 /**
  * Manage /color commands
@@ -24,7 +21,7 @@ public class CommandColor {
 			player.getPlayer().sendMessage("§cYou can't do that while in tournament!");
 			return true;
 		}
-    	player.getPlayer().teleport(new Location(Bukkit.getWorld("World"), -583.5f, 7, 692.5f,  0, 0));
+    	player.getPlayer().teleport(Values.color);
 		return true;
 	}
 }

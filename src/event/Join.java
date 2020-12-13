@@ -4,16 +4,15 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 import main.GamePlayer;
 import main.Main;
-import main.RankManager;
 import utils.Board;
+import utils.RankManager;
 import utils.Tools;
+import utils.Values;
 
 /**
  * Manage every action when onPlayerJoin event is called
@@ -38,7 +37,7 @@ public class Join {
  		float leverDelay = 0.5f;
 		
 		
-		File f = new File("player data/"+event.getPlayer().getUniqueId().toString().replace("-", ""));
+		File f = new File("./plugins/HitW/player data/"+event.getPlayer().getUniqueId().toString().replace("-", ""));
 		if (!f.exists()) {
 			f.mkdir();
 			writeData(f);
@@ -121,9 +120,6 @@ public class Join {
 	 * @author Blackoutburst
 	 */
 	private void setToSpawn(Player player) {
-		Location location = new Location(Bukkit.getWorld("World"), -574.5f, 8, 665.5f, -90, 0);
-		
-		player.teleport(location);
-		player.getInventory().clear();
+		player.teleport(Values.spawn);
 	}
 }

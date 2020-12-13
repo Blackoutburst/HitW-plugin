@@ -1,6 +1,7 @@
 package game;
 
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
@@ -27,6 +28,7 @@ public class StageManager {
 		PlayerInteract interaction = new PlayerInteract();
 		player.setInGame(false);
 		interaction.pullWall(player);
+		ScoreboardManager.update(player);
 	}
 	
 	/**
@@ -35,12 +37,9 @@ public class StageManager {
 	 * @author Blackoutburst
 	 */
 	public static void setStage(GamePlayer player) {
-		player.setGameID(InsideArea.inGameAreaID(player.getPlayer().getLocation(), Values.gamesQ));
-		player.setStage("Finals");
-		if (player.getGameID() == -1) {
-			player.setGameID(InsideArea.inGameAreaID(player.getPlayer().getLocation(), Values.gamesF));
-		} else {
-			player.setStage("Qualification");
+		player.setGameID(InsideArea.inGameAreaID(player.getPlayer().getLocation(), Values.games));
+		if (player.getGameID() != -1) {
+			player.setStage(Values.games.get(player.getGameID()).getType());
 		}
 	}
 	
@@ -54,7 +53,7 @@ public class StageManager {
 	 */
 	private static boolean setLimit(GamePlayer player, String[] args) {
 		if (args.length >= 2) {
-			if (args[0].equals("time".toLowerCase())) {
+			if (args[0].contains("time".toLowerCase())) {
 				try {
 					player.setGoalTime(Integer.valueOf(args[1]));
 				} catch(Exception e) {
@@ -62,7 +61,7 @@ public class StageManager {
 					return false;
 				}
 			}
-			if (args[0].equals("score".toLowerCase())) {
+			if (args[0].contains("score".toLowerCase())) {
 				try {
 					player.setGoalScore(Integer.valueOf(args[1]));
 				} catch(Exception e) {
@@ -85,11 +84,7 @@ public class StageManager {
 	 * @author Blackoutburst
 	 */
 	public static void setStageData(GamePlayer player) {
-		if (player.getStage().equals("Qualification")) {
-			Values.gamesQ.get(player.getGameID()).setRunning(true);
-		} else {
-			Values.gamesF.get(player.getGameID()).setRunning(true);
-		}
+		Values.games.get(player.getGameID()).setRunning(true);
 		if (player.isInClassicGame()) {
 			player.setTime(120);
 			player.setInClassicGame(true);
@@ -106,6 +101,7 @@ public class StageManager {
 	 * @author Blackoutburst
 	 */
 	public static void resetPlayerStats(GamePlayer player) {
+		player.getPlayer().getPlayer().getInventory().clear();
 		player.setWalls(0);
 		player.setPerfectwalls(0);
 		player.setMissing(0);
@@ -124,22 +120,10 @@ public class StageManager {
 	private static void setupGame(GamePlayer player) {
 		player.setInGame(true);
 		player.setWalls(1);
+		player.getPlayer().setGameMode(GameMode.SURVIVAL);
     	player.getPlayer().getInventory().addItem(new ItemStack(Material.STAINED_GLASS, 64, (short)(player.getGlassColor())));
-    	if (player.getStage().equals("Qualification")) {
-        	WallsManager.clearPlayField(Values.gamesQ.get(player.getGameID()).getPlay(), Values.gamesQ.get(player.getGameID()).getWall());
-			if (player.isInClassicGame()) {
-				WallsManager.genWall(Values.gamesQ.get(player.getGameID()).getPlay(), Values.gamesQ.get(player.getGameID()).getWall(), 3, player);
-			} else {
-				WallsManager.genWall(Values.gamesQ.get(player.getGameID()).getPlay(), Values.gamesQ.get(player.getGameID()).getWall(), 8, player);
-			}
-    	} else if (player.getStage().equals("Finals")) {
-    		WallsManager.clearPlayField(Values.gamesF.get(player.getGameID()).getPlay(), Values.gamesF.get(player.getGameID()).getWall());
-			if (player.isInClassicGame()) {
-				WallsManager.genWall(Values.gamesF.get(player.getGameID()).getPlay(), Values.gamesF.get(player.getGameID()).getWall(), 10, player);
-			} else {
-				WallsManager.genWall(Values.gamesF.get(player.getGameID()).getPlay(), Values.gamesF.get(player.getGameID()).getWall(), 22, player);
-			}
-    	}
+    	WallsManager.clearPlayField(Values.games.get(player.getGameID()).getPlay(), Values.games.get(player.getGameID()).getWall());
+		WallsManager.genWall(Values.games.get(player.getGameID()).getPlay(), Values.games.get(player.getGameID()).getWall(), Values.games.get(player.getGameID()).getHoles(), player);
 	}
 	
 	/**
@@ -154,7 +138,7 @@ public class StageManager {
 			player.setTime(player.getTime() + 1);
 		}
 		ScoreboardManager.update(player);
-		if (!InsideArea.inGameArea(player.getPlayer().getLocation(), Values.gamesQ) && !InsideArea.inGameArea(player.getPlayer().getLocation(), Values.gamesF)) {
+		if (!InsideArea.inGameArea(player.getPlayer().getLocation(), Values.games)) {
 			autostop(player);
 		}
 		if (player.getScore() >= player.getGoalScore()) {
@@ -184,21 +168,12 @@ public class StageManager {
             @Override
             public void run(){
             	setupGame(player);
-            	if (player.getStage().equals("Qualification")) {
-					Values.gamesQ.get(player.getGameID()).setClock(Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(Main.getPlugin(Main.class), new Runnable(){
-						@Override
-						public void run() {
-							updateGame(player);
-						}
-					}, 0L,  20L));	
-	            } else if (player.getStage().equals("Finals")) {
-	            	Values.gamesF.get(player.getGameID()).setClock(Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(Main.getPlugin(Main.class), new Runnable(){
-						@Override
-						public void run() {
-							updateGame(player);
-						}
-					}, 0L,  20L));	
-	            }
+				Values.games.get(player.getGameID()).setClock(Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(Main.getPlugin(Main.class), new Runnable(){
+					@Override
+					public void run() {
+						updateGame(player);
+					}
+				}, 0L,  20L));	
             }
 		}, 60L);
 	}
@@ -212,7 +187,7 @@ public class StageManager {
 	 */
 	private static boolean setClassicGame(GamePlayer player, String[] args) {
 		if (args.length == 1) {
-			if (args[0].equals("classic".toLowerCase())) {
+			if (args[0].contains("classic".toLowerCase())) {
 				player.setInClassicGame(true);
 				return true;
 			} else {
@@ -235,12 +210,7 @@ public class StageManager {
 		setStage(player);
 		if (player.getGameID() == -1) {player.setStage("none");player.getPlayer().sendMessage("§cPlease enter a game area before running this command!");return;}
 		if (player.isInGame()) {player.getPlayer().sendMessage("§cYou can not start a game while you are in game!");return;}
-		
-		if (player.getStage().equals("Qualification")) {
-			if (Values.gamesQ.get(player.getGameID()).isRunning()) {player.getPlayer().sendMessage("§cThis game already started!");return;}
-		} else {
-			if (Values.gamesF.get(player.getGameID()).isRunning()) {player.getPlayer().sendMessage("§cThis game already started!");return;}
-		}
+		if (Values.games.get(player.getGameID()).isRunning()) {player.getPlayer().sendMessage("§cThis game already started!");return;}
 		player.setGoalScore(Integer.MAX_VALUE);
 		player.setGoalTime(Integer.MAX_VALUE);
 		correctArgs = setLimit(player, args);
@@ -259,17 +229,10 @@ public class StageManager {
 	 * @author Blackoutburst
 	 */
 	private static void cleanGame(GamePlayer player) {
-		if (player.getStage().equals("Qualification")) {
-			Bukkit.getScheduler().cancelTask(Values.gamesQ.get(player.getGameID()).getClock());
-			WallsManager.resetWall(Values.gamesQ.get(player.getGameID()).getWall());
-			WallsManager.clearPlayField(Values.gamesQ.get(player.getGameID()).getPlay(), Values.gamesQ.get(player.getGameID()).getWall());
-			Values.gamesQ.get(player.getGameID()).setRunning(false);
-		} else {
-			Bukkit.getScheduler().cancelTask(Values.gamesF.get(player.getGameID()).getClock());
-			WallsManager.resetWall(Values.gamesF.get(player.getGameID()).getWall());
-			WallsManager.clearPlayField(Values.gamesF.get(player.getGameID()).getPlay(), Values.gamesF.get(player.getGameID()).getWall());
-			Values.gamesF.get(player.getGameID()).setRunning(false);
-		}
+		Bukkit.getScheduler().cancelTask(Values.games.get(player.getGameID()).getClock());
+		WallsManager.resetWall(Values.games.get(player.getGameID()).getWall());
+		WallsManager.clearPlayField(Values.games.get(player.getGameID()).getPlay(), Values.games.get(player.getGameID()).getWall());
+		Values.games.get(player.getGameID()).setRunning(false);
 	}
 	
 	/**
@@ -283,7 +246,7 @@ public class StageManager {
 		player.setStage("none");
 		player.getPlayer().getInventory().clear();
 		ScoreboardManager.update(player);
-		player.setLeverDelay(Float.valueOf(Tools.readValue("player data/"+player.getPlayer().getUniqueId().toString().replace("-", "")+"/Lever")));
+		player.setLeverDelay(Float.valueOf(Tools.readValue("./plugins/HitW/player data/"+player.getPlayer().getUniqueId().toString().replace("-", "")+"/Lever")));
 	}
 	
 	/**
@@ -293,11 +256,7 @@ public class StageManager {
 	 */
 	public static void stop(GamePlayer player) {
 		if (!player.isInGame()) {player.getPlayer().sendMessage("§cYou can not stop a game if you are not inside!");return;}
-		if (player.getStage().equals("Qualification")) {
-			if (!Values.gamesQ.get(player.getGameID()).isRunning()) {player.getPlayer().sendMessage("§cThis game is not running!");return;}
-		} else {
-			if (!Values.gamesF.get(player.getGameID()).isRunning()) {player.getPlayer().sendMessage("§cThis game is not running!");return;}
-		}
+		if (!Values.games.get(player.getGameID()).isRunning()) {player.getPlayer().sendMessage("§cThis game is not running!");return;}
 		cleanGame(player);
 		resetPlayerData(player);
 	}

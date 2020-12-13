@@ -1,10 +1,10 @@
 package commands;
 
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
+import org.bukkit.scoreboard.DisplaySlot;
 
 import main.GamePlayer;
 import utils.ScoreboardManager;
+import utils.Values;
 
 /**
  * Manage /spawn command
@@ -19,10 +19,11 @@ public class CommandSpawn {
 	 * @author Blackoutburst
 	 */
 	public static boolean onUse(GamePlayer player) {
-		player.getPlayer().teleport(new Location(Bukkit.getWorld("World"), -574.5f, 7, 665.5f, -90, 0));
+		player.getPlayer().teleport(Values.spawn);
 		player.getBoard().setTitle(player.getPlayer().getName());
     	player.setInTourney(false);
 		player.setTourneyRole("none");
+		player.getPlayer().getScoreboard().getObjective(player.getPlayer().getName()).setDisplaySlot(DisplaySlot.SIDEBAR);
 		ScoreboardManager.update(player);
 		return true;
 	}

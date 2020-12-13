@@ -54,10 +54,10 @@ public class PlayerInteract {
 		setScore(player);
 		if (player.isInTourney()) {
 			if (player.getStage().equals("Qualification")) {
-				WallsManager.copyWall(player, Values.gamesQ.get(player.getGameID()).getWall(), Values.gamesQ.get(player.getGameID()).getPlay(), new int[] {-617 - player.getWalls(), 7, 639, -617 - player.getWalls(), 10, 633});
+				WallsManager.copyWall(player, Values.games.get(player.getGameID()).getWall(), Values.games.get(player.getGameID()).getPlay(), new int[] {-617 - player.getWalls(), 7, 639, -617 - player.getWalls(), 10, 633});
 				delayedAction(player);
 			} else {
-				WallsManager.copyWall(player, Values.gamesF.get(player.getGameID()).getWall(), Values.gamesF.get(player.getGameID()).getPlay(), new int[] {-717 - player.getWalls(), 7, 639, -717 - player.getWalls(), 11, 629});
+				WallsManager.copyWall(player, Values.games.get(player.getGameID()).getWall(), Values.games.get(player.getGameID()).getPlay(), new int[] {-717 - player.getWalls(), 7, 639, -717 - player.getWalls(), 11, 629});
 				delayedAction(player);
 			}
 		} else {
@@ -75,16 +75,9 @@ public class PlayerInteract {
 		int missing = 0;
 		int score = 0;
 		
-		if (player.getStage().equals("Qualification")) {
-			misplaced = WallsManager.pullWall(Values.gamesQ.get(player.getGameID()).getPlay(), Values.gamesQ.get(player.getGameID()).getWall());
-    		missing = WallsManager.checkHole(Values.gamesQ.get(player.getGameID()).getPlay());
-    		score = WallsManager.checkScore(Values.gamesQ.get(player.getGameID()).getPlay()) - misplaced;
-		}
-		if (player.getStage().equals("Finals")) {
-			misplaced = WallsManager.pullWall(Values.gamesF.get(player.getGameID()).getPlay(), Values.gamesF.get(player.getGameID()).getWall());
-    		missing = WallsManager.checkHole(Values.gamesF.get(player.getGameID()).getPlay());
-    		score = WallsManager.checkScore(Values.gamesF.get(player.getGameID()).getPlay()) - misplaced;
-		}
+		misplaced = WallsManager.pullWall(Values.games.get(player.getGameID()).getPlay(), Values.games.get(player.getGameID()).getWall());
+		missing = WallsManager.checkHole(Values.games.get(player.getGameID()).getPlay());
+		score = WallsManager.checkScore(Values.games.get(player.getGameID()).getPlay()) - misplaced;
 		if (score < 0) {
 			score = 0;
 		}
@@ -101,23 +94,8 @@ public class PlayerInteract {
 	 * @author Blackoutburst
 	 */
 	private void genNextWall(GamePlayer player) {
-		if (player.getStage().equals("Qualification")) {
-			if (player.isInClassicGame()) {
-				WallsManager.genWall(Values.gamesQ.get(player.getGameID()).getPlay(), Values.gamesQ.get(player.getGameID()).getWall(), getHoleCount(player), player);
-				delayedAction(player);
-			} else {
-				WallsManager.genWall(Values.gamesQ.get(player.getGameID()).getPlay(), Values.gamesQ.get(player.getGameID()).getWall(), 8, player);
-				delayedAction(player);
-			}
-		} else if (player.getStage().equals("Finals")) {
-			if (player.isInClassicGame()) {
-				WallsManager.genWall(Values.gamesF.get(player.getGameID()).getPlay(), Values.gamesF.get(player.getGameID()).getWall(), getHoleCount(player), player);
-				delayedAction(player);
-			} else {
-				WallsManager.genWall(Values.gamesF.get(player.getGameID()).getPlay(), Values.gamesF.get(player.getGameID()).getWall(), 22, player);
-				delayedAction(player);
-			}
-		}
+		WallsManager.genWall(Values.games.get(player.getGameID()).getPlay(), Values.games.get(player.getGameID()).getWall(), Values.games.get(player.getGameID()).getHoles(), player);
+		delayedAction(player);
 	}
 	
 	/**
@@ -133,65 +111,20 @@ public class PlayerInteract {
 	            	if (player.isInGame()) {
 	            		player.getPlayer().getInventory().addItem(new ItemStack(Material.STAINED_GLASS, 64, (short)(player.getGlassColor())));
 	            	}
-	            	if (player.getStage().equals("Qualification")) {
-	            		WallsManager.clearPlayField(Values.gamesQ.get(player.getGameID()).getPlay(), Values.gamesQ.get(player.getGameID()).getWall());
-	            	} else if (player.getStage().equals("Finals")) {
-	            		WallsManager.clearPlayField(Values.gamesF.get(player.getGameID()).getPlay(), Values.gamesF.get(player.getGameID()).getWall());
-	            	}
+            		WallsManager.clearPlayField(Values.games.get(player.getGameID()).getPlay(), Values.games.get(player.getGameID()).getWall());
 	            }
 	        }, 15L);
 		}
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
             @Override
             public void run(){
-            	if (player.getStage().equals("Qualification")) {
-            		if (player.isInGame()) {
-            			player.getPlayer().getInventory().addItem(new ItemStack(Material.STAINED_GLASS, 64, (short)(player.getGlassColor())));
-            		}
-	            	if (!player.isInClassicGame()) {
-	            		WallsManager.clearPlayField(Values.gamesQ.get(player.getGameID()).getPlay(), Values.gamesQ.get(player.getGameID()).getWall());
-	            	}
-            	} else if (player.getStage().equals("Finals")) {
-            		if (!player.isInClassicGame()) {
-	            		WallsManager.clearPlayField(Values.gamesF.get(player.getGameID()).getPlay(), Values.gamesF.get(player.getGameID()).getWall());
-	            	}
+            	if (!player.isInClassicGame()) {
+            		player.getPlayer().getInventory().addItem(new ItemStack(Material.STAINED_GLASS, 64, (short)(player.getGlassColor())));
+            		WallsManager.clearPlayField(Values.games.get(player.getGameID()).getPlay(), Values.games.get(player.getGameID()).getWall());
             	}
             	player.setLeverPulled(false);
             }
         }, (long)(20 * player.getLeverDelay()));
-	}
-	
-	/**
-	 * Get next wall hole counts based on player current wall
-	 * @param player the GamePlayer who triggered the event
-	 * @return hole count for the next wall
-	 * @author Blackoutburst
-	 */
-	private static int getHoleCount(GamePlayer player) {
-		if (player.getStage().equals("Qualification")) {
-			switch (player.getWalls()) {
-				case 1 : return (4);
-				case 2 : return (4);
-				case 3 : return (5);
-				case 4 : return (5);
-				case 5 : return (6);
-				case 6 : return (6);
-				case 7 : return (7);
-				default : return (8);
-			} 
-		} else if (player.getStage().equals("Finals")) {
-			switch (player.getWalls()) {
-				case 1 : return (11);
-				case 2 : return (12);
-				case 3 : return (14);
-				case 4 : return (15);
-				case 5 : return (16);
-				case 6 : return (18);
-				case 7 : return (20);
-				default : return (22);
-			} 
-		}
-		return (0);
 	}
 	
 	/**

@@ -19,10 +19,12 @@ import commands.CommandColor;
 import commands.CommandDelay;
 import commands.CommandDiscord;
 import commands.CommandFly;
+import commands.CommandHitW;
 import commands.CommandLeave;
 import commands.CommandPlay;
 import commands.CommandSpawn;
 import commands.CommandSpectate;
+import commands.CommandSurvival;
 import commands.CommandTourney;
 import event.BlockDamage;
 import event.BlockPlace;
@@ -81,13 +83,17 @@ public class Main extends JavaPlugin implements Listener {
     	switch (command.getName().toLowerCase()) {
     		case "fly" : return CommandFly.onUse(player);
     		case "tourney" : return CommandTourney.onUse(player, args);
+    		case "tournament" : return CommandTourney.onUse(player, args);
     		case "spectate" : return CommandSpectate.onUse(player, args);
     		case "play" : return CommandPlay.onUse(player, args);
     		case "leave" : return CommandLeave.onUse(player);
+    		case "l" : return CommandLeave.onUse(player);
     		case "spawn" : return CommandSpawn.onUse(player);
     		case "color" : return CommandColor.onUse(player);
     		case "discord" : return CommandDiscord.onUse(sender);
     		case "delay" : return CommandDelay.onUse(player, args);
+    		case "hitw" : return CommandHitW.onUse(player, args);
+    		case "survival" : return CommandSurvival.onUse(player);
     		default : return false;
     	}
     }

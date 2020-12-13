@@ -1,9 +1,7 @@
-package main;
+package utils;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-
-import utils.Request;
 
 /**
  * Manage in game ranks

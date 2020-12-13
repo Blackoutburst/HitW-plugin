@@ -27,17 +27,18 @@ public class BlockPlace {
 	@SuppressWarnings("deprecation")
 	public void removeMisplacedBlock(BlockPlaceEvent event) {
 		GamePlayer player = GetGamePlayer.getPlayerFromName(event.getPlayer().getName());
-		
-		if (player.isInGame()) {
-			if (!InsideArea.inPlayArea(event.getBlock().getLocation(), Values.gamesQ) && !InsideArea.inPlayArea(event.getBlock().getLocation(), Values.gamesF)) {
-	    		event.getPlayer().getInventory().addItem(new ItemStack(event.getBlock().getType(), 1, event.getBlock().getData()));
-	    		event.getBlock().setType(Material.AIR);
-	    		event.getPlayer().playSound(event.getPlayer().getLocation(), Sound.LAVA_POP, 1f, 1f);
-    			player.setChoke(player.getChoke() + 1);
-    			ScoreboardManager.update(player);
+		if (player.getPlayer().getWorld().getName().toLowerCase().equals("world")) {
+			if (player.isInGame()) {
+				if (!InsideArea.inPlayArea(event.getBlock().getLocation(), Values.games)) {
+		    		event.getPlayer().getInventory().addItem(new ItemStack(event.getBlock().getType(), 1, event.getBlock().getData()));
+		    		event.getBlock().setType(Material.AIR);
+		    		event.getPlayer().playSound(event.getPlayer().getLocation(), Sound.LAVA_POP, 1f, 1f);
+	    			player.setChoke(player.getChoke() + 1);
+	    			ScoreboardManager.update(player);
+				}
+			} else if (!player.getPlayer().isOp()) {
+				event.getBlock().setType(Material.AIR);
 			}
-		} else if (!player.getPlayer().isOp()) {
-			event.getBlock().setType(Material.AIR);
 		}
 	}
 }

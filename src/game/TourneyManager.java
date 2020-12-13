@@ -1,7 +1,7 @@
 package game;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
@@ -31,9 +31,9 @@ public class TourneyManager {
 			player.setInTourney(true);
 			player.setTourneyRole("spectator");
 			if (Main.tourneyStage.equals("Qualification")) {
-				player.getPlayer().teleport(new Location(Bukkit.getWorld("World"), -641.5f, 8, 665.5f, 90, 0));
+				player.getPlayer().teleport(Values.specQ);
 			} else if (Main.tourneyStage.equals("Finals")) {
-				player.getPlayer().teleport(new Location(Bukkit.getWorld("World"), -699.5f, 8, 665.5f, 90, 0));
+				player.getPlayer().teleport(Values.specF);
 			} else {
 				player.getPlayer().sendMessage("§aNo tournament is running right now, you will be teleported when the tournament start");
 			}
@@ -146,6 +146,11 @@ public class TourneyManager {
 							StageManager.autostop(Main.player1);
 							StageManager.autostop(Main.player2);
 							broadcastEndMessage();
+							for (GamePlayer p : Main.players) {
+								if (p.isInTourney()) {
+									ScoreboardManager.update(p);
+								}
+							}
 							Bukkit.getScheduler().cancelTask(Main.tourneyClock);
 						}
 					}
@@ -164,12 +169,11 @@ public class TourneyManager {
 		player.setInGame(true);
 		player.setWalls(1);
     	player.getPlayer().getInventory().addItem(new ItemStack(Material.STAINED_GLASS, 64, (short)(player.getGlassColor())));
+    	WallsManager.clearPlayField(Values.games.get(player.getGameID()).getPlay(), Values.games.get(player.getGameID()).getWall());
     	if (player.getStage().equals("Qualification")) {
-        	WallsManager.clearPlayField(Values.gamesQ.get(player.getGameID()).getPlay(), Values.gamesQ.get(player.getGameID()).getWall());
-        	WallsManager.copyWall(player, Values.gamesQ.get(player.getGameID()).getWall(), Values.gamesQ.get(player.getGameID()).getPlay(), new int[] {-617 - player.getWalls(), 7, 639, -617 - player.getWalls(), 10, 633});
+        	WallsManager.copyWall(player, Values.games.get(player.getGameID()).getWall(), Values.games.get(player.getGameID()).getPlay(), new int[] {-617 - player.getWalls(), 7, 639, -617 - player.getWalls(), 10, 633});
     	} else if (player.getStage().equals("Finals")) {
-    		WallsManager.clearPlayField(Values.gamesF.get(player.getGameID()).getPlay(), Values.gamesF.get(player.getGameID()).getWall());
-    		WallsManager.copyWall(player, Values.gamesF.get(player.getGameID()).getWall(), Values.gamesF.get(player.getGameID()).getPlay(), new int[] {-717 - player.getWalls(), 7, 639, -717 - player.getWalls(), 11, 629});
+    		WallsManager.copyWall(player, Values.games.get(player.getGameID()).getWall(), Values.games.get(player.getGameID()).getPlay(), new int[] {-717 - player.getWalls(), 7, 639, -717 - player.getWalls(), 11, 629});
     		
     	}
 	}
@@ -188,7 +192,7 @@ public class TourneyManager {
 				Wall[0] --;
 				Wall[3] --;
 				if (i == 2) {player.setWalls(2);player.setInClassicGame(true);} else {player.setWalls(0);player.setInClassicGame(false);}
-				WallsManager.genWall(playField, Wall, getHoleCount(stage,i), player);
+				WallsManager.genWallTournament(playField, Wall, getHoleCount(stage,i), player);
 			}
 		} else {
 			int[] playField = new int[] {-717, 7, 639, -717, 11, 629};
@@ -197,7 +201,7 @@ public class TourneyManager {
 				Wall[0] --;
 				Wall[3] --;
 				if (i == 2) {player.setWalls(2);player.setInClassicGame(true);} else {player.setWalls(0);player.setInClassicGame(false);}
-				WallsManager.genWall(playField, Wall, getHoleCount(stage,i), player);
+				WallsManager.genWallTournament(playField, Wall, getHoleCount(stage,i), player);
 			}
 		}
 	}
@@ -251,18 +255,26 @@ public class TourneyManager {
 			Main.tourneyStage = "Qualification";
 			Main.stageTime = 120;
 			genWalls(player, "Qualification");
+			StageManager.resetPlayerStats(Main.player1);
+			StageManager.resetPlayerStats(Main.player2);
 			for (GamePlayer p : Main.players) {
 				if (p.isInTourney()) {
 					p.getBoard().setTitle("§6§lTournament");
 					ScoreboardManager.update(p);
 					p.getPlayer().sendMessage("§6§lWelcome to the Qualification stage!");
 				}
-				if (p.isInTourney() && p.getTourneyRole().equals("spectator")) {p.getPlayer().teleport(new Location(Bukkit.getWorld("World"), -641.5f, 8, 665.5f, 90, 0));}
-				if (p.isInTourney() && p.getTourneyRole().equals("manager")) {p.getPlayer().teleport(new Location(Bukkit.getWorld("World"), -641.5f, 8, 665.5f, 90, 0));}
-				if (p.isInTourney() && p.getTourneyRole().equals("player1")) {p.getPlayer().teleport(new Location(Bukkit.getWorld("World"), -652.5f, 7, 673.5f, 90, 0));}
-				if (p.isInTourney() && p.getTourneyRole().equals("player2")) {p.getPlayer().teleport(new Location(Bukkit.getWorld("World"), -652.5f, 7, 657.5f, 90, 0));}
-				if (p.isInTourney() && p.getTourneyRole().equals("cam1")) {p.getPlayer().teleport(new Location(Bukkit.getWorld("World"), -650.5f, 9, 673.5f, 90, 15));}
-				if (p.isInTourney() && p.getTourneyRole().equals("cam2")) {p.getPlayer().teleport(new Location(Bukkit.getWorld("World"), -650.5f, 9, 657.5f, 90, 15));}
+				if (p.isInTourney() && p.getTourneyRole().equals("spectator")) {p.getPlayer().teleport(Values.specQ);}
+				if (p.isInTourney() && p.getTourneyRole().equals("manager")) {p.getPlayer().teleport(Values.specQ);}
+				if (p.isInTourney() && p.getTourneyRole().equals("player1")) {p.getPlayer().teleport(Values.player1Q);}
+				if (p.isInTourney() && p.getTourneyRole().equals("player2")) {p.getPlayer().teleport(Values.player2Q);}
+				if (p.isInTourney() && p.getTourneyRole().equals("cam1")) {
+					p.getPlayer().teleport(Values.cam1Q);
+					p.getPlayer().setGameMode(GameMode.SPECTATOR);
+				}
+				if (p.isInTourney() && p.getTourneyRole().equals("cam2")) {
+					p.getPlayer().teleport(Values.cam2Q);
+					p.getPlayer().setGameMode(GameMode.SPECTATOR);
+				}
 			}
 			
 		} else if (args[1].toLowerCase().equals("f")) {
@@ -275,12 +287,18 @@ public class TourneyManager {
 					ScoreboardManager.update(p);
 					p.getPlayer().sendMessage("§6§lWelcome to the Finals stage!");
 				}
-				if (p.isInTourney() && p.getTourneyRole().equals("spectator")) {p.getPlayer().teleport(new Location(Bukkit.getWorld("World"), -699.5f, 8, 665.5f, 90, 0));}
-				if (p.isInTourney() && p.getTourneyRole().equals("manager")) {p.getPlayer().teleport(new Location(Bukkit.getWorld("World"), -699.5f, 8, 665.5f, 90, 0));}
-				if (p.isInTourney() && p.getTourneyRole().equals("player1")) {p.getPlayer().teleport(new Location(Bukkit.getWorld("World"), -712.5f, 7, 675.5f, 90, 0));}
-				if (p.isInTourney() && p.getTourneyRole().equals("player2")) {p.getPlayer().teleport(new Location(Bukkit.getWorld("World"), -712.5f, 7, 655.5f, 90, 0));}
-				if (p.isInTourney() && p.getTourneyRole().equals("cam1")) {p.getPlayer().teleport(new Location(Bukkit.getWorld("World"), -708.5f, 9, 675.5f, 90, 15));}
-				if (p.isInTourney() && p.getTourneyRole().equals("cam2")) {p.getPlayer().teleport(new Location(Bukkit.getWorld("World"), -708.5f, 9, 655.5f, 90, 15));}
+				if (p.isInTourney() && p.getTourneyRole().equals("spectator")) {p.getPlayer().teleport(Values.specF);}
+				if (p.isInTourney() && p.getTourneyRole().equals("manager")) {p.getPlayer().teleport(Values.specF);}
+				if (p.isInTourney() && p.getTourneyRole().equals("player1")) {p.getPlayer().teleport(Values.player1F);}
+				if (p.isInTourney() && p.getTourneyRole().equals("player2")) {p.getPlayer().teleport(Values.player2F);}
+				if (p.isInTourney() && p.getTourneyRole().equals("cam1")) {
+					p.getPlayer().teleport(Values.cam1F);
+					p.getPlayer().setGameMode(GameMode.SPECTATOR);
+				}
+				if (p.isInTourney() && p.getTourneyRole().equals("cam2")) {
+					p.getPlayer().teleport(Values.cam2Q);
+					p.getPlayer().setGameMode(GameMode.SPECTATOR);
+				}
 			}
 		} else {
 			player.getPlayer().sendMessage("§cInvalid stage: "+args[1]+" try /tourney stage {Q | F}");
@@ -304,7 +322,10 @@ public class TourneyManager {
 			if (p.isInTourney()) {
 				p.getBoard().setTitle(p.getPlayer().getName());
 				p.getPlayer().sendMessage("§6§lTournament ended!");
-		    	p.getPlayer().teleport(new Location(Bukkit.getWorld("World"), -574.5f, 7, 665.5f, -90, 0));
+		    	p.getPlayer().teleport(Values.spawn);
+			}
+			if (p.getTourneyRole().contains("cam")) {
+				p.getPlayer().setGameMode(GameMode.SURVIVAL);
 			}
 			p.setInTourney(false);
 			p.setTourneyRole("none");

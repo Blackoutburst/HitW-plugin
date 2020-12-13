@@ -32,7 +32,7 @@ public class BlockDamage {
 	public void brushing(BlockDamageEvent event) {
 		GamePlayer player = GetGamePlayer.getPlayerFromName(event.getPlayer().getName());
 		
-		if (player.isInGame() && InsideArea.inPlayArea(event.getBlock().getLocation(), Values.gamesQ) || InsideArea.inPlayArea(event.getBlock().getLocation(), Values.gamesF)) {
+		if (player.isInGame() && InsideArea.inPlayArea(event.getBlock().getLocation(), Values.games)) {
 			if (event.getBlock().getType().equals(Material.STAINED_GLASS)) {
 				event.getPlayer().getInventory().addItem(new ItemStack(event.getBlock().getType(), 1, event.getBlock().getData()));
 				event.getBlock().setType(Material.AIR);
@@ -103,7 +103,7 @@ public class BlockDamage {
 	 * @author Blackoutburst
 	 */
 	private void saveFile(GamePlayer player, String type) {
-		File f = new File("player data/"+player.getPlayer().getUniqueId().toString().replace("-", ""));
+		File f = new File("./plugins/HitW/player data/"+player.getPlayer().getUniqueId().toString().replace("-", ""));
 
 		try {
 			PrintWriter writer = new PrintWriter(f + "/" + type);

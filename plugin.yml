@@ -14,6 +14,9 @@ commands:
   leave:
     description: Stop game
     usage: /leave
+  l:
+    description: Stop game
+    usage: /l
   spawn:
     description: Teleport the player to spawn
     usage: /spawn
@@ -27,8 +30,17 @@ commands:
     description: Change the lever delay
     usage: /delay
   tourney:
-    description: Tourney management
+    description: Tournament management
     usage: /tourney
+  tournament:
+    description: Tournament management
+    usage: /tournament
   spectate:
     description: Spectate the tournament
     usage: /spectate
+  hitw:
+    description: Manage plugin
+    usage: /hitw
+  survival:
+    description: Send you to the survival world
+    usage: /survival
