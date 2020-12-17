@@ -25,6 +25,7 @@ import commands.CommandPlay;
 import commands.CommandSpawn;
 import commands.CommandSpectate;
 import commands.CommandSurvival;
+import commands.CommandTitle;
 import commands.CommandTourney;
 import event.BlockDamage;
 import event.BlockPlace;
@@ -94,6 +95,7 @@ public class Main extends JavaPlugin implements Listener {
     		case "delay" : return CommandDelay.onUse(player, args);
     		case "hitw" : return CommandHitW.onUse(player, args);
     		case "survival" : return CommandSurvival.onUse(player);
+    		case "title" : return CommandTitle.onUse(player);
     		default : return false;
     	}
     }

@@ -29,7 +29,7 @@ public class CommandDelay {
 			return true;
 		}
 		if (Float.valueOf(args[0]) < 0) {
-			player.getPlayer().sendMessage("§cValue can not be negative");
+			player.getPlayer().sendMessage("§cValue can not be negative!");
 			return true;
 		}
 		player.setLeverDelay(Float.valueOf(args[0]));

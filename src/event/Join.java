@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerJoinEvent;
 
+import game.TourneyManager;
 import main.GamePlayer;
 import main.Main;
 import utils.Board;
@@ -35,6 +36,7 @@ public class Join {
 		int wallColor = 4;
  		int glassColor = 3;
  		float leverDelay = 0.5f;
+ 		boolean showTitle = true;
 		
 		
 		File f = new File("./plugins/HitW/player data/"+event.getPlayer().getUniqueId().toString().replace("-", ""));
@@ -45,13 +47,17 @@ public class Join {
 			wallColor = Integer.valueOf(Tools.readValue(f+"/Wall"));
 			glassColor = Integer.valueOf(Tools.readValue(f+"/Glass"));
 			leverDelay = Float.valueOf(Tools.readValue(f+"/Lever"));
+			showTitle = Boolean.valueOf(Tools.readValue(f+"/Title"));
 		}
 		setToSpawn(event.getPlayer());
 		setScoreBoard(board);
-		GamePlayer newPlayer = new GamePlayer(event.getPlayer(), false, 0, 0, 0, board, "none", 0, 0, 0, 0, false, rank, 0, 0, 0, wallColor, glassColor, leverDelay, false, "none", false);
+		GamePlayer newPlayer = new GamePlayer(event.getPlayer(), false, 0, 0, 0, board, "none", 0, 0, 0, 0, false, rank, 0, 0, 0, wallColor, glassColor, leverDelay, false, "none", false, showTitle);
 		addTeam(newPlayer);
 		event.getPlayer().setAllowFlight(true);
 		Main.players.add(newPlayer);
+		if (!Main.tourneyStage.equals("none")) {
+			TourneyManager.displaySpectateMessage();
+		}
 	}
 	
 	/**

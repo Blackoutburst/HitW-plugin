@@ -56,6 +56,10 @@ public class StageManager {
 			if (args[0].contains("time".toLowerCase())) {
 				try {
 					player.setGoalTime(Integer.valueOf(args[1]));
+					if (Integer.valueOf(args[1]) < 0) {
+						player.getPlayer().sendMessage("§cValue can not be negative!");
+						return false;
+					}
 				} catch(Exception e) {
 					player.getPlayer().sendMessage("§cInvalid number!");
 					return false;
@@ -64,6 +68,10 @@ public class StageManager {
 			if (args[0].contains("score".toLowerCase())) {
 				try {
 					player.setGoalScore(Integer.valueOf(args[1]));
+					if (Integer.valueOf(args[1]) < 0) {
+						player.getPlayer().sendMessage("§cValue can not be negative!");
+						return false;
+					}
 				} catch(Exception e) {
 					player.getPlayer().sendMessage("§cInvalid number!");
 					return false;
@@ -164,7 +172,7 @@ public class StageManager {
 	 * @author Blackoutburst
 	 */
 	private static void startGame(GamePlayer player) {
-		player.getPlayer().sendMessage("§a The game will start in 3 seconds!");
+		player.getPlayer().sendMessage("§aThe game will start in 3 seconds!");
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
             @Override
             public void run(){

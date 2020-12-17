@@ -13,6 +13,9 @@ public class YamlManager {
     		if (!new File("./plugins/HitW/walls.yml").exists()) {
 				new File("./plugins/HitW/walls.yml").createNewFile();
     		}
+    		if (!new File("./plugins/HitW/locations.yml").exists()) {
+				new File("./plugins/HitW/locations.yml").createNewFile();
+    		}
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

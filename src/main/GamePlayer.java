@@ -33,10 +33,12 @@ public class GamePlayer {
 	protected boolean inTourney;
 	protected String tourneyRole;
 	protected boolean inClassicGame;
+	protected boolean showTitle;
 	
 	public GamePlayer(Player player, boolean inGame, int time, int walls, int perfectwalls, Board board, String stage, int missing,
 			int misplaced, int choke, int score, boolean leverPulled, String rank, int gameID, int goalTime, int goalScore,
-			int wallColor, int glassColor, float leverDelay, boolean inTourney, String tourneyRole, boolean inClassicGame) {
+			int wallColor, int glassColor, float leverDelay, boolean inTourney, String tourneyRole, boolean inClassicGame,
+			boolean showTitle) {
 		this.player = player;
 		this.inGame = inGame;
 		this.time = time;
@@ -59,6 +61,7 @@ public class GamePlayer {
 		this.inTourney = inTourney;
 		this.tourneyRole = tourneyRole;
 		this.inClassicGame = inClassicGame;
+		this.showTitle = showTitle;
 	}
 
 	public Player getPlayer() {
@@ -236,6 +239,13 @@ public class GamePlayer {
 	public void setInClassicGame(boolean inClassicGame) {
 		this.inClassicGame = inClassicGame;
 	}
-	
+
+	public boolean isShowTitle() {
+		return showTitle;
+	}
+
+	public void setShowTitle(boolean showTitle) {
+		this.showTitle = showTitle;
+	}
 	
 }

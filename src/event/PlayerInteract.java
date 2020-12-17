@@ -12,6 +12,7 @@ import main.GamePlayer;
 import main.Main;
 import utils.GetGamePlayer;
 import utils.ScoreboardManager;
+import utils.TitleManager;
 import utils.Values;
 
 /**
@@ -84,7 +85,7 @@ public class PlayerInteract {
 		player.setScore(player.getScore() + score);
 		player.setMisplaced(player.getMisplaced() + misplaced);
 		player.setMissing(player.getMissing() + missing);
-		checkPerfectWall(player, missing, misplaced);
+		checkPerfectWall(player, missing, misplaced, score);
 		ScoreboardManager.update(player);
 	}
 	
@@ -137,12 +138,17 @@ public class PlayerInteract {
 	 * @param misplaced number of block placer in wrong location
 	 * @author Blackoutburst
 	 */
-	private void checkPerfectWall(GamePlayer player, int missing, int misplaced) {
+	private void checkPerfectWall(GamePlayer player, int missing, int misplaced, int score) {
 		if (missing == 0 && misplaced == 0) {
+			if (player.isShowTitle()) {
+				new TitleManager().send(player.getPlayer(), "§aPerfect", "", 0, 10, 10);
+			}
 			player.getPlayer().playSound(player.getPlayer().getLocation(), Sound.LEVEL_UP, 1f, 1f);
 			player.setPerfectwalls(player.getPerfectwalls() + 1);
+			player.getPlayer().sendMessage("§aPerfect wall §e+"+score+" points");
 		} else {
 			player.getPlayer().playSound(player.getPlayer().getLocation(), Sound.NOTE_BASS_GUITAR, 1f, 1f);
+			player.getPlayer().sendMessage("§c"+missing+" missing block | "+misplaced+" misplaced block §e+"+score+" points");
 		}
 	}
 }

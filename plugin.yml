@@ -44,3 +44,6 @@ commands:
   survival:
     description: Send you to the survival world
     usage: /survival
+  title:
+    description: Toggle title affichage
+    usage: /title

@@ -7,6 +7,10 @@ import org.bukkit.inventory.ItemStack;
 
 import main.GamePlayer;
 import main.Main;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.ComponentBuilder;
+import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 import utils.ScoreboardManager;
 import utils.Values;
 
@@ -240,6 +244,24 @@ public class TourneyManager {
 	}
 	
 	/**
+	 * Broadcast clickable message for every player 
+	 * not spectating nor affected to the tournament  
+	 */
+	public static void displaySpectateMessage() {
+		TextComponent message = new TextComponent("§aA tournament is currently running do §b/spectate §aor click §bhere §ato §aspectate");
+		
+		message.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/spectate"));
+		if (Main.player1 != null && Main.player2 != null) {
+			message.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(Main.player1.getPlayer().getDisplayName()+" VS "+Main.player2.getPlayer().getDisplayName()).create()));
+		}
+		for (GamePlayer p : Main.players) {
+			if (!p.isInTourney()) {
+				p.getPlayer().spigot().sendMessage(message);
+			}
+		}
+	}
+	
+	/**
 	 * Switch tournament stage and generate games wall
 	 * Broadcast everyone the tournament stage
 	 * @param player command sender
@@ -255,6 +277,7 @@ public class TourneyManager {
 			Main.tourneyStage = "Qualification";
 			Main.stageTime = 120;
 			genWalls(player, "Qualification");
+			displaySpectateMessage();
 			StageManager.resetPlayerStats(Main.player1);
 			StageManager.resetPlayerStats(Main.player2);
 			for (GamePlayer p : Main.players) {
@@ -281,6 +304,7 @@ public class TourneyManager {
 			Main.tourneyStage = "Finals";
 			Main.stageTime = 120;
 			genWalls(player, "Finals");
+			displaySpectateMessage();
 			for (GamePlayer p : Main.players) {
 				if (p.isInTourney()) {
 					p.getBoard().setTitle("§6§lTournament");
@@ -342,7 +366,7 @@ public class TourneyManager {
 	private static void showPlayerList(GamePlayer player, String[] args) {
 		for (GamePlayer p : Main.players) {
 			if (p.isInTourney() && !p.getTourneyRole().equals("spectator")) {
-				player.getPlayer().sendMessage(p.getTourneyRole()+" | "+p.getPlayer().getName());
+				player.getPlayer().sendMessage(p.getTourneyRole()+" | "+p.getPlayer().getDisplayName());
 			}
 		}
 		
