@@ -1,10 +1,9 @@
 package commands;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
 
 import main.GamePlayer;
+import utils.Tools;
 
 /**
  * Manage /delay command
@@ -33,15 +32,11 @@ public class CommandDelay {
 			return true;
 		}
 		player.setLeverDelay(Float.valueOf(args[0]));
-		File f = new File("./plugins/HitW/player data/"+player.getPlayer().getUniqueId().toString().replace("-", ""));
-
-		PrintWriter writer;
-		try {
-			writer = new PrintWriter(f+"/Lever");
-			writer.write(String.valueOf(player.getLeverDelay()));
-			writer.close();
-		} catch (FileNotFoundException e) {
-		}
+		
+		Tools.writePlayerData(new File(Tools.getPlayerFolder(player.getPlayer())), 
+				player.getWallColor(), player.getGlassColor(), 
+				player.getLeverDelay(), player.showTitle());
+		
 		player.getPlayer().sendMessage("§aYour lever delay is now set to "+player.getLeverDelay()+" seconds");
 		return true;
 	}

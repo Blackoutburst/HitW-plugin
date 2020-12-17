@@ -30,11 +30,15 @@ public class BlockPlace {
 		if (player.getPlayer().getWorld().getName().toLowerCase().equals("world")) {
 			if (player.isInGame()) {
 				if (!InsideArea.inPlayArea(event.getBlock().getLocation(), Values.games)) {
+					event.getPlayer().getInventory().clear();
 		    		event.getPlayer().getInventory().addItem(new ItemStack(event.getBlock().getType(), 1, event.getBlock().getData()));
 		    		event.getBlock().setType(Material.AIR);
 		    		event.getPlayer().playSound(event.getPlayer().getLocation(), Sound.LAVA_POP, 1f, 1f);
 	    			player.setChoke(player.getChoke() + 1);
 	    			ScoreboardManager.update(player);
+				} else {
+					event.getPlayer().getInventory().clear();
+					event.getPlayer().getInventory().addItem(new ItemStack(event.getBlock().getType(), 1, event.getBlock().getData()));
 				}
 			} else if (!player.getPlayer().isOp()) {
 				event.getBlock().setType(Material.AIR);

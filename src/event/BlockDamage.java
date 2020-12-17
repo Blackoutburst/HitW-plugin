@@ -1,18 +1,18 @@
 package event;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockDamageEvent;
-import org.bukkit.inventory.ItemStack;
 
 import main.GamePlayer;
+import main.Main;
 import utils.GetGamePlayer;
 import utils.InsideArea;
+import utils.Tools;
 import utils.Values;
 
 /**
@@ -28,15 +28,18 @@ public class BlockDamage {
 	 * @param event Block damage event
 	 * @author Blackoutburst
 	 */
-	@SuppressWarnings("deprecation")
 	public void brushing(BlockDamageEvent event) {
 		GamePlayer player = GetGamePlayer.getPlayerFromName(event.getPlayer().getName());
 		
 		if (player.isInGame() && InsideArea.inPlayArea(event.getBlock().getLocation(), Values.games)) {
 			if (event.getBlock().getType().equals(Material.STAINED_GLASS)) {
-				event.getPlayer().getInventory().addItem(new ItemStack(event.getBlock().getType(), 1, event.getBlock().getData()));
-				event.getBlock().setType(Material.AIR);
-				event.getPlayer().playSound(event.getPlayer().getLocation(), Sound.GLASS, 1f, 1f);
+				Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
+		            @Override
+		            public void run(){
+	            		event.getBlock().setType(Material.AIR);
+	            		event.getPlayer().playSound(event.getPlayer().getLocation(), Sound.GLASS, 1f, 1f);
+		            }
+		        }, 2L);
 			}
 		}
 	}
@@ -61,9 +64,11 @@ public class BlockDamage {
 			type = "Wall";
 			player.setWallColor(event.getBlock().getData());
 		}
+		Tools.writePlayerData(new File(Tools.getPlayerFolder(player.getPlayer())), 
+				player.getWallColor(), player.getGlassColor(), 
+				player.getLeverDelay(), player.showTitle());
 		data = event.getBlock().getData();
 		displayColorMessage(data, player.getPlayer(), type);
-		saveFile(player, type);
 	}
 	
 	/**
@@ -93,24 +98,6 @@ public class BlockDamage {
 			case 14: player.sendMessage("§aYou selected the Red " + type); break;
 			case 15: player.sendMessage("§aYou selected the Black " + type); break;
 			default: player.sendMessage("§cSomething went wrong!"); break;
-		}
-	}
-	
-	/**
-	 * Save new player color into a file
-	 * @param player player who triggered the event
-	 * @param type Wall or Glass depend on the block type
-	 * @author Blackoutburst
-	 */
-	private void saveFile(GamePlayer player, String type) {
-		File f = new File("./plugins/HitW/player data/"+player.getPlayer().getUniqueId().toString().replace("-", ""));
-
-		try {
-			PrintWriter writer = new PrintWriter(f + "/" + type);
-			writer.write(String.valueOf(player.getGlassColor()));
-			writer.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 		}
 	}
 }

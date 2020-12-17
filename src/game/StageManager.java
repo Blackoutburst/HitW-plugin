@@ -1,8 +1,10 @@
 package game;
 
+import java.io.File;
+
 import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
 import org.bukkit.Material;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.inventory.ItemStack;
 
 import event.PlayerInteract;
@@ -129,8 +131,7 @@ public class StageManager {
 	private static void setupGame(GamePlayer player) {
 		player.setInGame(true);
 		player.setWalls(1);
-		player.getPlayer().setGameMode(GameMode.SURVIVAL);
-    	player.getPlayer().getInventory().addItem(new ItemStack(Material.STAINED_GLASS, 64, (short)(player.getGlassColor())));
+    	player.getPlayer().getInventory().addItem(new ItemStack(Material.STAINED_GLASS, 1, (short)(player.getGlassColor())));
     	WallsManager.clearPlayField(Values.games.get(player.getGameID()).getPlay(), Values.games.get(player.getGameID()).getWall());
 		WallsManager.genWall(Values.games.get(player.getGameID()).getPlay(), Values.games.get(player.getGameID()).getWall(), Values.games.get(player.getGameID()).getHoles(), player);
 	}
@@ -250,12 +251,14 @@ public class StageManager {
 	 * @author Blackoutburst
 	 */
 	private static void resetPlayerData(GamePlayer player) {
+		YamlConfiguration playerData = YamlConfiguration.loadConfiguration(new File(Tools.getPlayerFolder(player.getPlayer())+"/config.yml"));
+		
 		player.setInClassicGame(false);
 		player.setInGame(false);
 		player.setStage("none");
 		player.getPlayer().getInventory().clear();
 		ScoreboardManager.update(player);
-		player.setLeverDelay(Float.valueOf(Tools.readValue("./plugins/HitW/player data/"+player.getPlayer().getUniqueId().toString().replace("-", "")+"/Lever")));
+		player.setLeverDelay((float) playerData.getDouble("delay"));
 	}
 	
 	/**

@@ -290,7 +290,7 @@ public class WallsManager {
 				for (int x = wall[x2]-1; x >= wall[x1]; x--) {
 					for (int y = wall[y1]; y <= wall[y2]-wall2; y++) {
 						for (int z = wall[z1]; z <= wall[z2]; z++) {
-							int r = rand.nextInt(2);
+							int r = rand.nextInt(10);
 							if (r == 1 && checkHole(wall) < hole[holeIndex]) {
 								world.getBlockAt(x, y, z).setType(Material.AIR);
 							} else if (!world.getBlockAt(x, y, z).getType().equals(Material.AIR)) {
@@ -314,7 +314,7 @@ public class WallsManager {
 				for (int x = wall[x1]; x <= wall[x2]; x++) {
 					for (int y = wall[y1]; y <= wall[y2]-wall2; y++) {
 						for (int z = wall[z2]-1; z >= wall[z1]; z--) {
-							int r = rand.nextInt(2);
+							int r = rand.nextInt(10);
 							if (r == 1 && checkHole(wall) < hole[holeIndex]) {
 								world.getBlockAt(x, y, z).setType(Material.AIR);
 							} else if (!world.getBlockAt(x, y, z).getType().equals(Material.AIR)) {
@@ -378,7 +378,7 @@ public class WallsManager {
 				for (int x = wall[x2]-1; x >= wall[x1]; x--) {
 					for (int y = wall[y1]; y <= wall[y2]-wall2; y++) {
 						for (int z = wall[z1]; z <= wall[z2]; z++) {
-							int r = rand.nextInt(2);
+							int r = rand.nextInt(10);
 							if (r == 1 && checkHole(wall) < hole) {
 								world.getBlockAt(x, y, z).setType(Material.AIR);
 							} else if (!world.getBlockAt(x, y, z).getType().equals(Material.AIR)) {
@@ -402,7 +402,7 @@ public class WallsManager {
 				for (int x = wall[x1]; x <= wall[x2]; x++) {
 					for (int y = wall[y1]; y <= wall[y2]-wall2; y++) {
 						for (int z = wall[z2]-1; z >= wall[z1]; z--) {
-							int r = rand.nextInt(2);
+							int r = rand.nextInt(10);
 							if (r == 1 && checkHole(wall) < hole) {
 								world.getBlockAt(x, y, z).setType(Material.AIR);
 							} else if (!world.getBlockAt(x, y, z).getType().equals(Material.AIR)) {

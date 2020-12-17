@@ -1,10 +1,9 @@
 package commands;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
 
 import main.GamePlayer;
+import utils.Tools;
 
 /**
  * Manage /delay command
@@ -21,19 +20,14 @@ public class CommandTitle {
 	 * @author Blackoutburst
 	 */
 	public static boolean onUse(GamePlayer player) {
-		boolean show = player.isShowTitle() ? false : true;
-		
+		boolean show = player.showTitle() ? false : true;
 		
 		player.setShowTitle(show);
-		File f = new File("./plugins/HitW/player data/"+player.getPlayer().getUniqueId().toString().replace("-", ""));
-
-		PrintWriter writer;
-		try {
-			writer = new PrintWriter(f+"/Title");
-			writer.write(String.valueOf(show));
-			writer.close();
-		} catch (FileNotFoundException e) {
-		}
+		
+		Tools.writePlayerData(new File(Tools.getPlayerFolder(player.getPlayer())), 
+				player.getWallColor(), player.getGlassColor(), 
+				player.getLeverDelay(), player.showTitle());
+		
 		if (show) {
 			player.getPlayer().sendMessage("§bPerfect walls title will now be displayed");
 		} else {

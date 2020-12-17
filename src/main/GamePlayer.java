@@ -240,7 +240,7 @@ public class GamePlayer {
 		this.inClassicGame = inClassicGame;
 	}
 
-	public boolean isShowTitle() {
+	public boolean showTitle() {
 		return showTitle;
 	}
 

@@ -110,7 +110,7 @@ public class PlayerInteract {
 	            @Override
 	            public void run(){
 	            	if (player.isInGame()) {
-	            		player.getPlayer().getInventory().addItem(new ItemStack(Material.STAINED_GLASS, 64, (short)(player.getGlassColor())));
+	            		player.getPlayer().getInventory().addItem(new ItemStack(Material.STAINED_GLASS, 1, (short)(player.getGlassColor())));
 	            	}
             		WallsManager.clearPlayField(Values.games.get(player.getGameID()).getPlay(), Values.games.get(player.getGameID()).getWall());
 	            }
@@ -121,7 +121,7 @@ public class PlayerInteract {
             public void run(){
             	if (!player.isInClassicGame()) {
             		if (player.isInGame()) {
-            			player.getPlayer().getInventory().addItem(new ItemStack(Material.STAINED_GLASS, 64, (short)(player.getGlassColor())));
+            			player.getPlayer().getInventory().addItem(new ItemStack(Material.STAINED_GLASS, 1, (short)(player.getGlassColor())));
             		}
             		WallsManager.clearPlayField(Values.games.get(player.getGameID()).getPlay(), Values.games.get(player.getGameID()).getWall());
             	}
@@ -140,8 +140,8 @@ public class PlayerInteract {
 	 */
 	private void checkPerfectWall(GamePlayer player, int missing, int misplaced, int score) {
 		if (missing == 0 && misplaced == 0) {
-			if (player.isShowTitle()) {
-				new TitleManager().send(player.getPlayer(), "§aPerfect", "", 0, 10, 10);
+			if (player.showTitle()) {
+				new TitleManager().send(player.getPlayer(), "§aPerfect", 0, 10, 10);
 			}
 			player.getPlayer().playSound(player.getPlayer().getLocation(), Sound.LEVEL_UP, 1f, 1f);
 			player.setPerfectwalls(player.getPerfectwalls() + 1);
