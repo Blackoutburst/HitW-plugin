@@ -13,16 +13,18 @@ public class Game {
 	boolean running;
 	int clock;
 	String type;
+	int stageTime;
+	int memoryTime;
 	
-	public Game(int[] area, int[] play, int[] wall, int[] holes, boolean running, boolean classic, int clock, String type) {
+	public Game(int[] area, int[] play, int[] wall, int[] holes , String type, int stageTime, int memoryTime) {
 		super();
 		this.area = area;
 		this.play = play;
 		this.wall = wall;
 		this.holes = holes;
-		this.running = running;
-		this.clock = clock;
 		this.type = type;
+		this.stageTime = stageTime;
+		this.memoryTime = memoryTime;
 	}
 
 	public int[] getArea() {
@@ -80,6 +82,21 @@ public class Game {
 	public void setType(String type) {
 		this.type = type;
 	}
-	
+
+	public int getStageTime() {
+		return stageTime;
+	}
+
+	public void setStageTime(int stageTime) {
+		this.stageTime = stageTime;
+	}
+
+	public int getMemoryTime() {
+		return memoryTime;
+	}
+
+	public void setMemoryTime(int memoryTime) {
+		this.memoryTime = memoryTime;
+	}
 	
 }

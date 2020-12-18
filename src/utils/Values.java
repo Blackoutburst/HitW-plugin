@@ -65,7 +65,7 @@ public class Values {
 									Integer.valueOf(strHoles[2]), Integer.valueOf(strHoles[3]), 
 									Integer.valueOf(strHoles[4]), Integer.valueOf(strHoles[5]),
 									Integer.valueOf(strHoles[6]), Integer.valueOf(strHoles[7]), Integer.valueOf(strHoles[8])};
-			games.add(new Game(area, play, wall, holes, false, false, 0, wallsFile.getString(i+".type")));
+			games.add(new Game(area, play, wall, holes, wallsFile.getString(i+".type"), wallsFile.getInt(i+".time"), wallsFile.getInt(i+".memory")));
 		}
 	}
 	

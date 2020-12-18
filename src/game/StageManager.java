@@ -96,12 +96,10 @@ public class StageManager {
 	public static void setStageData(GamePlayer player) {
 		Values.games.get(player.getGameID()).setRunning(true);
 		if (player.isInClassicGame()) {
-			player.setTime(120);
-			player.setInClassicGame(true);
+			player.setTime(Values.games.get(player.getGameID()).getStageTime());
 			player.setLeverDelay(1.5f);
 		} else {
 			player.setTime(0);
-			player.setInClassicGame(false);
 		}
 	}
 	
@@ -131,9 +129,22 @@ public class StageManager {
 	private static void setupGame(GamePlayer player) {
 		player.setInGame(true);
 		player.setWalls(1);
-    	player.getPlayer().getInventory().addItem(new ItemStack(Material.STAINED_GLASS, 1, (short)(player.getGlassColor())));
-    	WallsManager.clearPlayField(Values.games.get(player.getGameID()).getPlay(), Values.games.get(player.getGameID()).getWall());
+		
+		WallsManager.clearHider(Values.games.get(player.getGameID()).getPlay(), Values.games.get(player.getGameID()).getWall());
+		WallsManager.clearPlayField(Values.games.get(player.getGameID()).getPlay(), Values.games.get(player.getGameID()).getWall());
 		WallsManager.genWall(Values.games.get(player.getGameID()).getPlay(), Values.games.get(player.getGameID()).getWall(), Values.games.get(player.getGameID()).getHoles(), player);
+		
+		if (!player.isInBlindGame()) {
+			player.getPlayer().getInventory().addItem(new ItemStack(Material.STAINED_GLASS, 1, (short)(player.getGlassColor())));
+		} else {
+			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
+	            @Override
+	            public void run(){
+	            	player.getPlayer().getInventory().addItem(new ItemStack(Material.STAINED_GLASS, 1, (short)(player.getGlassColor())));
+	            	WallsManager.hideWall(Values.games.get(player.getGameID()).getPlay(), Values.games.get(player.getGameID()).getWall(), player);
+	            }
+			}, 20L * Values.games.get(player.getGameID()).getMemoryTime());
+		}
 	}
 	
 	/**
@@ -195,13 +206,16 @@ public class StageManager {
 	 * @return if this is a success or not
 	 * @author Blackoutburst
 	 */
-	private static boolean setClassicGame(GamePlayer player, String[] args) {
+	private static boolean setGameType(GamePlayer player, String[] args) {
 		if (args.length == 1) {
 			if (args[0].contains("classic".toLowerCase())) {
 				player.setInClassicGame(true);
 				return true;
+			} else if (args[0].contains("blind".toLowerCase())) {
+				player.setInBlindGame(true);
+				return true;
 			} else {
-				player.getPlayer().sendMessage("§cInvalid parameter: try /play classic");
+				player.getPlayer().sendMessage("§cInvalid parameter: try /play {classic|blind}");
 				return false;
 			}
 		}
@@ -225,7 +239,7 @@ public class StageManager {
 		player.setGoalTime(Integer.MAX_VALUE);
 		correctArgs = setLimit(player, args);
 		if (!correctArgs) {return;}
-		correctArgs = setClassicGame(player, args);
+		correctArgs = setGameType(player, args);
 		if (!correctArgs) {return;}
 		setStageData(player);
 		resetPlayerStats(player);
@@ -241,6 +255,7 @@ public class StageManager {
 	private static void cleanGame(GamePlayer player) {
 		Bukkit.getScheduler().cancelTask(Values.games.get(player.getGameID()).getClock());
 		WallsManager.resetWall(Values.games.get(player.getGameID()).getWall());
+		WallsManager.clearHider(Values.games.get(player.getGameID()).getPlay(), Values.games.get(player.getGameID()).getWall());
 		WallsManager.clearPlayField(Values.games.get(player.getGameID()).getPlay(), Values.games.get(player.getGameID()).getWall());
 		Values.games.get(player.getGameID()).setRunning(false);
 	}
@@ -253,6 +268,7 @@ public class StageManager {
 	private static void resetPlayerData(GamePlayer player) {
 		YamlConfiguration playerData = YamlConfiguration.loadConfiguration(new File(Tools.getPlayerFolder(player.getPlayer())+"/config.yml"));
 		
+		player.setInBlindGame(false);
 		player.setInClassicGame(false);
 		player.setInGame(false);
 		player.setStage("none");

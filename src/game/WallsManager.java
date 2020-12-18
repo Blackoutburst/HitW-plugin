@@ -242,6 +242,93 @@ public class WallsManager {
 		}
 	}
 	
+	
+	/**
+	 * hide the wall
+	 * @param wall 
+	 * @author Blackoutburst
+	 */
+	@SuppressWarnings("deprecation")
+	public static void hideWall(int[] play, int[] wall, GamePlayer player) {
+		
+		int zAxys = 0;
+		int xAxys = 0;
+		
+		if (play[2] > wall[2]) {zAxys = 1;} else {zAxys = -1;}
+		if (play[0] > wall[0]) {xAxys = 1;} else {xAxys = -1;}
+		
+		boolean onZ = false;
+		if (play[0] == wall[0] || play[0] == wall[3]) {
+			onZ = true;
+		}
+		
+		int x1 = 0;int x2 = 3;if (play[3] < play[0]) {x1 = 3;x2 = 0;}
+		int y1 = 1;int y2 = 4;if (play[4] < play[1]) {y1 = 4;y2 = 1;}
+		int z1 = 2;int z2 = 5;if (play[5] < play[2]) {z1 = 5;z2 = 2;}
+		
+		if (onZ) {
+			for (int x = wall[x1]; x <= wall[x2]; x++) {
+				for (int y = wall[y1]; y <= wall[y2]; y++) {
+					for (int z = wall[z1]; z <= wall[z2]; z++) {
+						world.getBlockAt(x, y, z + zAxys).setType(Material.STAINED_CLAY);
+						world.getBlockAt(x, y, z + zAxys).setData((byte)(player.getWallColor()));
+					}
+				}
+			}
+		} else {
+			for (int x = wall[x1]; x <= wall[x2]; x++) {
+				for (int y = wall[y1]; y <= wall[y2]; y++) {
+					for (int z = wall[z1]; z <= wall[z2]; z++) {
+						world.getBlockAt(x + xAxys, y, z).setType(Material.STAINED_CLAY);
+						world.getBlockAt(x + xAxys, y, z).setData((byte)(player.getWallColor()));
+					}
+				}
+			}
+		}
+	}
+	
+	
+	/**
+	 * Clear wall hider
+	 * @param wall 
+	 * @author Blackoutburst
+	 */
+	public static void clearHider(int[] play, int[] wall) {
+		
+		int zAxys = 0;
+		int xAxys = 0;
+		
+		if (play[2] > wall[2]) {zAxys = 1;} else {zAxys = -1;}
+		if (play[0] > wall[0]) {xAxys = 1;} else {xAxys = -1;}
+		
+		boolean onZ = false;
+		if (play[0] == wall[0] || play[0] == wall[3]) {
+			onZ = true;
+		}
+		
+		int x1 = 0;int x2 = 3;if (play[3] < play[0]) {x1 = 3;x2 = 0;}
+		int y1 = 1;int y2 = 4;if (play[4] < play[1]) {y1 = 4;y2 = 1;}
+		int z1 = 2;int z2 = 5;if (play[5] < play[2]) {z1 = 5;z2 = 2;}
+		
+		if (onZ) {
+			for (int x = wall[x1]; x <= wall[x2]; x++) {
+				for (int y = wall[y1]; y <= wall[y2]; y++) {
+					for (int z = wall[z1]; z <= wall[z2]; z++) {
+						world.getBlockAt(x, y, z + zAxys).setType(Material.AIR);
+					}
+				}
+			}
+		} else {
+			for (int x = wall[x1]; x <= wall[x2]; x++) {
+				for (int y = wall[y1]; y <= wall[y2]; y++) {
+					for (int z = wall[z1]; z <= wall[z2]; z++) {
+						world.getBlockAt(x + xAxys, y, z).setType(Material.AIR);
+					}
+				}
+			}
+		}
+	}
+	
 	/**
 	 * Generate a new wall
 	 * @param play play field

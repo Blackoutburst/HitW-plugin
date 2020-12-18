@@ -110,8 +110,19 @@ public class PlayerInteract {
 	            @Override
 	            public void run(){
 	            	if (player.isInGame()) {
-	            		player.getPlayer().getInventory().addItem(new ItemStack(Material.STAINED_GLASS, 1, (short)(player.getGlassColor())));
+	            		if (!player.isInBlindGame()) {
+	            			player.getPlayer().getInventory().addItem(new ItemStack(Material.STAINED_GLASS, 1, (short)(player.getGlassColor())));
+	            		} else {
+	            			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
+	            	            @Override
+	            	            public void run(){
+	            	            	player.getPlayer().getInventory().addItem(new ItemStack(Material.STAINED_GLASS, 1, (short)(player.getGlassColor())));
+	            	            	WallsManager.hideWall(Values.games.get(player.getGameID()).getPlay(), Values.games.get(player.getGameID()).getWall(), player);
+	            	            }
+	            			}, 20L * Values.games.get(player.getGameID()).getMemoryTime());
+	            		}
 	            	}
+	            	WallsManager.clearHider(Values.games.get(player.getGameID()).getPlay(), Values.games.get(player.getGameID()).getWall());
             		WallsManager.clearPlayField(Values.games.get(player.getGameID()).getPlay(), Values.games.get(player.getGameID()).getWall());
 	            }
 	        }, 15L);
@@ -121,8 +132,19 @@ public class PlayerInteract {
             public void run(){
             	if (!player.isInClassicGame()) {
             		if (player.isInGame()) {
-            			player.getPlayer().getInventory().addItem(new ItemStack(Material.STAINED_GLASS, 1, (short)(player.getGlassColor())));
+            			if (!player.isInBlindGame()) {
+            				player.getPlayer().getInventory().addItem(new ItemStack(Material.STAINED_GLASS, 1, (short)(player.getGlassColor())));
+            			} else {
+            				Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
+            		            @Override
+            		            public void run(){
+            		            	player.getPlayer().getInventory().addItem(new ItemStack(Material.STAINED_GLASS, 1, (short)(player.getGlassColor())));
+            		            	WallsManager.hideWall(Values.games.get(player.getGameID()).getPlay(), Values.games.get(player.getGameID()).getWall(), player);
+            		            }
+            				}, 20L * Values.games.get(player.getGameID()).getMemoryTime());
+            			}
             		}
+            		WallsManager.clearHider(Values.games.get(player.getGameID()).getPlay(), Values.games.get(player.getGameID()).getWall());
             		WallsManager.clearPlayField(Values.games.get(player.getGameID()).getPlay(), Values.games.get(player.getGameID()).getWall());
             	}
             	player.setLeverPulled(false);

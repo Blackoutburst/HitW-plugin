@@ -34,34 +34,33 @@ public class GamePlayer {
 	protected String tourneyRole;
 	protected boolean inClassicGame;
 	protected boolean showTitle;
+	protected boolean inBlindGame;
 	
-	public GamePlayer(Player player, boolean inGame, int time, int walls, int perfectwalls, Board board, String stage, int missing,
-			int misplaced, int choke, int score, boolean leverPulled, String rank, int gameID, int goalTime, int goalScore,
-			int wallColor, int glassColor, float leverDelay, boolean inTourney, String tourneyRole, boolean inClassicGame,
-			boolean showTitle) {
+	public GamePlayer(Player player, Board board, String rank, int wallColor, int glassColor, float leverDelay, boolean showTitle) {
 		this.player = player;
-		this.inGame = inGame;
-		this.time = time;
-		this.walls = walls;
-		this.perfectwalls = perfectwalls;
+		this.inGame = false;
+		this.time = 0;
+		this.walls = 0;
+		this.perfectwalls = 0;
 		this.board = board;
-		this.stage = stage;
-		this.missing = missing;
-		this.misplaced = misplaced;
-		this.choke = choke;
-		this.score = score;
-		this.leverPulled = leverPulled;
+		this.stage = "none";
+		this.missing = 0;
+		this.misplaced = 0;
+		this.choke = 0;
+		this.score = 0;
+		this.leverPulled = false;
 		this.rank = rank;
-		this.gameID = gameID;
-		this.goalTime = goalTime;
-		this.goalScore = goalScore;
+		this.gameID = 0;
+		this.goalTime = 0;
+		this.goalScore = 0;
 		this.wallColor = wallColor;
 		this.glassColor = glassColor;
 		this.leverDelay = leverDelay;
-		this.inTourney = inTourney;
-		this.tourneyRole = tourneyRole;
-		this.inClassicGame = inClassicGame;
+		this.inTourney = false;
+		this.tourneyRole = "none";
+		this.inClassicGame = false;
 		this.showTitle = showTitle;
+		this.inBlindGame = false;
 	}
 
 	public Player getPlayer() {
@@ -246,6 +245,14 @@ public class GamePlayer {
 
 	public void setShowTitle(boolean showTitle) {
 		this.showTitle = showTitle;
+	}
+	
+	public boolean isInBlindGame() {
+		return inBlindGame;
+	}
+
+	public void setInBlindGame(boolean inBlindGame) {
+		this.inBlindGame = inBlindGame;
 	}
 	
 }

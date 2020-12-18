@@ -51,8 +51,7 @@ public class Join {
 
 		setToSpawn(event.getPlayer());
 		setScoreBoard(board);
-		GamePlayer newPlayer = new GamePlayer(event.getPlayer(), false, 0, 0, 0, board, "none", 0, 0, 0, 0, false, rank,
-				0, 0, 0, wallColor, glassColor, leverDelay, false, "none", false, showTitle);
+		GamePlayer newPlayer = new GamePlayer(event.getPlayer(), board, rank, wallColor, glassColor, leverDelay, showTitle);
 		addTeam(newPlayer);
 		event.getPlayer().setAllowFlight(true);
 		Main.players.add(newPlayer);
