@@ -5,8 +5,12 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+
+import main.GamePlayer;
+import main.Main;
 
 /**
  * Small function with huge utility
@@ -50,6 +54,46 @@ public class Tools {
 				config.save(data);
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Show count down before a game
+	 * @param player
+	 * @param seconds
+	 * @author Blackoutburst
+	 */
+	public static void showCountDown(GamePlayer player, int seconds) {
+		if (player.showTitle()) {
+			new TitleManager().send(player.getPlayer(), "", "§aThe game will start in "+seconds+" seconds!", 0, 20, 0);
+		} else {
+			player.getPlayer().sendMessage("§aThe game will start in "+seconds+" seconds!");
+		}
+			
+		for (int i = seconds - 1; i > 0; i--) {
+			final int index = i;
+			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
+				@Override
+				public void run(){
+					if (player.showTitle()) {
+						new TitleManager().send(player.getPlayer(), getCountdownNumber(index), "", 0, 20, 0);
+					} else {
+						player.getPlayer().sendMessage(getCountdownNumber(index));
+					}
+				}
+			}, (20L * (seconds - i)));
+		}
+	}
+	
+	private static String getCountdownNumber(int index) {
+		switch(index) {
+		case 5: return "§a5";
+		case 4: return "§24";
+		case 3: return "§e3";
+		case 2: return "§62";
+		case 1: return "§c1";
+		case 0: return "§40";
+		default: return "§40";
 		}
 	}
 	

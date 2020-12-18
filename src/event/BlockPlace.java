@@ -24,25 +24,40 @@ public class BlockPlace {
 	 * @param event Block place event
 	 * @author Blackoutburst
 	 */
-	@SuppressWarnings("deprecation")
 	public void removeMisplacedBlock(BlockPlaceEvent event) {
 		GamePlayer player = GetGamePlayer.getPlayerFromName(event.getPlayer().getName());
+		
 		if (player.getPlayer().getWorld().getName().toLowerCase().equals("world")) {
 			if (player.isInGame()) {
 				if (!InsideArea.inPlayArea(event.getBlock().getLocation(), Values.games)) {
-					event.getPlayer().getInventory().clear();
-		    		event.getPlayer().getInventory().addItem(new ItemStack(event.getBlock().getType(), 1, event.getBlock().getData()));
 		    		event.getBlock().setType(Material.AIR);
+		    		endlessBlock(event, player);
 		    		event.getPlayer().playSound(event.getPlayer().getLocation(), Sound.LAVA_POP, 1f, 1f);
 	    			player.setChoke(player.getChoke() + 1);
 	    			ScoreboardManager.update(player);
 				} else {
-					event.getPlayer().getInventory().clear();
-					event.getPlayer().getInventory().addItem(new ItemStack(event.getBlock().getType(), 1, event.getBlock().getData()));
+					endlessBlock(event, player);
 				}
 			} else if (!player.getPlayer().isOp()) {
 				event.getBlock().setType(Material.AIR);
 			}
 		}
+	}
+	
+	
+	/**
+	 * Make player have infinite amount of building block
+	 * @param event 
+	 * @param player
+	 * @author Blackoutburst
+	 */
+	@SuppressWarnings("deprecation")
+	private void endlessBlock(BlockPlaceEvent event, GamePlayer player) {
+		ItemStack stack = new ItemStack(event.getBlock().getType(), 5, event.getBlock().getData());
+        stack.setAmount(Math.min(stack.getType().getMaxStackSize(), 5));
+        
+        if (!player.getPlayer().getInventory().containsAtLeast(stack, stack.getAmount())) {
+			player.getPlayer().getInventory().addItem(stack);
+        }
 	}
 }

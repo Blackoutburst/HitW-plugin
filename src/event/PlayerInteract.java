@@ -111,12 +111,12 @@ public class PlayerInteract {
 	            public void run(){
 	            	if (player.isInGame()) {
 	            		if (!player.isInBlindGame()) {
-	            			player.getPlayer().getInventory().addItem(new ItemStack(Material.STAINED_GLASS, 1, (short)(player.getGlassColor())));
+	            			player.getPlayer().getInventory().addItem(new ItemStack(Material.STAINED_GLASS, 5, (short)(player.getGlassColor())));
 	            		} else {
 	            			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
 	            	            @Override
 	            	            public void run(){
-	            	            	player.getPlayer().getInventory().addItem(new ItemStack(Material.STAINED_GLASS, 1, (short)(player.getGlassColor())));
+	            	            	player.getPlayer().getInventory().addItem(new ItemStack(Material.STAINED_GLASS, 5, (short)(player.getGlassColor())));
 	            	            	WallsManager.hideWall(Values.games.get(player.getGameID()).getPlay(), Values.games.get(player.getGameID()).getWall(), player);
 	            	            }
 	            			}, 20L * Values.games.get(player.getGameID()).getMemoryTime());
@@ -133,12 +133,12 @@ public class PlayerInteract {
             	if (!player.isInClassicGame()) {
             		if (player.isInGame()) {
             			if (!player.isInBlindGame()) {
-            				player.getPlayer().getInventory().addItem(new ItemStack(Material.STAINED_GLASS, 1, (short)(player.getGlassColor())));
+            				player.getPlayer().getInventory().addItem(new ItemStack(Material.STAINED_GLASS, 5, (short)(player.getGlassColor())));
             			} else {
             				Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
             		            @Override
             		            public void run(){
-            		            	player.getPlayer().getInventory().addItem(new ItemStack(Material.STAINED_GLASS, 1, (short)(player.getGlassColor())));
+            		            	player.getPlayer().getInventory().addItem(new ItemStack(Material.STAINED_GLASS, 5, (short)(player.getGlassColor())));
             		            	WallsManager.hideWall(Values.games.get(player.getGameID()).getPlay(), Values.games.get(player.getGameID()).getWall(), player);
             		            }
             				}, 20L * Values.games.get(player.getGameID()).getMemoryTime());
@@ -163,7 +163,7 @@ public class PlayerInteract {
 	private void checkPerfectWall(GamePlayer player, int missing, int misplaced, int score) {
 		if (missing == 0 && misplaced == 0) {
 			if (player.showTitle()) {
-				new TitleManager().send(player.getPlayer(), "§aPerfect", 0, 10, 10);
+				new TitleManager().send(player.getPlayer(), "§aPerfect", "", 0, 10, 10);
 			}
 			player.getPlayer().playSound(player.getPlayer().getLocation(), Sound.LEVEL_UP, 1f, 1f);
 			player.setPerfectwalls(player.getPerfectwalls() + 1);

@@ -12,6 +12,7 @@ import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import utils.ScoreboardManager;
+import utils.Tools;
 import utils.Values;
 
 /**
@@ -127,7 +128,7 @@ public class TourneyManager {
 		StageManager.setStageData(Main.player2);
 		for (GamePlayer p : Main.players) {
 			if (p.isInTourney()) {
-				p.getPlayer().sendMessage("§aThe game will start in 5 seconds!");
+				Tools.showCountDown(p, 5);
 			}
 		}
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
@@ -172,7 +173,7 @@ public class TourneyManager {
 	private static void setupGame(GamePlayer player) {
 		player.setInGame(true);
 		player.setWalls(1);
-    	player.getPlayer().getInventory().addItem(new ItemStack(Material.STAINED_GLASS, 64, (short)(player.getGlassColor())));
+    	player.getPlayer().getInventory().addItem(new ItemStack(Material.STAINED_GLASS, 5, (short)(player.getGlassColor())));
     	WallsManager.clearHider(Values.games.get(player.getGameID()).getPlay(), Values.games.get(player.getGameID()).getWall());
     	WallsManager.clearPlayField(Values.games.get(player.getGameID()).getPlay(), Values.games.get(player.getGameID()).getWall());
     	if (player.getStage().equals("Qualification")) {

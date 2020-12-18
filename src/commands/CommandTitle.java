@@ -29,9 +29,9 @@ public class CommandTitle {
 				player.getLeverDelay(), player.showTitle());
 		
 		if (show) {
-			player.getPlayer().sendMessage("§bPerfect walls title will now be displayed");
+			player.getPlayer().sendMessage("§bTitle will now be displayed instead of chat message");
 		} else {
-			player.getPlayer().sendMessage("§bPerfect walls title will now be hidden");
+			player.getPlayer().sendMessage("§bChat message will now be displayed instead of title");
 		}
 		return true;
 	}

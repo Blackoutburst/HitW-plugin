@@ -30,7 +30,7 @@ public class TitleManager {
 	    return null;
 	}
 	
-	public void send(Player player, String title, int fadeInTime, int showTime, int fadeOutTime) {
+	public void send(Player player, String title, String subtitle, int fadeInTime, int showTime, int fadeOutTime) {
 	    try {
 	        
 	    	Constructor<?> delayConstructor = getNMSClass("PacketPlayOutTitle")
@@ -45,11 +45,18 @@ public class TitleManager {
 	        Constructor<?> titleConstructor = getNMSClass("PacketPlayOutTitle").getConstructor(
 	        		getNMSClass("PacketPlayOutTitle").getDeclaredClasses()[0], getNMSClass("IChatBaseComponent"));
 	        
-	        Object packet = titleConstructor.newInstance(
+	        Object titlePacket = titleConstructor.newInstance(
 	                getNMSClass("PacketPlayOutTitle").getDeclaredClasses()[0].getField("TITLE").get(null), chatTitle);
+	        
+	        Object chatSubTitle = getNMSClass("IChatBaseComponent").getDeclaredClasses()[0].getMethod("a", String.class)
+	        		.invoke(null, "{\"text\": \"" + subtitle + "\"}");
+	        
+	        Object subtitlePacket = titleConstructor.newInstance(
+	                getNMSClass("PacketPlayOutTitle").getDeclaredClasses()[0].getField("SUBTITLE").get(null), chatSubTitle);
 
 	        sendPacket(player, delayPacket);
-	        sendPacket(player, packet);
+	        sendPacket(player, titlePacket);
+	        sendPacket(player, subtitlePacket);
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	    }

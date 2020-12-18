@@ -135,12 +135,12 @@ public class StageManager {
 		WallsManager.genWall(Values.games.get(player.getGameID()).getPlay(), Values.games.get(player.getGameID()).getWall(), Values.games.get(player.getGameID()).getHoles(), player);
 		
 		if (!player.isInBlindGame()) {
-			player.getPlayer().getInventory().addItem(new ItemStack(Material.STAINED_GLASS, 1, (short)(player.getGlassColor())));
+			player.getPlayer().getInventory().addItem(new ItemStack(Material.STAINED_GLASS, 5, (short)(player.getGlassColor())));
 		} else {
 			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
 	            @Override
 	            public void run(){
-	            	player.getPlayer().getInventory().addItem(new ItemStack(Material.STAINED_GLASS, 1, (short)(player.getGlassColor())));
+	            	player.getPlayer().getInventory().addItem(new ItemStack(Material.STAINED_GLASS, 5, (short)(player.getGlassColor())));
 	            	WallsManager.hideWall(Values.games.get(player.getGameID()).getPlay(), Values.games.get(player.getGameID()).getWall(), player);
 	            }
 			}, 20L * Values.games.get(player.getGameID()).getMemoryTime());
@@ -177,14 +177,14 @@ public class StageManager {
 			}
 		}
 	}
-	
+
 	/**
 	 * Start a game
 	 * @param player player starting a new game
 	 * @author Blackoutburst
 	 */
 	private static void startGame(GamePlayer player) {
-		player.getPlayer().sendMessage("§aThe game will start in 3 seconds!");
+		Tools.showCountDown(player, 3);
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
             @Override
             public void run(){
