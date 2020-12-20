@@ -25,7 +25,6 @@ public class GamePlayer {
 	protected boolean leverPulled;
 	protected String rank;
 	protected int gameID;
-	protected int goalTime;
 	protected int goalScore;
 	protected int wallColor;
 	protected int glassColor;
@@ -35,8 +34,10 @@ public class GamePlayer {
 	protected boolean inClassicGame;
 	protected boolean showTitle;
 	protected boolean inBlindGame;
+	protected float memtime;
 	
-	public GamePlayer(Player player, Board board, String rank, int wallColor, int glassColor, float leverDelay, boolean showTitle) {
+	public GamePlayer(Player player, Board board, String rank, int wallColor, int glassColor, float leverDelay, 
+			boolean showTitle, float memtime) {
 		this.player = player;
 		this.inGame = false;
 		this.time = 0;
@@ -51,7 +52,6 @@ public class GamePlayer {
 		this.leverPulled = false;
 		this.rank = rank;
 		this.gameID = 0;
-		this.goalTime = 0;
 		this.goalScore = 0;
 		this.wallColor = wallColor;
 		this.glassColor = glassColor;
@@ -61,6 +61,7 @@ public class GamePlayer {
 		this.inClassicGame = false;
 		this.showTitle = showTitle;
 		this.inBlindGame = false;
+		this.memtime = memtime;
 	}
 
 	public Player getPlayer() {
@@ -175,14 +176,6 @@ public class GamePlayer {
 		this.gameID = gameID;
 	}
 
-	public int getGoalTime() {
-		return goalTime;
-	}
-
-	public void setGoalTime(int goalTime) {
-		this.goalTime = goalTime;
-	}
-
 	public int getGoalScore() {
 		return goalScore;
 	}
@@ -253,6 +246,14 @@ public class GamePlayer {
 
 	public void setInBlindGame(boolean inBlindGame) {
 		this.inBlindGame = inBlindGame;
+	}
+
+	public float getMemtime() {
+		return memtime;
+	}
+
+	public void setMemtime(float memtime) {
+		this.memtime = memtime;
 	}
 	
 }

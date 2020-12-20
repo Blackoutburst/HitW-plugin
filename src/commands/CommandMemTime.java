@@ -9,10 +9,10 @@ import utils.Tools;
  * Manage /delay command
  * @author Blackoutburst
  */
-public class CommandDelay {
+public class CommandMemTime {
 	
 	/**
-	 * Set player lever / wall delay to the specified value
+	 * Set player memory time to the specified value
 	 * Save this value inside a file
 	 * @param player command sender
 	 * @param sender command sender
@@ -31,13 +31,13 @@ public class CommandDelay {
 			player.getPlayer().sendMessage("§cValue can not be negative!");
 			return true;
 		}
-		player.setLeverDelay(Float.valueOf(args[0]));
+		player.setMemtime(Float.valueOf(args[0]));
 		
 		Tools.writePlayerData(new File(Tools.getPlayerFolder(player.getPlayer())), 
 				player.getWallColor(), player.getGlassColor(), 
 				player.getLeverDelay(), player.showTitle(), player.getMemtime());
 		
-		player.getPlayer().sendMessage("§bYour lever delay is now set to "+player.getLeverDelay()+" seconds");
+		player.getPlayer().sendMessage("§bYour memory time is now set to "+player.getMemtime()+" seconds");
 		return true;
 	}
 }

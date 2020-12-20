@@ -50,6 +50,7 @@ public class PlayerInteract {
 	public void pullWall(GamePlayer player) {
 		
 		player.setLeverPulled(true);
+		resetLever(player);
 		player.getPlayer().getPlayer().getInventory().clear();
 		player.setWalls(player.getWalls() + 1);
 		setScore(player);
@@ -79,10 +80,6 @@ public class PlayerInteract {
 		misplaced = WallsManager.pullWall(Values.games.get(player.getGameID()).getPlay(), Values.games.get(player.getGameID()).getWall());
 		missing = WallsManager.checkHole(Values.games.get(player.getGameID()).getPlay());
 		score = WallsManager.checkScore(Values.games.get(player.getGameID()).getPlay()) - misplaced;
-		if (score < 0) {
-			score = 0;
-		}
-		player.setScore(player.getScore() + score);
 		player.setMisplaced(player.getMisplaced() + misplaced);
 		player.setMissing(player.getMissing() + missing);
 		checkPerfectWall(player, missing, misplaced, score);
@@ -105,51 +102,61 @@ public class PlayerInteract {
 	 * @author Blackoutburst
 	 */
 	private void delayedAction(GamePlayer player) {
+		long delay = (long)(20 * player.getLeverDelay());
+		
 		if (player.isInClassicGame()) {
-			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
-	            @Override
-	            public void run(){
-	            	if (player.isInGame()) {
-	            		if (!player.isInBlindGame()) {
-	            			player.getPlayer().getInventory().addItem(new ItemStack(Material.STAINED_GLASS, 5, (short)(player.getGlassColor())));
-	            		} else {
-	            			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
-	            	            @Override
-	            	            public void run(){
-	            	            	player.getPlayer().getInventory().addItem(new ItemStack(Material.STAINED_GLASS, 5, (short)(player.getGlassColor())));
-	            	            	WallsManager.hideWall(Values.games.get(player.getGameID()).getPlay(), Values.games.get(player.getGameID()).getWall(), player);
-	            	            }
-	            			}, 20L * Values.games.get(player.getGameID()).getMemoryTime());
-	            		}
-	            	}
-	            	WallsManager.clearHider(Values.games.get(player.getGameID()).getPlay(), Values.games.get(player.getGameID()).getWall());
-            		WallsManager.clearPlayField(Values.games.get(player.getGameID()).getPlay(), Values.games.get(player.getGameID()).getWall());
-	            }
-	        }, 15L);
+			delay = 15L;
 		}
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
             @Override
             public void run(){
-            	if (!player.isInClassicGame()) {
-            		if (player.isInGame()) {
-            			if (!player.isInBlindGame()) {
-            				player.getPlayer().getInventory().addItem(new ItemStack(Material.STAINED_GLASS, 5, (short)(player.getGlassColor())));
-            			} else {
-            				Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
-            		            @Override
-            		            public void run(){
-            		            	player.getPlayer().getInventory().addItem(new ItemStack(Material.STAINED_GLASS, 5, (short)(player.getGlassColor())));
-            		            	WallsManager.hideWall(Values.games.get(player.getGameID()).getPlay(), Values.games.get(player.getGameID()).getWall(), player);
-            		            }
-            				}, 20L * Values.games.get(player.getGameID()).getMemoryTime());
-            			}
+            	if (player.isInGame()) {
+            		if (!player.isInBlindGame()) {
+            			player.getPlayer().getInventory().addItem(new ItemStack(Material.STAINED_GLASS, 5, (short)(player.getGlassColor())));
+            		} else {
+            			hideWall(player);
             		}
-            		WallsManager.clearHider(Values.games.get(player.getGameID()).getPlay(), Values.games.get(player.getGameID()).getWall());
-            		WallsManager.clearPlayField(Values.games.get(player.getGameID()).getPlay(), Values.games.get(player.getGameID()).getWall());
             	}
+            	WallsManager.clearHider(Values.games.get(player.getGameID()).getPlay(), Values.games.get(player.getGameID()).getWall());
+        		WallsManager.clearPlayField(Values.games.get(player.getGameID()).getPlay(), Values.games.get(player.getGameID()).getWall());
+            }
+        }, delay);
+	}
+	
+	/**
+	 * Make lever usable again
+	 * @param player
+	 * @author Blackoutburst
+	 */
+	public static void resetLever(GamePlayer player) {
+		long delay = (long)(20 * player.getLeverDelay());
+		
+		if (player.isInClassicGame()) {
+			delay = 30L;
+		}
+		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
+            @Override
+            public void run(){
             	player.setLeverPulled(false);
             }
-        }, (long)(20 * player.getLeverDelay()));
+        }, delay);
+	}
+	
+	/**
+	 * Hide the wall and give block to the player with some delay
+	 * @param player
+	 * @author Blackoutburst
+	 */
+	private static void hideWall(GamePlayer player) {
+		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
+            @Override
+            public void run(){
+            	if (player.isInGame()) {
+            		player.getPlayer().getInventory().addItem(new ItemStack(Material.STAINED_GLASS, 5, (short)(player.getGlassColor())));
+            		WallsManager.hideWall(Values.games.get(player.getGameID()).getPlay(), Values.games.get(player.getGameID()).getWall(), player);
+            	}
+            }
+		}, (long) (20L * player.getMemtime()));
 	}
 	
 	/**
@@ -169,8 +176,16 @@ public class PlayerInteract {
 			player.setPerfectwalls(player.getPerfectwalls() + 1);
 			player.getPlayer().sendMessage("§aPerfect wall §e+"+score+" points");
 		} else {
+			score -= 1;
+			if (score < 0) {
+				score = 0;
+			}
 			player.getPlayer().playSound(player.getPlayer().getLocation(), Sound.NOTE_BASS_GUITAR, 1f, 1f);
 			player.getPlayer().sendMessage("§c"+missing+" missing block | "+misplaced+" misplaced block §e+"+score+" points");
 		}
+		if (score < 0) {
+			score = 0;
+		}
+		player.setScore(player.getScore() + score);
 	}
 }

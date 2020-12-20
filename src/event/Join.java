@@ -23,7 +23,7 @@ public class Join {
 
 	/**
 	 * When a player join create a new Scoreboard and load player rank from Hypixel
-	 * Hole in the Wall data if the player is new create config file for him or load
+	 * Hole in the Wall data if the player is new create configuration file for him or load
 	 * current data Create a new GamePlayer object
 	 * 
 	 * @param event Player Join event
@@ -36,22 +36,24 @@ public class Join {
 		int glassColor = 3;
 		float leverDelay = 0.5f;
 		boolean showTitle = true;
+		float memtime = 3f;
 
 		File f = new File(Tools.getPlayerFolder(event.getPlayer()));
 		if (!f.exists()) {
 			f.mkdir();
-			Tools.writePlayerData(f, 4, 3, 0.5f, true);
+			Tools.writePlayerData(f, wallColor, glassColor, leverDelay, showTitle, memtime);
 		} else {
 			YamlConfiguration playerData = YamlConfiguration.loadConfiguration(new File(f+"/config.yml"));
 			wallColor = playerData.getInt("colors.wall");
 			glassColor = playerData.getInt("colors.glass");
 			leverDelay = (float) playerData.getDouble("delay");
 			showTitle = playerData.getBoolean("title");
+			memtime = (float) playerData.getDouble("memtime");
 		}
 
 		setToSpawn(event.getPlayer());
 		setScoreBoard(board);
-		GamePlayer newPlayer = new GamePlayer(event.getPlayer(), board, rank, wallColor, glassColor, leverDelay, showTitle);
+		GamePlayer newPlayer = new GamePlayer(event.getPlayer(), board, rank, wallColor, glassColor, leverDelay, showTitle, memtime);
 		addTeam(newPlayer);
 		event.getPlayer().setAllowFlight(true);
 		Main.players.add(newPlayer);

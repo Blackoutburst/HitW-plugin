@@ -55,9 +55,19 @@ public class StageManager {
 	 */
 	private static boolean setLimit(GamePlayer player, String[] args) {
 		if (args.length >= 2) {
+			
+			if (args[0].contains("blind".toLowerCase()) || args[0].contains("classic".toLowerCase())) {
+				if (args[1].contains("blind".toLowerCase()) || args[1].contains("classic".toLowerCase())) {
+					player.setInClassicGame(true);
+					player.setInBlindGame(true);
+					player.setTime(Values.games.get(player.getGameID()).getStageTime());
+					return true;
+				}
+			}
+			
 			if (args[0].contains("time".toLowerCase())) {
 				try {
-					player.setGoalTime(Integer.valueOf(args[1]));
+					player.setTime(Integer.valueOf(args[1]));
 					if (Integer.valueOf(args[1]) < 0) {
 						player.getPlayer().sendMessage("§cValue can not be negative!");
 						return false;
@@ -66,6 +76,7 @@ public class StageManager {
 					player.getPlayer().sendMessage("§cInvalid number!");
 					return false;
 				}
+				player.setInClassicGame(true);
 			}
 			if (args[0].contains("score".toLowerCase())) {
 				try {
@@ -78,6 +89,7 @@ public class StageManager {
 					player.getPlayer().sendMessage("§cInvalid number!");
 					return false;
 				}
+				player.setInClassicGame(true);
 			}
 			if (!args[0].equals("score".toLowerCase()) && !args[0].equals("time".toLowerCase())) {
 				player.getPlayer().sendMessage("§cInvalid parameter: try /play {score|time} [value]");
@@ -96,8 +108,8 @@ public class StageManager {
 	public static void setStageData(GamePlayer player) {
 		Values.games.get(player.getGameID()).setRunning(true);
 		if (player.isInClassicGame()) {
-			player.setTime(Values.games.get(player.getGameID()).getStageTime());
 			player.setLeverDelay(1.5f);
+			player.setMemtime(Values.games.get(player.getGameID()).getMemoryTime());
 		} else {
 			player.setTime(0);
 		}
@@ -129,6 +141,8 @@ public class StageManager {
 	private static void setupGame(GamePlayer player) {
 		player.setInGame(true);
 		player.setWalls(1);
+		player.setLeverPulled(true);
+		PlayerInteract.resetLever(player);
 		
 		WallsManager.clearHider(Values.games.get(player.getGameID()).getPlay(), Values.games.get(player.getGameID()).getWall());
 		WallsManager.clearPlayField(Values.games.get(player.getGameID()).getPlay(), Values.games.get(player.getGameID()).getWall());
@@ -140,10 +154,12 @@ public class StageManager {
 			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
 	            @Override
 	            public void run(){
-	            	player.getPlayer().getInventory().addItem(new ItemStack(Material.STAINED_GLASS, 5, (short)(player.getGlassColor())));
-	            	WallsManager.hideWall(Values.games.get(player.getGameID()).getPlay(), Values.games.get(player.getGameID()).getWall(), player);
+	            	if (player.isInGame()) {
+	            		player.getPlayer().getInventory().addItem(new ItemStack(Material.STAINED_GLASS, 5, (short)(player.getGlassColor())));
+	            		WallsManager.hideWall(Values.games.get(player.getGameID()).getPlay(), Values.games.get(player.getGameID()).getWall(), player);
+	            	}
 	            }
-			}, 20L * Values.games.get(player.getGameID()).getMemoryTime());
+			}, (long) (20L * player.getMemtime()));
 		}
 	}
 	
@@ -153,7 +169,7 @@ public class StageManager {
 	 * @author Blackoutburst
 	 */
 	private static void updateGame(GamePlayer player) {
-		if (player.isInClassicGame()) {
+		if (player.isInClassicGame() && player.getGoalScore() == Integer.MAX_VALUE) {
 			player.setTime(player.getTime() - 1);
 		} else {
 			player.setTime(player.getTime() + 1);
@@ -165,13 +181,8 @@ public class StageManager {
 		if (player.getScore() >= player.getGoalScore()) {
 			autostop(player);
 		}
-		if (player.isInClassicGame()) {
+		if (player.isInClassicGame() && player.getGoalScore() == Integer.MAX_VALUE) {
 			if (player.getTime() <= 0) {
-				pullLastWallTime(player);
-				autostop(player);
-			}
-		} else {
-			if (player.getTime() >= player.getGoalTime()) {
 				pullLastWallTime(player);
 				autostop(player);
 			}
@@ -210,6 +221,7 @@ public class StageManager {
 		if (args.length == 1) {
 			if (args[0].contains("classic".toLowerCase())) {
 				player.setInClassicGame(true);
+				player.setTime(Values.games.get(player.getGameID()).getStageTime());
 				return true;
 			} else if (args[0].contains("blind".toLowerCase())) {
 				player.setInBlindGame(true);
@@ -236,7 +248,6 @@ public class StageManager {
 		if (player.isInGame()) {player.getPlayer().sendMessage("§cYou can not start a game while you are in game!");return;}
 		if (Values.games.get(player.getGameID()).isRunning()) {player.getPlayer().sendMessage("§cThis game already started!");return;}
 		player.setGoalScore(Integer.MAX_VALUE);
-		player.setGoalTime(Integer.MAX_VALUE);
 		correctArgs = setLimit(player, args);
 		if (!correctArgs) {return;}
 		correctArgs = setGameType(player, args);
@@ -275,6 +286,7 @@ public class StageManager {
 		player.getPlayer().getInventory().clear();
 		ScoreboardManager.update(player);
 		player.setLeverDelay((float) playerData.getDouble("delay"));
+		player.setMemtime((float) playerData.getDouble("memtime"));
 	}
 	
 	/**

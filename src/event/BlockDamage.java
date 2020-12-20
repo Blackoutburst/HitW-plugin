@@ -66,7 +66,7 @@ public class BlockDamage {
 		}
 		Tools.writePlayerData(new File(Tools.getPlayerFolder(player.getPlayer())), 
 				player.getWallColor(), player.getGlassColor(), 
-				player.getLeverDelay(), player.showTitle());
+				player.getLeverDelay(), player.showTitle(), player.getMemtime());
 		data = event.getBlock().getData();
 		displayColorMessage(data, player.getPlayer(), type);
 	}

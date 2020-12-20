@@ -1,6 +1,5 @@
 package utils;
 
-import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.DisplaySlot;
@@ -98,7 +97,6 @@ public class Board {
      * @author Blackoutburst
      */
     public void set(int row, String text) {
-        Validate.isTrue(16 > row, "Row can't be higher than 16");
         if(text.length() > 32) { text = text.substring(0, 32); }
  
         for(String entry : this.scoreboard.getEntries()) {

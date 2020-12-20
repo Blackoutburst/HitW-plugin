@@ -21,6 +21,7 @@ import commands.CommandDiscord;
 import commands.CommandFly;
 import commands.CommandHitW;
 import commands.CommandLeave;
+import commands.CommandMemTime;
 import commands.CommandPlay;
 import commands.CommandSpawn;
 import commands.CommandSpectate;
@@ -96,6 +97,7 @@ public class Main extends JavaPlugin implements Listener {
     		case "hitw" : return CommandHitW.onUse(player, args);
     		case "survival" : return CommandSurvival.onUse(player);
     		case "title" : return CommandTitle.onUse(player);
+    		case "memtime" : return CommandMemTime.onUse(player, args);
     		default : return false;
     	}
     }

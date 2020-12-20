@@ -47,3 +47,6 @@ commands:
   title:
     description: Toggle title affichage
     usage: /title
+  memtime:
+    description: Change wall memory time
+    usage: /memtime
