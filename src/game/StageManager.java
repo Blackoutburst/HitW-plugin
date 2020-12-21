@@ -139,23 +139,43 @@ public class StageManager {
 	 * @author Blackoutburst
 	 */
 	private static void setupGame(GamePlayer player) {
-		player.setInGame(true);
-		player.setWalls(1);
-		player.setLeverPulled(true);
-		PlayerInteract.resetLever(player);
+		if (player.isInCoop()) {
+			for (GamePlayer p : player.getCoop().getPlayers()) {
+				p.setInGame(true);
+				p.setLeverPulled(true);
+				PlayerInteract.resetLever(p);
+			}
+		} else {
+			player.setInGame(true);
+			player.setWalls(1);
+			player.setLeverPulled(true);
+			PlayerInteract.resetLever(player);
+		}
 		
 		WallsManager.clearHider(Values.games.get(player.getGameID()).getPlay(), Values.games.get(player.getGameID()).getWall());
 		WallsManager.clearPlayField(Values.games.get(player.getGameID()).getPlay(), Values.games.get(player.getGameID()).getWall());
 		WallsManager.genWall(Values.games.get(player.getGameID()).getPlay(), Values.games.get(player.getGameID()).getWall(), Values.games.get(player.getGameID()).getHoles(), player);
 		
 		if (!player.isInBlindGame()) {
-			player.getPlayer().getInventory().addItem(new ItemStack(Material.STAINED_GLASS, 5, (short)(player.getGlassColor())));
+			if (player.isInCoop()) {
+				for (GamePlayer p : player.getCoop().getPlayers()) {
+					p.getPlayer().getInventory().addItem(new ItemStack(Material.STAINED_GLASS, 5, (short)(p.getGlassColor())));
+				}
+			} else {
+				player.getPlayer().getInventory().addItem(new ItemStack(Material.STAINED_GLASS, 5, (short)(player.getGlassColor())));
+			}
 		} else {
 			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
 	            @Override
 	            public void run(){
 	            	if (player.isInGame()) {
-	            		player.getPlayer().getInventory().addItem(new ItemStack(Material.STAINED_GLASS, 5, (short)(player.getGlassColor())));
+	            		if (player.isInCoop()) {
+	        				for (GamePlayer p : player.getCoop().getPlayers()) {
+	        					p.getPlayer().getInventory().addItem(new ItemStack(Material.STAINED_GLASS, 5, (short)(p.getGlassColor())));
+	        				}
+	        			} else {
+	        				player.getPlayer().getInventory().addItem(new ItemStack(Material.STAINED_GLASS, 5, (short)(player.getGlassColor())));
+	        			}
 	            		WallsManager.hideWall(Values.games.get(player.getGameID()).getPlay(), Values.games.get(player.getGameID()).getWall(), player);
 	            	}
 	            }
@@ -174,7 +194,13 @@ public class StageManager {
 		} else {
 			player.setTime(player.getTime() + 1);
 		}
-		ScoreboardManager.update(player);
+		if (player.isInCoop()) {
+			for (GamePlayer p : player.getCoop().getPlayers()) {
+				ScoreboardManager.update(p);
+			}
+		} else {
+			ScoreboardManager.update(player);
+		}
 		if (!InsideArea.inGameArea(player.getPlayer().getLocation(), Values.games)) {
 			autostop(player);
 		}
@@ -195,7 +221,14 @@ public class StageManager {
 	 * @author Blackoutburst
 	 */
 	private static void startGame(GamePlayer player) {
-		Tools.showCountDown(player, 3);
+
+		if (player.isInCoop()) {
+			for (GamePlayer p : player.getCoop().getPlayers()) {
+				Tools.showCountDown(p, 3);
+			}
+		} else {
+			Tools.showCountDown(player, 3);
+		}
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
             @Override
             public void run(){
@@ -243,6 +276,7 @@ public class StageManager {
 	public static void start(GamePlayer player, String[] args) {
 		boolean correctArgs = false;
 
+		if (player.isInCoop() && !player.isCoopLeader()) {player.getPlayer().sendMessage("§cYou need to be the co-op leader to use this command");return;}
 		setStage(player);
 		if (player.getGameID() == -1) {player.setStage("none");player.getPlayer().sendMessage("§cPlease enter a game area before running this command!");return;}
 		if (player.isInGame()) {player.getPlayer().sendMessage("§cYou can not start a game while you are in game!");return;}
@@ -254,6 +288,19 @@ public class StageManager {
 		if (!correctArgs) {return;}
 		setStageData(player);
 		resetPlayerStats(player);
+		
+		if (player.isInCoop()) {
+			for (GamePlayer p : player.getCoop().getPlayers()) {
+				setLimit(p, args);
+				setGameType(p, args);
+				setStageData(p);
+				resetPlayerStats(p);
+				p.setLeverDelay(player.getLeverDelay());
+				p.setMemtime(player.getMemtime());
+				p.setStage(player.getStage());
+				p.setGameID(player.getGameID());
+			}
+		}
 		startGame(player);
 	}
 	
@@ -295,10 +342,19 @@ public class StageManager {
 	 * @author Blackoutburst
 	 */
 	public static void stop(GamePlayer player) {
+		if (player.isInCoop() && !player.isCoopLeader()) {player.getPlayer().sendMessage("§cYou need to be the co-op leader to use this command");return;}
 		if (!player.isInGame()) {player.getPlayer().sendMessage("§cYou can not stop a game if you are not inside!");return;}
 		if (!Values.games.get(player.getGameID()).isRunning()) {player.getPlayer().sendMessage("§cThis game is not running!");return;}
-		cleanGame(player);
-		resetPlayerData(player);
+		
+		if (player.isInCoop()) {
+			for (GamePlayer p : player.getCoop().getPlayers()) {
+				cleanGame(p);
+				resetPlayerData(p);
+			}
+		} else {
+			cleanGame(player);
+			resetPlayerData(player);
+		}
 	}
 	
 	/**
@@ -308,7 +364,14 @@ public class StageManager {
 	 * @author Blackoutburst
 	 */
 	public static void autostop(GamePlayer player) {
-		cleanGame(player);
-		resetPlayerData(player);
+		if (player.isInCoop()) {
+			for (GamePlayer p : player.getCoop().getPlayers()) {
+				cleanGame(p);
+				resetPlayerData(p);
+			}
+		} else {
+			cleanGame(player);
+			resetPlayerData(player);
+		}
 	}
 }

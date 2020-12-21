@@ -2,15 +2,16 @@ package commands;
 
 import java.util.ArrayList;
 
+import game.StageManager;
 import main.Coop;
 import main.GamePlayer;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
-import utils.GetGamePlayer;
 import utils.InsideArea;
 import utils.ScoreboardManager;
+import utils.Tools;
 import utils.Values;
 
 /**
@@ -95,7 +96,7 @@ public class CommandCoop {
 	 * @author Blackoutburst
 	 */
 	private static boolean invite(GamePlayer player, String[] args) {
-		GamePlayer receiver = GetGamePlayer.getPlayerFromName(args[0]);
+		GamePlayer receiver = Tools.getPlayerFromName(args[0]);
 		if (receiver == null) {
 			player.getPlayer().sendMessage("§cUnknow player "+args[0]);
 			return true;
@@ -141,7 +142,7 @@ public class CommandCoop {
 	 * @author Blackoutburst
 	 */
 	private static boolean accept(GamePlayer player, String name) {
-		GamePlayer leader = GetGamePlayer.getPlayerFromName(name);
+		GamePlayer leader = Tools.getPlayerFromName(name);
 		if (leader.getCoop().getPlayers().size() < 4) {
 			for (GamePlayer p : leader.getCoop().getPlayers()) {
 				p.getPlayer().sendMessage("§9§m------------------------------");
@@ -171,13 +172,25 @@ public class CommandCoop {
 	 */
 	private static boolean kick(GamePlayer player, String name) {
 		if (player.isCoopLeader()) {
+			GamePlayer kicked = null;
 			for (GamePlayer p : player.getCoop().getPlayers()) {
 				if (p.getPlayer().getName().toLowerCase().equals(name)) {
 					p.setCoop(null);
+					StageManager.resetPlayerStats(p);
+					p.setInBlindGame(false);
+					p.setInClassicGame(false);
+					p.setInGame(false);
 					p.setInCoop(false);
+					kicked = p;
 					ScoreboardManager.update(p);
 					updateCoop(player);
 				}
+				kicked.getPlayer().sendMessage("§9§m------------------------------");
+				kicked.getPlayer().sendMessage("§eYou got kicked from the co-op.");
+				kicked.getPlayer().sendMessage("§9§m------------------------------");
+				player.getCoop().getPlayers().remove(kicked);
+				updateCoop(player);
+
 			}
 		} else {
 			player.getPlayer().sendMessage("§9§m------------------------------");
@@ -193,23 +206,28 @@ public class CommandCoop {
 	 * @return true
 	 * @author Blackoutburst
 	 */
-	private static boolean leave(GamePlayer player) {
+	public static boolean leave(GamePlayer player) {
 		GamePlayer leader = player.getCoop().getPlayers().get(0);
 		
 		if (player.getPlayer().getName().equals(leader.getPlayer().getName())) {
 			disband(player);
 		} else {
+			leader.getCoop().getPlayers().remove(player);
 			for (GamePlayer p : leader.getCoop().getPlayers()) {
-				p.getCoop().getPlayers().remove(player);
 				ScoreboardManager.update(p);
+				StageManager.resetPlayerStats(p);
+				p.setInBlindGame(false);
+				p.setInClassicGame(false);
+				p.setInGame(false);
 				p.getPlayer().sendMessage("§9§m------------------------------");
 				p.getPlayer().sendMessage(player.getPlayer().getDisplayName()+" §eleaved the co-op.");
 				p.getPlayer().sendMessage("§9§m------------------------------");
 				ScoreboardManager.update(p);
 			}
+			updateCoop(leader);
 		}
 		if (leader.getCoop().getPlayers().size() == 1) {
-			autoDisband(player);
+			autoDisband(leader);
 		}
 		player.setInCoop(false);
 		player.setCoop(null);
@@ -245,6 +263,10 @@ public class CommandCoop {
 				if (player.getPlayer().getName().equals(p.getPlayer().getName())) {
 					continue;
 				}
+				StageManager.resetPlayerStats(p);
+				p.setInBlindGame(false);
+				p.setInClassicGame(false);
+				p.setInGame(false);
 				p.setCoop(null);
 				p.setInCoop(false);
 				ScoreboardManager.update(p);
@@ -285,6 +307,9 @@ public class CommandCoop {
 					p.getPlayer().sendMessage(player.getPlayer().getDisplayName()+" §ewarped you inside his game area.");
 					p.getPlayer().sendMessage("§9§m------------------------------");
 				}
+				player.getPlayer().sendMessage("§9§m------------------------------");
+				player.getPlayer().sendMessage("§eYou warped everyone to your game area");
+				player.getPlayer().sendMessage("§9§m------------------------------");
 			} else {
 				player.getPlayer().sendMessage("§cPlease enter a game area before running this command!");
 			}

@@ -30,13 +30,14 @@ public class ScoreboardManager {
 	 * @author Blackoutburst
 	 */
 	private static void coopBoard(GamePlayer player) {
-		int minutes = player.getTime() / 60;
- 		int seconds = (player.getTime()) % 60;
+		GamePlayer leader = player.getCoop().getPlayers().get(0);
+		int minutes = leader.getTime() / 60;
+ 		int seconds = (leader.getTime()) % 60;
  		String str = String.format("%d:%02d", minutes, seconds);
  		
  		player.getBoard().setTitle("§6§l--= Co-op =--");
  		player.getBoard().set(15, " ");
- 		player.getBoard().set(14, "Stage: §a"+player.getStage());
+ 		player.getBoard().set(14, "Stage: §a"+leader.getStage());
  		player.getBoard().set(13, "Play Time: §a"+str);
  		player.getBoard().set(12, "  ");
  		if (player.getCoop().getPlayers().size() >= 1) {
@@ -52,8 +53,8 @@ public class ScoreboardManager {
  			player.getBoard().set(8, player.getCoop().getPlayers().get(3).getPlayer().getName());
  		}
  		player.getBoard().set(7, "   ");
- 		player.getBoard().set(6, "Perfect Walls: §a"+player.getPerfectwalls());
- 		player.getBoard().set(5, "Wall: §a"+player.getWalls());
+ 		player.getBoard().set(6, "Perfect Walls: §a"+leader.getPerfectwalls());
+ 		player.getBoard().set(5, "Wall: §a"+leader.getWalls());
  		player.getBoard().set(4, "Score: §a"+player.getScore());
  		player.getBoard().set(3, "    ");
  		if (player.getPlayer().getAllowFlight()) {

@@ -35,7 +35,7 @@ import event.Enable;
 import event.Join;
 import event.Leave;
 import event.PlayerInteract;
-import utils.GetGamePlayer;
+import utils.Tools;
 
 /**
  * Main class manage Bukkit / Spigot event
@@ -81,7 +81,7 @@ public class Main extends JavaPlugin implements Listener {
     
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-    	GamePlayer player = GetGamePlayer.getPlayerFromName(sender.getName());
+    	GamePlayer player = Tools.getPlayerFromName(sender.getName());
     	
     	switch (command.getName().toLowerCase()) {
     		case "fly" : return CommandFly.onUse(player);

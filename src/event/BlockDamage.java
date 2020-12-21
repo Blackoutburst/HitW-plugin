@@ -10,7 +10,6 @@ import org.bukkit.event.block.BlockDamageEvent;
 
 import main.GamePlayer;
 import main.Main;
-import utils.GetGamePlayer;
 import utils.InsideArea;
 import utils.Tools;
 import utils.Values;
@@ -29,7 +28,7 @@ public class BlockDamage {
 	 * @author Blackoutburst
 	 */
 	public void brushing(BlockDamageEvent event) {
-		GamePlayer player = GetGamePlayer.getPlayerFromName(event.getPlayer().getName());
+		GamePlayer player = Tools.getPlayerFromName(event.getPlayer().getName());
 		
 		if (player.isInGame() && InsideArea.inPlayArea(event.getBlock().getLocation(), Values.games)) {
 			if (event.getBlock().getType().equals(Material.STAINED_GLASS)) {
@@ -52,7 +51,7 @@ public class BlockDamage {
 	 */
 	@SuppressWarnings("deprecation")
 	public void selectColor(BlockDamageEvent event) {
-		GamePlayer player = GetGamePlayer.getPlayerFromName(event.getPlayer().getName());
+		GamePlayer player = Tools.getPlayerFromName(event.getPlayer().getName());
 		String type = "none";
 		int data = 0;
 		

@@ -10,9 +10,9 @@ import org.bukkit.inventory.ItemStack;
 import game.WallsManager;
 import main.GamePlayer;
 import main.Main;
-import utils.GetGamePlayer;
 import utils.ScoreboardManager;
 import utils.TitleManager;
+import utils.Tools;
 import utils.Values;
 
 /**
@@ -28,7 +28,7 @@ public class PlayerInteract {
 	 * @author Blackoutburst
 	 */
 	public void hitLever(PlayerInteractEvent event) {
-		final GamePlayer player = GetGamePlayer.getPlayerFromName(event.getPlayer().getName());
+		final GamePlayer player = Tools.getPlayerFromName(event.getPlayer().getName());
 		
 		if (player.isLeverPulled() || !player.isInGame()) {
 			return;
@@ -48,12 +48,21 @@ public class PlayerInteract {
 	 * @author Blackoutburst
 	 */
 	public void pullWall(GamePlayer player) {
-		
-		player.setLeverPulled(true);
-		resetLever(player);
-		player.getPlayer().getPlayer().getInventory().clear();
-		player.setWalls(player.getWalls() + 1);
-		setScore(player);
+		if (player.isInCoop()) {
+			for (GamePlayer p : player.getCoop().getPlayers()) {
+				p.setLeverPulled(true);
+				resetLever(p);
+				p.getPlayer().getPlayer().getInventory().clear();
+				p.setWalls(p.getWalls() + 1);
+			}
+			setScore(player.getCoop().getPlayers().get(0));
+		} else {
+			player.setLeverPulled(true);
+			resetLever(player);
+			player.getPlayer().getPlayer().getInventory().clear();
+			player.setWalls(player.getWalls() + 1);
+			setScore(player);
+		}
 		if (player.isInTourney()) {
 			if (player.getStage().equals("Qualification")) {
 				WallsManager.copyWall(player, Values.games.get(player.getGameID()).getWall(), Values.games.get(player.getGameID()).getPlay(), new int[] {-617 - player.getWalls(), 7, 639, -617 - player.getWalls(), 10, 633});
@@ -82,8 +91,16 @@ public class PlayerInteract {
 		score = WallsManager.checkScore(Values.games.get(player.getGameID()).getPlay()) - misplaced;
 		player.setMisplaced(player.getMisplaced() + misplaced);
 		player.setMissing(player.getMissing() + missing);
-		checkPerfectWall(player, missing, misplaced, score);
-		ScoreboardManager.update(player);
+		
+		if (player.isInCoop()) {
+			for (GamePlayer p : player.getCoop().getPlayers()) {
+				checkPerfectWall(p, missing, misplaced, score);
+				ScoreboardManager.update(p);
+			}
+		} else {
+			checkPerfectWall(player, missing, misplaced, score);
+			ScoreboardManager.update(player);
+		}
 	}
 	
 	/**
@@ -112,7 +129,13 @@ public class PlayerInteract {
             public void run(){
             	if (player.isInGame()) {
             		if (!player.isInBlindGame()) {
-            			player.getPlayer().getInventory().addItem(new ItemStack(Material.STAINED_GLASS, 5, (short)(player.getGlassColor())));
+            			if (player.isInCoop()) {
+            				for (GamePlayer p : player.getCoop().getPlayers()) {
+            					p.getPlayer().getInventory().addItem(new ItemStack(Material.STAINED_GLASS, 5, (short)(p.getGlassColor())));
+            				}
+            			} else {
+            				player.getPlayer().getInventory().addItem(new ItemStack(Material.STAINED_GLASS, 5, (short)(player.getGlassColor())));
+            			}
             		} else {
             			hideWall(player);
             		}
@@ -152,7 +175,13 @@ public class PlayerInteract {
             @Override
             public void run(){
             	if (player.isInGame()) {
-            		player.getPlayer().getInventory().addItem(new ItemStack(Material.STAINED_GLASS, 5, (short)(player.getGlassColor())));
+            		if (player.isInCoop()) {
+        				for (GamePlayer p : player.getCoop().getPlayers()) {
+        					p.getPlayer().getInventory().addItem(new ItemStack(Material.STAINED_GLASS, 5, (short)(p.getGlassColor())));
+        				}
+        			} else {
+        				player.getPlayer().getInventory().addItem(new ItemStack(Material.STAINED_GLASS, 5, (short)(player.getGlassColor())));
+        			}
             		WallsManager.hideWall(Values.games.get(player.getGameID()).getPlay(), Values.games.get(player.getGameID()).getWall(), player);
             	}
             }

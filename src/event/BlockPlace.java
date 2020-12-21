@@ -6,9 +6,9 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.ItemStack;
 
 import main.GamePlayer;
-import utils.GetGamePlayer;
 import utils.InsideArea;
 import utils.ScoreboardManager;
+import utils.Tools;
 import utils.Values;
 
 /**
@@ -25,7 +25,7 @@ public class BlockPlace {
 	 * @author Blackoutburst
 	 */
 	public void removeMisplacedBlock(BlockPlaceEvent event) {
-		GamePlayer player = GetGamePlayer.getPlayerFromName(event.getPlayer().getName());
+		GamePlayer player = Tools.getPlayerFromName(event.getPlayer().getName());
 		
 		if (player.getPlayer().getWorld().getName().toLowerCase().equals("world")) {
 			if (player.isInGame()) {

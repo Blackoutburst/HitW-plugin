@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Sound;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
@@ -35,7 +36,6 @@ public class Tools {
 	
 	/**
 	 * Write new player data file
-	 * 
 	 * @param f new player folder
 	 * @author Blackoutburst
 	 */
@@ -71,31 +71,53 @@ public class Tools {
 			player.getPlayer().sendMessage("§aThe game will start in "+seconds+" seconds!");
 		}
 			
-		for (int i = seconds - 1; i > 0; i--) {
+		for (int i = seconds - 1; i >= 0; i--) {
 			final int index = i;
 			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
 				@Override
 				public void run(){
 					if (player.showTitle()) {
-						new TitleManager().send(player.getPlayer(), getCountdownNumber(index), "", 0, 20, 0);
+						new TitleManager().send(player.getPlayer(), getCountdownNumber(index, player), "", 0, 20, 0);
 					} else {
-						player.getPlayer().sendMessage(getCountdownNumber(index));
+						player.getPlayer().sendMessage(getCountdownNumber(index, player));
 					}
 				}
 			}, (20L * (seconds - i)));
 		}
 	}
 	
-	private static String getCountdownNumber(int index) {
+	/**
+	 * Return the text show for every seconds
+	 * @param index
+	 * @param player
+	 * @return text
+	 * @author Blackoutburst
+	 */
+	private static String getCountdownNumber(int index, GamePlayer player) {
 		switch(index) {
 		case 5: return "§a5";
 		case 4: return "§24";
 		case 3: return "§e3";
 		case 2: return "§62";
 		case 1: return "§c1";
-		case 0: return "§40";
-		default: return "§40";
+		case 0: player.getPlayer().playSound(player.getPlayer().getLocation(), Sound.NOTE_PIANO, 1f, 1f); return "";
+		default: return "§5§luwu";
 		}
+	}
+	
+	/**
+	 * Get a GamePlayer object from his player name
+	 * @param name player name
+	 * @return The GamePlayer object with the specified name
+	 * @author Blackoutburst
+	 */
+	public static GamePlayer getPlayerFromName(String name) {
+    	for (GamePlayer p : Main.players) {
+			if (p.getPlayer().getName().toLowerCase().equals(name.toLowerCase())) {
+				return (p);
+			}
+		}
+    	return null;
 	}
 	
 	/**

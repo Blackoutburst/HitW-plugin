@@ -2,10 +2,11 @@ package event;
 
 import org.bukkit.event.player.PlayerQuitEvent;
 
+import commands.CommandCoop;
 import game.StageManager;
 import main.GamePlayer;
 import main.Main;
-import utils.GetGamePlayer;
+import utils.Tools;
 
 /**
  * Manage every action when onPlayerQuit event is called 
@@ -19,10 +20,13 @@ public class Leave {
 	 * @author Blackoutburst
 	 */
 	public void onLeave(PlayerQuitEvent event) {
-		GamePlayer player = GetGamePlayer.getPlayerFromName(event.getPlayer().getName());
+		GamePlayer player = Tools.getPlayerFromName(event.getPlayer().getName());
 	
 		if (player.isInGame()) {
 			StageManager.autostop(player);
+		}
+		if (player.isInCoop()) {
+			CommandCoop.leave(player);
 		}
 		Main.players.remove(player);
 	}
