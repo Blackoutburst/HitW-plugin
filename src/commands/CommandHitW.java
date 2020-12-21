@@ -4,7 +4,7 @@ import main.GamePlayer;
 import utils.Values;
 
 /**
- * Manage /discord command
+ * Manage /hitw command
  * @author Blackoutburst
  */
 public class CommandHitW {

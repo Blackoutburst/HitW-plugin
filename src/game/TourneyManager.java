@@ -284,7 +284,6 @@ public class TourneyManager {
 			StageManager.resetPlayerStats(Main.player2);
 			for (GamePlayer p : Main.players) {
 				if (p.isInTourney()) {
-					p.getBoard().setTitle("§6§lTournament");
 					ScoreboardManager.update(p);
 					p.getPlayer().sendMessage("§6§lWelcome to the Qualification stage!");
 				}
@@ -309,7 +308,6 @@ public class TourneyManager {
 			displaySpectateMessage();
 			for (GamePlayer p : Main.players) {
 				if (p.isInTourney()) {
-					p.getBoard().setTitle("§6§lTournament");
 					ScoreboardManager.update(p);
 					p.getPlayer().sendMessage("§6§lWelcome to the Finals stage!");
 				}
@@ -346,7 +344,6 @@ public class TourneyManager {
 		Main.player2 = null;
 		for (GamePlayer p : Main.players) {
 			if (p.isInTourney()) {
-				p.getBoard().setTitle(p.getPlayer().getName());
 				p.getPlayer().sendMessage("§6§lTournament ended!");
 		    	p.getPlayer().teleport(Values.spawn);
 			}

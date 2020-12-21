@@ -20,7 +20,6 @@ public class CommandSpawn {
 	 */
 	public static boolean onUse(GamePlayer player) {
 		player.getPlayer().teleport(Values.spawn);
-		player.getBoard().setTitle(player.getPlayer().getName());
     	player.setInTourney(false);
 		player.setTourneyRole("none");
 		player.getPlayer().getScoreboard().getObjective(player.getPlayer().getName()).setDisplaySlot(DisplaySlot.SIDEBAR);

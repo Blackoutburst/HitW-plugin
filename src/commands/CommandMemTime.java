@@ -6,7 +6,7 @@ import main.GamePlayer;
 import utils.Tools;
 
 /**
- * Manage /delay command
+ * Manage /memtime command
  * @author Blackoutburst
  */
 public class CommandMemTime {

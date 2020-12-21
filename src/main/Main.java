@@ -16,6 +16,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import commands.CommandColor;
+import commands.CommandCoop;
 import commands.CommandDelay;
 import commands.CommandDiscord;
 import commands.CommandFly;
@@ -98,6 +99,8 @@ public class Main extends JavaPlugin implements Listener {
     		case "survival" : return CommandSurvival.onUse(player);
     		case "title" : return CommandTitle.onUse(player);
     		case "memtime" : return CommandMemTime.onUse(player, args);
+    		case "coop" : return CommandCoop.onUse(player, args);
+    		case "p" : return CommandCoop.onUse(player, args);
     		default : return false;
     	}
     }

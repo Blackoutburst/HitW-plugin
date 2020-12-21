@@ -35,6 +35,9 @@ public class GamePlayer {
 	protected boolean showTitle;
 	protected boolean inBlindGame;
 	protected float memtime;
+	protected boolean inCoop;
+	protected boolean coopLeader;
+	protected Coop coop;
 	
 	public GamePlayer(Player player, Board board, String rank, int wallColor, int glassColor, float leverDelay, 
 			boolean showTitle, float memtime) {
@@ -62,6 +65,9 @@ public class GamePlayer {
 		this.showTitle = showTitle;
 		this.inBlindGame = false;
 		this.memtime = memtime;
+		this.inCoop = false;
+		this.coopLeader = false;
+		this.coop = null;
 	}
 
 	public Player getPlayer() {
@@ -255,5 +261,28 @@ public class GamePlayer {
 	public void setMemtime(float memtime) {
 		this.memtime = memtime;
 	}
-	
+
+	public boolean isInCoop() {
+		return inCoop;
+	}
+
+	public void setInCoop(boolean inCoop) {
+		this.inCoop = inCoop;
+	}
+
+	public boolean isCoopLeader() {
+		return coopLeader;
+	}
+
+	public void setCoopLeader(boolean coopLeader) {
+		this.coopLeader = coopLeader;
+	}
+
+	public Coop getCoop() {
+		return coop;
+	}
+
+	public void setCoop(Coop coop) {
+		this.coop = coop;
+	}
 }

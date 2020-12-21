@@ -6,7 +6,7 @@ import main.GamePlayer;
 import utils.Tools;
 
 /**
- * Manage /delay command
+ * Manage /title command
  * @author Blackoutburst
  */
 public class CommandTitle {

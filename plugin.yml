@@ -50,3 +50,9 @@ commands:
   memtime:
     description: Change wall memory time
     usage: /memtime
+  coop:
+    description: Co-op commands
+    usage: /coop
+  p:
+    description: Co-op commands
+    usage: /p

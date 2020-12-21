@@ -6,7 +6,7 @@ import org.bukkit.scoreboard.DisplaySlot;
 import main.GamePlayer;
 
 /**
- * Manage /spawn command
+ * Manage /survival command
  * @author Blackoutburst
  */
 public class CommandSurvival {
