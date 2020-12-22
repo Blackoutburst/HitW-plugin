@@ -61,7 +61,7 @@ public class CommandCoop {
 	private static boolean list(GamePlayer player) {
 		if (player.isInCoop()) {
 			player.getPlayer().sendMessage("§9§m------------------------------");
-			player.getPlayer().sendMessage("§6Co-op Members ("+player.getCoop().getPlayers().size()+")");
+			player.getPlayer().sendMessage("§6Co-op Members ("+player.getCoop().getPlayers().size()+"/4)");
 			player.getPlayer().sendMessage(" ");
 			for (GamePlayer p : player.getCoop().getPlayers()) {
 				player.getPlayer().sendMessage(p.getPlayer().getDisplayName());
@@ -113,6 +113,26 @@ public class CommandCoop {
 			createNewCoop(player);
 		}
 		if (player.isCoopLeader()) {
+			if (player.getCoop().getPlayers().size() == 4) {
+				player.getPlayer().sendMessage("§9§m------------------------------");
+				player.getPlayer().sendMessage("§cYour co-op is actually full.");
+				TextComponent message = new TextComponent("§eDo §6/coop list §eor §6Click here to look at the co-op members!");
+				message.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/coop list"));
+				message.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("Click to run\n/coop list").create()));
+				player.getPlayer().spigot().sendMessage(message);
+				player.getPlayer().sendMessage("§9§m------------------------------");
+				return true;
+			}
+			
+			for (GamePlayer p : player.getCoop().getPlayers()) {
+				if (p.getPlayer().getName().equals(receiver.getPlayer().getName())) {
+					player.getPlayer().sendMessage("§9§m------------------------------");
+					player.getPlayer().sendMessage("§cThis player is already inside your co-op!");
+					player.getPlayer().sendMessage("§9§m------------------------------");
+					return true;
+				}
+			}
+			
 			for (GamePlayer p : player.getCoop().getPlayers()) {
 				p.getPlayer().sendMessage("§9§m------------------------------");
 				p.getPlayer().sendMessage(player.getPlayer().getDisplayName()+" §einvited "+receiver.getPlayer().getDisplayName()+" §eto the co-op!");
@@ -143,6 +163,25 @@ public class CommandCoop {
 	 */
 	private static boolean accept(GamePlayer player, String name) {
 		GamePlayer leader = Tools.getPlayerFromName(name);
+		
+		if (player.isInCoop()) {
+			player.getPlayer().sendMessage("§9§m------------------------------");
+			player.getPlayer().sendMessage("§cYou are already inside a co-op!");
+			TextComponent message = new TextComponent("§cDo §4/coop leave §cor §4Click here to leave!");
+			message.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/coop leave"));
+			message.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("Click to run\n/coop leave").create()));
+			player.getPlayer().spigot().sendMessage(message);
+			player.getPlayer().sendMessage("§9§m------------------------------");
+			return true;
+		}
+		
+		if (!leader.isInCoop()) {
+			player.getPlayer().sendMessage("§9§m------------------------------");
+			player.getPlayer().sendMessage("§cThis co-op is not available.");
+			player.getPlayer().sendMessage("§9§m------------------------------");
+			return true;
+		}
+		
 		if (leader.getCoop().getPlayers().size() < 4) {
 			for (GamePlayer p : leader.getCoop().getPlayers()) {
 				p.getPlayer().sendMessage("§9§m------------------------------");
@@ -150,6 +189,9 @@ public class CommandCoop {
 				p.getPlayer().sendMessage("§9§m------------------------------");
 			}
 			leader.getCoop().getPlayers().add(player);
+			if (player.isInGame()) {
+				StageManager.autostop(player);
+			}
 			player.setInCoop(true);
 			updateCoop(leader);
 			player.getPlayer().sendMessage("§9§m------------------------------");
@@ -207,8 +249,14 @@ public class CommandCoop {
 	 * @author Blackoutburst
 	 */
 	public static boolean leave(GamePlayer player) {
-		GamePlayer leader = player.getCoop().getPlayers().get(0);
+		if (!player.isInCoop()) {
+			player.getPlayer().sendMessage("§9§m------------------------------");
+			player.getPlayer().sendMessage("§cYou are not currently in a co-op.");
+			player.getPlayer().sendMessage("§9§m------------------------------");
+			return true;
+		}
 		
+		GamePlayer leader = player.getCoop().getPlayers().get(0);
 		if (player.getPlayer().getName().equals(leader.getPlayer().getName())) {
 			disband(player);
 		} else {
@@ -220,14 +268,17 @@ public class CommandCoop {
 				p.setInClassicGame(false);
 				p.setInGame(false);
 				p.getPlayer().sendMessage("§9§m------------------------------");
-				p.getPlayer().sendMessage(player.getPlayer().getDisplayName()+" §eleaved the co-op.");
+				p.getPlayer().sendMessage(player.getPlayer().getDisplayName()+" §eleft");
 				p.getPlayer().sendMessage("§9§m------------------------------");
 				ScoreboardManager.update(p);
 			}
 			updateCoop(leader);
-		}
-		if (leader.getCoop().getPlayers().size() == 1) {
-			autoDisband(leader);
+			if (leader.getCoop().getPlayers().size() == 1) {
+				autoDisband(leader);
+			}
+			player.getPlayer().sendMessage("§9§m------------------------------");
+			player.getPlayer().sendMessage("§eYou leaved the co-op.");
+			player.getPlayer().sendMessage("§9§m------------------------------");
 		}
 		player.setInCoop(false);
 		player.setCoop(null);
