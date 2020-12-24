@@ -35,7 +35,9 @@ public class ScoreboardManager {
  		int seconds = (leader.getTime()) % 60;
  		String str = String.format("%d:%02d", minutes, seconds);
  		
- 		player.getBoard().setTitle("§6§l--= Co-op =--");
+ 		if (!player.getBoard().getTitle().equals("§6§l--= Co-op =--")) {
+ 			player.getBoard().setTitle("§6§l--= Co-op =--");
+ 		}
  		player.getBoard().set(15, " ");
  		player.getBoard().set(14, "Stage: §a"+leader.getStage());
  		player.getBoard().set(13, "Play Time: §a"+str);
@@ -74,7 +76,9 @@ public class ScoreboardManager {
  		int seconds = (Main.stageTime) % 60;
  		String str = String.format("%d:%02d", minutes, seconds);
  		
- 		player.getBoard().setTitle("§6§lTournament");
+ 		if (!player.getBoard().getTitle().equals("§6§lTournament")) {
+ 			player.getBoard().setTitle("§6§lTournament");
+ 		}
  		player.getBoard().set(15, " ");
  		player.getBoard().set(14, "§6=================");
  		player.getBoard().set(13, "Stage: §a"+Main.tourneyStage);
@@ -111,7 +115,9 @@ public class ScoreboardManager {
  		int seconds = (player.getTime()) % 60;
  		String str = String.format("%d:%02d", minutes, seconds);
  		
- 		player.getBoard().setTitle(player.getPlayer().getName());
+ 		if (!player.getBoard().getTitle().equals(player.getPlayer().getName())) {
+ 			player.getBoard().setTitle(player.getPlayer().getName());
+ 		}
  		player.getBoard().set(15, " ");
  		player.getBoard().set(14, "Stage: §a"+player.getStage());
  		player.getBoard().set(13, "Play Time: §a"+str);

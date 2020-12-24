@@ -6,15 +6,16 @@ package main;
  * @author Blackoutburst
  */
 public class Game {
-	int[] area;
-	int[] play;
-	int[] wall;
-	int[] holes;
-	boolean running;
-	int clock;
-	String type;
-	int stageTime;
-	int memoryTime;
+	protected int[] area;
+	protected int[] play;
+	protected int[] wall;
+	protected int[] holes;
+	protected boolean running;
+	protected int clock;
+	protected String type;
+	protected int stageTime;
+	protected int memoryTime;
+	protected boolean timeFreeze;
 	
 	public Game(int[] area, int[] play, int[] wall, int[] holes , String type, int stageTime, int memoryTime) {
 		super();
@@ -25,6 +26,7 @@ public class Game {
 		this.type = type;
 		this.stageTime = stageTime;
 		this.memoryTime = memoryTime;
+		this.timeFreeze = false;
 	}
 
 	public int[] getArea() {
@@ -97,6 +99,14 @@ public class Game {
 
 	public void setMemoryTime(int memoryTime) {
 		this.memoryTime = memoryTime;
+	}
+
+	public boolean isTimeFreeze() {
+		return timeFreeze;
+	}
+
+	public void setTimeFreeze(boolean timeFreeze) {
+		this.timeFreeze = timeFreeze;
 	}
 	
 }

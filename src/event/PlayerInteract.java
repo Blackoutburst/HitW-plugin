@@ -48,6 +48,9 @@ public class PlayerInteract {
 	 * @author Blackoutburst
 	 */
 	public void pullWall(GamePlayer player) {
+		if (player.isInBlindGame()) {
+			Values.games.get(player.getGameID()).setTimeFreeze(true);
+		}
 		if (player.isInCoop()) {
 			for (GamePlayer p : player.getCoop().getPlayers()) {
 				p.setLeverPulled(true);
@@ -182,6 +185,7 @@ public class PlayerInteract {
         			} else {
         				player.getPlayer().getInventory().addItem(new ItemStack(Material.STAINED_GLASS, 5, (short)(player.getGlassColor())));
         			}
+            		Values.games.get(player.getGameID()).setTimeFreeze(false);
             		WallsManager.hideWall(Values.games.get(player.getGameID()).getPlay(), Values.games.get(player.getGameID()).getWall(), player);
             	}
             }

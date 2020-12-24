@@ -165,6 +165,7 @@ public class StageManager {
 				player.getPlayer().getInventory().addItem(new ItemStack(Material.STAINED_GLASS, 5, (short)(player.getGlassColor())));
 			}
 		} else {
+			Values.games.get(player.getGameID()).setTimeFreeze(true);
 			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
 	            @Override
 	            public void run(){
@@ -176,6 +177,7 @@ public class StageManager {
 	        			} else {
 	        				player.getPlayer().getInventory().addItem(new ItemStack(Material.STAINED_GLASS, 5, (short)(player.getGlassColor())));
 	        			}
+	            		Values.games.get(player.getGameID()).setTimeFreeze(false);
 	            		WallsManager.hideWall(Values.games.get(player.getGameID()).getPlay(), Values.games.get(player.getGameID()).getWall(), player);
 	            	}
 	            }
@@ -189,11 +191,14 @@ public class StageManager {
 	 * @author Blackoutburst
 	 */
 	private static void updateGame(GamePlayer player) {
-		if (player.isInClassicGame() && player.getGoalScore() == Integer.MAX_VALUE) {
-			player.setTime(player.getTime() - 1);
-		} else {
-			player.setTime(player.getTime() + 1);
+		if (!Values.games.get(player.getGameID()).isTimeFreeze()) {
+			if (player.isInClassicGame() && player.getGoalScore() == Integer.MAX_VALUE) {
+				player.setTime(player.getTime() - 1);
+			} else {
+				player.setTime(player.getTime() + 1);
+			}
 		}
+		
 		if (player.isInCoop()) {
 			for (GamePlayer p : player.getCoop().getPlayers()) {
 				ScoreboardManager.update(p);
