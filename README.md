@@ -64,7 +64,7 @@ For fun
 - Customisable wall memorisation time
 
 
-# Readme unfinished comming soon
+# Readme unfinished coming soon
 
 ## Special thanks
 * Mason for helping me on the community server
