@@ -105,6 +105,10 @@ Off
 
 ![titleoff](/readme/titleoff.PNG)
 
+### Automatic rank based on Hypixel Hole in the Wall personal best using [Hypixel API](https://github.com/HypixelDev/PublicAPI)
+Rank colors are based on the Hole in the Wall community discord rank colors
+![rank](/readme/rank.PNG)
+
 #### Customisable wall and glass color
 Compatible with all stained clay / glass
 ![color](/readme/color.PNG)
