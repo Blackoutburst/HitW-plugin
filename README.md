@@ -93,16 +93,16 @@ Using /fly
 ![fly](/readme/fly.PNG)
 
 #### Toggleable title text
-Using /title
+Using /title [Demo video](https://www.youtube.com/watch?v=RFPCmq1mde0&feature=youtu.be)
 
 ![title](/readme/title.PNG)
-[Demo video](https://www.youtube.com/watch?v=RFPCmq1mde0&feature=youtu.be)
-On
-[Demo video](https://www.youtube.com/watch?v=RFPCmq1mde0&feature=youtu.be)
+
+On [Demo video](https://www.youtube.com/watch?v=RFPCmq1mde0&feature=youtu.be)
+
 ![titleon](/readme/titleon.PNG)
 
-Off
-[Demo video](https://youtu.be/RFPCmq1mde0?t=14)
+Off [Demo video](https://youtu.be/RFPCmq1mde0?t=14)
+
 ![titleoff](/readme/titleoff.PNG)
 
 ### Automatic rank based on Hypixel Hole in the Wall personal best using [Hypixel API](https://github.com/HypixelDev/PublicAPI)
