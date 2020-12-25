@@ -78,31 +78,25 @@ Co-op is compatible with all gamemode listed above
 ## Sub feature
 
 #### Customisable lever delay
-Using /delay [seconds]
-[Demo video](https://www.youtube.com/watch?v=xdb4xeRvknI&feature=youtu.be)
+Using /delay [seconds] [Demo video](https://www.youtube.com/watch?v=xdb4xeRvknI&feature=youtu.be)
 ![delay](/readme/delay.PNG)
 
 #### Customisable wall memorisation time
-Using /memtime [seconds]
-[Demo video](https://www.youtube.com/watch?v=kTfBBMBosrI&feature=youtu.be)
+Using /memtime [seconds] [Demo video](https://www.youtube.com/watch?v=kTfBBMBosrI&feature=youtu.be)
 ![memtime](/readme/memtime.PNG)
 
 #### Toggleable fly mode
 Using /fly
-
 ![fly](/readme/fly.PNG)
 
 #### Toggleable title text
 Using /title [Demo video](https://www.youtube.com/watch?v=RFPCmq1mde0&feature=youtu.be)
-
 ![title](/readme/title.PNG)
 
 On [Demo video](https://www.youtube.com/watch?v=RFPCmq1mde0&feature=youtu.be)
-
 ![titleon](/readme/titleon.PNG)
 
 Off [Demo video](https://youtu.be/RFPCmq1mde0?t=14)
-
 ![titleoff](/readme/titleoff.PNG)
 
 ### Automatic rank based on Hypixel Hole in the Wall personal best using [Hypixel API](https://github.com/HypixelDev/PublicAPI)
@@ -115,6 +109,7 @@ Compatible with all stained clay / glass
 
 ## Commands
 ![commands](/readme/commands.PNG)
+
 #### Tournament commands are not listed here since they are only avaible for people with op
 
 There is actually more commands not listed here since they should not really be inside the plugin
