@@ -45,12 +45,10 @@ public class RankManager {
 	 * @author Blackoutburst
 	 */
 	private static String getRank(Player player, int qualification, int finals) {
-		if (player.getUniqueId().toString().replace("-", "").equals("082e28e178724b21ba12b3231f7a872c")) {
-			return(ChatColor.GOLD + "[Legend] ");//Teddy
-		} else if (qualification >= 400 || finals >= 400) {
-			return(ChatColor.BLACK + "[400+] ");
+		if (qualification >= 400 || finals >= 400) {
+			return(ChatColor.DARK_AQUA + "[400+] ");
 		} else if (qualification >= 375 || finals >= 375) {
-			return(ChatColor.YELLOW + "[350"+ ChatColor.BLACK +"+"+ChatColor.YELLOW+"] ");
+			return(ChatColor.YELLOW + "[350"+ ChatColor.DARK_AQUA +"+"+ChatColor.YELLOW+"] ");
 		} else if (qualification >= 350 || finals >= 350) {
 			return(ChatColor.YELLOW + "[350+] ");
 		} else if (qualification >= 325 || finals >= 325) {
