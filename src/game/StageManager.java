@@ -84,6 +84,8 @@ public class StageManager {
 					if (Integer.valueOf(args[1]) < 0) {
 						player.getPlayer().sendMessage("§cValue can not be negative!");
 						return false;
+					} else {
+						player.setTime(0);
 					}
 				} catch(Exception e) {
 					player.getPlayer().sendMessage("§cInvalid number!");
@@ -321,6 +323,8 @@ public class StageManager {
 		WallsManager.clearHider(Values.games.get(player.getGameID()).getPlay(), Values.games.get(player.getGameID()).getWall());
 		WallsManager.clearPlayField(Values.games.get(player.getGameID()).getPlay(), Values.games.get(player.getGameID()).getWall());
 		Values.games.get(player.getGameID()).setRunning(false);
+		Values.games.get(player.getGameID()).setTimeFreeze(false);
+		
 	}
 	
 	/**

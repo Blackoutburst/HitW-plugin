@@ -30,33 +30,33 @@ For fun
 
 ### Different play mode
 
-#### Endless mode 
+#### Endless mode [Demo video](https://www.youtube.com/watch?v=nxHt8Q6FgiI&feature=youtu.be)
 - Endless time
 - Wall start with maximum amount of hole
 - Customisable lever delay
 
-#### Classic mode (compatible with blind)
+#### Classic mode (compatible with blind) [Demo video](https://www.youtube.com/watch?v=Jbnk06_CMEQ&feature=youtu.be)
 - Hypixel rules
 - 2min stage time
 - 0.5s before buildiong the next wall
 - 1.5s lever delay
 - Number of hole in wall are progresive
 
-#### Time mode
+#### Time mode [Demo video](https://www.youtube.com/watch?v=yorUDxe1ons&feature=youtu.be)
 - Hypixel rule
 - 0.5s before buildiong the next wall
 - 1.5s lever delay
 - Number of hole in wall are progresive
 - Stage end when the specified time is reached
 
-#### Score mode
+#### Score mode [Demo video](https://www.youtube.com/watch?v=GkfVzYmnDlI&feature=youtu.be)
 - Hypixel rule
 - 0.5s before buildiong the next wall
 - 1.5s lever delay
 - Number of hole in wall are progresive
 - Stage end when the specified score is reached
 
-#### Blind mode (compatible with classic)
+#### Blind mode (compatible with classic) [Demo video](https://www.youtube.com/watch?v=1zpa_CVBZio&feature=youtu.be)
 - Holes become hiden after a certain time you have to build wall from memory
 - Endless time
 - Wall start with maximum amount of hole
@@ -78,32 +78,30 @@ Co-op is compatible with all gamemode listed above
 ## Sub feature
 
 #### Customisable lever delay
-Using /delay [seconds]
-
+Using /delay [seconds] [Demo video](https://www.youtube.com/watch?v=xdb4xeRvknI&feature=youtu.be)
 ![delay](/readme/delay.PNG)
 
 #### Customisable wall memorisation time
-Using /memtime [seconds]
-
+Using /memtime [seconds] [Demo video](https://www.youtube.com/watch?v=kTfBBMBosrI&feature=youtu.be)
 ![memtime](/readme/memtime.PNG)
 
 #### Toggleable fly mode
 Using /fly
-
 ![fly](/readme/fly.PNG)
 
 #### Toggleable title text
-Using /title
-
+Using /title [Demo video](https://www.youtube.com/watch?v=RFPCmq1mde0&feature=youtu.be)
 ![title](/readme/title.PNG)
 
-On
-
+On [Demo video](https://www.youtube.com/watch?v=RFPCmq1mde0&feature=youtu.be)
 ![titleon](/readme/titleon.PNG)
 
-Off
-
+Off [Demo video](https://youtu.be/RFPCmq1mde0?t=14)
 ![titleoff](/readme/titleoff.PNG)
+
+### Automatic rank based on Hypixel Hole in the Wall personal best using [Hypixel API](https://github.com/HypixelDev/PublicAPI)
+Rank colors are based on the Hole in the Wall community discord rank colors
+![rank](/readme/rank.PNG)
 
 #### Customisable wall and glass color
 Compatible with all stained clay / glass
@@ -111,6 +109,7 @@ Compatible with all stained clay / glass
 
 ## Commands
 ![commands](/readme/commands.PNG)
+
 #### Tournament commands are not listed here since they are only avaible for people with op
 
 There is actually more commands not listed here since they should not really be inside the plugin
@@ -139,4 +138,4 @@ A message is broadcasted when the tournament start en player can hover the messa
 * The whole HitW community for being so wholesome and supporting me
 * The Hypixel team for creating the original game
 
-# Videos and more informations on tournament coming soon
+# More informations on tournament coming soon
