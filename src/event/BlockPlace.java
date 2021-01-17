@@ -27,20 +27,18 @@ public class BlockPlace {
 	public void removeMisplacedBlock(BlockPlaceEvent event) {
 		GamePlayer player = Tools.getPlayerFromName(event.getPlayer().getName());
 		
-		if (player.getPlayer().getWorld().getName().toLowerCase().equals("world")) {
-			if (player.isInGame()) {
-				if (!InsideArea.inPlayArea(event.getBlock().getLocation(), Values.games)) {
-		    		event.getBlock().setType(Material.AIR);
-		    		endlessBlock(event, player);
-		    		event.getPlayer().playSound(event.getPlayer().getLocation(), Sound.LAVA_POP, 1f, 1f);
-	    			player.setChoke(player.getChoke() + 1);
-	    			ScoreboardManager.update(player);
-				} else {
-					endlessBlock(event, player);
-				}
-			} else if (!player.getPlayer().isOp()) {
-				event.getBlock().setType(Material.AIR);
+		if (player.isInGame()) {
+			if (!InsideArea.inPlayArea(event.getBlock().getLocation(), Values.games)) {
+	    		event.getBlock().setType(Material.AIR);
+	    		endlessBlock(event, player);
+	    		event.getPlayer().playSound(event.getPlayer().getLocation(), Sound.LAVA_POP, 1f, 1f);
+    			player.setChoke(player.getChoke() + 1);
+    			ScoreboardManager.update(player);
+			} else {
+				endlessBlock(event, player);
 			}
+		} else if (!player.getPlayer().isOp()) {
+			event.getBlock().setType(Material.AIR);
 		}
 	}
 	

@@ -89,20 +89,103 @@ public class TourneyManager {
 			if (p.isInTourney()) {
 				if (Main.player1.getScore() > Main.player2.getScore()) {
 					p.getPlayer().sendMessage("§6§l========================================");
-					p.getPlayer().sendMessage("§6§l#1 :"+Main.player1.getPlayer().getDisplayName()+" §6§l: §r§a"+Main.player1.getScore());
-					p.getPlayer().sendMessage("§l#2 : "+Main.player2.getPlayer().getDisplayName()+" §l: §r§a"+Main.player2.getScore());
+					p.getPlayer().sendMessage(" ");
+					
+					
+					String player1 = "§6§l#1 : ";
+					if (Main.player1.isInCoop()) {
+						player1 += Main.player1.getPlayer().getDisplayName(); 
+						for (GamePlayer pc : Main.player1.getCoop().getPlayers()) {
+							if (!pc.isCoopLeader()) {
+								player1 += " | "+pc.getPlayer().getDisplayName();
+							}
+						}
+					} else {
+						player1 += Main.player1.getPlayer().getDisplayName(); 
+					}
+					
+					String player2 = "§l#2 : ";
+					if (Main.player2.isInCoop()) {
+						player2 += Main.player2.getPlayer().getDisplayName(); 
+						for (GamePlayer pc : Main.player2.getCoop().getPlayers()) {
+							if (!pc.isCoopLeader()) {
+								player2 += " | "+pc.getPlayer().getDisplayName();
+							}
+						}
+					} else {
+						player2 += Main.player2.getPlayer().getDisplayName(); 
+					}
+					
+					p.getPlayer().sendMessage(player1+" §6§l: §r§a"+Main.player1.getScore());
+					p.getPlayer().sendMessage(player2+" §l: §r§a"+Main.player2.getScore());
+					p.getPlayer().sendMessage(" ");
 					p.getPlayer().sendMessage("§6§l========================================");
 				}
 				if (Main.player1.getScore() < Main.player2.getScore()) {
 					p.getPlayer().sendMessage("§6§l========================================");
-					p.getPlayer().sendMessage("§6§l#1 :"+Main.player2.getPlayer().getDisplayName()+" §6§l: §r§a"+Main.player2.getScore());
-					p.getPlayer().sendMessage("§l#2 : "+Main.player1.getPlayer().getDisplayName()+" §l: §r§a"+Main.player1.getScore());
+					p.getPlayer().sendMessage(" ");
+					
+					
+					String player2 = "§6§l#1 :";
+					if (Main.player2.isInCoop()) {
+						player2 += Main.player2.getPlayer().getDisplayName(); 
+						for (GamePlayer pc : Main.player2.getCoop().getPlayers()) {
+							if (!pc.isCoopLeader()) {
+								player2 += " | "+pc.getPlayer().getDisplayName();
+							}
+						}
+					} else {
+						player2 += Main.player2.getPlayer().getDisplayName(); 
+					}
+					
+					String player1 = "§l#2 : ";
+					if (Main.player1.isInCoop()) {
+						player1 += Main.player1.getPlayer().getDisplayName(); 
+						for (GamePlayer pc : Main.player1.getCoop().getPlayers()) {
+							if (!pc.isCoopLeader()) {
+								player1 += " | "+pc.getPlayer().getDisplayName();
+							}
+						}
+					} else {
+						player1 += Main.player1.getPlayer().getDisplayName(); 
+					}
+					
+					p.getPlayer().sendMessage(player2+" §6§l: §r§a"+Main.player2.getScore());
+					p.getPlayer().sendMessage(player1+" §l: §r§a"+Main.player1.getScore());
+					p.getPlayer().sendMessage(" ");
 					p.getPlayer().sendMessage("§6§l========================================");
 				}
 				if (Main.player1.getScore() == Main.player2.getScore()) {
 					p.getPlayer().sendMessage("§6§l========================================");
-					p.getPlayer().sendMessage("§lTie : "+Main.player1.getPlayer().getDisplayName()+" §l: §r§a"+Main.player1.getScore());
-					p.getPlayer().sendMessage("§lTie : "+Main.player2.getPlayer().getDisplayName()+" §l: §r§a"+Main.player2.getScore());
+					p.getPlayer().sendMessage(" ");
+					
+					String player1 = "§lTie : ";
+					if (Main.player1.isInCoop()) {
+						player1 += Main.player1.getPlayer().getDisplayName(); 
+						for (GamePlayer pc : Main.player1.getCoop().getPlayers()) {
+							if (!pc.isCoopLeader()) {
+								player1 += " | "+pc.getPlayer().getDisplayName();
+							}
+						}
+					} else {
+						player1 += Main.player1.getPlayer().getDisplayName(); 
+					}
+					
+					String player2 = "§lTie : ";
+					if (Main.player2.isInCoop()) {
+						player2 += Main.player2.getPlayer().getDisplayName(); 
+						for (GamePlayer pc : Main.player2.getCoop().getPlayers()) {
+							if (!pc.isCoopLeader()) {
+								player2 += " | "+pc.getPlayer().getDisplayName();
+							}
+						}
+					}else {
+						player2 += Main.player2.getPlayer().getDisplayName(); 
+					}
+					
+					p.getPlayer().sendMessage(player1+" §l: §r§a"+Main.player1.getScore());
+					p.getPlayer().sendMessage(player2+" §l: §r§a"+Main.player2.getScore());
+					p.getPlayer().sendMessage(" ");
 					p.getPlayer().sendMessage("§6§l========================================");
 				}
 			}
@@ -126,6 +209,28 @@ public class TourneyManager {
 		Main.player2.setPerfectwalls(0);
 		StageManager.setStageData(Main.player1);
 		StageManager.setStageData(Main.player2);
+		
+		
+		if (Main.player1.isInCoop()) {
+			for (GamePlayer pc : Main.player1.getCoop().getPlayers()) {
+				pc.setInClassicGame(true);
+				pc.setPerfectwalls(0);
+				StageManager.setStageData(pc);
+				pc.setStage(Main.player1.getStage());
+				pc.setGameID(Main.player1.getGameID());
+			}
+		}
+		
+		if (Main.player2.isInCoop()) {
+			for (GamePlayer pc : Main.player2.getCoop().getPlayers()) {
+				pc.setInClassicGame(true);
+				pc.setPerfectwalls(0);
+				StageManager.setStageData(pc);
+				pc.setStage(Main.player2.getStage());
+				pc.setGameID(Main.player2.getGameID());
+			}
+		}
+		
 		for (GamePlayer p : Main.players) {
 			if (p.isInTourney()) {
 				Tools.showCountDown(p, 5);
@@ -136,6 +241,20 @@ public class TourneyManager {
             public void run(){
             	setupGame(Main.player1);
             	setupGame(Main.player2);
+            	
+            	
+            	if (Main.player1.isInCoop()) {
+        			for (GamePlayer pc : Main.player1.getCoop().getPlayers()) {
+        				setupGame(pc);
+        			}
+    			}
+            	
+            	if (Main.player2.isInCoop()) {
+        			for (GamePlayer pc : Main.player2.getCoop().getPlayers()) {
+                    	setupGame(pc);
+        			}
+    			}
+            	
 				Main.tourneyClock = Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(Main.getPlugin(Main.class), new Runnable(){
 					@Override
 					public void run() {
@@ -150,6 +269,7 @@ public class TourneyManager {
 							StageManager.pullLastWallTime(Main.player2);
 							StageManager.autostop(Main.player1);
 							StageManager.autostop(Main.player2);
+							
 							broadcastEndMessage();
 							for (GamePlayer p : Main.players) {
 								if (p.isInTourney()) {
@@ -221,24 +341,26 @@ public class TourneyManager {
 	private static int getHoleCount(String stage, int wall) {
 		if (stage.equals("Qualification")) {
 			switch (wall) {
-				case 1 : return (4);
+				case 1 : return (3);
 				case 2 : return (4);
-				case 3 : return (5);
+				case 3 : return (4);
 				case 4 : return (5);
-				case 5 : return (6);
+				case 5 : return (5);
 				case 6 : return (6);
-				case 7 : return (7);
+				case 7 : return (6);
+				case 8 : return (7);
 				default : return (8);
 			} 
 		} else if (stage.equals("Finals")) {
 			switch (wall) {
-				case 1 : return (11);
-				case 2 : return (12);
-				case 3 : return (14);
-				case 4 : return (15);
-				case 5 : return (16);
-				case 6 : return (18);
-				case 7 : return (20);
+				case 1 : return (10);
+				case 2 : return (11);
+				case 3 : return (12);
+				case 4 : return (14);
+				case 5 : return (15);
+				case 6 : return (16);
+				case 7 : return (18);
+				case 8 : return (20);
 				default : return (22);
 			} 
 		}
@@ -254,7 +376,33 @@ public class TourneyManager {
 		
 		message.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/spectate"));
 		if (Main.player1 != null && Main.player2 != null) {
-			message.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(Main.player1.getPlayer().getDisplayName()+" VS "+Main.player2.getPlayer().getDisplayName()).create()));
+			
+			String player1 = "";
+			if (Main.player1.isInCoop()) {
+				player1 += Main.player1.getPlayer().getDisplayName(); 
+				for (GamePlayer pc : Main.player1.getCoop().getPlayers()) {
+					if (!pc.isCoopLeader()) {
+						player1 += " | "+pc.getPlayer().getDisplayName();
+					}
+				}
+			} else {
+				player1 += Main.player1.getPlayer().getDisplayName(); 
+			}
+			
+			String player2 = "";
+			if (Main.player2.isInCoop()) {
+				player2 += Main.player2.getPlayer().getDisplayName(); 
+				for (GamePlayer pc : Main.player2.getCoop().getPlayers()) {
+					if (!pc.isCoopLeader()) {
+						player2 += " | "+pc.getPlayer().getDisplayName();
+					}
+				}
+			} else {
+				player2 += Main.player2.getPlayer().getDisplayName(); 
+			}
+			
+			
+			message.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(player1+" VS "+player2).create()));
 		}
 		for (GamePlayer p : Main.players) {
 			if (!p.isInTourney()) {
@@ -289,8 +437,22 @@ public class TourneyManager {
 				}
 				if (p.isInTourney() && p.getTourneyRole().equals("spectator")) {p.getPlayer().teleport(Values.specQ);}
 				if (p.isInTourney() && p.getTourneyRole().equals("manager")) {p.getPlayer().teleport(Values.specQ);}
-				if (p.isInTourney() && p.getTourneyRole().equals("player1")) {p.getPlayer().teleport(Values.player1Q);}
-				if (p.isInTourney() && p.getTourneyRole().equals("player2")) {p.getPlayer().teleport(Values.player2Q);}
+				if (p.isInTourney() && p.getTourneyRole().equals("player1")) {
+					p.getPlayer().teleport(Values.player1Q);
+					if (p.isInCoop()) {
+						for (GamePlayer pc : p.getCoop().getPlayers()) {
+								pc.getPlayer().teleport(Values.player1Q);
+						}
+					}
+				}
+				if (p.isInTourney() && p.getTourneyRole().equals("player2")) {
+					p.getPlayer().teleport(Values.player2Q);
+					if (p.isInCoop()) {
+						for (GamePlayer pc : p.getCoop().getPlayers()) {
+								pc.getPlayer().teleport(Values.player2Q);
+						}
+					}
+				}
 				if (p.isInTourney() && p.getTourneyRole().equals("cam1")) {
 					p.getPlayer().teleport(Values.cam1Q);
 					p.getPlayer().setGameMode(GameMode.SPECTATOR);
@@ -313,8 +475,22 @@ public class TourneyManager {
 				}
 				if (p.isInTourney() && p.getTourneyRole().equals("spectator")) {p.getPlayer().teleport(Values.specF);}
 				if (p.isInTourney() && p.getTourneyRole().equals("manager")) {p.getPlayer().teleport(Values.specF);}
-				if (p.isInTourney() && p.getTourneyRole().equals("player1")) {p.getPlayer().teleport(Values.player1F);}
-				if (p.isInTourney() && p.getTourneyRole().equals("player2")) {p.getPlayer().teleport(Values.player2F);}
+				if (p.isInTourney() && p.getTourneyRole().equals("player1")) {
+					p.getPlayer().teleport(Values.player1F);
+					if (p.isInCoop()) {
+						for (GamePlayer pc : p.getCoop().getPlayers()) {
+								pc.getPlayer().teleport(Values.player1F);
+						}
+					}
+				}
+				if (p.isInTourney() && p.getTourneyRole().equals("player2")) {
+					p.getPlayer().teleport(Values.player2F);
+					if (p.isInCoop()) {
+						for (GamePlayer pc : p.getCoop().getPlayers()) {
+								pc.getPlayer().teleport(Values.player2F);
+						}
+					}
+				}
 				if (p.isInTourney() && p.getTourneyRole().equals("cam1")) {
 					p.getPlayer().teleport(Values.cam1F);
 					p.getPlayer().setGameMode(GameMode.SPECTATOR);
@@ -340,6 +516,21 @@ public class TourneyManager {
 		Main.stageTime = 0;
 		StageManager.resetPlayerStats(Main.player1);
 		StageManager.resetPlayerStats(Main.player2);
+		
+		if (Main.player1.isInCoop()) {
+			for (GamePlayer pc : Main.player1.getCoop().getPlayers()) {
+				StageManager.resetPlayerStats(pc);
+				
+			}
+		}
+    	
+    	if (Main.player2.isInCoop()) {
+			for (GamePlayer pc : Main.player2.getCoop().getPlayers()) {
+				StageManager.resetPlayerStats(pc);
+				
+			}
+		}
+		
 		Main.player1 = null;
 		Main.player2 = null;
 		for (GamePlayer p : Main.players) {
@@ -388,6 +579,15 @@ public class TourneyManager {
 					p.setInTourney(true);
 					p.setTourneyRole(args[0]);
 					p.getPlayer().sendMessage("§aYou were assigned to "+args[0]+ " by "+player.getPlayer().getDisplayName());
+					if (p.isInCoop()) {
+						for (GamePlayer pc : p.getCoop().getPlayers()) {
+							if (!pc.isCoopLeader()) {
+								p.setInTourney(true);
+								pc.setTourneyRole(args[0]);
+								pc.getPlayer().sendMessage("§aYou were assigned to "+args[0]+ " by "+player.getPlayer().getDisplayName());
+							}
+						}
+					}
 					player.getPlayer().sendMessage("§a"+args[2]+" is now a Tourney "+args[0]);
 					if (args[0].equals("player1")) {Main.player1 = p;}
 					if (args[0].equals("player2")) {Main.player2 = p;}
@@ -401,6 +601,15 @@ public class TourneyManager {
 					p.setInTourney(false);
 					p.setTourneyRole("none");
 					p.getPlayer().sendMessage("§aYou were unassigned from "+args[0]+ " by "+player.getPlayer().getDisplayName());
+					if (p.isInCoop()) {
+						for (GamePlayer pc : p.getCoop().getPlayers()) {
+							if (!pc.isCoopLeader()) {
+								p.setInTourney(false);
+								pc.setTourneyRole("none");
+								pc.getPlayer().sendMessage("§aYou were unassigned from "+args[0]+ " by "+player.getPlayer().getDisplayName());
+							}
+						}
+					}
 					player.getPlayer().sendMessage("§a"+args[2]+" is no longer a Tourney "+args[0]);
 					if (args[0].equals("player1")) {Main.player1 = null;}
 					if (args[0].equals("player2")) {Main.player2 = null;}

@@ -16,10 +16,6 @@ public class CommandFly {
 	 * @author Blackoutburst
 	 */
 	public static boolean onUse(GamePlayer player) {
-		if (!player.getPlayer().getWorld().getName().toLowerCase().equals("world")) {
-			player.getPlayer().sendMessage("§cI'm sorry but you can't do that here!");
-			return true;
-		}
 		if (player.getPlayer().getAllowFlight()) {
 			player.getPlayer().sendMessage("§bYou can no longer fly");
 			player.getPlayer().setAllowFlight(false);

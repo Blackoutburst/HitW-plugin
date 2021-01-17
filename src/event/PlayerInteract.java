@@ -125,7 +125,7 @@ public class PlayerInteract {
 		long delay = (long)(20 * player.getLeverDelay());
 		
 		if (player.isInClassicGame()) {
-			delay = 15L;
+			delay = 10L;
 		}
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
             @Override

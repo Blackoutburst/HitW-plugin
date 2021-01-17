@@ -26,7 +26,6 @@ import commands.CommandMemTime;
 import commands.CommandPlay;
 import commands.CommandSpawn;
 import commands.CommandSpectate;
-import commands.CommandSurvival;
 import commands.CommandTitle;
 import commands.CommandTourney;
 import event.BlockDamage;
@@ -96,7 +95,6 @@ public class Main extends JavaPlugin implements Listener {
     		case "discord" : return CommandDiscord.onUse(sender);
     		case "delay" : return CommandDelay.onUse(player, args);
     		case "hitw" : return CommandHitW.onUse(player, args);
-    		case "survival" : return CommandSurvival.onUse(player);
     		case "title" : return CommandTitle.onUse(player);
     		case "memtime" : return CommandMemTime.onUse(player, args);
     		case "coop" : return CommandCoop.onUse(player, args);

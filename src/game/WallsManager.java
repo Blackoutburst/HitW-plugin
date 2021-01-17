@@ -357,7 +357,10 @@ public class WallsManager {
 			}
 		}
 		if (player.isInClassicGame()) {
-			holeIndex = player.getWalls();
+			holeIndex = player.getWalls() - 1;
+		}
+		if (holeIndex < 0) {
+			holeIndex = 0;
 		}
 		if (holeIndex > 8) {
 			holeIndex = 8;
