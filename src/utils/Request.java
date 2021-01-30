@@ -37,6 +37,5 @@ public class Request {
 			e.printStackTrace();
 			return null;
 		}
-		
 	}
 }

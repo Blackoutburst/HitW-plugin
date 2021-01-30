@@ -65,6 +65,15 @@ public class StageManager {
 				}
 			}
 			
+			if (args[0].contains("easy".toLowerCase()) || args[0].contains("classic".toLowerCase())) {
+				if (args[1].contains("easy".toLowerCase()) || args[1].contains("classic".toLowerCase())) {
+					player.setInClassicGame(true);
+					player.setEasyMode(true);
+					player.setTime(Values.games.get(player.getGameID()).getStageTime());
+					return true;
+				}
+			}
+			
 			if (args[0].contains("time".toLowerCase())) {
 				try {
 					player.setTime(Integer.valueOf(args[1]));
@@ -259,15 +268,18 @@ public class StageManager {
 	 */
 	private static boolean setGameType(GamePlayer player, String[] args) {
 		if (args.length == 1) {
-			if (args[0].contains("classic".toLowerCase())) {
+			if (args[0].toLowerCase().contains("classic")) {
 				player.setInClassicGame(true);
 				player.setTime(Values.games.get(player.getGameID()).getStageTime());
 				return true;
-			} else if (args[0].contains("blind".toLowerCase())) {
+			} else if (args[0].toLowerCase().contains("blind")) {
 				player.setInBlindGame(true);
 				return true;
+			} else if (args[0].toLowerCase().contains("easy")) {
+				player.setEasyMode(true);
+				return true;
 			} else {
-				player.getPlayer().sendMessage("§cInvalid parameter: try /play {classic|blind}");
+				player.getPlayer().sendMessage("§cInvalid parameter: try /play {classic|blind|easy}");
 				return false;
 			}
 		}
@@ -337,6 +349,7 @@ public class StageManager {
 		
 		player.setInBlindGame(false);
 		player.setInClassicGame(false);
+		player.setEasyMode(false);
 		player.setInGame(false);
 		player.setStage("none");
 		player.getPlayer().getInventory().clear();

@@ -38,6 +38,7 @@ public class GamePlayer {
 	protected boolean inCoop;
 	protected boolean coopLeader;
 	protected Coop coop;
+	boolean easyMode;
 	
 	public GamePlayer(Player player, Board board, String rank, int wallColor, int glassColor, float leverDelay, 
 			boolean showTitle, float memtime) {
@@ -68,6 +69,7 @@ public class GamePlayer {
 		this.inCoop = false;
 		this.coopLeader = false;
 		this.coop = null;
+		this.easyMode = false;
 	}
 
 	public Player getPlayer() {
@@ -285,4 +287,13 @@ public class GamePlayer {
 	public void setCoop(Coop coop) {
 		this.coop = coop;
 	}
+
+	public boolean isEasyMode() {
+		return easyMode;
+	}
+
+	public void setEasyMode(boolean easyMode) {
+		this.easyMode = easyMode;
+	}
+	
 }
