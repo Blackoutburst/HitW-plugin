@@ -28,14 +28,13 @@ public class BlockPlace {
 		GamePlayer player = Tools.getPlayerFromName(event.getPlayer().getName());
 		
 		if (player.isInGame()) {
+			endlessBlock(event, player);
 			if (!InsideArea.inPlayArea(event.getBlock().getLocation(), Values.games)) {
 	    		event.getBlock().setType(Material.AIR);
 	    		endlessBlock(event, player);
 	    		event.getPlayer().playSound(event.getPlayer().getLocation(), Sound.LAVA_POP, 1f, 1f);
     			player.setChoke(player.getChoke() + 1);
     			ScoreboardManager.update(player);
-			} else {
-				endlessBlock(event, player);
 			}
 		} else if (!player.getPlayer().isOp()) {
 			event.getBlock().setType(Material.AIR);
@@ -52,9 +51,9 @@ public class BlockPlace {
 	@SuppressWarnings("deprecation")
 	private void endlessBlock(BlockPlaceEvent event, GamePlayer player) {
 		ItemStack stack = new ItemStack(event.getBlock().getType(), 5, event.getBlock().getData());
-        stack.setAmount(Math.min(stack.getType().getMaxStackSize(), 5));
+        stack.setAmount(1);
         
-        if (!player.getPlayer().getInventory().containsAtLeast(stack, stack.getAmount())) {
+        if (!player.getPlayer().getInventory().containsAtLeast(stack, 6)) {
 			player.getPlayer().getInventory().addItem(stack);
         }
 	}
