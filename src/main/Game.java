@@ -10,6 +10,7 @@ public class Game {
 	protected int[] play;
 	protected int[] wall;
 	protected int[] holes;
+	protected int height;
 	protected boolean running;
 	protected int clock;
 	protected String type;
@@ -17,7 +18,7 @@ public class Game {
 	protected int memoryTime;
 	protected boolean timeFreeze;
 	
-	public Game(int[] area, int[] play, int[] wall, int[] holes , String type, int stageTime, int memoryTime) {
+	public Game(int[] area, int[] play, int[] wall, int[] holes , String type, int stageTime, int memoryTime, int height) {
 		super();
 		this.area = area;
 		this.play = play;
@@ -27,6 +28,7 @@ public class Game {
 		this.stageTime = stageTime;
 		this.memoryTime = memoryTime;
 		this.timeFreeze = false;
+		this.height = height;
 	}
 
 	public int[] getArea() {
@@ -107,6 +109,10 @@ public class Game {
 
 	public void setTimeFreeze(boolean timeFreeze) {
 		this.timeFreeze = timeFreeze;
+	}
+
+	public int getHeight() {
+		return height;
 	}
 	
 }

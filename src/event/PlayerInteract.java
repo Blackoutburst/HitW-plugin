@@ -127,6 +127,11 @@ public class PlayerInteract {
 		if (player.isInClassicGame()) {
 			delay = 10L;
 		}
+		
+		if (player.isOldAnimation()) {
+			delay = 5L * (Values.games.get(player.getGameID()).getHeight() + 1);
+			animation(player);
+		}
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
             @Override
             public void run(){
@@ -147,6 +152,51 @@ public class PlayerInteract {
         		WallsManager.clearPlayField(Values.games.get(player.getGameID()).getPlay(), Values.games.get(player.getGameID()).getWall());
             }
         }, delay);
+	}
+	
+	/**
+	 * Play old walls animation
+	 * @param player the GamePlayer who triggered the event
+	 * @author Blackoutburst
+	 */
+	private static void animation(GamePlayer player) {
+		int play[] = Values.games.get(player.getGameID()).getPlay();
+		int wall[] = Values.games.get(player.getGameID()).getWall();
+		final boolean onZ = (play[0] == wall[0] || play[0] == wall[3]) ? true : false;
+		
+		for (int i = 0; i < Values.games.get(player.getGameID()).getHeight() + 1; i++) {
+			long delay = 5L * (i + 1);
+			final int y = Values.games.get(player.getGameID()).getWall()[4] - i;
+			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
+	            @Override
+	            public void run(){
+	            	int zAxys = 0;
+	            	int xAxys = 0;
+	            	if (play[2] > wall[2]) {zAxys = 1;} else {zAxys = -1;}
+	            	if (play[0] > wall[0]) {xAxys = 1;} else {xAxys = -1;}
+	            	int x1 = 0;int x2 = 3;if (play[3] < play[0]) {x1 = 3;x2 = 0;}
+	            	int z1 = 2;int z2 = 5;if (play[5] < play[2]) {z1 = 5;z2 = 2;}
+	            	if (player.isInGame()) {
+	            		player.getPlayer().playSound(player.getPlayer().getLocation(), Sound.ORB_PICKUP, 1f, 1f);
+	            		if (onZ) {
+	            			for (int x = play[x1]; x <= play[x2]; x++) {
+            					for (int z = play[z1]; z <= play[z2]; z++) {
+            						WallsManager.world.getBlockAt(x, y, z).setType(Material.AIR);
+            						WallsManager.world.getBlockAt(x, y, z+ zAxys).setType(Material.AIR);
+            					}
+	            			}
+	            		} else {
+	            			for (int x = play[x1]; x <= play[x2]; x++) {
+            					for (int z = play[z1]; z <= play[z2]; z++) {
+            						WallsManager.world.getBlockAt(x, y, z).setType(Material.AIR);
+            						WallsManager.world.getBlockAt(x + xAxys, y, z).setType(Material.AIR);
+            					}
+	            			}
+	            		}
+	            	}
+	            }
+	        }, delay);
+		}
 	}
 	
 	/**

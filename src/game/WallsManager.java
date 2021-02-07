@@ -402,10 +402,60 @@ public class WallsManager {
 				}
 			} else {
 				while (checkHole(wall) != hole[holeIndex]) {
-					for (int x = wall[x2]-1; x >= wall[x1]; x--) {
+					if (wall[0] < wall[3]) {
+						for (int x = wall[x2]-1; x >= wall[x1]; x--) {
+							for (int y = wall[y1]; y <= wall[y2]-wall2; y++) {
+								for (int z = wall[z1]; z <= wall[z2]; z++) {
+									int r = rand.nextInt(5);
+									if (r == 1 && checkHole(wall) < hole[holeIndex]) {
+										world.getBlockAt(x, y, z).setType(Material.AIR);
+									} else if (!world.getBlockAt(x, y, z).getType().equals(Material.AIR)) {
+										world.getBlockAt(x, y, z).setType(Material.STAINED_CLAY);
+										world.getBlockAt(x, y, z).setData((byte)(player.getWallColor()));
+									}
+									if (world.getBlockAt(wall[0], wall[1], wall[2]).getType().equals(Material.AIR)) {
+										world.getBlockAt(wall[0], wall[1], wall[2]).setType(Material.STAINED_CLAY);
+										world.getBlockAt(wall[0], wall[1], wall[2]).setData((byte)(player.getWallColor()));
+									}
+									if (world.getBlockAt(wall[3], wall[1], wall[2]).getType().equals(Material.AIR)) {
+										world.getBlockAt(wall[3], wall[1], wall[2]).setType(Material.STAINED_CLAY);
+										world.getBlockAt(wall[3], wall[1], wall[2]).setData((byte)(player.getWallColor()));
+									}
+								}
+							}
+						}
+					} else {
+						for (int x = wall[x1]+1; x <= wall[x2]; x++) {
+							for (int y = wall[y1]; y <= wall[y2]-wall2; y++) {
+								for (int z = wall[z1]; z <= wall[z2]; z++) {
+									int r = rand.nextInt(5);
+									if (r == 1 && checkHole(wall) < hole[holeIndex]) {
+										world.getBlockAt(x, y, z).setType(Material.AIR);
+									} else if (!world.getBlockAt(x, y, z).getType().equals(Material.AIR)) {
+										world.getBlockAt(x, y, z).setType(Material.STAINED_CLAY);
+										world.getBlockAt(x, y, z).setData((byte)(player.getWallColor()));
+									}
+									if (world.getBlockAt(wall[0], wall[1], wall[2]).getType().equals(Material.AIR)) {
+										world.getBlockAt(wall[0], wall[1], wall[2]).setType(Material.STAINED_CLAY);
+										world.getBlockAt(wall[0], wall[1], wall[2]).setData((byte)(player.getWallColor()));
+									}
+									if (world.getBlockAt(wall[3], wall[1], wall[2]).getType().equals(Material.AIR)) {
+										world.getBlockAt(wall[3], wall[1], wall[2]).setType(Material.STAINED_CLAY);
+										world.getBlockAt(wall[3], wall[1], wall[2]).setData((byte)(player.getWallColor()));
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		} else {
+			while (checkHole(wall) != hole[holeIndex]) {
+				if (wall[2] < wall[5]) {
+					for (int x = wall[x1]; x <= wall[x2]; x++) {
 						for (int y = wall[y1]; y <= wall[y2]-wall2; y++) {
-							for (int z = wall[z1]; z <= wall[z2]; z++) {
-								int r = rand.nextInt(10);
+							for (int z = wall[z2]-1; z >= wall[z1]; z--) {
+								int r = rand.nextInt(5);
 								if (r == 1 && checkHole(wall) < hole[holeIndex]) {
 									world.getBlockAt(x, y, z).setType(Material.AIR);
 								} else if (!world.getBlockAt(x, y, z).getType().equals(Material.AIR)) {
@@ -416,34 +466,32 @@ public class WallsManager {
 									world.getBlockAt(wall[0], wall[1], wall[2]).setType(Material.STAINED_CLAY);
 									world.getBlockAt(wall[0], wall[1], wall[2]).setData((byte)(player.getWallColor()));
 								}
-								if (world.getBlockAt(wall[3], wall[1], wall[2]).getType().equals(Material.AIR)) {
-									world.getBlockAt(wall[3], wall[1], wall[2]).setType(Material.STAINED_CLAY);
-									world.getBlockAt(wall[3], wall[1], wall[2]).setData((byte)(player.getWallColor()));
+								if (world.getBlockAt(wall[0], wall[1], wall[5]).getType().equals(Material.AIR)) {
+									world.getBlockAt(wall[0], wall[1], wall[5]).setType(Material.STAINED_CLAY);
+									world.getBlockAt(wall[0], wall[1], wall[5]).setData((byte)(player.getWallColor()));
 								}
 							}
 						}
 					}
-				}
-			}
-		} else {
-			while (checkHole(wall) != hole[holeIndex]) {
-				for (int x = wall[x1]; x <= wall[x2]; x++) {
-					for (int y = wall[y1]; y <= wall[y2]-wall2; y++) {
-						for (int z = wall[z2]-1; z >= wall[z1]; z--) {
-							int r = rand.nextInt(10);
-							if (r == 1 && checkHole(wall) < hole[holeIndex]) {
-								world.getBlockAt(x, y, z).setType(Material.AIR);
-							} else if (!world.getBlockAt(x, y, z).getType().equals(Material.AIR)) {
-								world.getBlockAt(x, y, z).setType(Material.STAINED_CLAY);
-								world.getBlockAt(x, y, z).setData((byte)(player.getWallColor()));
-							}
-							if (world.getBlockAt(wall[0], wall[1], wall[2]).getType().equals(Material.AIR)) {
-								world.getBlockAt(wall[0], wall[1], wall[2]).setType(Material.STAINED_CLAY);
-								world.getBlockAt(wall[0], wall[1], wall[2]).setData((byte)(player.getWallColor()));
-							}
-							if (world.getBlockAt(wall[0], wall[1], wall[5]).getType().equals(Material.AIR)) {
-								world.getBlockAt(wall[0], wall[1], wall[5]).setType(Material.STAINED_CLAY);
-								world.getBlockAt(wall[0], wall[1], wall[5]).setData((byte)(player.getWallColor()));
+				} else {
+					for (int x = wall[x1]; x <= wall[x2]; x++) {
+						for (int y = wall[y1]; y <= wall[y2]-wall2; y++) {
+							for (int z = wall[z1]+1; z <= wall[z2]; z++) {
+								int r = rand.nextInt(5);
+								if (r == 1 && checkHole(wall) < hole[holeIndex]) {
+									world.getBlockAt(x, y, z).setType(Material.AIR);
+								} else if (!world.getBlockAt(x, y, z).getType().equals(Material.AIR)) {
+									world.getBlockAt(x, y, z).setType(Material.STAINED_CLAY);
+									world.getBlockAt(x, y, z).setData((byte)(player.getWallColor()));
+								}
+								if (world.getBlockAt(wall[0], wall[1], wall[2]).getType().equals(Material.AIR)) {
+									world.getBlockAt(wall[0], wall[1], wall[2]).setType(Material.STAINED_CLAY);
+									world.getBlockAt(wall[0], wall[1], wall[2]).setData((byte)(player.getWallColor()));
+								}
+								if (world.getBlockAt(wall[0], wall[1], wall[5]).getType().equals(Material.AIR)) {
+									world.getBlockAt(wall[0], wall[1], wall[5]).setType(Material.STAINED_CLAY);
+									world.getBlockAt(wall[0], wall[1], wall[5]).setData((byte)(player.getWallColor()));
+								}
 							}
 						}
 					}

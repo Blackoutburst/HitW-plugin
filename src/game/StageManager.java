@@ -54,58 +54,49 @@ public class StageManager {
 	 * @author Blackoutburst
 	 */
 	private static boolean setLimit(GamePlayer player, String[] args) {
-		if (args.length >= 2) {
-			
-			if (args[0].contains("blind".toLowerCase()) || args[0].contains("classic".toLowerCase())) {
-				if (args[1].contains("blind".toLowerCase()) || args[1].contains("classic".toLowerCase())) {
-					player.setInClassicGame(true);
-					player.setInBlindGame(true);
-					player.setTime(Values.games.get(player.getGameID()).getStageTime());
-					return true;
-				}
+		int index = 0;
+		for (String arg : args) {
+			if (arg.equals("classic")) {
+				player.setInClassicGame(true);
+				player.setTime(Values.games.get(player.getGameID()).getStageTime());
 			}
-			
-			if (args[0].contains("easy".toLowerCase()) || args[0].contains("classic".toLowerCase())) {
-				if (args[1].contains("easy".toLowerCase()) || args[1].contains("classic".toLowerCase())) {
-					player.setInClassicGame(true);
-					player.setEasyMode(true);
-					player.setTime(Values.games.get(player.getGameID()).getStageTime());
-					return true;
-				}
+			if (arg.equals("blind")) {
+				player.setInBlindGame(true);
 			}
-			
-			if (args[0].contains("time".toLowerCase())) {
+			if (arg.equals("easy")) {
+				player.setEasyMode(true);
+			}
+			if (arg.equals("old")) {
+				player.setOldAnimation(true);
+			}
+			if (arg.equals("time")) {
 				try {
-					player.setTime(Integer.valueOf(args[1]));
-					if (Integer.valueOf(args[1]) < 0) {
+					if (Integer.valueOf(args[index+1]) < 0) {
 						player.getPlayer().sendMessage("§cValue can not be negative!");
 						return false;
 					}
+					player.setInClassicGame(true);
+					player.setTime(Integer.valueOf(args[index+1]));
 				} catch(Exception e) {
 					player.getPlayer().sendMessage("§cInvalid number!");
 					return false;
 				}
-				player.setInClassicGame(true);
 			}
-			if (args[0].contains("score".toLowerCase())) {
+			if (arg.equals("score")) {
 				try {
-					player.setGoalScore(Integer.valueOf(args[1]));
-					if (Integer.valueOf(args[1]) < 0) {
+					if (Integer.valueOf(args[index+1]) < 0) {
 						player.getPlayer().sendMessage("§cValue can not be negative!");
 						return false;
-					} else {
-						player.setTime(0);
 					}
+					player.setInClassicGame(true);
+					player.setGoalScore(Integer.valueOf(args[index+1]));
+					player.setTime(0);
 				} catch(Exception e) {
 					player.getPlayer().sendMessage("§cInvalid number!");
 					return false;
 				}
-				player.setInClassicGame(true);
 			}
-			if (!args[0].equals("score".toLowerCase()) && !args[0].equals("time".toLowerCase())) {
-				player.getPlayer().sendMessage("§cInvalid parameter: try /play {score|time} [value]");
-				return false;
-			}
+			index ++;
 		}
 		return true;
 	}
@@ -120,7 +111,6 @@ public class StageManager {
 		Values.games.get(player.getGameID()).setRunning(true);
 		if (player.isInClassicGame()) {
 			player.setLeverDelay(1.5f);
-			player.setMemtime(Values.games.get(player.getGameID()).getMemoryTime());
 		} else {
 			player.setTime(0);
 		}
@@ -278,8 +268,11 @@ public class StageManager {
 			} else if (args[0].toLowerCase().contains("easy")) {
 				player.setEasyMode(true);
 				return true;
+			} else if (args[0].toLowerCase().contains("old")) {
+				player.setOldAnimation(true);
+				return true;
 			} else {
-				player.getPlayer().sendMessage("§cInvalid parameter: try /play {classic|blind|easy}");
+				player.getPlayer().sendMessage("§cInvalid parameter: try /play {classic|blind|easy|old}");
 				return false;
 			}
 		}
@@ -350,6 +343,7 @@ public class StageManager {
 		player.setInBlindGame(false);
 		player.setInClassicGame(false);
 		player.setEasyMode(false);
+		player.setOldAnimation(false);
 		player.setInGame(false);
 		player.setStage("none");
 		player.getPlayer().getInventory().clear();

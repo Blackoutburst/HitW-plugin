@@ -38,7 +38,8 @@ public class GamePlayer {
 	protected boolean inCoop;
 	protected boolean coopLeader;
 	protected Coop coop;
-	boolean easyMode;
+	protected boolean easyMode;
+	protected boolean oldAnimation;
 	
 	public GamePlayer(Player player, Board board, String rank, int wallColor, int glassColor, float leverDelay, 
 			boolean showTitle, float memtime) {
@@ -63,6 +64,7 @@ public class GamePlayer {
 		this.inTourney = false;
 		this.tourneyRole = "none";
 		this.inClassicGame = false;
+		this.oldAnimation = false;
 		this.showTitle = showTitle;
 		this.inBlindGame = false;
 		this.memtime = memtime;
@@ -294,6 +296,14 @@ public class GamePlayer {
 
 	public void setEasyMode(boolean easyMode) {
 		this.easyMode = easyMode;
+	}
+
+	public boolean isOldAnimation() {
+		return oldAnimation;
+	}
+
+	public void setOldAnimation(boolean oldAnimation) {
+		this.oldAnimation = oldAnimation;
 	}
 	
 }
