@@ -35,9 +35,9 @@ public class CommandDelay {
 		
 		Tools.writePlayerData(new File(Tools.getPlayerFolder(player.getPlayer())), 
 				player.getWallColor(), player.getGlassColor(), 
-				player.getLeverDelay(), player.showTitle(), player.getMemtime());
+				player.getLeverDelay(), player.showTitle(), player.getMemtime(), player.getBrushLag());
 		
-		player.getPlayer().sendMessage("§bYour lever delay is now set to "+player.getLeverDelay()+" seconds");
+		player.getPlayer().sendMessage("§bYour lever delay is now set to "+player.getLeverDelay()+" seconds §a(default 0.5)");
 		return true;
 	}
 }

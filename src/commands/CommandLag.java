@@ -9,7 +9,7 @@ import utils.Tools;
  * Manage /memtime command
  * @author Blackoutburst
  */
-public class CommandMemTime {
+public class CommandLag {
 	
 	/**
 	 * Set player memory time to the specified value
@@ -31,13 +31,13 @@ public class CommandMemTime {
 			player.getPlayer().sendMessage("§cValue can not be negative!");
 			return true;
 		}
-		player.setMemtime(Float.valueOf(args[0]));
+		player.setBrushLag(Float.valueOf(args[0]));
 		
 		Tools.writePlayerData(new File(Tools.getPlayerFolder(player.getPlayer())), 
 				player.getWallColor(), player.getGlassColor(), 
 				player.getLeverDelay(), player.showTitle(), player.getMemtime(), player.getBrushLag());
 		
-		player.getPlayer().sendMessage("§bYour memory time is now set to "+player.getMemtime()+" seconds §a(default 3)");
+		player.getPlayer().sendMessage("§bYour brush lag is now set to "+player.getBrushLag()+" ms §a(default 100)");
 		return true;
 	}
 }

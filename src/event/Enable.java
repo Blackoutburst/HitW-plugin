@@ -16,6 +16,7 @@ public class Enable {
 	 * and create data folder
 	 * @author Blackoutburst
 	 */
+	
 	public void enable() {
 		new File("./plugins/HitW").mkdir();
 		new File("./plugins/HitW/player data").mkdir();

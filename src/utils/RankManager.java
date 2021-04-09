@@ -31,7 +31,12 @@ public class RankManager {
 				finals = Integer.valueOf(value[i].replaceAll("[^0-9]", ""));
 			}
 		}
-		rank = getRank(player, qualification, finals);
+		if (player.getUniqueId().toString().replace("-", "").toString().equals("9293868b414c42b2bd8e3bcb791247b9")) {
+			rank = ChatColor.DARK_RED+"["+ChatColor.GRAY+"Yaku"+ChatColor.DARK_RED+"]"+ChatColor.WHITE;
+		} else {
+			rank = getRank(player, qualification, finals);
+		}
+		
 		setDisplayName(player, rank + player.getName() + ChatColor.RESET);
 		return (rank);
 	}

@@ -582,7 +582,7 @@ public class TourneyManager {
 					if (p.isInCoop()) {
 						for (GamePlayer pc : p.getCoop().getPlayers()) {
 							if (!pc.isCoopLeader()) {
-								p.setInTourney(true);
+								pc.setInTourney(true);
 								pc.setTourneyRole(args[0]);
 								pc.getPlayer().sendMessage("§aYou were assigned to "+args[0]+ " by "+player.getPlayer().getDisplayName());
 							}
@@ -604,7 +604,7 @@ public class TourneyManager {
 					if (p.isInCoop()) {
 						for (GamePlayer pc : p.getCoop().getPlayers()) {
 							if (!pc.isCoopLeader()) {
-								p.setInTourney(false);
+								pc.setInTourney(false);
 								pc.setTourneyRole("none");
 								pc.getPlayer().sendMessage("§aYou were unassigned from "+args[0]+ " by "+player.getPlayer().getDisplayName());
 							}

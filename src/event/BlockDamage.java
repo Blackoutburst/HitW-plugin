@@ -38,7 +38,7 @@ public class BlockDamage {
 	            		event.getBlock().setType(Material.AIR);
 	            		event.getPlayer().playSound(event.getPlayer().getLocation(), Sound.GLASS, 1f, 1f);
 		            }
-		        }, 2L);
+		        }, (long)((player.getBrushLag() * 20) / 1000));
 			}
 		}
 	}
@@ -65,7 +65,7 @@ public class BlockDamage {
 		}
 		Tools.writePlayerData(new File(Tools.getPlayerFolder(player.getPlayer())), 
 				player.getWallColor(), player.getGlassColor(), 
-				player.getLeverDelay(), player.showTitle(), player.getMemtime());
+				player.getLeverDelay(), player.showTitle(), player.getMemtime(), player.getBrushLag());
 		data = event.getBlock().getData();
 		displayColorMessage(data, player.getPlayer(), type);
 	}

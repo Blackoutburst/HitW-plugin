@@ -53,3 +53,6 @@ commands:
   p:
     description: Co-op commands
     usage: /p
+  lag:
+    description: Change brushing lag
+    usage: /lag

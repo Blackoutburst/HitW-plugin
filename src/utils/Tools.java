@@ -39,7 +39,7 @@ public class Tools {
 	 * @param f new player folder
 	 * @author Blackoutburst
 	 */
-	public static void writePlayerData(File f, int wall, int glass, float delay, boolean title, float memtime) {
+	public static void writePlayerData(File f, int wall, int glass, float delay, boolean title, float memtime, float brushLag) {
 		File data = new File(f+"/config.yml");
 		try {
 			if (!data.exists()) {
@@ -52,6 +52,7 @@ public class Tools {
 				config.set("delay", delay);
 				config.set("title", title);
 				config.set("memtime", memtime);
+				config.set("brushLag", brushLag);
 				config.save(data);
 		} catch (IOException e) {
 			e.printStackTrace();

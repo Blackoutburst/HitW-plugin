@@ -26,7 +26,7 @@ public class CommandTitle {
 		
 		Tools.writePlayerData(new File(Tools.getPlayerFolder(player.getPlayer())), 
 				player.getWallColor(), player.getGlassColor(), 
-				player.getLeverDelay(), player.showTitle(), player.getMemtime());
+				player.getLeverDelay(), player.showTitle(), player.getMemtime(), player.getBrushLag());
 		
 		if (show) {
 			player.getPlayer().sendMessage("§bTitle will now be displayed instead of chat message");

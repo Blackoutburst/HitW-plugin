@@ -21,6 +21,7 @@ import commands.CommandDelay;
 import commands.CommandDiscord;
 import commands.CommandFly;
 import commands.CommandHitW;
+import commands.CommandLag;
 import commands.CommandLeave;
 import commands.CommandMemTime;
 import commands.CommandPlay;
@@ -99,6 +100,7 @@ public class Main extends JavaPlugin implements Listener {
     		case "memtime" : return CommandMemTime.onUse(player, args);
     		case "coop" : return CommandCoop.onUse(player, args);
     		case "p" : return CommandCoop.onUse(player, args);
+    		case "lag" : return CommandLag.onUse(player, args);
     		default : return false;
     	}
     }

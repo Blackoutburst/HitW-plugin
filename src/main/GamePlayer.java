@@ -35,6 +35,7 @@ public class GamePlayer {
 	protected boolean showTitle;
 	protected boolean inBlindGame;
 	protected float memtime;
+	protected float brushLag;
 	protected boolean inCoop;
 	protected boolean coopLeader;
 	protected Coop coop;
@@ -42,7 +43,7 @@ public class GamePlayer {
 	protected boolean oldAnimation;
 	
 	public GamePlayer(Player player, Board board, String rank, int wallColor, int glassColor, float leverDelay, 
-			boolean showTitle, float memtime) {
+			boolean showTitle, float memtime, float brushLag) {
 		this.player = player;
 		this.inGame = false;
 		this.time = 0;
@@ -72,6 +73,7 @@ public class GamePlayer {
 		this.coopLeader = false;
 		this.coop = null;
 		this.easyMode = false;
+		this.brushLag = brushLag;
 	}
 
 	public Player getPlayer() {
@@ -305,5 +307,16 @@ public class GamePlayer {
 	public void setOldAnimation(boolean oldAnimation) {
 		this.oldAnimation = oldAnimation;
 	}
-	
+
+	public float getBrushLag() {
+		return brushLag;
+	}
+
+	public void setBrushLag(float brushLag) {
+		this.brushLag = brushLag;
+	}
+
+	public boolean isShowTitle() {
+		return showTitle;
+	}
 }
