@@ -1,38 +1,22 @@
 package commands;
 
-import java.io.File;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
-import main.GamePlayer;
-import utils.Tools;
+import core.HPlayer;
 
-/**
- * Manage /title command
- * @author Blackoutburst
- */
 public class CommandTitle {
 	
-	/**
-	 * Toggle title
-	 * Save this value inside a file
-	 * @param player command sender
-	 * @param args command arguments
-	 * @return true
-	 * @author Blackoutburst
-	 */
-	public static boolean onUse(GamePlayer player) {
-		boolean show = player.showTitle() ? false : true;
+	public void run(CommandSender sender) {
+		HPlayer p = HPlayer.getHPlayer((Player) sender);
 		
-		player.setShowTitle(show);
+		p.setTitle(p.isTitle() ? false : true);
+		HPlayer.updatePlayerData(p);
 		
-		Tools.writePlayerData(new File(Tools.getPlayerFolder(player.getPlayer())), 
-				player.getWallColor(), player.getGlassColor(), 
-				player.getLeverDelay(), player.showTitle(), player.getMemtime(), player.getBrushLag());
-		
-		if (show) {
-			player.getPlayer().sendMessage("§bTitle will now be displayed instead of chat message");
+		if (p.isTitle()) {
+			sender.sendMessage("§eTitle are now enabled");
 		} else {
-			player.getPlayer().sendMessage("§bChat message will now be displayed instead of title");
+			sender.sendMessage("§eTitle are now disabled");
 		}
-		return true;
 	}
 }

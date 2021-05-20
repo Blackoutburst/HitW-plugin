@@ -1,29 +1,23 @@
 package commands;
 
-import main.GamePlayer;
-import utils.ScoreboardManager;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
-/**
- * Manage /fly command
- * @author Blackoutburst
- */
+import core.HPlayer;
+
 public class CommandFly {
 	
-	/**
-	 * Toggle fly mode for the player
-	 * @param player command sender
-	 * @return true
-	 * @author Blackoutburst
-	 */
-	public static boolean onUse(GamePlayer player) {
-		if (player.getPlayer().getAllowFlight()) {
-			player.getPlayer().sendMessage("§bYou can no longer fly");
-			player.getPlayer().setAllowFlight(false);
+	public void run(CommandSender sender) {
+		HPlayer p = HPlayer.getHPlayer((Player) sender);
+		
+		p.setFly(p.getPlayer().getAllowFlight() ? false : true);
+		p.getPlayer().setAllowFlight(p.isFly());
+		HPlayer.updatePlayerData(p);
+		
+		if (p.isFly()) {
+			sender.sendMessage("§eYou can now fly");
 		} else {
-			player.getPlayer().setAllowFlight(true);
-			player.getPlayer().sendMessage("§bYou can now fly");
+			sender.sendMessage("§eYou can no longer fly");
 		}
-		ScoreboardManager.update(player);
-		return true;
 	}
 }

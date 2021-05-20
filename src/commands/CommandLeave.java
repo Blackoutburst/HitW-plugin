@@ -1,27 +1,31 @@
 package commands;
 
-import game.StageManager;
-import main.GamePlayer;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
-/**
- * Manage /leave command
- * @author Blackoutburst
- */
+import core.HGame;
+import core.HPlayer;
+import utils.GameUtils;
+
 public class CommandLeave {
 	
-	/**
-	 * Stop the game
-	 * @param player command sender
-	 * @param sender command sender
-	 * @return true
-	 * @author Blackoutburst
-	 */
-	public static boolean onUse(GamePlayer player) {
-		if (player.isInTourney()) {
-			player.getPlayer().sendMessage("§cYou can't do that while in tournament!");
-			return true;
+	public void run(CommandSender sender) {
+		HPlayer p = HPlayer.getHPlayer((Player) sender);
+		if (!p.isInGame()) {sender.sendMessage("§cYou are not in game right now !");return;}
+		if (p.isInParty() && !p.isPartyLeader()) {sender.sendMessage("§cOnly the party leader stop start a game !");return;}
+		if (p.isInDuel()) {sender.sendMessage("§cYou can not leave a duel !");return;}
+		
+		HGame game = GameUtils.getGameArea(p.getPlayer());
+
+		if (game == null) {GameUtils.leaveGameArea(p.getPlayer());return;}
+		
+		if (p.isInParty()) {
+			for (HPlayer hp : p.getParty())  {
+				hp.setInGame(false);
+			}
+		} else {
+			p.setInGame(false);
 		}
-		StageManager.stop(player);
-		return true;
+		game.setOwner(null);
 	}
 }

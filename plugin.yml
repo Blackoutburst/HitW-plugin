@@ -1,58 +1,62 @@
 main: main.Main
-name: Hitw
-version: 1.0
+name: HitW
+version: 2.0
 api-version: 1.13
 author: Blackoutburst
-description: HitW
+description: Hole in the Wall plugin
+depend: [ProtocolLib]
 commands:
+  discord:
+    description: Send HitW discord invite link
+    usage: /discord
+  lag:
+    description: Set brushing lag
+    usage: /lag
+  memtime:
+    description: Set memory time
+    usage: /memtime
+  delay:
+    description: Set lever delay
+    usage: /delay
   fly:
-    description: Toggle Fly mode
+    description: Toggle fly
     usage: /fly
-  play:
-    description: Start game
-    usage: /play
-  leave:
-    description: Stop game
-    usage: /leave
-  l:
-    description: Stop game
-    usage: /l
+  title:
+    description: Toggle title
+    usage: /title
+  animation:
+    description: Toggle old walls animations
+    usage: /animation
+  right:
+    description: Toggle right sided walls
+    usage: /right
+  blind:
+    description: Toggle blind mode
+    usage: /blind
+  coop:
+    description: Create a coop
+    usage: /coop
+  p:
+    description: Create a coop
+    usage: /p
+  party:
+    description: Create a coop
+    usage: /party
   spawn:
     description: Teleport the player to spawn
     usage: /spawn
-  discord:
-    description: Give HitW discord link
-    usage: /discord
-  color:
-    description: Teleport the player to the color editor
-    usage: /color
-  delay:
-    description: Change the lever delay
-    usage: /delay
-  tourney:
-    description: Tournament management
-    usage: /tourney
-  tournament:
-    description: Tournament management
-    usage: /tournament
-  spectate:
-    description: Spectate the tournament
-    usage: /spectate
-  hitw:
-    description: Manage plugin
-    usage: /hitw
-  title:
-    description: Toggle title affichage
-    usage: /title
-  memtime:
-    description: Change wall memory time
-    usage: /memtime
-  coop:
-    description: Co-op commands
-    usage: /coop
-  p:
-    description: Co-op commands
-    usage: /p
-  lag:
-    description: Change brushing lag
-    usage: /lag
+  lobby:
+    description: Teleport the player to spawn
+    usage: /lobby
+  play:
+    description: Start a game
+    usage: /play
+  leave:
+    description: Stop a game
+    usage: /leave
+  l:
+    description: Stop a game
+    usage: /l
+  duel:
+    description: Duel someone
+    usage: /duel

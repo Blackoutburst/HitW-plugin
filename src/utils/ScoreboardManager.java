@@ -1,140 +1,112 @@
 package utils;
 
-import main.GamePlayer;
-import main.Main;
+import core.Board;
+import core.HPlayer;
 
-/**
- * Manage Scorebaord
- * @author black
- *
- */
 public class ScoreboardManager {
-	/**
-	 * Update Scorebaord on demand
-	 * @param player player Scoreboard who need update
-	 * @author Blackoutburst
-	 */
-	public static void update(GamePlayer player) {
-		if (player.isInTourney()) {
-			tournamentBoard(player);
-    	} else if (player.isInCoop()) {
-    		coopBoard(player);
-    	}else {
-    		trainingBoard(player);
-    	}
+	
+	public static void updateStage(Board board, String name) {
+		if (board.get(11).contains(name)) return;
+		board.set(11, "Stage: §a" + name);
 	}
 	
-	/**
-	 * Update coop Scoreboard
-	 * @param player player Scoreboard who need update
-	 * @author Blackoutburst
-	 */
-	private static void coopBoard(GamePlayer player) {
-		GamePlayer leader = player.getCoop().getPlayers().get(0);
-		int minutes = leader.getTime() / 60;
- 		int seconds = (leader.getTime()) % 60;
- 		String str = String.format("%d:%02d", minutes, seconds);
- 		
- 		if (!player.getBoard().getTitle().equals("§6§l--= Co-op =--")) {
- 			player.getBoard().setTitle("§6§l--= Co-op =--");
- 		}
- 		player.getBoard().set(15, " ");
- 		player.getBoard().set(14, "Stage: §a"+leader.getStage());
- 		player.getBoard().set(13, "Play Time: §a"+str);
- 		player.getBoard().set(12, "  ");
- 		if (player.getCoop().getPlayers().size() >= 1) {
- 			player.getBoard().set(11, player.getCoop().getPlayers().get(0).getPlayer().getName());
- 		}
- 		if (player.getCoop().getPlayers().size() >= 2) {
- 			player.getBoard().set(10, player.getCoop().getPlayers().get(1).getPlayer().getName());
- 		}
- 		if (player.getCoop().getPlayers().size() >= 3) {
- 			player.getBoard().set(9, player.getCoop().getPlayers().get(2).getPlayer().getName());
- 		}
- 		if (player.getCoop().getPlayers().size() >= 4) {
- 			player.getBoard().set(8, player.getCoop().getPlayers().get(3).getPlayer().getName());
- 		}
- 		player.getBoard().set(7, "   ");
- 		player.getBoard().set(6, "Perfect Walls: §a"+leader.getPerfectwalls());
- 		player.getBoard().set(5, "Wall: §a"+leader.getWalls());
- 		player.getBoard().set(4, "Score: §a"+player.getScore());
- 		player.getBoard().set(3, "    ");
- 		if (player.getPlayer().getAllowFlight()) {
- 			player.getBoard().set(2, "Fly: §bOn");
- 		} else {
- 			player.getBoard().set(2, "Fly: §cOff");
- 		}
+	public static void updateScoreboard(HPlayer p) {
+		if (p.isInDuel()) {updateDuelScoreboard(p);return;}
+		
+		int minutes = p.getTime() / 60;
+		int seconds = (p.getTime()) % 60;
+		String str = String.format("%d:%02d", minutes, seconds);
+
+		if (p.isInParty()) {
+			for (HPlayer hp : p.getParty()) {
+				hp.getBoard().set(10, "Play Time: §a" + str);
+				hp.getBoard().set(8, "Perfect Walls: §a" + hp.getPerfectWall());
+				hp.getBoard().set(7, "Wall: §a" + hp.getWall());
+				hp.getBoard().set(6, "Score: §a" + hp.getScore());
+				hp.getBoard().set(4, "Missing block: §4" + hp.getMissed());
+				hp.getBoard().set(3, "Misplaced block: §4" + hp.getMisplaced());
+				hp.getBoard().set(2, "Choke: §4" + hp.getChoke());
+			}
+		} else {
+			p.getBoard().set(10, "Play Time: §a" + str);
+			p.getBoard().set(8, "Perfect Walls: §a" + p.getPerfectWall());
+			p.getBoard().set(7, "Wall: §a" + p.getWall());
+			p.getBoard().set(6, "Score: §a" + p.getScore());
+			p.getBoard().set(4, "Missing block: §4" + p.getMissed());
+			p.getBoard().set(3, "Misplaced block: §4" + p.getMisplaced());
+			p.getBoard().set(2, "Choke: §4" + p.getChoke());
+		}
 	}
 	
-	/**
-	 * Update Tournament Scoreboard
-	 * @param player player Scoreboard who need update
-	 * @author Blackoutburst
-	 */
-	private static void tournamentBoard(GamePlayer player) {
-		int minutes = Main.stageTime / 60;
- 		int seconds = (Main.stageTime) % 60;
- 		String str = String.format("%d:%02d", minutes, seconds);
- 		
- 		if (!player.getBoard().getTitle().equals("§6§lTournament")) {
- 			player.getBoard().setTitle("§6§lTournament");
- 		}
- 		player.getBoard().set(15, " ");
- 		player.getBoard().set(14, "§6=================");
- 		player.getBoard().set(13, "Stage: §a"+Main.tourneyStage);
- 		player.getBoard().set(12, "Stage End: §a"+str);
- 		player.getBoard().set(11, "  ");
- 		if (Main.player1.getScore() >= Main.player2.getScore()) {
- 			player.getBoard().set(10, Main.player1.getPlayer().getName()+": §a"+Main.player1.getScore());
-	 		player.getBoard().set(9, "Wall: §a"+Main.player1.getWalls()+" ");
-	 		player.getBoard().set(8, "Perfect Wall: §a"+Main.player1.getPerfectwalls()+" ");
-	 		player.getBoard().set(7, "§6-----------------");
-	 		player.getBoard().set(6, Main.player2.getPlayer().getName()+": §a"+Main.player2.getScore());
-	 		player.getBoard().set(5, "Wall: §a"+Main.player2.getWalls());
-	 		player.getBoard().set(4, "Perfect Wall: §a"+Main.player2.getPerfectwalls());
- 		} else {
- 			player.getBoard().set(10, Main.player2.getPlayer().getName()+": §a"+Main.player2.getScore());
-	 		player.getBoard().set(9, "Wall: §a"+Main.player2.getWalls()+" ");
-	 		player.getBoard().set(8, "Perfect Wall: §a"+Main.player2.getPerfectwalls()+" ");
-	 		player.getBoard().set(7, "§6-----------------");
-	 		player.getBoard().set(6, Main.player1.getPlayer().getName()+": §a"+Main.player1.getScore());
-	 		player.getBoard().set(5, "Wall: §a"+Main.player1.getWalls());
-	 		player.getBoard().set(4, "Perfect Wall: §a"+Main.player1.getPerfectwalls());
- 		}
- 		player.getBoard().set(3, "    ");
- 		player.getBoard().set(2, "§6hitw.minesr.com");
+	
+	public static void updateDuelScoreboard(HPlayer p) {
+		int minutes = p.getTime() / 60;
+		int seconds = (p.getTime()) % 60;
+		String str = String.format("%d:%02d", minutes, seconds);
+
+		if (p.isInParty()) {
+			HPlayer leader = p.getParty().get(0);
+			
+			for (HPlayer hp : p.getParty()) {
+				String player1 = leader.getDisplayName().substring(0, 2) + leader.getPlayer().getName() + "§r: " + leader.getScore();
+				String player2 = leader.getOpponent().getDisplayName().substring(0, 2) + leader.getOpponent().getPlayer().getName() + "§r: " + leader.getOpponent().getScore();
+				
+				hp.getBoard().set(8, "Play Time: §a" + str);
+				hp.getBoard().set(7, " ");
+				hp.getBoard().set(6, leader.getScore() >= leader.getOpponent().getScore() ? player1 : player2);
+				hp.getBoard().set(5, leader.getScore() < leader.getOpponent().getScore() ? player1 : player2);
+				hp.getBoard().set(4, "  ");
+				hp.getBoard().set(3, "Perfect Walls: §a" + leader.getPerfectWall());
+				hp.getBoard().set(2, "Wall: §a" + leader.getWall());
+			}
+		} else {
+			String player1 = p.getDisplayName().substring(0, 2) + p.getPlayer().getName() + "§r: " + p.getScore();
+			String player2 = p.getOpponent().getDisplayName().substring(0, 2) + p.getOpponent().getPlayer().getName() + "§r: " + p.getOpponent().getScore();
+			
+			p.getBoard().set(8, "Play Time: §a" + str);
+			p.getBoard().set(7, " ");
+			p.getBoard().set(6, p.getScore() >= p.getOpponent().getScore() ? player1 : player2);
+			p.getBoard().set(5, p.getScore() < p.getOpponent().getScore() ? player1 : player2);
+			p.getBoard().set(4, "  ");
+			p.getBoard().set(3, "Perfect Walls: §a" + p.getPerfectWall());
+			p.getBoard().set(2, "Wall: §a" + p.getWall());
+		}
 	}
 	
-	/**
-	 * Update training Scoreboard
-	 * @param player player Scoreboard who need update
-	 * @author Blackoutburst
-	 */
-	private static void trainingBoard(GamePlayer player) {
-		int minutes = player.getTime() / 60;
- 		int seconds = (player.getTime()) % 60;
- 		String str = String.format("%d:%02d", minutes, seconds);
- 		
- 		if (!player.getBoard().getTitle().equals(player.getPlayer().getName())) {
- 			player.getBoard().setTitle(player.getPlayer().getName());
- 		}
- 		player.getBoard().set(15, " ");
- 		player.getBoard().set(14, "Stage: §a"+player.getStage());
- 		player.getBoard().set(13, "Play Time: §a"+str);
- 		player.getBoard().set(12, "  ");
- 		player.getBoard().set(11, "Perfect Walls: §a"+player.getPerfectwalls());
- 		player.getBoard().set(10, "Wall: §a"+player.getWalls());
- 		player.getBoard().set(9, "Score: §a"+player.getScore());
- 		player.getBoard().set(8, "   ");
- 		player.getBoard().set(7, "Missing block: §4"+player.getMissing());
- 		player.getBoard().set(6, "Misplaced block: §4"+player.getMisplaced());
- 		player.getBoard().set(5, "Choke: §4"+player.getChoke());
- 		player.getBoard().set(4, "    ");
- 		if (player.getPlayer().getAllowFlight()) {
- 			player.getBoard().set(3, "Fly: §bOn");
- 		} else {
- 			player.getBoard().set(3, "Fly: §cOff");
- 		}
- 		player.getBoard().set(2, "     ");
+	public static void setDuelScoreboard(String stage, HPlayer p) {
+		int minutes = 0 / 60;
+		int seconds = (0) % 60;
+		String str = String.format("%d:%02d", minutes, seconds);
+
+		p.getBoard().remove(11);
+		p.getBoard().set(10, "§a§m-----------------");
+		p.getBoard().set(9, "Stage: §a" + stage);
+		p.getBoard().set(8, "Play Time: §a" + str);
+		p.getBoard().set(7, " ");
+		p.getBoard().set(6, p.getDisplayName().substring(0, 2) + p.getPlayer().getName() + "§r: " + 0);
+		p.getBoard().set(5, p.getOpponent().getDisplayName().substring(0, 2) + p.getOpponent().getPlayer().getName() + "§r: " + 0);
+		p.getBoard().set(4, "  ");
+		p.getBoard().set(3, "Perfect Walls: §a" + 0);
+		p.getBoard().set(2, "Wall: §a" + 0);
+		p.getBoard().set(1, "§a§m-----------------§r");
+	}
+	
+	public static void setDefaultScoreboard(Board board) {
+		int minutes = 0 / 60;
+		int seconds = (0) % 60;
+		String str = String.format("%d:%02d", minutes, seconds);
+
+		board.set(12, "§a§m-----------------");
+		board.set(11, "Stage: §anone");
+		board.set(10, "Play Time: §a" + str);
+		board.set(9, "  ");
+		board.set(8, "Perfect Walls: §a" + 0);
+		board.set(7, "Wall: §a" + 0);
+		board.set(6, "Score: §a" + 0);
+		board.set(5, "   ");
+		board.set(4, "Missing block: §4" + 0);
+		board.set(3, "Misplaced block: §4" + 0);
+		board.set(2, "Choke: §4" + 0);
+		board.set(1, "§a§m-----------------§r");
 	}
 }

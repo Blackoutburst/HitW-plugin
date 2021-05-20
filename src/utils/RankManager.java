@@ -3,24 +3,41 @@ package utils;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-/**
- * Manage in game ranks
- * @author Blackoutburst
- */
 public class RankManager {
 	
-	/**
-	 * Load ranks from Hypixel API
-	 * @param player player who will get the rank
-	 * @return the rank
-	 * @author Blackoutburst
-	 */
 	public static String loadRank(Player player) {
 		String[] value;
 		String rank = "";
 		int qualification = 0;
 		int finals = 0;
+		
+		if (player.getUniqueId().toString().replace("-", "").toString().equals("9293868b414c42b2bd8e3bcb791247b9")) {
+			rank = ChatColor.DARK_GRAY+"["+ChatColor.DARK_RED+"Yaku"+ChatColor.DARK_GRAY+"] "+ChatColor.DARK_RED;
+			setDisplayName(player, rank + player.getName() + ChatColor.RESET);
+			return (rank);
+		}
+		
+		if (player.getUniqueId().toString().replace("-", "").toString().equals("6e8e9eb5f45e4e058362d02f92c1da72")) {
+			rank = ChatColor.DARK_GRAY+"["+ChatColor.GRAY+"0"+ChatColor.DARK_GRAY+"] "+ChatColor.GRAY;
+			setDisplayName(player, rank + player.getName() + ChatColor.RESET);
+			return (rank);
+		}
+		
+		if (player.getUniqueId().toString().replace("-", "").toString().equals("5c8e599738764d8081cc4f1b81e16209")) {
+			rank = ChatColor.DARK_GRAY+"["+ChatColor.GRAY+"0"+ChatColor.DARK_GRAY+"] "+ChatColor.GRAY;
+			setDisplayName(player, rank + player.getName() + ChatColor.RESET);
+			return (rank);
+		}
+		
 		String output = Request.getPlayerInfo(player.getUniqueId().toString().replace("-", "").toString());
+		
+		if (output == null) {
+			
+			rank = ChatColor.GRAY+"["+ChatColor.RED+"API"+ChatColor.GRAY+"]"+ChatColor.ITALIC;
+			
+			setDisplayName(player, rank + player.getName() + ChatColor.RESET);
+			return(rank);
+		}
 		
 		value = output.split(",");
 		for (int i = 0; i < value.length; i++) {
@@ -31,24 +48,12 @@ public class RankManager {
 				finals = Integer.valueOf(value[i].replaceAll("[^0-9]", ""));
 			}
 		}
-		if (player.getUniqueId().toString().replace("-", "").toString().equals("9293868b414c42b2bd8e3bcb791247b9")) {
-			rank = ChatColor.DARK_RED+"["+ChatColor.DARK_GRAY+"Yaku"+ChatColor.DARK_RED+"]"+ChatColor.DARK_BLUE;
-		} else {
-			rank = getRank(player, qualification, finals);
-		}
+		rank = getRank(player, qualification, finals);
 		
 		setDisplayName(player, rank + player.getName() + ChatColor.RESET);
 		return (rank);
 	}
 	
-	/**
-	 * Get rank from hitW score
-	 * @param player player who will get a rank
-	 * @param qualification qualification score
-	 * @param finals finals score
-	 * @return rank name
-	 * @author Blackoutburst
-	 */
 	private static String getRank(Player player, int qualification, int finals) {
 		if (qualification >= 500 || finals >= 500) {
 			return(ChatColor.DARK_GREEN + "[500+] ");
@@ -112,12 +117,6 @@ public class RankManager {
 		}
 	}
 	
-	/**
-	 * Change user name in chat and tab
-	 * @param player player who get the rank
-	 * @param str rank name
-	 * @author Blackoutburst
-	 */
 	private static void setDisplayName(Player player, String str) {
 		player.setDisplayName(str);
 		player.setPlayerListName(str);

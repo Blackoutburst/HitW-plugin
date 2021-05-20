@@ -1,60 +1,44 @@
 package event;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.block.Biome;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.ItemStack;
 
-import main.GamePlayer;
-import utils.InsideArea;
+import core.HGame;
+import core.HPlayer;
+import utils.GameUtils;
 import utils.ScoreboardManager;
-import utils.Tools;
-import utils.Values;
 
-/**
- * Manage every action when the onBlockPlace event is called
- * @author Blackoutburst
- */
 public class BlockPlace {
 	
-	/**
-	 * Removed every block placed outside the play area
-	 * and increase choke counter is the player is in game
-	 * operator player can still place block outside if they are not in game
-	 * @param event Block place event
-	 * @author Blackoutburst
-	 */
-	public void removeMisplacedBlock(BlockPlaceEvent event) {
-		GamePlayer player = Tools.getPlayerFromName(event.getPlayer().getName());
+	public void execute(BlockPlaceEvent event) {
+		HPlayer p = HPlayer.getHPlayer(event.getPlayer());
 		
-		if (player.isInGame()) {
-			endlessBlock(event, player);
-			if (!InsideArea.inPlayArea(event.getBlock().getLocation(), Values.games)) {
-	    		event.getBlock().setType(Material.AIR);
-	    		endlessBlock(event, player);
-	    		event.getPlayer().playSound(event.getPlayer().getLocation(), Sound.LAVA_POP, 1f, 1f);
-    			player.setChoke(player.getChoke() + 1);
-    			ScoreboardManager.update(player);
-			}
-		} else if (!player.getPlayer().isOp()) {
-			event.getBlock().setType(Material.AIR);
+		if (!p.isInGame() && !p.getPlayer().isOp() && Bukkit.getWorld("world").getBiome((int)(event.getBlock().getLocation().getX()), (int)(event.getBlock().getLocation().getZ())).equals(Biome.JUNGLE)) {
+			event.setCancelled(true);
 		}
-	}
-	
-	
-	/**
-	 * Make player have infinite amount of building block
-	 * @param event 
-	 * @param player
-	 * @author Blackoutburst
-	 */
-	@SuppressWarnings("deprecation")
-	private void endlessBlock(BlockPlaceEvent event, GamePlayer player) {
-		ItemStack stack = new ItemStack(event.getBlock().getType(), 5, event.getBlock().getData());
-        stack.setAmount(1);
-        
-        if (!player.getPlayer().getInventory().containsAtLeast(stack, 6)) {
-			player.getPlayer().getInventory().addItem(stack);
-        }
+		
+		if (!p.isInGame()) return;
+		
+		HGame game = null;
+		
+		if (p.isInParty()) {
+			game = GameUtils.getGameArea(p.getParty().get(0).getPlayer());
+		} else {
+			game = GameUtils.getGameArea(p.getPlayer());
+		}
+		
+		if (!GameUtils.inPlayArea(event.getBlock().getLocation(), game)) {
+			event.getBlock().setType(Material.AIR);
+			p.getPlayer().playSound(event.getPlayer().getLocation(), Sound.LAVA_POP, 1f, 1f);
+			p.setChoke(p.getChoke() + 1);
+			ScoreboardManager.updateScoreboard(p);
+		}
+		
+		ItemStack stack = new ItemStack(Material.STAINED_GLASS, 50, p.getGlassColor());
+		p.getPlayer().getInventory().setItem(0, stack);
 	}
 }

@@ -9,116 +9,94 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.spigotmc.event.entity.EntityDismountEvent;
 
-import commands.CommandColor;
-import commands.CommandCoop;
-import commands.CommandDelay;
-import commands.CommandDiscord;
-import commands.CommandFly;
-import commands.CommandHitW;
-import commands.CommandLag;
-import commands.CommandLeave;
-import commands.CommandMemTime;
-import commands.CommandPlay;
-import commands.CommandSpawn;
-import commands.CommandSpectate;
-import commands.CommandTitle;
-import commands.CommandTourney;
+import commands.CommandsManager;
+import core.HGame;
+import core.HPlayer;
 import event.BlockDamage;
 import event.BlockPlace;
-import event.Enable;
+import event.Dismount;
+import event.InventoryClick;
 import event.Join;
 import event.Leave;
+import event.Load;
+import event.Move;
 import event.PlayerInteract;
-import utils.Tools;
 
-/**
- * Main class manage Bukkit / Spigot event
- * @author Blackoutburst
- */
 public class Main extends JavaPlugin implements Listener {
 
-	public static List<GamePlayer> players = new ArrayList<GamePlayer>();
-	public static boolean InTourney = false;
-	public static String tourneyStage = "none";
-	public static int stageTime = 0;
-	public static int tourneyClock = 0;
-	public static GamePlayer player1 = null;
-	public static GamePlayer player2 = null;
+	public static List<HPlayer> hPlayers = new ArrayList<HPlayer>();
+	public static List<HGame> hGames = new ArrayList<HGame>();
+	
+	public static boolean QDuelBusy = false;
+	public static boolean FDuelBusy = false;
 	
 	@Override
-    public void onEnable() {
+	public void onEnable() {
 		getServer().getPluginManager().registerEvents(this, this);
-		new Enable().enable();
+		new Load().execute();
 	}
 	
-    @Override
-    public void onDisable() {}
+	
+	@Override
+	public void onDisable() {}
 	
 	@EventHandler
-    public void onBlockDamageEvent(BlockDamageEvent event) {
-		BlockDamage blockDamage = new BlockDamage();
-		blockDamage.brushing(event);
-		blockDamage.selectColor(event);
-    }
-    
-	@EventHandler
-    public void onPlayerInteract(PlayerInteractEvent event) {
-		PlayerInteract interact = new PlayerInteract();
-		interact.hitLever(event);
-    }
-    
-	@EventHandler
-    public void onBlockPlaceEvent(BlockPlaceEvent event) {
-		BlockPlace blockPlace = new BlockPlace();
-		blockPlace.removeMisplacedBlock(event);
-    }
-    
-    @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-    	GamePlayer player = Tools.getPlayerFromName(sender.getName());
-    	
-    	switch (command.getName().toLowerCase()) {
-    		case "fly" : return CommandFly.onUse(player);
-    		case "tourney" : return CommandTourney.onUse(player, args);
-    		case "tournament" : return CommandTourney.onUse(player, args);
-    		case "spectate" : return CommandSpectate.onUse(player, args);
-    		case "play" : return CommandPlay.onUse(player, args);
-    		case "leave" : return CommandLeave.onUse(player);
-    		case "l" : return CommandLeave.onUse(player);
-    		case "spawn" : return CommandSpawn.onUse(player);
-    		case "color" : return CommandColor.onUse(player);
-    		case "discord" : return CommandDiscord.onUse(sender);
-    		case "delay" : return CommandDelay.onUse(player, args);
-    		case "hitw" : return CommandHitW.onUse(player, args);
-    		case "title" : return CommandTitle.onUse(player);
-    		case "memtime" : return CommandMemTime.onUse(player, args);
-    		case "coop" : return CommandCoop.onUse(player, args);
-    		case "p" : return CommandCoop.onUse(player, args);
-    		case "lag" : return CommandLag.onUse(player, args);
-    		default : return false;
-    	}
-    }
-    
-    @EventHandler
-   	public void onPlayerChat(AsyncPlayerChatEvent event) {
-    	event.setFormat("%s: %s");
-   	}
-   
-	@EventHandler
- 	public void onPlayerJoin(PlayerJoinEvent event) {
-		Join join = new Join();
-		join.onJoin(event);
+	public void onMoveEvent(PlayerMoveEvent event) {
+		new Move().execute(event);
 	}
 	
 	@EventHandler
- 	public void onPlayerLeave(PlayerQuitEvent event) {
-		Leave leave = new Leave();
-		leave.onLeave(event);
+	public void onBlockDamageEvent(BlockDamageEvent event) {
+		new BlockDamage().execute(event);
+	}
+
+	@EventHandler
+	public void onInventoryClick(InventoryClickEvent event) {
+		new InventoryClick().execute(event);
+	}
+	
+	@EventHandler
+	public void onPlayerInteract(PlayerInteractEvent event) {
+		new PlayerInteract().execute(event);
+	}
+	
+	@EventHandler
+	public void onDismountEvent(EntityDismountEvent event) {
+		new Dismount().execute(event);
+	}
+	
+	@EventHandler
+	public void onBlockPlaceEvent(BlockPlaceEvent event) {
+		new BlockPlace().execute(event);
+	}
+
+	@Override
+	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+		new CommandsManager().execute(sender, command, label, args);
+		return true;
+	}
+
+	@EventHandler
+	public void onPlayerChat(AsyncPlayerChatEvent event) {
+		event.setFormat("%s: %s");
+	}
+	
+	@EventHandler
+	public void onPlayerJoin(PlayerJoinEvent event) {
+		new Join().execute(event);
+	}
+	
+	@EventHandler
+	public void onPlayerLeave(PlayerQuitEvent event) {
+		new Leave().execute(event);
 	}
 }

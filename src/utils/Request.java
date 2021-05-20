@@ -6,20 +6,10 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 
-/**
- * Send request to Hypixel
- * @author Blackoutburst
- */
 public class Request {
 	
-	private static final String API = "X";
+	private static final String API = "05a63164-dbe3-45c2-bad2-b64bb4091461";
 	
-	/**
-	 * Get player data from Hypixel API
-	 * @param uuid player UUID
-	 * @return Hypixel player data
-	 * @author Blackoutburst
-	 */
 	public static String getPlayerInfo(String uuid) {
 		try {
 			URL url = new URL("https://api.hypixel.net/player?uuid="+uuid+"&key="+API);
@@ -34,7 +24,7 @@ public class Request {
 			}
 			return builder.toString();
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.err.println("Hypixel api issue");
 			return null;
 		}
 	}
