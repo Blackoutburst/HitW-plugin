@@ -88,10 +88,10 @@ public class CommandPlay {
 				WallManager.generateWall(p, game, false);
 				if (p.isInParty()) {
 					for (HPlayer hp : p.getParty())  {
-						hp.setInGame(true);
+						hp.setInGame(true, game);
 					}
 				} else {
-					p.setInGame(true);
+					p.setInGame(true, game);
 				}
 			}
 		}.runTaskLater(Main.getPlugin(Main.class),  20L * 6);	

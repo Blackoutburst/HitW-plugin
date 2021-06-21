@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
@@ -15,6 +16,51 @@ import net.md_5.bungee.api.chat.TextComponent;
 import utils.Utils;
 
 public class ConfigurationMenu {
+	
+	private static void colorMenu(HPlayer p, String name, Material mat) {
+		Inventory inv = Main.getPlugin(Main.class).getServer().createInventory(null, 54, ChatColor.BLACK + name);
+		ItemStack item = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short) 15);
+		ItemMeta meta = item.getItemMeta();
+        meta.setDisplayName("§r");
+        item.setItemMeta(meta);
+        
+        for (int i = 0; i < 54; i++)
+        	inv.setItem(i, item);
+        
+        item = new ItemStack(mat, 1, (short) 0);
+        inv.setItem(11, item);
+        item = new ItemStack(mat, 1, (short) 1);
+        inv.setItem(12, item);
+        item = new ItemStack(mat, 1, (short) 2);
+        inv.setItem(13, item);
+        item = new ItemStack(mat, 1, (short) 3);
+        inv.setItem(14, item);
+        item = new ItemStack(mat, 1, (short) 4);
+        inv.setItem(15, item);
+        item = new ItemStack(mat, 1, (short) 5);
+        inv.setItem(20, item);
+        item = new ItemStack(mat, 1, (short) 6);
+        inv.setItem(21, item);
+        item = new ItemStack(mat, 1, (short) 7);
+        inv.setItem(22, item);
+        item = new ItemStack(mat, 1, (short) 8);
+        inv.setItem(23, item);
+        item = new ItemStack(mat, 1, (short) 9);
+        inv.setItem(24, item);
+        item = new ItemStack(mat, 1, (short) 10);
+        inv.setItem(29, item);
+        item = new ItemStack(mat, 1, (short) 11);
+        inv.setItem(30, item);
+        item = new ItemStack(mat, 1, (short) 12);
+        inv.setItem(31, item);
+        item = new ItemStack(mat, 1, (short) 13);
+        inv.setItem(32, item);
+        item = new ItemStack(mat, 1, (short) 14);
+        inv.setItem(33, item);
+        item = new ItemStack(mat, 1, (short) 15);
+        inv.setItem(40, item);
+        p.getPlayer().openInventory(inv);
+	}
 	
 	public static void useColor(Inventory inv, int slot, HPlayer p) {
 		short color = 0;
@@ -138,6 +184,9 @@ public class ConfigurationMenu {
 		        inv.setItem(25, item);
 		        HPlayer.updatePlayerData(p);
 		        break;
+			case 37: 
+				songMenu(p, "Song played");
+				break;
 			case 38: 
 				colorMenu(p, "Glass Color", Material.STAINED_GLASS);
 				break;
@@ -186,7 +235,24 @@ public class ConfigurationMenu {
 		}
 	}
 	
-	private static void colorMenu(HPlayer p, String name, Material mat) {
+	public static void useSong(Inventory inv, int slot, HPlayer p) {
+		String songName = "none";
+		
+		switch (slot) {
+			case 11: songName = "none";break; 
+			case 12: songName = "Hyperdron - Inter-Dimensional Existence Kontrol";break; 
+			default: songName = null;
+		}
+		if (songName == null) {
+			return;
+		}
+		
+		p.setSongName(songName);
+		HPlayer.updatePlayerData(p);
+		ConfigurationMenu.generate(p);
+	}
+	
+	private static void songMenu(HPlayer p, String name) {
 		Inventory inv = Main.getPlugin(Main.class).getServer().createInventory(null, 54, ChatColor.BLACK + name);
 		ItemStack item = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short) 15);
 		ItemMeta meta = item.getItemMeta();
@@ -196,38 +262,25 @@ public class ConfigurationMenu {
         for (int i = 0; i < 54; i++)
         	inv.setItem(i, item);
         
-        item = new ItemStack(mat, 1, (short) 0);
+        item = new ItemStack(Material.BARRIER, 1, (short) 0);
+        meta = item.getItemMeta();
+        ArrayList<String> lore = new ArrayList<String>();
+        lore.add("§bNo song will be played");
+        meta.setLore(lore);
+        meta.setDisplayName("§r§aNone");
+        item.setItemMeta(meta);
         inv.setItem(11, item);
-        item = new ItemStack(mat, 1, (short) 1);
+        p.getPlayer().openInventory(inv);
+        
+        item = new ItemStack(Material.GOLD_RECORD, 1, (short) 0);
+        meta = item.getItemMeta();
+        meta.addItemFlags(ItemFlag.values());
+        lore = new ArrayList<String>();
+        lore.add("§bInter-Dimensional Existence Kontrol");
+        meta.setLore(lore);
+        meta.setDisplayName("§r§aHyperdron");
+        item.setItemMeta(meta);
         inv.setItem(12, item);
-        item = new ItemStack(mat, 1, (short) 2);
-        inv.setItem(13, item);
-        item = new ItemStack(mat, 1, (short) 3);
-        inv.setItem(14, item);
-        item = new ItemStack(mat, 1, (short) 4);
-        inv.setItem(15, item);
-        item = new ItemStack(mat, 1, (short) 5);
-        inv.setItem(20, item);
-        item = new ItemStack(mat, 1, (short) 6);
-        inv.setItem(21, item);
-        item = new ItemStack(mat, 1, (short) 7);
-        inv.setItem(22, item);
-        item = new ItemStack(mat, 1, (short) 8);
-        inv.setItem(23, item);
-        item = new ItemStack(mat, 1, (short) 9);
-        inv.setItem(24, item);
-        item = new ItemStack(mat, 1, (short) 10);
-        inv.setItem(29, item);
-        item = new ItemStack(mat, 1, (short) 11);
-        inv.setItem(30, item);
-        item = new ItemStack(mat, 1, (short) 12);
-        inv.setItem(31, item);
-        item = new ItemStack(mat, 1, (short) 13);
-        inv.setItem(32, item);
-        item = new ItemStack(mat, 1, (short) 14);
-        inv.setItem(33, item);
-        item = new ItemStack(mat, 1, (short) 15);
-        inv.setItem(40, item);
         p.getPlayer().openInventory(inv);
 	}
 	
@@ -288,7 +341,7 @@ public class ConfigurationMenu {
         lore.add("");
         skull.setLore(lore);
         skull.setDisplayName("§r§aBreak mode");
-        skull.setOwner("jazminthewall");
+        skull.setOwner("jazmout");
         item.setItemMeta(skull);
         inv.setItem(13, item);
         
@@ -385,6 +438,17 @@ public class ConfigurationMenu {
         meta.setDisplayName("§r§aClick to Toggle");
         item.setItemMeta(meta);
         inv.setItem(25, item);
+        
+        item = new ItemStack(Material.JUKEBOX, 1, p.getGlassColor());
+        meta = item.getItemMeta();
+        lore = new ArrayList<String>();
+        lore.add("§6Click to change song");
+        lore.add("");
+        lore.add("§eCurrent song §7: §b"+p.getSongName());
+        meta.setLore(lore);
+        meta.setDisplayName("§r§aSong");
+        item.setItemMeta(meta);
+        inv.setItem(37, item);
         
         item = new ItemStack(Material.STAINED_GLASS, 1, p.getGlassColor());
         meta = item.getItemMeta();

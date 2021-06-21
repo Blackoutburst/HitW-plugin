@@ -198,10 +198,10 @@ public class CommandDuel {
 				WallManager.generateWall(p, game, false);
 				if (p.isInParty()) {
 					for (HPlayer hp : p.getParty())  {
-						hp.setInGame(true);
+						hp.setInGame(true, game);
 					}
 				} else {
-					p.setInGame(true);
+					p.setInGame(true, game);
 				}
 			}
 		}.runTaskLater(Main.getPlugin(Main.class),  20L * 11);	
@@ -256,7 +256,7 @@ public class CommandDuel {
 				hp.setTime(120);
 				hp.getPlayer().teleport(A);
 				hp.getBoard().setTitle("§6-= Duel =-");
-				ScoreboardManager.setDuelScoreboard(stage, p1);
+				ScoreboardManager.setDuelScoreboard(stage, hp);
 			}
 		} else {
 			p1.setTime(120);
@@ -270,7 +270,7 @@ public class CommandDuel {
 				hp.setTime(120);
 				hp.getPlayer().teleport(B);
 				hp.getBoard().setTitle("§6-= Duel =-");
-				ScoreboardManager.setDuelScoreboard(stage, p2);
+				ScoreboardManager.setDuelScoreboard(stage, hp);
 			}
 		} else {
 			p2.setTime(120);

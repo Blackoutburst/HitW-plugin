@@ -21,6 +21,7 @@ public class CommandsManager {
 			case "play": new CommandPlay().run(sender, args); break;
 			case "l": case "leave": new CommandLeave().run(sender); break;
 			case "duel": new CommandDuel().run(sender, args); break;
+			case "afk": new CommandAFK().run(sender); break;
 		}
 	}
 }

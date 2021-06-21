@@ -6,8 +6,15 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+
+import com.xxmicloxx.NoteBlockAPI.model.RepeatMode;
+import com.xxmicloxx.NoteBlockAPI.model.Song;
+import com.xxmicloxx.NoteBlockAPI.songplayer.PositionSongPlayer;
+import com.xxmicloxx.NoteBlockAPI.utils.NBSDecoder;
 
 import main.Main;
 import utils.Utils;
@@ -48,10 +55,15 @@ public class HPlayer {
 	protected HPlayer opponent;
 	protected String duelType;
 	protected boolean inDuel;
+	protected PositionSongPlayer rsp;
+	protected Song song;
+	protected String songName;
+	protected int afkValue;
+	protected boolean afk;
 	
 	public HPlayer(Player player, short wallColor, short glassColor, float leverDelay, float memTime, float brushLag,
 			boolean fly, boolean title, boolean rightSided, boolean oldAnimation, boolean blind, boolean destroy, boolean autoLeave, 
-			Board board, String rank) {
+			Board board, String rank, String songName) {
 		this.player = player;
 		this.wallColor = wallColor;
 		this.glassColor = glassColor;
@@ -86,6 +98,9 @@ public class HPlayer {
 		this.opponent = null;
 		this.duelType = "none";
 		this.inDuel = false;
+		this.songName = songName;
+		this.afkValue = 60;
+		this.afk = false;
 	}
 
 	public static HPlayer getHPlayer(Player p) {
@@ -118,6 +133,7 @@ public class HPlayer {
 				config.set("blind", p.blind);
 				config.set("destroy", p.destroy);
 				config.set("autoLeave", p.autoLeave);
+				config.set("songName", p.songName);
 				config.save(f);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -125,7 +141,7 @@ public class HPlayer {
 	}
 	
 	public static void writePlayerData(File f, short wallColor, short glassColor, float leverDelay, float memTime, float brushLag, 
-			boolean fly, boolean title, boolean rightSided, boolean oldAnimation, boolean blind, boolean destroy, boolean autoLeave) {
+			boolean fly, boolean title, boolean rightSided, boolean oldAnimation, boolean blind, boolean destroy, boolean autoLeave, String songName) {
 		try {
 			if (!f.exists()) {
 				f.createNewFile();
@@ -144,6 +160,7 @@ public class HPlayer {
 				config.set("blind", blind);
 				config.set("destroy", destroy);
 				config.set("autoLeave", autoLeave);
+				config.set("songName", songName);
 				config.save(f);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -164,6 +181,7 @@ public class HPlayer {
 		this.blind = playerData.getBoolean("blind");
 		this.destroy = playerData.getBoolean("destroy");
 		this.autoLeave = playerData.getBoolean("autoLeave");
+		this.songName = playerData.getString("songName");
 	}
 
 	public String getDisplayName() {
@@ -262,11 +280,28 @@ public class HPlayer {
 		return inGame;
 	}
 
-	public void setInGame(boolean inGame) {
+	public void setInGame(boolean inGame, HGame game) {
 		this.inGame = inGame;
 		
 		if (!inGame) {
+			if (rsp != null) {
+				rsp.setPlaying(false);
+				rsp.destroy();
+			}
 			Utils.giveConfigItem(this.player);
+		} else {
+			if (new File("./plugins/HitW/songs/"+songName+".nbs").exists()) {
+				Location loc = new Location(Bukkit.getWorld("world"), (game.getWall().x0 + game.getWall().x1) / 2, (game.getWall().y0 + game.getWall().y1) / 2, (game.getWall().z0 + game.getWall().z1) / 2);
+				
+				
+				song = NBSDecoder.parse(new File("./plugins/HitW/songs/"+songName+".nbs"));
+				rsp = new PositionSongPlayer(song);
+				rsp.setTargetLocation(loc);
+				rsp.setDistance(128);
+				rsp.setRepeatMode(RepeatMode.ONE);
+				rsp.addPlayer(this.getPlayer());
+				rsp.setPlaying(true);
+			}
 		}
 	}
 
@@ -452,5 +487,29 @@ public class HPlayer {
 
 	public void setInDuel(boolean inDuel) {
 		this.inDuel = inDuel;
+	}
+
+	public String getSongName() {
+		return songName;
+	}
+
+	public void setSongName(String songName) {
+		this.songName = songName;
+	}
+
+	public int getAfkValue() {
+		return afkValue;
+	}
+
+	public void setAfkValue(int afkValue) {
+		this.afkValue = afkValue;
+	}
+
+	public boolean isAfk() {
+		return afk;
+	}
+
+	public void setAfk(boolean afk) {
+		this.afk = afk;
 	}
 }

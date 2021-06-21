@@ -5,6 +5,7 @@ api-version: 1.13
 author: Blackoutburst
 description: Hole in the Wall plugin
 depend: [ProtocolLib]
+depend: [NoteBlockAPI]
 commands:
   discord:
     description: Send HitW discord invite link
@@ -60,3 +61,6 @@ commands:
   duel:
     description: Duel someone
     usage: /duel
+  afk:
+    description: Set your status as AFK
+    usage: /AFK

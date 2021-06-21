@@ -117,10 +117,10 @@ public class GameUtils {
 				if (game.getOwner().getPlayer() == p) {
 					if (game.getOwner().isInParty()) {
 						for (HPlayer hp : game.getOwner().getParty())  {
-							hp.setInGame(false);
+							hp.setInGame(false, game);
 						}
 					} else {
-						game.getOwner().setInGame(false);
+						game.getOwner().setInGame(false, game);
 					}
 					game.setOwner(null);
 				}
@@ -156,10 +156,10 @@ public class GameUtils {
 				if (game.getOwner().getPlayer() == p) {
 					if (game.getOwner().isInParty()) {
 						for (HPlayer hp : game.getOwner().getParty())  {
-							hp.setInGame(false);
+							hp.setInGame(false, game);
 						}
 					} else {
-						game.getOwner().setInGame(false);
+						game.getOwner().setInGame(false, game);
 					}
 					game.setOwner(null);
 				}

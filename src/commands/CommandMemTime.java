@@ -22,6 +22,9 @@ public class CommandMemtime {
 			return;
 		}
 		
+		if (value < 0) {value = 0;}
+		if (value > 10000) {value = 10000;}
+		
 		HPlayer p = HPlayer.getHPlayer((Player) sender);
 		
 		p.setMemTime(value);

@@ -21,10 +21,10 @@ public class CommandLeave {
 		
 		if (p.isInParty()) {
 			for (HPlayer hp : p.getParty())  {
-				hp.setInGame(false);
+				hp.setInGame(false, null);
 			}
 		} else {
-			p.setInGame(false);
+			p.setInGame(false, null);
 		}
 		game.setOwner(null);
 	}

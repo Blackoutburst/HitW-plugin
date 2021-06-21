@@ -26,5 +26,9 @@ public class InventoryClick {
 			ConfigurationMenu.useColor(event.getInventory(), event.getSlot(), HPlayer.getHPlayer((Player) event.getWhoClicked()));
 			event.setCancelled(true);
 		}
+		if (event.getInventory().getName().equals(ChatColor.BLACK + "Song played")) {
+			ConfigurationMenu.useSong(event.getInventory(), event.getSlot(), HPlayer.getHPlayer((Player) event.getWhoClicked()));
+			event.setCancelled(true);
+		}
 	}
 }

@@ -143,7 +143,7 @@ public class CommandParty {
 		p.sendMessage("§eYou got kicked from the party !");
 		hp.getParty().clear();
 		hp.setInParty(false);
-		hp.setInGame(false);
+		hp.setInGame(false, null);
 		hp.getBoard().setTitle(hp.getDisplayName());
 		
 		hsender.getParty().remove(hp);
@@ -173,7 +173,7 @@ public class CommandParty {
 		hsender.getPlayer().sendMessage("§eYou leaved the party");
 		hsender.getParty().clear();
 		hsender.setInParty(false);
-		hsender.setInGame(false);
+		hsender.setInGame(false, null);
 		hsender.getBoard().setTitle(hsender.getDisplayName());
 		
 		leader.getParty().remove(hsender);
@@ -205,7 +205,7 @@ public class CommandParty {
 			hps.getPlayer().sendMessage("");
 			hps.getPlayer().sendMessage("§a§l§m---------------------------------------------");
 			hps.setInParty(false);
-			hps.setInGame(false);
+			hps.setInGame(false, null);
 			hps.getBoard().setTitle(hps.getDisplayName());
 			hps.setPartyLeader(false);
 			hps.getParty().clear();
@@ -258,7 +258,7 @@ public class CommandParty {
 		
 		hsender.getParty().clear();
 		hsender.setInParty(false);
-		hsender.setInGame(false);
+		hsender.setInGame(false, null);
 		hsender.getBoard().setTitle(hsender.getDisplayName());
 		
 		leader.getParty().remove(hsender);
@@ -290,7 +290,7 @@ public class CommandParty {
 			hps.getPlayer().sendMessage("");
 			hps.getPlayer().sendMessage("§a§l§m---------------------------------------------");
 			hps.setInParty(false);
-			hps.setInGame(false);
+			hps.setInGame(false, null);
 			hps.getBoard().setTitle(hps.getDisplayName());
 			hps.setPartyLeader(false);
 			hps.getParty().clear();

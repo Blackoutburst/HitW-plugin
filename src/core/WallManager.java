@@ -50,6 +50,14 @@ public class WallManager {
 			delay = (long) (20L * p.getMemTime());
 		}
 		
+		int yS = (int) (game.getPlayfield().y0 < game.getPlayfield().y1 ? game.getPlayfield().y0 : game.getPlayfield().y1);
+		int yL = (int) (game.getPlayfield().y0 > game.getPlayfield().y1 ? game.getPlayfield().y0 : game.getPlayfield().y1);
+		
+		if (p.isOldAnimation()) {
+			resetPlayField(game, p, false);
+			delay = 5L * (yL-yS + 1);
+		}
+		
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
 			@SuppressWarnings("deprecation")
 			@Override
@@ -89,7 +97,9 @@ public class WallManager {
 					p.setWallBegin(Instant.now());
 				}
 				if (leader.isDestroy()) {
-					resetPlayField(game, p, false);
+					if (!leader.isOldAnimation()) {
+						resetPlayField(game, p, false);
+					}
 					fillPlayField(game, p);
 				}
 			}
@@ -111,16 +121,28 @@ public class WallManager {
 		
 		final HPlayer leader = p.isInParty() ? p.getParty().get(0) : p;
 		
+		int yS = (int) (game.getPlayfield().y0 < game.getPlayfield().y1 ? game.getPlayfield().y0 : game.getPlayfield().y1);
+		int yL = (int) (game.getPlayfield().y0 > game.getPlayfield().y1 ? game.getPlayfield().y0 : game.getPlayfield().y1);
+		
+		if (leader.isOldAnimation()) {
+			resetPlayField(game, p, false);
+			delay = 5L * (yL-yS + 1);
+		}
+		
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
 			@Override
 			public void run(){
 				if (game.owner == null)
 					return;
 				if (leader.isDestroy()) {
-					resetPlayField(game, p, false);
+					if (!leader.isOldAnimation()) {
+						resetPlayField(game, p, false);
+					}
 					fillPlayField(game, p);
 				} else {
-					resetPlayField(game, p, false);
+					if (!leader.isOldAnimation()) {
+						resetPlayField(game, p, false);
+					}
 				}
 				if (leader.isBlind()) {
 					hideWall(p, game);
@@ -491,17 +513,23 @@ public class WallManager {
 		clearHider(game);
 	}
 	
+	@SuppressWarnings("deprecation")
 	private static void generateXAxys(int y, HGame game, HPlayer p, int hole)  {
 		int rightSided = p.isRightSided() ? 1 : 0;
 		int xS = (int) (game.getWall().x0 < game.getWall().x1 ? game.getWall().x0 : game.getWall().x1);
 		int xL = (int) (game.getWall().x0 > game.getWall().x1 ? game.getWall().x0 : game.getWall().x1);
+		int yS = (int) (game.getWall().y0 < game.getWall().y1 ? game.getWall().y0 : game.getWall().y1);
 	
 			if (game.direction == Direction.EAST) {
 				for (int x = xS + rightSided; x <= (xL-1) + rightSided; x++) {
 					int rng = RNG.nextInt(8);
-
+					
 					if (rng == 1 && checkHole(game) < hole)
 						WORLD.getBlockAt(x, y, (int) game.getWall().z0).setType(Material.AIR);
+					if (x == xS && y == yS || x == xL && y == yS) {
+						WORLD.getBlockAt(x, y, (int) game.getWall().z0).setType(Material.STAINED_CLAY);
+						WORLD.getBlockAt(x, y, (int) game.getWall().z0).setData((byte)(p.getWallColor()));
+					}
 				}
 			}
 			if (game.direction == Direction.WEST) {
@@ -510,14 +538,20 @@ public class WallManager {
 					
 					if (rng == 1 && checkHole(game) < hole)
 						WORLD.getBlockAt(x, y, (int) game.getWall().z0).setType(Material.AIR);
+					if (x == xS && y == yS || x == xL && y == yS) {
+						WORLD.getBlockAt(x, y, (int) game.getWall().z0).setType(Material.STAINED_CLAY);
+						WORLD.getBlockAt(x, y, (int) game.getWall().z0).setData((byte)(p.getWallColor()));
+					}
 				}
 			}
 	}
 	
+	@SuppressWarnings("deprecation")
 	private static void generateZAxys(int y, HGame game, HPlayer p, int hole)  {
 		int rightSided = p.isRightSided() ? 1 : 0;
 		int zS = (int) (game.getWall().z0 < game.getWall().z1 ? game.getWall().z0 : game.getWall().z1);
 		int zL = (int) (game.getWall().z0 > game.getWall().z1 ? game.getWall().z0 : game.getWall().z1);
+		int yS = (int) (game.getWall().y0 < game.getWall().y1 ? game.getWall().y0 : game.getWall().y1);
 		
 		if (game.direction == Direction.SOUTH) {
 			for (int z = zS + rightSided; z <= (zL-1) + rightSided; z++) {
@@ -525,6 +559,10 @@ public class WallManager {
 
 				if (rng == 1 && checkHole(game) < hole)
 					WORLD.getBlockAt((int) game.getWall().x0, y, z).setType(Material.AIR);
+				if (z == zS && y == yS || z == zL && y == yS) {
+					WORLD.getBlockAt((int) game.getWall().x0, y, z).setType(Material.STAINED_CLAY);
+					WORLD.getBlockAt((int) game.getWall().x0, y, z).setData((byte)(p.getWallColor()));
+				}
 			}
 		}
 		if (game.direction == Direction.NORTH) {
@@ -533,6 +571,10 @@ public class WallManager {
 				
 				if (rng == 1 && checkHole(game) < hole)
 					WORLD.getBlockAt((int) game.getWall().x0, y, z).setType(Material.AIR);
+				if (z == zS && y == yS || z == zL && y == yS) {
+					WORLD.getBlockAt((int) game.getWall().x0, y, z).setType(Material.STAINED_CLAY);
+					WORLD.getBlockAt((int) game.getWall().x0, y, z).setData((byte)(p.getWallColor()));
+				}
 			}
 		}
 	}

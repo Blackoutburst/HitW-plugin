@@ -20,11 +20,11 @@ public class GameUpdater {
 	public static void stopGame(HPlayer p, HGame game) {
 		if (p.isInParty()) {
 			for (HPlayer hp : p.getParty()) {
-				hp.setInGame(false);
+				hp.setInGame(false, game);
 				hp.restorePlayerData();
 			}
 		} else {
-			p.setInGame(false);
+			p.setInGame(false, game);
 			p.restorePlayerData();
 		}
 	}

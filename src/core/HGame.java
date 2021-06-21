@@ -131,6 +131,7 @@ public class HGame {
 				
 				if (this.owner.inParty) {
 					for (HPlayer hp : this.owner.party) {
+						ScoreboardManager.updateScoreboard(hp);
 						hp.getPlayer().sendMessage("§a§l§m---------------------------------------------");
 						hp.getPlayer().sendMessage(Utils.centerText("§4§lDuel"));
 						hp.getPlayer().sendMessage("");
@@ -152,6 +153,7 @@ public class HGame {
 						}, (100L));
 					}
 				} else {
+					ScoreboardManager.updateScoreboard(this.owner);
 					this.owner.getPlayer().sendMessage("§a§l§m---------------------------------------------");
 					this.owner.getPlayer().sendMessage(Utils.centerText("§6§lDuel"));
 					this.owner.getPlayer().sendMessage("");

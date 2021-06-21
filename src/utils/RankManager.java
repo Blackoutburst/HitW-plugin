@@ -11,6 +11,12 @@ public class RankManager {
 		int qualification = 0;
 		int finals = 0;
 		
+		if (player.getUniqueId().toString().replace("-", "").toString().equals("16d455475ddf42d48e9ffdb45cd69fa5")) {
+			rank = ChatColor.DARK_GREEN+"[Train Engineer] "+ChatColor.DARK_GREEN;
+			setDisplayName(player, rank + player.getName() + ChatColor.RESET);
+			return (rank);
+		}
+
 		if (player.getUniqueId().toString().replace("-", "").toString().equals("9293868b414c42b2bd8e3bcb791247b9")) {
 			rank = ChatColor.DARK_GRAY+"["+ChatColor.DARK_RED+"Yaku"+ChatColor.DARK_GRAY+"] "+ChatColor.DARK_RED;
 			setDisplayName(player, rank + player.getName() + ChatColor.RESET);
@@ -29,11 +35,11 @@ public class RankManager {
 			return (rank);
 		}
 		
-		String output = Request.getPlayerInfo(player.getUniqueId().toString().replace("-", "").toString());
+		String output = null;// Request.getPlayerInfo(player.getUniqueId().toString().replace("-", "").toString());
 		
 		if (output == null) {
 			
-			rank = ChatColor.GRAY+"["+ChatColor.RED+"API"+ChatColor.GRAY+"]"+ChatColor.ITALIC;
+			rank = ChatColor.GRAY+"["+ChatColor.RED+"API"+ChatColor.GRAY+"]"+ChatColor.ITALIC+" ";
 			
 			setDisplayName(player, rank + player.getName() + ChatColor.RESET);
 			return(rank);
