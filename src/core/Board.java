@@ -41,17 +41,6 @@ public class Board {
 		team.addEntry(newPlayer.getPlayer().getName());
 	}
 	
-	public static void updateTeam(HPlayer player, HPlayer newPlayer, boolean afk) {
-		team = player.getBoard().scoreboard.getTeam(newPlayer.getPlayer().getName());
-		team.setPrefix(newPlayer.getRank());
-		
-		if (afk) {
-			team.setSuffix(" §4§lAFK§r");
-		} else {
-			team.setSuffix("§r");
-		}
-	}
-	
 	public Scoreboard getScoreboard() {
 		return scoreboard;
 	}

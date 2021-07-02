@@ -91,6 +91,7 @@ public class CommandDuel {
 				}
 				p.getPlayer().closeInventory();
 			break;
+			default:break;
 		}
 	}
 	

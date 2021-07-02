@@ -51,19 +51,9 @@ public class Join {
 				if (p.getAfkValue() <= 0 && !p.isAfk()) {
 					p.setAfk(true);
 					p.getPlayer().setPlayerListName(p.getRank()+p.getPlayer().getName()+" §4§lAFK§r");
-
-					for (HPlayer hp : Main.hPlayers) {
-						Board.updateTeam(hp, p, p.isAfk());
-						Board.updateTeam(p, hp, hp.isAfk());
-					}
 				} else if (p.getAfkValue() > 0 && p.isAfk()) {
 					p.setAfk(false);
 					p.getPlayer().setPlayerListName(p.getRank()+p.getPlayer().getName()+"§r");
-				
-					for (HPlayer hp : Main.hPlayers) {
-						Board.updateTeam(hp, p, p.isAfk());
-						Board.updateTeam(p, hp, hp.isAfk());
-					}
 				}
 			}
 		}.runTaskTimer(Main.getPlugin(Main.class), 0L, 20L);

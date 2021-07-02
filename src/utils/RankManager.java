@@ -12,7 +12,7 @@ public class RankManager {
 		int finals = 0;
 		
 		if (player.getUniqueId().toString().replace("-", "").toString().equals("16d455475ddf42d48e9ffdb45cd69fa5")) {
-			rank = ChatColor.DARK_GREEN+"[Train Engineer] "+ChatColor.DARK_GREEN;
+			rank = ChatColor.DARK_GREEN+"[Conductor] ";
 			setDisplayName(player, rank + player.getName() + ChatColor.RESET);
 			return (rank);
 		}
@@ -35,7 +35,7 @@ public class RankManager {
 			return (rank);
 		}
 		
-		String output = null;// Request.getPlayerInfo(player.getUniqueId().toString().replace("-", "").toString());
+		String output = Request.getPlayerInfo(player.getUniqueId().toString().replace("-", "").toString());
 		
 		if (output == null) {
 			

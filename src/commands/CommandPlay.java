@@ -234,7 +234,7 @@ public class CommandPlay {
 				case "classic": classic(p, game); break;
 				case "score": score(p, args, game); break;
 				case "time": time(p, args, game); break;
-				default: sender.sendMessage("§cUnknown parrameter : " + args[0] + " !");
+				default: sender.sendMessage("§cUnknown parrameter : " + args[0] + " !"); break;
 			}
 		} else {
 			endless(p, game);

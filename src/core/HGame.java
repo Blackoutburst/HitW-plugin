@@ -73,6 +73,13 @@ public class HGame {
 						hp.getPlayer().sendMessage(Utils.centerText("§6§lGame summary"));
 						hp.getPlayer().sendMessage("§6Stage: §f"+hp.board.get(11).replace("Stage: §a", ""));
 						hp.getPlayer().sendMessage("§6Score: §f"+hp.score);
+						
+						if (hp.time > 0) {
+							int minutes = hp.time / 60;
+							int seconds = (hp.time) % 60;
+							String str = String.format("%d:%02d", minutes, seconds);
+							hp.getPlayer().sendMessage("§6Time: §f"+str);
+						}
 						hp.getPlayer().sendMessage(Utils.centerText("§b§lWall completion time"));
 						hp.getPlayer().sendMessage("§bFastest wall: §f"+Utils.ROUND.format(hp.getWallTime().get(0))+"s");
 						hp.getPlayer().sendMessage("§bSlowest wall: §f"+Utils.ROUND.format(hp.getWallTime().get(hp.getWallTime().size()-1))+"s");
@@ -100,6 +107,13 @@ public class HGame {
 					this.owner.getPlayer().sendMessage(Utils.centerText("§6§lGame summary"));
 					this.owner.getPlayer().sendMessage("§6Stage: §f"+this.owner.board.get(11).replace("Stage: §a", ""));
 					this.owner.getPlayer().sendMessage("§6Score: §f"+this.owner.score);
+					
+					if (this.owner.time > 0) {
+						int minutes = this.owner.time / 60;
+						int seconds = (this.owner.time) % 60;
+						String str = String.format("%d:%02d", minutes, seconds);
+						this.owner.getPlayer().sendMessage("§6Time: §f"+str);
+					}
 					this.owner.getPlayer().sendMessage(Utils.centerText("§b§lWall completion time"));
 					this.owner.getPlayer().sendMessage("§bFastest wall: §f"+Utils.ROUND.format(this.owner.getWallTime().get(0))+"s");
 					this.owner.getPlayer().sendMessage("§bSlowest wall: §f"+Utils.ROUND.format(this.owner.getWallTime().get(this.owner.getWallTime().size()-1))+"s");
