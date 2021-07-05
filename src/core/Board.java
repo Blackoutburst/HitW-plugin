@@ -12,7 +12,7 @@ public class Board {
 	 
 	private final Scoreboard scoreboard;
 	private final Objective objective;
-	private static Team team;
+	private Team team;
  
 	public Board(Player player, String prefix, String suffix) {
 		this.scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
@@ -30,7 +30,7 @@ public class Board {
 		team.addEntry(player.getName());
 	}
  
-	public static void addTeam(HPlayer player, HPlayer newPlayer) {
+	public void addTeam(HPlayer player, HPlayer newPlayer) {
 		if (player.getBoard().scoreboard.getTeam(newPlayer.getPlayer().getName()) == null) {
 			player.getBoard().scoreboard.registerNewTeam(newPlayer.getPlayer().getName());
 		}

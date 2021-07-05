@@ -9,11 +9,11 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.material.Stairs;
 
-import core.ConfigurationMenu;
 import core.HGame;
 import core.HPlayer;
 import core.WallManager;
 import main.Main;
+import menu.ConfigurationMenu;
 import utils.GameUtils;
 
 public class PlayerInteract {

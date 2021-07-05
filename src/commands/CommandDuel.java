@@ -214,13 +214,56 @@ public class CommandDuel {
 	private void preGame(HPlayer p2, String stage) {
 		HPlayer p1 = p2.getOpponent();
 		
-		
-		Location A = stage.equals("Qualification") ? new Location(Bukkit.getWorld("world"), 79.5f, 55, -1057.5f, -90, 0) : new Location(Bukkit.getWorld("world"), 78.5f, 55, -996.5f, -90, 0);
-		Location B = stage.equals("Qualification") ? new Location(Bukkit.getWorld("world"), 79.5f, 55, -1043.5f, -90, 0) : new Location(Bukkit.getWorld("world"), 78.5f, 55, -978.5f, -90, 0);
-		
-		
 		Main.QDuelBusy = stage.equals("Qualification") ? true : false;
 		Main.FDuelBusy = stage.equals("Finals") ? true : false;
+		
+		setPlayers(p1, p2, stage);
+		
+		HGame game1 = GameUtils.getGameArea(p1.getPlayer());
+		HGame game2 = GameUtils.getGameArea(p2.getPlayer());
+		
+		game1.setIncrementingHoles(true);
+		game2.setIncrementingHoles(true);
+		preStart(p1, game1);
+		preStart(p2, game2);
+		
+		
+		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
+			@Override
+			public void run(){
+				GameUpdater.updateClassic(p1, game1);
+				game1.setLeverBusy(true);
+				Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
+					@Override
+					public void run(){
+						game1.setLeverBusy(false);
+						game1.setType("Classic");
+					}
+				}, (30L));
+			}
+		}, (20L * 11));
+		
+		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
+			@Override
+			public void run(){
+				GameUpdater.updateClassic(p2, game2);
+				game2.setLeverBusy(true);
+				Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
+					@Override
+					public void run(){
+						game2.setLeverBusy(false);
+						game2.setType("Classic");
+					}
+				}, (30L));
+			}
+		}, (20L * 11));
+		
+	}
+	
+	private void setPlayers(HPlayer p1, HPlayer p2, String stage) {
+		Location A = stage.equals("Qualification") ? new Location(Bukkit.getWorld("world"), 79.5f, 55, -1057.5f, -90, 0) : new Location(Bukkit.getWorld("world"), 78.5f, 55, -996.5f, -90, 0);
+		Location B = stage.equals("Qualification") ? new Location(Bukkit.getWorld("world"), 79.5f, 55, -1043.5f, -90, 0) : new Location(Bukkit.getWorld("world"), 78.5f, 55, -978.5f, -90, 0);
+
 		
 		p1.setAutoLeave(false);
 		p1.setInDuel(true);
@@ -279,46 +322,6 @@ public class CommandDuel {
 			p2.getBoard().setTitle("§6-= Duel =-");
 			ScoreboardManager.setDuelScoreboard(stage, p2);
 		}
-		
-		HGame game1 = GameUtils.getGameArea(p1.getPlayer());
-		HGame game2 = GameUtils.getGameArea(p2.getPlayer());
-		
-		game1.setIncrementingHoles(true);
-		game2.setIncrementingHoles(true);
-		preStart(p1, game1);
-		preStart(p2, game2);
-		
-		
-		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
-			@Override
-			public void run(){
-				GameUpdater.updateClassic(p1, game1);
-				game1.setLeverBusy(true);
-				Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
-					@Override
-					public void run(){
-						game1.setLeverBusy(false);
-						game1.setType("Classic");
-					}
-				}, (30L));
-			}
-		}, (20L * 11));
-		
-		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
-			@Override
-			public void run(){
-				GameUpdater.updateClassic(p2, game2);
-				game2.setLeverBusy(true);
-				Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
-					@Override
-					public void run(){
-						game2.setLeverBusy(false);
-						game2.setType("Classic");
-					}
-				}, (30L));
-			}
-		}, (20L * 11));
-		
 	}
 	
 	private void accept(HPlayer p, String[] args) {
@@ -351,11 +354,9 @@ public class CommandDuel {
 			openDuelGUI(hsender);
 		}
 		
-		if (args.length == 2) {
-			if (args[0].equalsIgnoreCase("accept")) {
-				if (!hsender.isDuelInvite()) {sender.sendMessage("§cNobody invited you tu a duel !"); return;}
-				accept(hsender, args);
-			}
+		if (args.length == 2 && args[0].equalsIgnoreCase("accept")) {
+			if (!hsender.isDuelInvite()) {sender.sendMessage("§cNobody invited you tu a duel !"); return;}
+			accept(hsender, args);
 		}
 	}
 }

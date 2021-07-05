@@ -101,8 +101,8 @@ public class Join {
 		ScoreboardManager.setDefaultScoreboard(board);
 		
 		for (HPlayer hp : Main.hPlayers) {
-			Board.addTeam(hp, newHp);
-			Board.addTeam(newHp, hp);
+			hp.getBoard().addTeam(hp, newHp);
+			newHp.getBoard().addTeam(newHp, hp);
 		}
 	}
 	
