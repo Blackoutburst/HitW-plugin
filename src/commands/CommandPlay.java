@@ -42,34 +42,6 @@ public class CommandPlay {
 		ScoreboardManager.updateScoreboard(p);
 	}
 	
-	private void classic(HPlayer p, HGame game) {
-		preStart(p, game);
-		if (p.isInParty()) {
-    		for (HPlayer hp : p.getParty()) {
-    			hp.setTime(120);
-    		}
-    	} else {
-    		p.setTime(120);
-    	}
-		game.setIncrementingHoles(true);
-		
-		
-		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
-			@Override
-			public void run(){
-				GameUpdater.updateTime(p, game);
-				game.setLeverBusy(true);
-				Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
-					@Override
-					public void run(){
-						game.setLeverBusy(false);
-						game.setType("Classic");
-					}
-				}, (30L));
-			}
-		}, (20L * 6));
-	}
-	
 	private void score(HPlayer p, String[] args, HGame game) {
 		if (args.length < 2) {p.getPlayer().sendMessage("§cInvalid usage try §b/play score §r[value] §c!");return;}
 		try {Integer.valueOf(args[1]);} catch(Exception e) {p.getPlayer().sendMessage("§cThe score limit must be a valid number");return;}
@@ -102,18 +74,18 @@ public class CommandPlay {
 		}, (20L * 6));
 	}
 	
-	private void time(HPlayer p, String[] args, HGame game) {
-		if (args.length < 2) {p.getPlayer().sendMessage("§cInvalid usage try §b/play time §r[value] §c!");return;}
-		try {Integer.valueOf(args[1]);} catch(Exception e) {p.getPlayer().sendMessage("§cThe time limit must be a valid number");return;}
+	private void time(HPlayer p, String[] args, HGame game, boolean isClassic) {
+		if (!isClassic) {
+			if (args.length < 2) {p.getPlayer().sendMessage("§cInvalid usage try §b/play time §r[value] §c!");return;}
+			try {Integer.valueOf(args[1]);} catch(Exception e) {p.getPlayer().sendMessage("§cThe time limit must be a valid number");return;}
+		}
 		
 		preStart(p, game);
-		if (p.isInParty()) {
-    		for (HPlayer hp : p.getParty()) {
-    			hp.setTime(Integer.valueOf(args[1]));
-    		}
-    	} else {
-    		p.setTime(Integer.valueOf(args[1]));
-    	}
+		if (p.isInParty())
+    		for (HPlayer hp : p.getParty())
+    			hp.setTime(isClassic ? 120 : Integer.valueOf(args[1]));
+    	else
+    		p.setTime(isClassic ? 120 : Integer.valueOf(args[1]));
 		
 		game.setIncrementingHoles(true);
 		
@@ -174,9 +146,9 @@ public class CommandPlay {
 		
 		if (args.length >= 1) {
 			switch(args[0]) {
-				case "classic": classic(p, game); break;
+				case "classic": time(p, args, game, true); break;
 				case "score": score(p, args, game); break;
-				case "time": time(p, args, game); break;
+				case "time": time(p, args, game, false); break;
 				default: sender.sendMessage("§cUnknown parrameter : " + args[0] + " !"); break;
 			}
 		} else {
