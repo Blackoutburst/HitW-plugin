@@ -79,6 +79,7 @@ public class ConfigurationMenu {
 			case 42:
 				commandMessage("delay", p.getLeverDelay(), p.getPlayer());
 				break;
+			default: return;
 		}
 	}
 	

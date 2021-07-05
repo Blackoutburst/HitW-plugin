@@ -1,12 +1,17 @@
 package utils;
 
+import java.time.Instant;
+
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import core.HGame;
 import core.HPlayer;
+import core.WallManager;
 import main.Main;
 import net.minecraft.server.v1_8_R3.IChatBaseComponent;
 import net.minecraft.server.v1_8_R3.IChatBaseComponent.ChatSerializer;
@@ -16,6 +21,60 @@ import net.minecraft.server.v1_8_R3.PlayerConnection;
 
 public class GameUtils {
 
+	private static void prepareGameStartData(HPlayer p, HGame game) {
+		p.getPlayer().getInventory().clear();
+		ItemStack stack = new ItemStack(Material.STAINED_GLASS, 50, p.getGlassColor());
+		p.getPlayer().getInventory().setItem(0, stack);
+		p.setWallBegin(Instant.now());
+		p.setInGame(true, game);
+	}
+	
+	public static void prepareGameStart(HPlayer p, HGame game) {
+		if (p.isInParty())
+			for (HPlayer hp : p.getParty())
+				prepareGameStartData(hp, game);
+		else
+			prepareGameStartData(p, game);
+	}
+	
+	public static void gameOptions(HPlayer leader, HPlayer p, HGame game) {
+		WallManager.resetPlayField(game, p, true);
+		
+		if (leader.isDestroy() && !leader.isBlind())
+			WallManager.fillPlayField(game, p);
+		
+		if (leader.isBlind())
+			WallManager.hideWall(p, game);
+		
+		WallManager.generateWall(p, game, false);
+	}
+	public static void setCountdown(HPlayer p, HGame game, int sec) {
+		if (p.isInParty())
+			for (HPlayer hp : p.getParty())
+				GameUtils.displayCountdown(hp, sec, game);
+		else
+			GameUtils.displayCountdown(p, sec, game);
+	}
+	
+	private static void preparePlayersData(HPlayer p) {
+		p.setPerfectWall(0);
+		p.setWall(1);
+		p.setChoke(0);
+		p.setMisplaced(0);
+		p.setMissed(0);
+		p.setScore(0);
+		p.setWallBegin(Instant.now());
+		p.getWallTime().clear();
+	}
+	
+	public static void preparePlayers(HPlayer p) {
+		if (p.isInParty())
+			for (HPlayer hp : p.getParty())
+				preparePlayersData(hp);
+		else
+			preparePlayersData(p);
+	}
+	
 	public static String getCountdownNumber(int index) {
 		switch(index) {
 			case 10: return "§c10";
@@ -29,8 +88,8 @@ public class GameUtils {
 			case 2: return "§62";
 			case 1: return "§a1";
 			case 0: return "§cGo!";
+			default: return "";
 		}
-		return ("");
 	}
 	
     public static void sendTitle(Player player, String title, String subtitle, int fadeIn, int stay, int fadeOut) {

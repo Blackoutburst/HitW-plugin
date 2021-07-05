@@ -140,27 +140,26 @@ public class HPlayer {
 		}
 	}
 	
-	public static void writePlayerData(File f, short wallColor, short glassColor, float leverDelay, float memTime, float brushLag, 
-			boolean fly, boolean title, boolean rightSided, boolean oldAnimation, boolean blind, boolean destroy, boolean autoLeave, String songName) {
+	public static void writePlayerData(File f, HPlayer p) {
 		try {
 			if (!f.exists()) {
 				f.createNewFile();
 			}
 				YamlConfiguration config = YamlConfiguration.loadConfiguration(f);
 				config.set("colors", null);
-				config.set("colors.wall", wallColor);
-				config.set("colors.glass", glassColor);
-				config.set("leverDelay", leverDelay);
-				config.set("memtime", memTime);
-				config.set("brushLag", brushLag);
-				config.set("fly", fly);
-				config.set("title", title);
-				config.set("rightSided", rightSided);
-				config.set("oldAnimation", oldAnimation);
-				config.set("blind", blind);
-				config.set("destroy", destroy);
-				config.set("autoLeave", autoLeave);
-				config.set("songName", songName);
+				config.set("colors.wall", p.wallColor);
+				config.set("colors.glass", p.glassColor);
+				config.set("leverDelay", p.leverDelay);
+				config.set("memtime", p.memTime);
+				config.set("brushLag", p.brushLag);
+				config.set("fly", p.fly);
+				config.set("title", p.title);
+				config.set("rightSided", p.rightSided);
+				config.set("oldAnimation", p.oldAnimation);
+				config.set("blind", p.blind);
+				config.set("destroy", p.destroy);
+				config.set("autoLeave", p.autoLeave);
+				config.set("songName", p.songName);
 				config.save(f);
 		} catch (IOException e) {
 			e.printStackTrace();

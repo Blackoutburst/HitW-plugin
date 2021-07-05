@@ -48,6 +48,95 @@ public class HGame {
 		return owner;
 	}
 
+	private void endStatsMessage(HPlayer p) {
+		ScoreboardManager.updateScoreboard(p);
+		Collections.sort(p.getWallTime());
+		float average = 0;
+		
+		for (Float f : p.getWallTime()) {
+			average += f;
+		}
+		average = average / p.getWallTime().size();
+		
+		p.getPlayer().sendMessage("§a§l§m---------------------------------------------");
+		p.getPlayer().sendMessage(Utils.centerText("§6§lGame summary"));
+		p.getPlayer().sendMessage("§6Stage: §f"+p.board.get(11).replace("Stage: §a", ""));
+		p.getPlayer().sendMessage("§6Score: §f"+p.score);
+		
+		if (p.time > 0) {
+			int minutes = p.time / 60;
+			int seconds = (p.time) % 60;
+			String str = String.format("%d:%02d", minutes, seconds);
+			p.getPlayer().sendMessage("§6Time: §f"+str);
+		}
+		p.getPlayer().sendMessage(Utils.centerText("§b§lWall completion time"));
+		p.getPlayer().sendMessage("§bFastest wall: §f"+Utils.ROUND.format(p.getWallTime().get(0))+"s");
+		p.getPlayer().sendMessage("§bSlowest wall: §f"+Utils.ROUND.format(p.getWallTime().get(p.getWallTime().size()-1))+"s");
+		p.getPlayer().sendMessage("§bAverage: §f"+Utils.ROUND.format(average)+"s");
+		p.getPlayer().sendMessage(Utils.centerText("§a§lWalls"));
+		p.getPlayer().sendMessage("§aNumber of walls: §f"+p.wall);
+		p.getPlayer().sendMessage("§aPerfect walls: §f"+p.perfectWall);
+		p.getPlayer().sendMessage(Utils.centerText("§4§lMistakes"));
+		p.getPlayer().sendMessage("§4Aim chokes: §f"+p.choke);
+		p.getPlayer().sendMessage("§4Misplaced blocks: §f"+p.misplaced);
+		p.getPlayer().sendMessage("§4Missed blocks: §f"+p.missed);
+		p.getPlayer().sendMessage("§a§l§m---------------------------------------------");
+	}
+	
+	private void printEndStats() {
+		if (this.owner.inParty)
+			for (HPlayer hp : this.owner.party)
+				endStatsMessage(hp);
+		else
+			endStatsMessage(this.owner);
+	}
+	
+	private void duelResult(HPlayer p) {
+		String player1 = this.owner.getPlayer().getDisplayName() + "§r: " + this.owner.getScore();
+		String player2 = this.owner.getOpponent().getDisplayName() + "§r: " + this.owner.getOpponent().getScore();
+		
+		if (this.owner.duelType.equals("Qualification"))
+			Main.QDuelBusy = false;
+		
+		if (this.owner.duelType.equals("Finals"))
+			Main.FDuelBusy = false;
+		
+		this.owner.duelType = "none";
+		
+		ScoreboardManager.updateScoreboard(p);
+		p.getPlayer().sendMessage("§a§l§m---------------------------------------------");
+		p.getPlayer().sendMessage(Utils.centerText("§4§lDuel"));
+		p.getPlayer().sendMessage("");
+		p.getPlayer().sendMessage(Utils.centerText("§6#1 " + (this.owner.getScore() > this.owner.getOpponent().getScore() ? player1 : player2)));
+		p.getPlayer().sendMessage(Utils.centerText("§f#2 " + (this.owner.getScore() < this.owner.getOpponent().getScore() ? player1 : player2)));
+		p.getPlayer().sendMessage("§a§l§m---------------------------------------------");
+	}
+
+	private void teleportToSpawn(HPlayer p) {
+		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
+			@Override
+			public void run(){
+				p.inDuel = false;
+				p.restorePlayerData();
+				ScoreboardManager.setDefaultScoreboard(p.getBoard());
+				p.getBoard().setTitle(p.getDisplayName());
+				p.getPlayer().teleport(new Location(Bukkit.getWorld("world"), -7.5f, 55, -1045.5f, 0, 0));
+			}
+		}, (100L));
+	}
+	
+	private void endDuel() {
+		if (this.owner.inParty) {
+			for (HPlayer hp : this.owner.party) {
+				duelResult(hp);
+				teleportToSpawn(hp);
+			}
+		} else {
+			duelResult(this.owner);
+			teleportToSpawn(this.owner);
+		}
+	}
+	
 	public void setOwner(HPlayer owner) {
 		HGame game = this;
 		HPlayer player = this.owner;
@@ -56,139 +145,11 @@ public class HGame {
 			WallManager.pullWall(this.owner, this, true, false);
 			GameUpdater.stopGame(this.owner, this);
 			
-			if (this.owner.getWallTime().size() > 0 && !this.owner.inDuel) {
-				if (this.owner.inParty) {
-						
-					for (HPlayer hp : this.owner.party) {
-						ScoreboardManager.updateScoreboard(hp);
-						Collections.sort(hp.getWallTime());
-						float average = 0;
-						
-						for (Float f : hp.getWallTime()) {
-							average += f;
-						}
-						average = average / hp.getWallTime().size();
-						
-						hp.getPlayer().sendMessage("§a§l§m---------------------------------------------");
-						hp.getPlayer().sendMessage(Utils.centerText("§6§lGame summary"));
-						hp.getPlayer().sendMessage("§6Stage: §f"+hp.board.get(11).replace("Stage: §a", ""));
-						hp.getPlayer().sendMessage("§6Score: §f"+hp.score);
-						
-						if (hp.time > 0) {
-							int minutes = hp.time / 60;
-							int seconds = (hp.time) % 60;
-							String str = String.format("%d:%02d", minutes, seconds);
-							hp.getPlayer().sendMessage("§6Time: §f"+str);
-						}
-						hp.getPlayer().sendMessage(Utils.centerText("§b§lWall completion time"));
-						hp.getPlayer().sendMessage("§bFastest wall: §f"+Utils.ROUND.format(hp.getWallTime().get(0))+"s");
-						hp.getPlayer().sendMessage("§bSlowest wall: §f"+Utils.ROUND.format(hp.getWallTime().get(hp.getWallTime().size()-1))+"s");
-						hp.getPlayer().sendMessage("§bAverage: §f"+Utils.ROUND.format(average)+"s");
-						hp.getPlayer().sendMessage(Utils.centerText("§a§lWalls"));
-						hp.getPlayer().sendMessage("§aNumber of walls: §f"+hp.wall);
-						hp.getPlayer().sendMessage("§aPerfect walls: §f"+hp.perfectWall);
-						hp.getPlayer().sendMessage(Utils.centerText("§4§lMistakes"));
-						hp.getPlayer().sendMessage("§4Aim chokes: §f"+hp.choke);
-						hp.getPlayer().sendMessage("§4Misplaced blocks: §f"+hp.misplaced);
-						hp.getPlayer().sendMessage("§4Missed blocks: §f"+hp.missed);
-						hp.getPlayer().sendMessage("§a§l§m---------------------------------------------");
-					}
-				} else {
-					ScoreboardManager.updateScoreboard(this.owner);
-					Collections.sort(this.owner.getWallTime());
-					float average = 0;
-					
-					for (Float f : this.owner.getWallTime()) {
-						average += f;
-					}
-					average = average / this.owner.getWallTime().size();
-					
-					this.owner.getPlayer().sendMessage("§a§l§m---------------------------------------------");
-					this.owner.getPlayer().sendMessage(Utils.centerText("§6§lGame summary"));
-					this.owner.getPlayer().sendMessage("§6Stage: §f"+this.owner.board.get(11).replace("Stage: §a", ""));
-					this.owner.getPlayer().sendMessage("§6Score: §f"+this.owner.score);
-					
-					if (this.owner.time > 0) {
-						int minutes = this.owner.time / 60;
-						int seconds = (this.owner.time) % 60;
-						String str = String.format("%d:%02d", minutes, seconds);
-						this.owner.getPlayer().sendMessage("§6Time: §f"+str);
-					}
-					this.owner.getPlayer().sendMessage(Utils.centerText("§b§lWall completion time"));
-					this.owner.getPlayer().sendMessage("§bFastest wall: §f"+Utils.ROUND.format(this.owner.getWallTime().get(0))+"s");
-					this.owner.getPlayer().sendMessage("§bSlowest wall: §f"+Utils.ROUND.format(this.owner.getWallTime().get(this.owner.getWallTime().size()-1))+"s");
-					this.owner.getPlayer().sendMessage("§bAverage: §f"+Utils.ROUND.format(average)+"s");
-					this.owner.getPlayer().sendMessage(Utils.centerText("§a§lWalls"));
-					this.owner.getPlayer().sendMessage("§aNumber of walls: §f"+this.owner.wall);
-					this.owner.getPlayer().sendMessage("§aPerfect walls: §f"+this.owner.perfectWall);
-					this.owner.getPlayer().sendMessage(Utils.centerText("§4§lMistakes"));
-					this.owner.getPlayer().sendMessage("§4Aim chokes: §f"+this.owner.choke);
-					this.owner.getPlayer().sendMessage("§4Misplaced blocks: §f"+this.owner.misplaced);
-					this.owner.getPlayer().sendMessage("§4Missed blocks: §f"+this.owner.missed);
-					this.owner.getPlayer().sendMessage("§a§l§m---------------------------------------------");
-				}
-			}
+			if (this.owner.getWallTime().size() > 0 && !this.owner.inDuel)
+				printEndStats();
 			
-			if (this.owner.inDuel) {
-				String player1 = this.owner.getPlayer().getDisplayName() + "§r: " + this.owner.getScore();
-				String player2 = this.owner.getOpponent().getDisplayName() + "§r: " + this.owner.getOpponent().getScore();
-				
-				if (this.owner.duelType.equals("Qualification")) {
-					Main.QDuelBusy = false;
-				}
-				
-				if (this.owner.duelType.equals("Finals")) {
-					Main.FDuelBusy = false;
-				}
-				
-				this.owner.duelType = "none";
-				
-				if (this.owner.inParty) {
-					for (HPlayer hp : this.owner.party) {
-						ScoreboardManager.updateScoreboard(hp);
-						hp.getPlayer().sendMessage("§a§l§m---------------------------------------------");
-						hp.getPlayer().sendMessage(Utils.centerText("§4§lDuel"));
-						hp.getPlayer().sendMessage("");
-						hp.getPlayer().sendMessage(Utils.centerText("§6#1 " + (this.owner.getScore() > this.owner.getOpponent().getScore() ? player1 : player2)));
-						this.owner.getPlayer().sendMessage(Utils.centerText("§f#2 " + (this.owner.getScore() < this.owner.getOpponent().getScore() ? player1 : player2)));
-						hp.getPlayer().sendMessage("§a§l§m---------------------------------------------");
-						
-						
-						final HPlayer own = hp;
-						Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
-							@Override
-							public void run(){
-								own.inDuel = false;
-								own.restorePlayerData();
-								ScoreboardManager.setDefaultScoreboard(own.getBoard());
-								own.getBoard().setTitle(own.getDisplayName());
-								own.getPlayer().teleport(new Location(Bukkit.getWorld("world"), -7.5f, 55, -1045.5f, 0, 0));
-							}
-						}, (100L));
-					}
-				} else {
-					ScoreboardManager.updateScoreboard(this.owner);
-					this.owner.getPlayer().sendMessage("§a§l§m---------------------------------------------");
-					this.owner.getPlayer().sendMessage(Utils.centerText("§6§lDuel"));
-					this.owner.getPlayer().sendMessage("");
-					this.owner.getPlayer().sendMessage(Utils.centerText("§6#1 " + (this.owner.getScore() > this.owner.getOpponent().getScore() ? player1 : player2)));
-					this.owner.getPlayer().sendMessage(Utils.centerText("§f#2 " + (this.owner.getScore() < this.owner.getOpponent().getScore() ? player1 : player2)));
-					this.owner.getPlayer().sendMessage("§a§l§m---------------------------------------------");
-					
-					final HPlayer own = this.owner;
-					Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
-						@Override
-						public void run(){
-							own.inDuel = false;
-							own.restorePlayerData();
-							ScoreboardManager.setDefaultScoreboard(own.getBoard());
-							own.getBoard().setTitle(own.getDisplayName());
-							own.getPlayer().teleport(new Location(Bukkit.getWorld("world"), -7.5f, 55, -1045.5f, 0, 0));
-						}
-					}, (100L));
-				}
-				
-			}
+			if (this.owner.inDuel)
+				endDuel();
 			
 			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
 				@Override

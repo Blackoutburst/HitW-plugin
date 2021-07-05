@@ -35,10 +35,10 @@ public class Join {
 			}
 		}, 10L);
 		
-		AFKTimer(p);
+		afkTimer(p);
 	}
 	
-	private void AFKTimer(HPlayer p) {
+	private void afkTimer(HPlayer p) {
 		new BukkitRunnable(){
 			@Override
 			public void run(){
@@ -76,6 +76,7 @@ public class Join {
 		boolean destroy = false;
 		boolean autoLeave = true;
 		String songName = "Hyperdron - Inter-Dimensional Existence Kontrol";
+		HPlayer newHp = null;
 		
 		if (new File("./plugins/HitW/player data/"+p.getUniqueId()+".yml").exists()) {
 			YamlConfiguration playerData = YamlConfiguration.loadConfiguration(new File("./plugins/HitW/player data/"+p.getUniqueId()+".yml"));
@@ -92,11 +93,12 @@ public class Join {
 			destroy = playerData.getBoolean("destroy");
 			autoLeave = playerData.getBoolean("autoLeave");
 			songName = playerData.getString("songName");
+			newHp = new HPlayer(p, wallColor, glassColor, leverDelay, memTime, brushLag, fly, title, rightSided, oldAnimation, blind, destroy, autoLeave, board, rank, songName);
 		} else {
 			Bukkit.broadcastMessage("§dWelcome "+p.getDisplayName()+" §dto the server!");
-			HPlayer.writePlayerData(new File("./plugins/HitW/player data/"+p.getUniqueId()+".yml"), wallColor, glassColor, leverDelay, memTime, brushLag, fly, title, rightSided, oldAnimation, blind, destroy, autoLeave, songName);
+			newHp = new HPlayer(p, wallColor, glassColor, leverDelay, memTime, brushLag, fly, title, rightSided, oldAnimation, blind, destroy, autoLeave, board, rank, songName);
+			HPlayer.writePlayerData(new File("./plugins/HitW/player data/"+p.getUniqueId()+".yml"), newHp);
 		}
-		HPlayer newHp = new HPlayer(p, wallColor, glassColor, leverDelay, memTime, brushLag, fly, title, rightSided, oldAnimation, blind, destroy, autoLeave, board, rank, songName);
 		Main.hPlayers.add(newHp);
 		ScoreboardManager.setDefaultScoreboard(board);
 		

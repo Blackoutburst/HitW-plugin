@@ -17,7 +17,7 @@ public class Load {
 		new File("./plugins/HitW/songs").mkdir();
 		
 		NPC.loadNPCData();
-		NPC.NPCListner();
+		NPC.npcListener();
 		HGameLoader.loadHGames();
 	}
 }

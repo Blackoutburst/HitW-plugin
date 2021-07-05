@@ -58,6 +58,7 @@ public class NPC {
 			case "spawn": p.teleport(new Location(Bukkit.getWorld("world"), -7.5f, 55, -1045.5f, 0, 0)); break;
 			case "finals": p.teleport(new Location(Bukkit.getWorld("world"), -60.5f, 55, -1038.5f, 90, 0)); break;
 			case "qualification": p.teleport(new Location(Bukkit.getWorld("world"), -7.5f, 55, -1013.5f, 0, 0)); break;
+			default: return;
 		}
 	}
 
@@ -77,7 +78,7 @@ public class NPC {
 		this.name = name;
 	}
 	
-	public static void NPCListner() {
+	public static void npcListener() {
 		protocolManager = ProtocolLibrary.getProtocolManager();
 		protocolManager.addPacketListener(new PacketAdapter(Main.getPlugin(Main.class), ListenerPriority.NORMAL, PacketType.Play.Client.USE_ENTITY) {
 			@Override
@@ -139,7 +140,7 @@ public class NPC {
 	    
 	    gp.getProperties().put("textures", new Property("textures", skin[0], skin[1]));
 	    
-	    EntityPlayer c = new EntityPlayer(MinecraftServer.getServer(), s, gp, new PlayerInteractManager(w));;
+	    EntityPlayer c = new EntityPlayer(MinecraftServer.getServer(), s, gp, new PlayerInteractManager(w));
 	    
         DataWatcher watcher = c.getDataWatcher();
         watcher.watch(10, (byte) 126);

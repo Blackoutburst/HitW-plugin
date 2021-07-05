@@ -31,6 +31,7 @@ public class HGameLoader {
 				case "east": direction = Direction.EAST; break;
 				case "south": direction = Direction.SOUTH; break;
 				case "west": direction = Direction.WEST; break;
+				default: continue;
 			}
 			Main.hGames.add(new HGame(direction, wall, area, playfield, name, holes));
 		}

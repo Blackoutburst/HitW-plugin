@@ -45,10 +45,6 @@ public class Main extends JavaPlugin implements Listener {
 		new Load().execute();
 	}
 	
-	
-	@Override
-	public void onDisable() {}
-	
 	@EventHandler
 	public void onMoveEvent(PlayerMoveEvent event) {
 		new Move().execute(event);

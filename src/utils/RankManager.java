@@ -54,13 +54,13 @@ public class RankManager {
 				finals = Integer.valueOf(value[i].replaceAll("[^0-9]", ""));
 			}
 		}
-		rank = getRank(player, qualification, finals);
+		rank = getRank(qualification, finals);
 		
 		setDisplayName(player, rank + player.getName() + ChatColor.RESET);
 		return (rank);
 	}
 	
-	private static String getRank(Player player, int qualification, int finals) {
+	private static String getRank(int qualification, int finals) {
 		if (qualification >= 500 || finals >= 500) {
 			return(ChatColor.DARK_GREEN + "[500+] ");
 			

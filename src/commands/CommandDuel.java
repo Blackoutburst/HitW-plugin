@@ -1,6 +1,5 @@
 package commands;
 
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -137,35 +136,8 @@ public class CommandDuel {
 		game.setWallPulled(false);
 		game.setOwner(p);
 
-		if (p.isInParty()) {
-			for (HPlayer hp : p.getParty())  {
-				GameUtils.displayCountdown(hp, 10, game);
-			}
-		} else {
-			GameUtils.displayCountdown(p, 10, game);
-		}
-		
-		if (p.isInParty()) {
-			for (HPlayer hp : p.getParty()) {
-				hp.setPerfectWall(0);
-				hp.setWall(1);
-				hp.setChoke(0);
-				hp.setMisplaced(0);
-				hp.setMissed(0);
-				hp.setScore(0);
-				hp.setWallBegin(Instant.now());
-				hp.getWallTime().clear();
-			}
-		} else {
-			p.setPerfectWall(0);
-			p.setWall(1);
-			p.setChoke(0);
-			p.setMisplaced(0);
-			p.setMissed(0);
-			p.setScore(0);
-			p.setWallBegin(Instant.now());
-			p.getWallTime().clear();
-		}
+		GameUtils.preparePlayers(p);
+		GameUtils.setCountdown(p, game, 10);
 		
 		final HPlayer leader = p.isInParty() ? p.getParty().get(0) : p;
 		
@@ -176,34 +148,8 @@ public class CommandDuel {
 					this.cancel();
 					return;
 				}
-				WallManager.resetPlayField(game, p, true);
-				if (leader.isDestroy() && !leader.isBlind()) {
-					WallManager.fillPlayField(game, p);
-				}
-				if (leader.isBlind()) {
-					WallManager.hideWall(p, game);
-				} 
-				if (p.isInParty()) {
-					for (HPlayer hp : p.getParty()) {
-						hp.getPlayer().getInventory().clear();
-						ItemStack stack = new ItemStack(Material.STAINED_GLASS, 50, hp.getGlassColor());
-						hp.getPlayer().getInventory().setItem(0, stack);
-						hp.setWallBegin(Instant.now());
-					}
-				} else {
-					p.getPlayer().getInventory().clear();
-					ItemStack stack = new ItemStack(Material.STAINED_GLASS, 50, p.getGlassColor());
-					p.getPlayer().getInventory().setItem(0, stack);
-					p.setWallBegin(Instant.now());
-				}
-				WallManager.generateWall(p, game, false);
-				if (p.isInParty()) {
-					for (HPlayer hp : p.getParty())  {
-						hp.setInGame(true, game);
-					}
-				} else {
-					p.setInGame(true, game);
-				}
+				GameUtils.gameOptions(leader, p, game);
+				GameUtils.prepareGameStart(p, game);
 			}
 		}.runTaskLater(Main.getPlugin(Main.class),  20L * 11);	
 		
