@@ -76,10 +76,7 @@ public class ColorMenu {
 			case 32: color = 13;break; 
 			case 33: color = 14;break; 
 			case 40: color = 15;break; 
-			default: color = -1;
-		}
-		if (color == -1) {
-			return;
+			default: color = 0;break;
 		}
 		
 		if (inv.getName().equals(ChatColor.BLACK + "Wall Color")) {

@@ -264,7 +264,6 @@ public class CommandDuel {
 		Location A = stage.equals("Qualification") ? new Location(Bukkit.getWorld("world"), 79.5f, 55, -1057.5f, -90, 0) : new Location(Bukkit.getWorld("world"), 78.5f, 55, -996.5f, -90, 0);
 		Location B = stage.equals("Qualification") ? new Location(Bukkit.getWorld("world"), 79.5f, 55, -1043.5f, -90, 0) : new Location(Bukkit.getWorld("world"), 78.5f, 55, -978.5f, -90, 0);
 
-		
 		p1.setAutoLeave(false);
 		p1.setInDuel(true);
 		if (p1.isInParty()) {
@@ -275,7 +274,16 @@ public class CommandDuel {
 				hp.setDestroy(p1.isDestroy());
 				hp.setAutoLeave(false);
 				hp.setInDuel(true);
+				hp.setTime(120);
+				hp.getPlayer().teleport(A);
+				hp.getBoard().setTitle("§6-= Duel =-");
+				ScoreboardManager.setDuelScoreboard(stage, hp);
 			}
+		} else {
+			p1.setTime(120);
+			p1.getPlayer().teleport(A);
+			p1.getBoard().setTitle("§6-= Duel =-");
+			ScoreboardManager.setDuelScoreboard(stage, p1);
 		}
 		
 		p2.setMemTime(p1.getMemTime());
@@ -292,25 +300,6 @@ public class CommandDuel {
 				hp.setDestroy(p1.isDestroy());
 				hp.setAutoLeave(false);
 				hp.setInDuel(true);
-			}
-		}
-		
-		if (p1.isInParty()) {
-			for (HPlayer hp : p1.getParty()) {
-				hp.setTime(120);
-				hp.getPlayer().teleport(A);
-				hp.getBoard().setTitle("§6-= Duel =-");
-				ScoreboardManager.setDuelScoreboard(stage, hp);
-			}
-		} else {
-			p1.setTime(120);
-			p1.getPlayer().teleport(A);
-			p1.getBoard().setTitle("§6-= Duel =-");
-			ScoreboardManager.setDuelScoreboard(stage, p1);
-		}
-		
-		if (p2.isInParty()) {
-			for (HPlayer hp : p2.getParty()) {
 				hp.setTime(120);
 				hp.getPlayer().teleport(B);
 				hp.getBoard().setTitle("§6-= Duel =-");

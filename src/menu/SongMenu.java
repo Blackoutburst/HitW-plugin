@@ -50,10 +50,11 @@ public class SongMenu {
 		String songName = "none";
 		
 		switch (slot) {
-			case 11: songName = "none";break; 
-			case 12: songName = "Hyperdron - Inter-Dimensional Existence Kontrol";break; 
-			default: songName = null;
+			case 11: songName = "none"; break; 
+			case 12: songName = "Hyperdron - Inter-Dimensional Existence Kontrol"; break; 
+			default: songName = null; break;
 		}
+		
 		if (songName == null) {
 			return;
 		}
