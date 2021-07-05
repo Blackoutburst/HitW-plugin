@@ -57,7 +57,7 @@ public class CommandPlay {
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
 			@Override
 			public void run(){
-				GameUpdater.updateClassic(p, game);
+				GameUpdater.updateTime(p, game);
 				game.setLeverBusy(true);
 				Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
 					@Override

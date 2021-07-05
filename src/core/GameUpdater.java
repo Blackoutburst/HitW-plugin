@@ -100,30 +100,4 @@ public class GameUpdater {
             }
 		}.runTaskTimer(Main.getPlugin(Main.class), 0L, 20L);
 	}
-
-	public static void updateClassic(HPlayer p, HGame game) {
-		new BukkitRunnable(){
-            @Override
-            public void run(){
-            	if (game.getOwner() == null) {
-            		this.cancel();
-            		return;
-            	}
-            	if (p.isInParty()) {
-            		for (HPlayer hp : p.getParty()) {
-            			hp.setTime(hp.getTime() - 1);
-            		}
-            	} else {
-            		p.setTime(p.getTime() - 1);
-            	}
-            	ScoreboardManager.updateScoreboard(p);
-            	showLastSecond(p);
-            	if (p.getTime() <= 0) {
-            		game.setOwner(null);
-            		this.cancel();
-            		return;
-            	}
-            }
-		}.runTaskTimer(Main.getPlugin(Main.class), 0L, 20L);
-	}
 }

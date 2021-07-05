@@ -28,37 +28,15 @@ import utils.Utils;
 
 public class CommandDuel {
 	
-	private static void duelQualification(HPlayer p) {
-		p.setDuelType("Qualification");
+	private static void duelRequest(HPlayer p, String duelName) {
+		p.setDuelType(duelName);
 		p.getPlayer().sendMessage("§eDuel request send to " + p.getOpponent().getDisplayName());
 		
 		TextComponent msg = new TextComponent(Utils.centerText("§eClick §bhere §eto accept"));
 		msg.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/duel accept " + p.getPlayer().getName()));
 		p.getOpponent().getPlayer().sendMessage("§a§l§m---------------------------------------------");
 		p.getOpponent().getPlayer().sendMessage(" ");
-		p.getOpponent().getPlayer().sendMessage(Utils.centerText(Bukkit.getPlayer(p.getPlayer().getName()).getDisplayName() + " §einvited you to a §bQualification §eduel !"));
-		p.getOpponent().getPlayer().spigot().sendMessage(msg);
-		p.getOpponent().getPlayer().sendMessage(" ");
-		p.getOpponent().getPlayer().sendMessage("§a§l§m---------------------------------------------");
-		p.getOpponent().setDuelInvite(true);
-		
-		new BukkitRunnable(){
-			@Override
-			public void run(){
-				p.getOpponent().setDuelInvite(false);
-			}
-		}.runTaskLater(Main.getPlugin(Main.class), 20L * 30);
-	}
-	
-	private static void duelFinals(HPlayer p) {
-		p.setDuelType("Finals");
-		p.getPlayer().sendMessage("§eDuel request send to " + p.getOpponent().getDisplayName());
-		
-		TextComponent msg = new TextComponent(Utils.centerText("§eClick §bhere §eto accept"));
-		msg.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/duel accept " + p.getPlayer().getName()));
-		p.getOpponent().getPlayer().sendMessage("§a§l§m---------------------------------------------");
-		p.getOpponent().getPlayer().sendMessage(" ");
-		p.getOpponent().getPlayer().sendMessage(Utils.centerText(Bukkit.getPlayer(p.getPlayer().getName()).getDisplayName() + " §einvited you to a §bFinals §eduel !"));
+		p.getOpponent().getPlayer().sendMessage(Utils.centerText(Bukkit.getPlayer(p.getPlayer().getName()).getDisplayName() + " §einvited you to a §b" + duelName + " §eduel !"));
 		p.getOpponent().getPlayer().spigot().sendMessage(msg);
 		p.getOpponent().getPlayer().sendMessage(" ");
 		p.getOpponent().getPlayer().sendMessage("§a§l§m---------------------------------------------");
@@ -75,22 +53,20 @@ public class CommandDuel {
 	public static void duelGUIAction(Inventory inv, int slot, HPlayer p) {
 		switch(slot) {
 			case 11:
-				if (!Main.QDuelBusy) {
-					duelQualification(p);
-				} else {
+				if (!Main.QDuelBusy)
+					duelRequest(p, "Qualification");
+				else
 					p.getPlayer().sendMessage("§cThis duel arena is busy right now, try again in a few minute !");
-				}
 				p.getPlayer().closeInventory();
 			break;
 			case 15:
-				if (!Main.FDuelBusy) {
-					duelFinals(p);
-				} else {
+				if (!Main.FDuelBusy)
+					duelRequest(p, "Finals");
+				else
 					p.getPlayer().sendMessage("§cThis duel arena is busy right now, try again in a few minute !");
-				}
 				p.getPlayer().closeInventory();
 			break;
-			default:break;
+			default: break;
 		}
 	}
 	
@@ -177,7 +153,7 @@ public class CommandDuel {
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
 			@Override
 			public void run(){
-				GameUpdater.updateClassic(p1, game1);
+				GameUpdater.updateTime(p1, game1);
 				game1.setLeverBusy(true);
 				Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
 					@Override
@@ -192,7 +168,7 @@ public class CommandDuel {
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
 			@Override
 			public void run(){
-				GameUpdater.updateClassic(p2, game2);
+				GameUpdater.updateTime(p2, game2);
 				game2.setLeverBusy(true);
 				Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
 					@Override
