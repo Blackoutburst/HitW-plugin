@@ -126,8 +126,8 @@ public class NPC {
 			case "STEK": return(Load.skins.get(10));
 			case "DOG": return(Load.skins.get(11));
 			case "alo": return(Load.skins.get(12));
+			default: return null;
 		}
-		return null;
 	}
 	
 	public static void spawn(Player p, String name, float x, float y, float z, float yaw, float pitch, String type) {

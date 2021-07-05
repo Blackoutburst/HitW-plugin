@@ -237,7 +237,7 @@ public class ConfigurationMenu {
 		ItemMeta meta = item.getItemMeta();
 
 		meta.setLore(lore);
-		meta.setDisplayName("§r§aLever delay");
+		meta.setDisplayName(name);
 		item.setItemMeta(meta);
 		inv.setItem(42, item);
 	}
@@ -248,7 +248,7 @@ public class ConfigurationMenu {
 
 		meta.setOwner(owner);
 		meta.setLore(lore);
-		meta.setDisplayName("§r§aLever delay");
+		meta.setDisplayName(name);
 		item.setItemMeta(meta);
 		inv.setItem(42, item);
 	}
