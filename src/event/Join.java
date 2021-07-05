@@ -97,7 +97,7 @@ public class Join {
 		} else {
 			Bukkit.broadcastMessage("§dWelcome "+p.getDisplayName()+" §dto the server!");
 			newHp = new HPlayer(p, wallColor, glassColor, leverDelay, memTime, brushLag, fly, title, rightSided, oldAnimation, blind, destroy, autoLeave, board, rank, songName);
-			HPlayer.writePlayerData(new File("./plugins/HitW/player data/"+p.getUniqueId()+".yml"), newHp);
+			HPlayer.updatePlayerData(newHp);
 		}
 		Main.hPlayers.add(newHp);
 		ScoreboardManager.setDefaultScoreboard(board);
