@@ -239,7 +239,7 @@ public class ConfigurationMenu {
 		meta.setLore(lore);
 		meta.setDisplayName(name);
 		item.setItemMeta(meta);
-		inv.setItem(42, item);
+		inv.setItem(slot, item);
 	}
 	
 	private static void setSkull(Material itemType, int quantity, short data, String name, ArrayList<String> lore, int slot,  Inventory inv, String owner) {
@@ -250,6 +250,6 @@ public class ConfigurationMenu {
 		meta.setLore(lore);
 		meta.setDisplayName(name);
 		item.setItemMeta(meta);
-		inv.setItem(42, item);
+		inv.setItem(slot, item);
 	}
 }
