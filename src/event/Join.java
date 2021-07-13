@@ -45,12 +45,8 @@ public class Join {
             	}
 				p.setAfkValue(p.getAfkValue() - 1);
 				
-				if (p.getAfkValue() <= 0 && !p.isAfk()) {
-					p.setAfk(true);
+				if (p.getAfkValue() <= 0) {
 					p.getPlayer().setPlayerListName(p.getRank()+p.getPlayer().getName()+" §4§lAFK§r");
-				} else if (p.getAfkValue() > 0 && p.isAfk()) {
-					p.setAfk(false);
-					p.getPlayer().setPlayerListName(p.getRank()+p.getPlayer().getName()+"§r");
 				}
 			}
 		}.runTaskTimer(Main.getPlugin(Main.class), 0L, 20L);

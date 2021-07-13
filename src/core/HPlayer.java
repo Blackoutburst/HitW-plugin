@@ -59,7 +59,6 @@ public class HPlayer {
 	protected Song song;
 	protected String songName;
 	protected int afkValue;
-	protected boolean afk;
 	
 	public HPlayer(Player player, short wallColor, short glassColor, float leverDelay, float memTime, float brushLag,
 			boolean fly, boolean title, boolean rightSided, boolean oldAnimation, boolean blind, boolean destroy, boolean autoLeave, 
@@ -100,7 +99,6 @@ public class HPlayer {
 		this.inDuel = false;
 		this.songName = songName;
 		this.afkValue = 60;
-		this.afk = false;
 	}
 
 	public static HPlayer getHPlayer(Player p) {
@@ -476,13 +474,5 @@ public class HPlayer {
 
 	public void setAfkValue(int afkValue) {
 		this.afkValue = afkValue;
-	}
-
-	public boolean isAfk() {
-		return afk;
-	}
-
-	public void setAfk(boolean afk) {
-		this.afk = afk;
 	}
 }

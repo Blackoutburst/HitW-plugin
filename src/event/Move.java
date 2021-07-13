@@ -12,6 +12,7 @@ public class Move {
 		HPlayer hp = HPlayer.getHPlayer(Bukkit.getPlayer(event.getPlayer().getName()));
 		
 		hp.setAfkValue(60);
+		hp.getPlayer().setPlayerListName(hp.getRank()+hp.getPlayer().getName()+"§r");
 		
 		if (!hp.isInDuel()) {
 			GameUtils.inGameArea(event.getPlayer());

@@ -12,5 +12,6 @@ public class CommandAFK {
 		HPlayer hp = HPlayer.getHPlayer(Bukkit.getPlayer(sender.getName()));
 		
 		hp.setAfkValue(0);
+		hp.getPlayer().setPlayerListName(hp.getRank()+hp.getPlayer().getName()+" §4§lAFK§r");
 	}
 }
