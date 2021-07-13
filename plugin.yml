@@ -4,7 +4,7 @@ version: 2.0
 api-version: 1.13
 author: Blackoutburst
 description: Hole in the Wall plugin
-depend: [ProtocolLib]
+depend: [NPCAPI]
 depend: [NoteBlockAPI]
 commands:
   discord:

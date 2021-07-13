@@ -9,10 +9,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import com.blackout.npcapi.core.PacketInteractListener;
+
 import core.Board;
 import core.HPlayer;
 import main.Main;
-import utils.NPC;
+import utils.NPCListener;
+import utils.NPCUtils;
 import utils.RankManager;
 import utils.ScoreboardManager;
 import utils.Utils;
@@ -26,14 +29,8 @@ public class Join {
 		HPlayer p = HPlayer.getHPlayer(event.getPlayer());
 		event.getPlayer().setAllowFlight(p.isFly());
 		
-		Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable() {
-			@Override
-			public void run() {
-				spawnHallOfFame(event);
-				spawnTournamentWinner(event);
-				spawnTeleportNPC(event);
-			}
-		}, 10L);
+		PacketInteractListener.init(event.getPlayer(), new NPCListener());
+		NPCUtils.spawnNPC(event);
 		
 		afkTimer(p);
 	}
@@ -106,34 +103,5 @@ public class Join {
 			hp.getBoard().addTeam(hp, newHp);
 			newHp.getBoard().addTeam(newHp, hp);
 		}
-	}
-	
-	private void spawnTeleportNPC(PlayerJoinEvent event) {
-		NPC.spawn(event.getPlayer(), "paffol3", -2.5f, 55.0f, -1031.5f, 180, 0, "qualification");
-		NPC.spawn(event.getPlayer(), "Arcire", -12.5f, 55.0f, -1031.5f, 180, 0, "finals");
-		NPC.spawn(event.getPlayer(), "Blackuwu", -5.5f, 54.0f, -1007.5f, 135, 0, "spawn");
-		NPC.spawn(event.getPlayer(), "Blackuwu", -66.5f, 54.0f, -1036.5f, -135, 0, "spawn");
-	}
-	
-	private void spawnHallOfFame(PlayerJoinEvent event) {
-		NPC.spawn(event.getPlayer(), "Somi", 15.5f, 55.0f, -1042.5f, 0, 0, "");
-		NPC.spawn(event.getPlayer(), "paffol3", 15.5f, 55.0f, -1034.5f, 180, 0, "");
-		NPC.spawn(event.getPlayer(), "Arcire", 19.5f, 55.0f, -1042.5f, 0, 0, "");
-		NPC.spawn(event.getPlayer(), "catfury400", 19.5f, 55.0f, -1034.5f, 180, 0, "");
-		NPC.spawn(event.getPlayer(), "Ted", 23.5f, 55.0f, -1042.5f, 0, 0, "");
-		NPC.spawn(event.getPlayer(), "Spar", 23.5f, 55.0f, -1034.5f, 180, 0, "");
-		NPC.spawn(event.getPlayer(), "Tasted", 27.5f, 55.0f, -1042.5f, 0, 0, "");
-		NPC.spawn(event.getPlayer(), "NoobLMason", 27.5f, 55.0f, -1034.5f, 180, 0, "");
-		NPC.spawn(event.getPlayer(), "HamsterWall", 31.5f, 55.0f, -1042.5f, 0, 0, "");
-		NPC.spawn(event.getPlayer(), "Blackuwu", 31.5f, 55.0f, -1034.5f, 180, 0, "");
-		NPC.spawn(event.getPlayer(), "alo", 35.5f, 55.0f, -1042.5f, 0, 0, "");
-		NPC.spawn(event.getPlayer(), "DOG", 35.5f, 55.0f, -1034.5f, 180, 0, "");
-	}
-	
-	private void spawnTournamentWinner(PlayerJoinEvent event) {
-		NPC.spawn(event.getPlayer(), "Somi", -30.5f, 55.0f, -1042.5f, 0, 0, "");
-		NPC.spawn(event.getPlayer(), "NoobLMason", -30.5f, 55.0f, -1034.5f, 180, 0, "");
-		NPC.spawn(event.getPlayer(), "STEK", -34.5f, 55.0f, -1042.5f, 0, 0, "");
-		NPC.spawn(event.getPlayer(), "DOG", -34.5f, 55.0f, -1034.5f, 180, 0, "");
 	}
 }
