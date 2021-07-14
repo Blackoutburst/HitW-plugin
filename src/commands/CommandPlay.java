@@ -140,6 +140,7 @@ public class CommandPlay {
 		HGame game = GameUtils.getGameArea(p.getPlayer());
 		
 		if (p.isInGame()) {sender.sendMessage("§cLeave your previous game before starting a new one !");return;}
+		if (GameUtils.ownGame(p)) {sender.sendMessage("§cLeave your previous game before starting a new one !");return;}
 		if (p.isInParty() && !p.isPartyLeader()) {sender.sendMessage("§cOnly the party leader can start a game !");return;}
 		if (game == null) {sender.sendMessage("§cPlease enter any game area before using this command !");return;}
 		if (game.getOwner() != null) {sender.sendMessage("§cThis game is already used by " + game.getOwner().getDisplayName() + " §c!");return;}

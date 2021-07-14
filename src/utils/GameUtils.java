@@ -250,4 +250,22 @@ public class GameUtils {
 		}
 		return (null);
 	}
+	
+	public static boolean ownGame(HPlayer p) {
+		for (HGame game : Main.hGames) {
+			if (game.getOwner() == p) {
+				return (true);
+			}
+		}
+		return (false);
+	}
+	
+	public static void stopGames(HPlayer p) {
+		for (HGame game : Main.hGames) {
+			if (game.getOwner() == p) {
+				game.getOwner().setInGame(false, game);
+				game.setOwner(null);
+			}
+		}
+	}
 }
