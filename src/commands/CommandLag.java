@@ -11,15 +11,15 @@ public class CommandLag {
 		float value = 0;
 		
 		if (args.length == 0) {
-			sender.sendMessage("§cPlease enter a value after the command !");
-			return;
-		}
-		
-		try {
-			value = Float.valueOf(args[0]);
-		} catch (Exception e) {
-			sender.sendMessage("§cInvalid value format, it must be a number or a decimal number !");
-			return;
+			sender.sendMessage("§eYour brush lag is now set to the default value §b(100.0ms)");
+			value = 100.0f;
+		} else {
+			try {
+				value = Float.valueOf(args[0]);
+			} catch (Exception e) {
+				sender.sendMessage("§cInvalid value format, it must be a number or a decimal number !");
+				return;
+			}
 		}
 		
 		if (value < 0) {value = 0;}

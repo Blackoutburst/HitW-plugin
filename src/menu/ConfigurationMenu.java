@@ -138,23 +138,23 @@ public class ConfigurationMenu {
         lore.add("§6Click to change brushing lag");
         lore.add("§6How long it take to break block");
         lore.add("§6after clicking them");
-        lore.add("§3(current "+p.getBrushLag()+")");
-        lore.add("§e(default 100.0)");
+        lore.add("§3(current "+p.getBrushLag()+"ms)");
+        lore.add("§e(default 100.0ms)");
         setItem(Material.EMPTY_MAP, 1, (short) 0, "§r§aBrushing lag", lore, 40, inv);
         
         lore.clear();
         lore.add("§6Click to change memory time");
         lore.add("§6How long you can look at the wall");
         lore.add("§6in blind mode");
-        lore.add("§3(current "+p.getMemTime()+")");
-        lore.add("§e(default 1.0)");
+        lore.add("§3(current "+p.getMemTime()+"s)");
+        lore.add("§e(default 1.0s)");
         setItem(Material.EMPTY_MAP, 1, (short) 0, "§r§aMemory time", lore, 41, inv);
         
         lore.clear();
         lore.add("§6Click to change lever delay");
         lore.add("§6How long the lever take to reset");
-        lore.add("§3(current "+p.getLeverDelay()+")");
-        lore.add("§e(default 0.5)");
+        lore.add("§3(current "+p.getLeverDelay()+"s)");
+        lore.add("§e(default 0.5s)");
         setItem(Material.LEVER, 1, (short) 0, "§r§aLever delay", lore, 42, inv);
 	}
 	
