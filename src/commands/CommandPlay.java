@@ -156,6 +156,7 @@ public class CommandPlay {
 				default: sender.sendMessage("§cUnknown parrameter : " + args[0] + " !"); break;
 			}
 		} else {
+			p.setUsePlay(false);
 			endless(p, game);
 		}
 	}
