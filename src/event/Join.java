@@ -49,7 +49,7 @@ public class Join {
 					p.getPlayer().setPlayerListName(p.getRank()+p.getPlayer().getName()+" §4§lAFK§r");
 				}
 			}
-		}.runTaskTimer(Main.getPlugin(Main.class), 0L, 20L);
+		}.runTaskTimerAsynchronously(Main.getPlugin(Main.class), 0L, 20L);
 	}
 	
 	private void addHPlayer(Player p) {
