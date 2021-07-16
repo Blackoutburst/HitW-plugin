@@ -24,6 +24,11 @@ public class BlockDamage {
 			game = GameUtils.getGameArea(p.getPlayer());
 		}
 		
+		if (game == null) {
+			event.setCancelled(true);
+			return;
+		}
+		
 		if (GameUtils.inPlayArea(event.getBlock().getLocation(), game) && event.getBlock().getType().equals(Material.STAINED_GLASS)) {
 			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
 				@Override

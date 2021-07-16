@@ -1,6 +1,5 @@
 package commands;
 
-import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -57,21 +56,22 @@ public class CommandPlay {
     	}
 		game.setIncrementingHoles(true);
 		
-		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
+		new BukkitRunnable(){
 			@Override
 			public void run(){
 				GameUpdater.updateScore(p, game);
 				game.setLeverBusy(true);
 				
-				Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
+				new BukkitRunnable(){
 					@Override
 					public void run(){
 						game.setLeverBusy(false);
 						game.setType("Score");
+						p.setUsePlay(true);
 					}
-				}, (30L));
+				}.runTaskLaterAsynchronously(Main.getPlugin(Main.class), 20L);
 			}
-		}, (20L * 6));
+		}.runTaskLaterAsynchronously(Main.getPlugin(Main.class), 20L * 6);
 	}
 	
 	private void time(HPlayer p, String[] args, HGame game, boolean isClassic) {
@@ -89,21 +89,22 @@ public class CommandPlay {
 		
 		game.setIncrementingHoles(true);
 		
-		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
+		new BukkitRunnable(){
 			@Override
 			public void run(){
 				GameUpdater.updateTime(p, game);
 				game.setLeverBusy(true);
 				
-				Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
+				new BukkitRunnable(){
 					@Override
 					public void run(){
 						game.setLeverBusy(false);
 						game.setType("Time");
+						p.setUsePlay(true);
 					}
-				}, (30L));
+				}.runTaskLaterAsynchronously(Main.getPlugin(Main.class), 20L);
 			}
-		}, (20L * 6));
+		}.runTaskLaterAsynchronously(Main.getPlugin(Main.class), 20L * 6);
 	}
 	
 	private void endless(HPlayer p, HGame game) {
@@ -118,21 +119,22 @@ public class CommandPlay {
 		game.setIncrementingHoles(false);
 		
 		
-		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
+		new BukkitRunnable(){
 			@Override
 			public void run(){
 				GameUpdater.updateEndless(p, game);
 				game.setLeverBusy(true);
 				
-				Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
+				new BukkitRunnable(){
 					@Override
 					public void run(){
 						game.setType("Endless");
 						game.setLeverBusy(false);
+						p.setUsePlay(true);
 					}
-				}, (long)(20L * p.getLeverDelay()));
+				}.runTaskLaterAsynchronously(Main.getPlugin(Main.class), (long)(20L * p.getLeverDelay()));
 			}
-		}, (20L * 6));
+		}.runTaskLaterAsynchronously(Main.getPlugin(Main.class), 20L * 6);
 	}
 	
 	public void run(CommandSender sender, String[] args) {
@@ -144,12 +146,13 @@ public class CommandPlay {
 		if (p.isInParty() && !p.isPartyLeader()) {sender.sendMessage("§cOnly the party leader can start a game !");return;}
 		if (game == null) {sender.sendMessage("§cPlease enter any game area before using this command !");return;}
 		if (game.getOwner() != null) {sender.sendMessage("§cThis game is already used by " + game.getOwner().getDisplayName() + " §c!");return;}
+		if (!p.canUsePlay()) {sender.sendMessage("§cPlease wait before using this command again !");return;}
 		
 		if (args.length >= 1) {
 			switch(args[0]) {
-				case "classic": time(p, args, game, true); break;
-				case "score": score(p, args, game); break;
-				case "time": time(p, args, game, false); break;
+				case "classic": time(p, args, game, true); p.setUsePlay(false); break;
+				case "score": score(p, args, game); p.setUsePlay(false); break;
+				case "time": time(p, args, game, false); p.setUsePlay(false); break;
 				default: sender.sendMessage("§cUnknown parrameter : " + args[0] + " !"); break;
 			}
 		} else {

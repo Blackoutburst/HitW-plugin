@@ -127,7 +127,7 @@ public class GameUtils {
 						p.getPlayer().sendMessage(getCountdownNumber(number));
 					}
 				}
-			}.runTaskLater(Main.getPlugin(Main.class), 20L * (seconds - i));
+			}.runTaskLaterAsynchronously(Main.getPlugin(Main.class), 20L * (seconds - i));
 		}
 	}
 	

@@ -31,6 +31,15 @@ public class BlockPlace {
 			game = GameUtils.getGameArea(p.getPlayer());
 		}
 		
+		if (game == null) {
+			event.getBlock().setType(Material.AIR);
+			p.getPlayer().playSound(event.getPlayer().getLocation(), Sound.LAVA_POP, 1f, 1f);
+			p.setChoke(p.getChoke() + 1);
+			ScoreboardManager.updateScoreboard(p);
+			event.setCancelled(true);
+			return;
+		}
+		
 		if (!GameUtils.inPlayArea(event.getBlock().getLocation(), game)) {
 			event.getBlock().setType(Material.AIR);
 			p.getPlayer().playSound(event.getPlayer().getLocation(), Sound.LAVA_POP, 1f, 1f);
