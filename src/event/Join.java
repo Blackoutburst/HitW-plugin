@@ -7,7 +7,6 @@ import org.bukkit.Location;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import com.blackout.npcapi.core.PacketInteractListener;
 
@@ -31,25 +30,6 @@ public class Join {
 		
 		PacketInteractListener.init(event.getPlayer(), new NPCListener());
 		NPCUtils.spawnNPC(event);
-		
-		afkTimer(p);
-	}
-	
-	private void afkTimer(HPlayer p) {
-		new BukkitRunnable(){
-			@Override
-			public void run(){
-				if (p == null) {
-            		this.cancel();
-            		return;
-            	}
-				p.setAfkValue(p.getAfkValue() - 1);
-				
-				if (p.getAfkValue() <= 0) {
-					p.getPlayer().setPlayerListName(p.getRank()+p.getPlayer().getName()+" §4§lAFK§r");
-				}
-			}
-		}.runTaskTimerAsynchronously(Main.getPlugin(Main.class), 0L, 20L);
 	}
 	
 	private void addHPlayer(Player p) {
