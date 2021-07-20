@@ -58,7 +58,6 @@ public class HPlayer {
 	protected PositionSongPlayer rsp;
 	protected Song song;
 	protected String songName;
-	protected int afkValue;
 	protected boolean usePlay;
 	
 	public HPlayer(Player player, short wallColor, short glassColor, float leverDelay, float memTime, float brushLag,
@@ -99,7 +98,6 @@ public class HPlayer {
 		this.duelType = "none";
 		this.inDuel = false;
 		this.songName = songName;
-		this.afkValue = 60;
 		this.usePlay = true;
 	}
 
@@ -468,14 +466,6 @@ public class HPlayer {
 
 	public void setSongName(String songName) {
 		this.songName = songName;
-	}
-
-	public int getAfkValue() {
-		return afkValue;
-	}
-
-	public void setAfkValue(int afkValue) {
-		this.afkValue = afkValue;
 	}
 
 	public boolean canUsePlay() {
