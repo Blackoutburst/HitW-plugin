@@ -125,7 +125,7 @@ Change how much time the lever is disabled after using it, this settings only af
 ![image](https://user-images.githubusercontent.com/30992311/126809263-badbe1e0-a144-4277-9b16-7d84bb93fe02.png)
 
 This scoreboard shows current game information such as:
-- The stage you are playing.
+  - The stage you are playing.
 - How long are you playing (or how much time remaining for time and classic).
 - The number of perfect walls you made.
 - The wall you are currently building.
