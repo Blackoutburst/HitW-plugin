@@ -167,25 +167,25 @@ HammyInTheWall : for creating the community like we know it today.\
 MasonMC : for helping me in the early day with this server.
 
 And to all the cool people and friend I've met along the way
-- Simown
-- Puffleman
-- Cosmic
-- Khantrast
-- Winday
-- Fuby
-- Ugy
-- Mars
-- Jaq
-- Dobg
-- Arcxire
-- Lapis
-- Jazmin
-- Glampkoo
-- Bertje
-- Venom
-- Ueku
-- Audero
-- Norrie
-- HMT
+ - Simown
+ - Puffleman
+ - Cosmic
+ - Khantrast
+ - Winday
+ - Fuby
+ - Ugy
+ - Mars
+ - Jaq
+ - Dobg
+ - Arcxire
+ - Lapis
+ - Jazmin
+ - Glampkoo
+ - Bertje
+ - Venom
+ - Ueku
+ - Audero
+ - Norrie
+ - HMT
 
 And many more thanks you all ❤️
