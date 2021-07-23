@@ -125,14 +125,14 @@ Change how much time the lever is disabled after using it, this settings only af
 ![image](https://user-images.githubusercontent.com/30992311/126809263-badbe1e0-a144-4277-9b16-7d84bb93fe02.png)
 
 This scoreboard shows current game information such as:
-  - The stage you are playing.
-- How long are you playing (or how much time remaining for time and classic).
-- The number of perfect walls you made.
-- The wall you are currently building.
-- You current score.
-- How many holes you didn't filled.
-- How much block you placed that weren't holes.
-- How much time you placed a block outside your play area.
+ - The stage you are playing.
+ - How long are you playing (or how much time remaining for time and classic).
+ - The number of perfect walls you made.
+ - The wall you are currently building.
+ - You current score.
+ - How many holes you didn't filled.
+ - How much block you placed that weren't holes.
+ - How much time you placed a block outside your play area.
 
 ### Wall informations
 Everytime you pull the lever you get a chat message looking like this.\
