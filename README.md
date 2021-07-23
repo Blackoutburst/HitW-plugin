@@ -165,7 +165,7 @@ The tournament system got discontinued and removed when this plugin got reworked
 ## Special Thanks
 Flame_Frost_ : for introducing me to this awesome community.\
 HammyInTheWall : for creating the community like we know it today.\
-MasonMC : for helping me in the early day with this server.\
+MasonMC : for helping me in the early day with this server.
 
 And to all the cool people and friend I've met along the way
 - Simown
