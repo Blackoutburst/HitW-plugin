@@ -41,7 +41,6 @@ The game will always take the party leader configuration.\
 Song, glass color, fly, title, brush lag are player dependant (wall color depends on the last player who flicked the lever).\
 ![image](https://user-images.githubusercontent.com/30992311/126812998-b779c1a4-0157-4177-9db7-a261601379d4.png)
 
-
 ### Game area system
 This plugin uses a system of game area, so you are free to move around the map and you can only start a game when you are inside a game area leaving a game area make you instantly finish your game but this is optional as seen later.
 
@@ -126,14 +125,14 @@ Change how much time the lever is disabled after using it, this settings only af
 ![image](https://user-images.githubusercontent.com/30992311/126809263-badbe1e0-a144-4277-9b16-7d84bb93fe02.png)
 
 This scoreboard shows current game information such as:
-- The stage you are playing.
-- How long are you playing (or how much time remaining for time and classic).
-- The number of perfect walls you made.
-- The wall you are currently building.
-- You current score.
-- How many holes you didn't filled.
-- How much block you placed that weren't holes.
-- How much time you placed a block outside your play area.
+  - The stage you are playing.
+  - How long are you playing (or how much time remaining for time and classic).
+  - The number of perfect walls you made.
+  - The wall you are currently building.
+  - You current score.
+  - How many holes you didn't filled.
+  - How much block you placed that weren't holes.
+  - How much time you placed a block outside your play area.
 
 ### Wall informations
 Everytime you pull the lever you get a chat message looking like this.\
@@ -168,25 +167,25 @@ HammyInTheWall : for creating the community like we know it today.\
 MasonMC : for helping me in the early day with this server.
 
 And to all the cool people and friend I've met along the way
-- Simown
-- Puffleman
-- Cosmic
-- Khantrast
-- Winday
-- Fuby
-- Ugy
-- Mars
-- Jaq
-- Dobg
-- Arcxire
-- Lapis
-- Jazmin
-- Glampkoo
-- Bertje
-- Venom
-- Ueku
-- Audero
-- Norrie
-- HMT
+  - Simown
+  - Puffleman
+  - Cosmic
+  - Khantrast
+  - Winday
+  - Fuby
+  - Ugy
+  - Mars
+  - Jaq
+  - Dobg
+  - Arcxire
+  - Lapis
+  - Jazmin
+  - Glampkoo
+  - Bertje
+  - Venom
+  - Ueku
+  - Audero
+  - Norrie
+  - HMT
 
 And many more thanks you all ❤️
