@@ -68,8 +68,6 @@ public class NPCUtils {
 		NPCManager.spawnNPC(npc, event.getPlayer());
 		npc = new NPC(UUID.randomUUID(), "§7Alon").setLocation(new Location(Bukkit.getWorld("world"), 35.5f, 55.0f, -1042.5f, 0, 0)).setCapeVisible(false).setSkin(SkinLoader.getSkinById(12));
 		NPCManager.spawnNPC(npc, event.getPlayer());
-		npc = new NPC(UUID.randomUUID(), "§fDogette").setLocation(new Location(Bukkit.getWorld("world"), 35.5f, 55.0f, -1034.5f, 180, 0)).setCapeVisible(false).setSkin(SkinLoader.getSkinById(11));
-		NPCManager.spawnNPC(npc, event.getPlayer());
 	}
 	
 	private static void spawnTournamentWinner(PlayerJoinEvent event) {
