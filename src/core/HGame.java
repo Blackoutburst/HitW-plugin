@@ -91,25 +91,30 @@ public class HGame {
 			endStatsMessage(this.owner);
 	}
 	
-	private void duelResult(HPlayer p) {
-		String player1 = this.owner.getPlayer().getDisplayName() + "§r: " + this.owner.getScore();
-		String player2 = this.owner.getOpponent().getDisplayName() + "§r: " + this.owner.getOpponent().getScore();
-		
-		if (this.owner.duelType.equals("Qualification"))
-			Main.QDuelBusy = false;
-		
-		if (this.owner.duelType.equals("Finals"))
-			Main.FDuelBusy = false;
-		
-		this.owner.duelType = "none";
-		
-		ScoreboardManager.updateScoreboard(p);
-		p.getPlayer().sendMessage("§a§l§m---------------------------------------------");
-		p.getPlayer().sendMessage(Utils.centerText("§4§lDuel"));
-		p.getPlayer().sendMessage("");
-		p.getPlayer().sendMessage(Utils.centerText("§6#1 " + (this.owner.getScore() > this.owner.getOpponent().getScore() ? player1 : player2)));
-		p.getPlayer().sendMessage(Utils.centerText("§f#2 " + (this.owner.getScore() < this.owner.getOpponent().getScore() ? player1 : player2)));
-		p.getPlayer().sendMessage("§a§l§m---------------------------------------------");
+	private void duelResult(HPlayer p, HPlayer owner) {
+		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
+		    @Override
+		    public void run(){
+				String player1 = owner.getPlayer().getDisplayName() + "§r: " + owner.getScore();
+				String player2 = owner.getOpponent().getDisplayName() + "§r: " + owner.getOpponent().getScore();
+				
+				if (owner.duelType.equals("Qualification"))
+					Main.QDuelBusy = false;
+				
+				if (owner.duelType.equals("Finals"))
+					Main.FDuelBusy = false;
+				
+				owner.duelType = "none";
+				
+				ScoreboardManager.updateScoreboard(p);
+				p.getPlayer().sendMessage("§a§l§m---------------------------------------------");
+				p.getPlayer().sendMessage(Utils.centerText("§4§lDuel"));
+				p.getPlayer().sendMessage("");
+				p.getPlayer().sendMessage(Utils.centerText("§6#1 " + (owner.getScore() > owner.getOpponent().getScore() ? player1 : player2)));
+				p.getPlayer().sendMessage(Utils.centerText("§f#2 " + (owner.getScore() < owner.getOpponent().getScore() ? player1 : player2)));
+				p.getPlayer().sendMessage("§a§l§m---------------------------------------------");
+		    }
+		}, (5L));
 	}
 
 	private void teleportToSpawn(HPlayer p) {
@@ -128,11 +133,11 @@ public class HGame {
 	private void endDuel() {
 		if (this.owner.inParty) {
 			for (HPlayer hp : this.owner.party) {
-				duelResult(hp);
+				duelResult(hp, this.owner);
 				teleportToSpawn(hp);
 			}
 		} else {
-			duelResult(this.owner);
+			duelResult(this.owner, this.owner);
 			teleportToSpawn(this.owner);
 		}
 	}
