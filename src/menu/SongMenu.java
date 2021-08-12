@@ -31,7 +31,7 @@ public class SongMenu {
         meta.setLore(lore);
         meta.setDisplayName("§r§aNone");
         item.setItemMeta(meta);
-        inv.setItem(11, item);
+        inv.setItem(10, item);
         p.getPlayer().openInventory(inv);
         
         item = new ItemStack(Material.GOLD_RECORD, 1, (short) 0);
@@ -42,6 +42,17 @@ public class SongMenu {
         meta.setLore(lore);
         meta.setDisplayName("§r§aHyperdron");
         item.setItemMeta(meta);
+        inv.setItem(11, item);
+        p.getPlayer().openInventory(inv);
+        
+        item = new ItemStack(Material.RECORD_12, 1, (short) 0);
+        meta = item.getItemMeta();
+        meta.addItemFlags(ItemFlag.values());
+        lore = new ArrayList<String>();
+        lore.add("§bVoting");
+        meta.setLore(lore);
+        meta.setDisplayName("§r§aShinkoNet");
+        item.setItemMeta(meta);
         inv.setItem(12, item);
         p.getPlayer().openInventory(inv);
 	}
@@ -50,8 +61,9 @@ public class SongMenu {
 		String songName = "none";
 		
 		switch (slot) {
-			case 11: songName = "none"; break; 
-			case 12: songName = "Hyperdron - Inter-Dimensional Existence Kontrol"; break; 
+			case 10: songName = "none"; break; 
+			case 11: songName = "Hyperdron - Inter-Dimensional Existence Kontrol"; break; 
+			case 12: songName = "ShinkoNet - Voting"; break; 
 			default: songName = null; break;
 		}
 		
