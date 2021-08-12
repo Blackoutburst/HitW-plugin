@@ -26,6 +26,7 @@ public class NPCUtils {
 		SkinLoader.loadSkinFromUUID(10, "9477ef812e1b4345be40b1529f22c6a6"); //Steak
 		SkinLoader.loadSkinFromUUID(11, "75203801f5a54ba6baa691523aa15848"); //Dogette
 		SkinLoader.loadSkinFromUUID(12, "fb278a5613644c728076efa043204989"); //Alon
+		SkinLoader.loadSkinFromUUID(13, "6618ec18e05e4b8696646ac556c307f5"); //Fuby
 	}
 	
 	public static void spawnNPC(PlayerJoinEvent event) {
@@ -42,6 +43,10 @@ public class NPCUtils {
 		npc = new NPC(UUID.randomUUID(), "spawn").setLocation(new Location(Bukkit.getWorld("world"), -5.5f, 54.0f, -1007.5f, 135, 0)).setCapeVisible(false).setNameVisible(false).setSkin(SkinLoader.getSkinById(9));
 		NPCManager.spawnNPC(npc, event.getPlayer());
 		npc = new NPC(UUID.randomUUID(), "spawn").setLocation(new Location(Bukkit.getWorld("world"), -66.5f, 54.0f, -1036.5f, -135, 0)).setCapeVisible(false).setNameVisible(false).setSkin(SkinLoader.getSkinById(9));
+		NPCManager.spawnNPC(npc, event.getPlayer());
+		npc = new NPC(UUID.randomUUID(), "spawn").setLocation(new Location(Bukkit.getWorld("world"), -11.5f, 54.0f, -934.5f, 135, 0)).setCapeVisible(false).setNameVisible(false).setSkin(SkinLoader.getSkinById(9));
+		NPCManager.spawnNPC(npc, event.getPlayer());
+		npc = new NPC(UUID.randomUUID(), "wideQ").setLocation(new Location(Bukkit.getWorld("world"), 4.5f, 55.0f, -1032.5f, 180, 0)).setCapeVisible(false).setNameVisible(false).setSkin(SkinLoader.getSkinById(13));
 		NPCManager.spawnNPC(npc, event.getPlayer());
 	}
 	
