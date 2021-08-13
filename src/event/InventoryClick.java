@@ -9,6 +9,7 @@ import core.HPlayer;
 import menu.ColorMenu;
 import menu.ConfigurationMenu;
 import menu.SongMenu;
+import utils.NPCListener;
 
 public class InventoryClick {
 	
@@ -31,6 +32,10 @@ public class InventoryClick {
 		}
 		if (event.getInventory().getName().equals(ChatColor.BLACK + "Song played")) {
 			SongMenu.use(event.getInventory(), event.getSlot(), HPlayer.getHPlayer((Player) event.getWhoClicked()));
+			event.setCancelled(true);
+		}
+		if (event.getInventory().getName().equals(ChatColor.BLACK + "Hypixel map locations")) {
+			NPCListener.GUIAction(event.getInventory(), event.getSlot(), HPlayer.getHPlayer((Player) event.getWhoClicked()));
 			event.setCancelled(true);
 		}
 	}
