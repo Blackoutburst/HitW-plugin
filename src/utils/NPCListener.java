@@ -42,7 +42,14 @@ public class NPCListener implements NPCPacket {
 			case "finals": p.teleport(new Location(Bukkit.getWorld("world"), -60.5f, 55, -1038.5f, 90, 0)); break;
 			case "qualification": p.teleport(new Location(Bukkit.getWorld("world"), -7.5f, 55, -1013.5f, 0, 0)); break;
 			case "wideQ": p.teleport(new Location(Bukkit.getWorld("world"), -13.5f, 55, -940.5f, 0, 0)); break;
-			case "original": openGUI(HPlayer.getHPlayer(p)); break;
+			case "original": 
+				Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
+				    @Override
+				    public void run(){
+				    	openGUI(HPlayer.getHPlayer(p)); 
+				    }
+				}, (5L));
+				break;
 			default: return;
 		}
 	}
