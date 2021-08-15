@@ -162,7 +162,7 @@ public class WallManager {
 			}
 		}, (delay));
 		
-		delay = 30L;
+		delay = game.getName().equals("Lobby Wall") ? 15L : 30L;
 		
 		if (!game.isIncrementingHoles()) {
 			if (p.isInParty()) {

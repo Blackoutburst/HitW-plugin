@@ -102,7 +102,7 @@ public class CommandPlay {
 						game.setType("Time");
 						p.setUsePlay(true);
 					}
-				}.runTaskLaterAsynchronously(Main.getPlugin(Main.class), 20L);
+				}.runTaskLaterAsynchronously(Main.getPlugin(Main.class), game.getName().equals("Lobby Wall") ? 10L : 20L);
 			}
 		}.runTaskLaterAsynchronously(Main.getPlugin(Main.class), 20L * 6);
 	}

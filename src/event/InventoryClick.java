@@ -38,5 +38,9 @@ public class InventoryClick {
 			NPCListener.GUIAction(event.getInventory(), event.getSlot(), HPlayer.getHPlayer((Player) event.getWhoClicked()));
 			event.setCancelled(true);
 		}
+		if (event.getInventory().getName().equals(ChatColor.BLACK + "Custom walls locations")) {
+			NPCListener.GUICustomAction(event.getInventory(), event.getSlot(), HPlayer.getHPlayer((Player) event.getWhoClicked()));
+			event.setCancelled(true);
+		}
 	}
 }

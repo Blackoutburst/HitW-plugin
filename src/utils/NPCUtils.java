@@ -57,6 +57,8 @@ public class NPCUtils {
 		NPCManager.spawnNPC(npc, event.getPlayer());
 		npc = new NPC(UUID.randomUUID(), "spawn").setLocation(new Location(Bukkit.getWorld("world"), -186.5f, 79.0f, -862.5f, 45, 0)).setCapeVisible(false).setNameVisible(false).setSkin(SkinLoader.getSkinById(9));
 		NPCManager.spawnNPC(npc, event.getPlayer());
+		npc = new NPC(UUID.randomUUID(), "spawn").setLocation(new Location(Bukkit.getWorld("world"), 76.5f, 54.0f, -938.5f, 135, 0)).setCapeVisible(false).setNameVisible(false).setSkin(SkinLoader.getSkinById(9));
+		NPCManager.spawnNPC(npc, event.getPlayer());
 	}
 	
 	private static void spawnHallOfFame(PlayerJoinEvent event) {
