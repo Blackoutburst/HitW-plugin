@@ -79,7 +79,7 @@ public class CommandPlay {
 			if (args.length < 2) {p.getPlayer().sendMessage("§cInvalid usage try §b/play time §r[value] §c!");return;}
 			try {Integer.valueOf(args[1]);} catch(Exception e) {p.getPlayer().sendMessage("§cThe time limit must be a valid number");return;}
 		}
-		
+		game.setClassic(isClassic);
 		preStart(p, game);
 		if (p.isInParty())
     		for (HPlayer hp : p.getParty())

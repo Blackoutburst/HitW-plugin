@@ -60,9 +60,14 @@ public class HPlayer {
 	protected String songName;
 	protected boolean usePlay;
 	
+	protected int scoreFinals = 0;
+	protected int scoreQualification = 0;
+	protected int scoreWideQualification = 0;
+	protected int scoreLobby = 0;
+	
 	public HPlayer(Player player, short wallColor, short glassColor, float leverDelay, float memTime, float brushLag,
 			boolean fly, boolean title, boolean rightSided, boolean oldAnimation, boolean blind, boolean destroy, boolean autoLeave, 
-			Board board, String rank, String songName) {
+			Board board, String rank, String songName, int scoreFinals, int scoreQualification, int scoreWideQualification, int scoreLobby) {
 		this.player = player;
 		this.wallColor = wallColor;
 		this.glassColor = glassColor;
@@ -99,6 +104,10 @@ public class HPlayer {
 		this.inDuel = false;
 		this.songName = songName;
 		this.usePlay = true;
+		this.scoreFinals = scoreFinals;
+		this.scoreQualification = scoreQualification;
+		this.scoreWideQualification = scoreWideQualification;
+		this.scoreLobby = scoreLobby;
 	}
 
 	public static HPlayer getHPlayer(Player p) {
@@ -112,7 +121,7 @@ public class HPlayer {
 	
 	public static void updatePlayerData(HPlayer p) {
 		try {
-			File f = new File("./plugins/HitW/player data/"+p.player.getUniqueId()+".yml");
+			File f = new File("./plugins/HitW/player data/"+p.player.getUniqueId().toString().replace("-", "")+".yml");
 			
 			if (!f.exists()) {
 				f.createNewFile();
@@ -132,6 +141,11 @@ public class HPlayer {
 				config.set("destroy", p.destroy);
 				config.set("autoLeave", p.autoLeave);
 				config.set("songName", p.songName);
+				config.set("score", null);
+				config.set("score.Q", p.scoreQualification);
+				config.set("score.F", p.scoreFinals);
+				config.set("score.WQ", p.scoreWideQualification);
+				config.set("score.L", p.scoreLobby);
 				config.save(f);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -139,7 +153,7 @@ public class HPlayer {
 	}
 	
 	public void restorePlayerData() {
-		YamlConfiguration playerData = YamlConfiguration.loadConfiguration(new File("./plugins/HitW/player data/"+this.player.getUniqueId()+".yml"));
+		YamlConfiguration playerData = YamlConfiguration.loadConfiguration(new File("./plugins/HitW/player data/"+this.player.getUniqueId().toString().replace("-", "")+".yml"));
 		this.wallColor = (short) playerData.getInt("colors.wall");
 		this.glassColor = (short) playerData.getInt("colors.glass");
 		this.leverDelay = (float) playerData.getDouble("leverDelay");
@@ -153,6 +167,10 @@ public class HPlayer {
 		this.destroy = playerData.getBoolean("destroy");
 		this.autoLeave = playerData.getBoolean("autoLeave");
 		this.songName = playerData.getString("songName");
+		this.scoreQualification = playerData.getInt("score.Q");
+		this.scoreFinals = playerData.getInt("score.F");
+		this.scoreWideQualification = playerData.getInt("score.WQ");
+		this.scoreLobby = playerData.getInt("score.L");
 	}
 
 	public String getDisplayName() {
@@ -475,5 +493,38 @@ public class HPlayer {
 	public void setUsePlay(boolean usePlay) {
 		this.usePlay = usePlay;
 	}
+
+	public int getScoreFinals() {
+		return scoreFinals;
+	}
+
+	public void setScoreFinals(int scoreFinals) {
+		this.scoreFinals = scoreFinals;
+	}
+
+	public int getScoreQualification() {
+		return scoreQualification;
+	}
+
+	public void setScoreQualification(int scoreQualification) {
+		this.scoreQualification = scoreQualification;
+	}
+
+	public int getScoreWideQualification() {
+		return scoreWideQualification;
+	}
+
+	public void setScoreWideQualification(int scoreWideQualification) {
+		this.scoreWideQualification = scoreWideQualification;
+	}
+
+	public int getScoreLobby() {
+		return scoreLobby;
+	}
+
+	public void setScoreLobby(int scoreLobby) {
+		this.scoreLobby = scoreLobby;
+	}
+	
 	
 }

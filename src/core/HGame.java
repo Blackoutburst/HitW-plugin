@@ -21,8 +21,9 @@ public class HGame {
 	private boolean leverBusy;
 	private boolean wallPulled;
 	private String type;
+	protected boolean isClassic;
 	
-	public HGame(Direction direction, Area wall, Area area, Area playfield, String name, int[] holes) {
+	public HGame(Direction direction, Area wall, Area area, Area playfield, String name, int[] holes, boolean isClassic) {
 		this.direction = direction;
 		this.owner = null;
 		this.wall = wall;
@@ -34,6 +35,7 @@ public class HGame {
 		this.leverBusy = false;
 		this.wallPulled = false;
 		this.type = "";
+		this.isClassic = isClassic;
 	}
 
 	public Direction getDirection() {
@@ -142,16 +144,54 @@ public class HGame {
 		}
 	}
 	
+	private void savePlayerScore(HPlayer owner, String type) {
+		switch (type) {
+			case "Qualification": 
+				if (owner.score > owner.scoreQualification) {
+					owner.getPlayer().sendMessage("§6New PB §b(+"+(owner.score - owner.scoreQualification)+")");
+					owner.setScoreQualification(owner.score);
+					HPlayer.updatePlayerData(owner);
+				}
+			break;
+			case "Finals": 
+				if (owner.score > owner.scoreFinals) {
+					owner.getPlayer().sendMessage("§6New PB §b(+"+(owner.score - owner.scoreFinals)+")");
+					owner.setScoreFinals(owner.score);
+					HPlayer.updatePlayerData(owner);
+				}
+			break;
+			case "Wide Qualification": 
+				if (owner.score > owner.scoreWideQualification) {
+					owner.getPlayer().sendMessage("§6New PB §b(+"+(owner.score - owner.scoreWideQualification)+")");
+					owner.setScoreWideQualification(owner.score);
+					HPlayer.updatePlayerData(owner);
+				}
+			break;
+			case "Lobby Wall": 
+				if (owner.score > owner.scoreLobby) {
+					owner.getPlayer().sendMessage("§6New PB §b(+"+(owner.score - owner.scoreLobby)+")");
+					owner.setScoreLobby(owner.score);
+					HPlayer.updatePlayerData(owner);
+				}
+			break;
+		}
+	}
+	
 	public void setOwner(HPlayer owner) {
 		HGame game = this;
 		HPlayer player = this.owner;
 		if (owner == null) {
-			this.type = "none";
 			WallManager.pullWall(this.owner, this, true, false);
 			GameUpdater.stopGame(this.owner, this);
 			
 			if (this.owner.getWallTime().size() > 0 && !this.owner.inDuel)
 				printEndStats();
+			
+			if (this.isClassic()) 
+				savePlayerScore(this.owner, this.name);
+			
+			this.type = "none";
+			this.setClassic(false);
 			
 			if (this.owner.inDuel)
 				endDuel();
@@ -238,6 +278,13 @@ public class HGame {
 	public void setType(String type) {
 		this.type = type;
 	}
-	
+
+	public boolean isClassic() {
+		return isClassic;
+	}
+
+	public void setClassic(boolean isClassic) {
+		this.isClassic = isClassic;
+	}
 	
 }

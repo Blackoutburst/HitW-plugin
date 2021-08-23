@@ -111,6 +111,7 @@ public class CommandDuel {
 		
 		game.setWallPulled(false);
 		game.setOwner(p);
+		game.setClassic(true);
 
 		GameUtils.preparePlayers(p);
 		GameUtils.setCountdown(p, game, 10);

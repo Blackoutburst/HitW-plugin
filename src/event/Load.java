@@ -2,6 +2,7 @@ package event;
 
 import java.io.File;
 
+import api.CoreAPI;
 import utils.HGameLoader;
 import utils.NPCUtils;
 
@@ -14,5 +15,6 @@ public class Load {
 		
 		NPCUtils.loadSkins();
 		HGameLoader.loadHGames();
+		new CoreAPI().startServer();
 	}
 }

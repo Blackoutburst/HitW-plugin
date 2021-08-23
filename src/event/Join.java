@@ -51,8 +51,13 @@ public class Join {
 		String songName = "Hyperdron - Inter-Dimensional Existence Kontrol";
 		HPlayer newHp = null;
 		
-		if (new File("./plugins/HitW/player data/"+p.getUniqueId()+".yml").exists()) {
-			YamlConfiguration playerData = YamlConfiguration.loadConfiguration(new File("./plugins/HitW/player data/"+p.getUniqueId()+".yml"));
+		int scoreFinals = 0;
+		int scoreQualification = 0;
+		int scoreWideQualification = 0;
+		int scoreLobby = 0;
+		
+		if (new File("./plugins/HitW/player data/"+p.getUniqueId().toString().replace("-", "")+".yml").exists()) {
+			YamlConfiguration playerData = YamlConfiguration.loadConfiguration(new File("./plugins/HitW/player data/"+p.getUniqueId().toString().replace("-", "")+".yml"));
 			wallColor = (short) playerData.getInt("colors.wall");
 			glassColor = (short) playerData.getInt("colors.glass");
 			leverDelay = (float) playerData.getDouble("leverDelay");
@@ -66,10 +71,19 @@ public class Join {
 			destroy = playerData.getBoolean("destroy");
 			autoLeave = playerData.getBoolean("autoLeave");
 			songName = playerData.getString("songName");
-			newHp = new HPlayer(p, wallColor, glassColor, leverDelay, memTime, brushLag, fly, title, rightSided, oldAnimation, blind, destroy, autoLeave, board, rank, songName);
+			scoreQualification = playerData.getInt("score.Q");
+			scoreFinals = playerData.getInt("score.F");
+			scoreWideQualification = playerData.getInt("score.WQ");
+			scoreLobby = playerData.getInt("score.L");
+			
+			newHp = new HPlayer(p, wallColor, glassColor, leverDelay, memTime, brushLag, fly, title, 
+					rightSided, oldAnimation, blind, destroy, autoLeave, board, rank, songName,
+					scoreQualification, scoreFinals, scoreWideQualification, scoreLobby);
 		} else {
 			Bukkit.broadcastMessage("§dWelcome "+p.getDisplayName()+" §dto the server!");
-			newHp = new HPlayer(p, wallColor, glassColor, leverDelay, memTime, brushLag, fly, title, rightSided, oldAnimation, blind, destroy, autoLeave, board, rank, songName);
+			newHp = new HPlayer(p, wallColor, glassColor, leverDelay, memTime, brushLag, fly, title, 
+					rightSided, oldAnimation, blind, destroy, autoLeave, board, rank, songName,
+					scoreQualification, scoreFinals, scoreWideQualification, scoreLobby);
 			HPlayer.updatePlayerData(newHp);
 		}
 		Main.hPlayers.add(newHp);
