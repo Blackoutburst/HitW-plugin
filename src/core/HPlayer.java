@@ -60,14 +60,14 @@ public class HPlayer {
 	protected String songName;
 	protected boolean usePlay;
 	
-	protected int scoreFinals = 0;
 	protected int scoreQualification = 0;
+	protected int scoreFinals = 0;
 	protected int scoreWideQualification = 0;
 	protected int scoreLobby = 0;
 	
 	public HPlayer(Player player, short wallColor, short glassColor, float leverDelay, float memTime, float brushLag,
 			boolean fly, boolean title, boolean rightSided, boolean oldAnimation, boolean blind, boolean destroy, boolean autoLeave, 
-			Board board, String rank, String songName, int scoreFinals, int scoreQualification, int scoreWideQualification, int scoreLobby) {
+			Board board, String rank, String songName, int scoreQualification, int scoreFinals, int scoreWideQualification, int scoreLobby) {
 		this.player = player;
 		this.wallColor = wallColor;
 		this.glassColor = glassColor;
@@ -104,8 +104,8 @@ public class HPlayer {
 		this.inDuel = false;
 		this.songName = songName;
 		this.usePlay = true;
-		this.scoreFinals = scoreFinals;
 		this.scoreQualification = scoreQualification;
+		this.scoreFinals = scoreFinals;
 		this.scoreWideQualification = scoreWideQualification;
 		this.scoreLobby = scoreLobby;
 	}
