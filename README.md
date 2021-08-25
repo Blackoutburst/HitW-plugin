@@ -158,6 +158,45 @@ Tournament winner NPC.\
 Warps NPC used to navigate through different area in the server such as Spawn, Qualification and Finals.\
 ![image](https://user-images.githubusercontent.com/30992311/126811189-88325c9a-6f33-4ee9-b737-a77ffa53e131.png)
 
+### Custom wall size
+As long as you build a rectangle it will work so you can make tiny or giant wall it's not a problem
+
+### API
+This plugin does run an internal API
+
+#### How to use it and what does it answer
+Well it's actually simple to perform a request just create a TCP socket and connect to the server, send the uuid of the requested player and the server will answer in JSON format
+
+##### Request exemple
+```java
+Socket socket = new Socket("Server IP", 00000);
+BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
+OutputStream out = socket.getOutputStream();
+out.write(uuid.getBytes("UTF-8"));
+String data = in.readLine();
+socket.close();
+in.close();
+out.close();
+return (data);
+```
+
+##### API possible return
+If the player exist
+```JSON
+{
+   "scores":{
+      "qualification":0,
+      "finals":0,
+      "wide_qualification":0,
+      "lobby":0
+   }
+}
+```
+if the player doesn't exist
+```
+Unknown player
+```
+
 ### Tournament system
 The tournament system got discontinued and removed when this plugin got reworked due to the lack of tournament in the community, it might come back one day if tournament activity is revived.
 
