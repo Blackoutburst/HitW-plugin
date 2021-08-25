@@ -156,6 +156,15 @@ public class ConfigurationMenu {
         lore.add("§3(current "+p.getLeverDelay()+"s)");
         lore.add("§e(default 0.5s)");
         setItem(Material.LEVER, 1, (short) 0, "§r§aLever delay", lore, 42, inv);
+        
+        lore.clear();
+        lore.add("§e§l§m--------------------");
+		lore.add("§6Qualification score§r:§b "+p.getScoreQualification());
+        lore.add("§6Finals score§r:§b "+p.getScoreFinals());
+        lore.add("§6Wide Qualification score§r:§b "+p.getScoreWideQualification());
+        lore.add("§6Lobby score§r:§b "+p.getScoreLobby());
+        lore.add("§e§l§m--------------------");
+        setSkull(Material.SKULL_ITEM, 1, (short) 3, "§r§aYour stats", lore, 43, inv, p.getPlayer().getName());
 	}
 	
 	private static void setSecondLine(ArrayList<String> lore, Inventory inv, HPlayer p) {
