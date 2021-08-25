@@ -58,8 +58,14 @@ public class CoreAPI {
 			int F = playerData.getInt("score.F", 0);
 			int WQ = playerData.getInt("score.WQ", 0);
 			int L = playerData.getInt("score.L", 0);
-			
-			message = Q+":"+F+":"+WQ+":"+L+"\n";
+			message = "{"
+					+ "   \"scores\":{"
+					+ "      \"qualification\":"+Q+","
+					+ "      \"finals\":"+F+","
+					+ "      \"wide_qualification\":"+WQ+","
+					+ "      \"lobby\":"+L
+					+ "   }"
+					+ "}";
 	  		out.write(message.getBytes("UTF-8"));
 	  		
 	  		client.close();
