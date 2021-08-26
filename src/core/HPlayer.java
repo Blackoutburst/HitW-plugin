@@ -127,6 +127,7 @@ public class HPlayer {
 				f.createNewFile();
 			}
 				YamlConfiguration config = YamlConfiguration.loadConfiguration(f);
+				config.set("name", p.getPlayer().getName());
 				config.set("colors", null);
 				config.set("colors.wall", p.wallColor);
 				config.set("colors.glass", p.glassColor);

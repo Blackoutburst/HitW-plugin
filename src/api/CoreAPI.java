@@ -58,7 +58,9 @@ public class CoreAPI {
 			int F = playerData.getInt("score.F", 0);
 			int WQ = playerData.getInt("score.WQ", 0);
 			int L = playerData.getInt("score.L", 0);
+			String name = playerData.getString("name");
 			message = "{"
+					+ "   \"name\":"+name+","
 					+ "   \"scores\":{"
 					+ "      \"qualification\":"+Q+","
 					+ "      \"finals\":"+F+","
