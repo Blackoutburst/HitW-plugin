@@ -31,7 +31,7 @@ It's possible to play with all modification available in the configuration menu 
 
 ### Party / Coop system
 Basically work like Hypixel for the available commands and how it works.\
-`/p player` | `/party player` | `/coop player` Send a party invitation to a player.\
+`/p player` | `/party player` | `/coop player` Send a party invitation to a player.
 
 Some commands are just not implemented as they don't really serve a purpose on this server.\
 ![image](https://user-images.githubusercontent.com/30992311/126812538-cb31ab19-842a-436b-9958-16743968fde2.png)
