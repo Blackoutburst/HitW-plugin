@@ -153,6 +153,25 @@ public class HPlayer {
 		}
 	}
 	
+	public static void saveScore(HPlayer p, String type) {
+		try {
+			File f = new File("./plugins/HitW/player data/"+p.player.getUniqueId().toString().replace("-", "")+".yml");
+			
+			if (!f.exists()) {
+				f.createNewFile();
+			}
+				YamlConfiguration config = YamlConfiguration.loadConfiguration(f);
+				for (int i = 100; i > 0; i--) {
+					int a = config.getInt(type+"."+(i-1));
+					config.set(type+"."+i, a);
+				}
+				config.set(type+".1", p.score);
+				config.save(f);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public void restorePlayerData() {
 		YamlConfiguration playerData = YamlConfiguration.loadConfiguration(new File("./plugins/HitW/player data/"+this.player.getUniqueId().toString().replace("-", "")+".yml"));
 		this.wallColor = (short) playerData.getInt("colors.wall");

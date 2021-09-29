@@ -59,7 +59,23 @@ public class CoreAPI {
 			int WQ = playerData.getInt("score.WQ", 0);
 			int L = playerData.getInt("score.L", 0);
 			String name = playerData.getString("name");
+			String qh = "";
+			for (int i = 1; i <= 100; i++) {qh += playerData.getInt("qualification_history."+i, 0)+",";}
+			qh = qh.substring(0, qh.length() - 1);
+			String fh = "";
+			for (int i = 1; i <= 100; i++) {fh += playerData.getInt("finals_history."+i, 0)+",";}
+			fh = fh.substring(0, fh.length() - 1);
+			String wqh = "";
+			for (int i = 1; i <= 100; i++) {wqh += playerData.getInt("wide_qualification_history."+i, 0)+",";}
+			wqh = wqh.substring(0, wqh.length() - 1);
+			String lh = "";
+			for (int i = 1; i <= 100; i++) {lh += playerData.getInt("lobby_history."+i, 0)+",";}
+			lh = lh.substring(0, lh.length() - 1);
 			message = "{"
+					+ "   \"qualification_history\":["+qh+"],"
+					+ "   \"finals_history\":["+fh+"],"
+					+ "   \"wide_qualification_history\":["+wqh+"],"
+					+ "   \"lobby_history\":["+lh+"],"
 					+ "   \"name\":"+name+","
 					+ "   \"scores\":{"
 					+ "      \"qualification\":"+Q+","
