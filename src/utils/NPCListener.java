@@ -92,7 +92,7 @@ public class NPCListener implements NPCPacket {
 	
 	public static void GUICustomAction(Inventory inv, int slot, HPlayer p) {
 		switch(slot) {
-			case 11: p.getPlayer().teleport(new Location(Bukkit.getWorld("world"), -13.5f, 55, -940.5f, 0, 0)); break;
+			case 11: p.getPlayer().teleport(new Location(Bukkit.getWorld("world"), 2.5f, 55, -817.5f, 0, 0)); break;
 			case 15: p.getPlayer().teleport(new Location(Bukkit.getWorld("world"), 74.5f, 55, -944.5f, 0, 0)); break;
 			default: break;
 		}

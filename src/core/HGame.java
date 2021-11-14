@@ -191,7 +191,7 @@ public class HGame {
 			if (this.owner.getWallTime().size() > 0 && !this.owner.inDuel)
 				printEndStats();
 			
-			if (this.isClassic()) 
+			if (this.isClassic() && !this.owner.inParty)
 				savePlayerScore(this.owner, this.name);
 			
 			this.type = "none";
