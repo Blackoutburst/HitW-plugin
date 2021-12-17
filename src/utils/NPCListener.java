@@ -13,6 +13,7 @@ import org.bukkit.inventory.meta.SkullMeta;
 import com.blackout.npcapi.core.APlayer;
 import com.blackout.npcapi.core.NPC;
 import com.blackout.npcapi.core.NPCPacket;
+import com.blackoutburst.simplenpc.SimpleNPCPlayer;
 
 import core.HPlayer;
 import main.Main;
@@ -23,16 +24,29 @@ public class NPCListener implements NPCPacket {
 	public void onLeftClick(Player player, int npcId) {
 		APlayer ap = APlayer.get(player);
 		for (NPC npc : ap.npcs)
-			if (npcId == npc.getEntityId())
+			if (npcId == npc.getEntityId()) {
 				teleportToLocation(npc.getName(), player);
+				
+				if (ap.player.isOp()) {
+					player.sendMessage("§bYou selected §a"+npc.getName()+" §bid: §a"+npc.getEntityId());
+					SimpleNPCPlayer snp = SimpleNPCPlayer.getFromPlayer(player);
+					snp.selectedID = npc.getEntityId();
+				}
+			}
 	}
 
 	@Override
 	public void onRightClick(Player player, int npcId) {
 		APlayer ap = APlayer.get(player);
 		for (NPC npc : ap.npcs)
-			if (npcId == npc.getEntityId())
+			if (npcId == npc.getEntityId()) {
 				teleportToLocation(npc.getName(), player);
+				if (ap.player.isOp()) {
+					player.sendMessage("§bYou selected §a"+npc.getName()+" §bid: §a"+npc.getEntityId());
+					SimpleNPCPlayer snp = SimpleNPCPlayer.getFromPlayer(player);
+					snp.selectedID = npc.getEntityId();
+				}
+			}
 	}
 
 		

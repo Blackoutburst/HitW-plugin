@@ -9,6 +9,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 import com.blackout.npcapi.core.PacketInteractListener;
+import com.blackoutburst.simplenpc.NPCFile;
+import com.blackoutburst.simplenpc.SimpleNPCPlayer;
 
 import core.Board;
 import core.HPlayer;
@@ -22,6 +24,10 @@ import utils.Utils;
 public class Join {
 	
 	public void execute(PlayerJoinEvent event) {
+		SimpleNPCPlayer pnpc = new SimpleNPCPlayer(event.getPlayer());
+		Main.npcplayers.add(pnpc);
+		NPCFile.loadNPC(pnpc);
+		
 		event.getPlayer().teleport(new Location(Bukkit.getWorld("world"), -7.5f, 55, -1045.5f, 0, 0));
 		Utils.giveConfigItem(event.getPlayer());
 		addHPlayer(event.getPlayer());

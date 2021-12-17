@@ -18,6 +18,8 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.spigotmc.event.entity.EntityDismountEvent;
 
+import com.blackoutburst.simplenpc.SimpleNPCPlayer;
+
 import commands.CommandsManager;
 import core.HGame;
 import core.HPlayer;
@@ -33,6 +35,10 @@ import event.PlayerInteract;
 
 public class Main extends JavaPlugin implements Listener {
 
+	public static List<SimpleNPCPlayer> npcplayers = new ArrayList<SimpleNPCPlayer>();
+	
+	public static int skinId = 100;
+	
 	public static List<HPlayer> hPlayers = new ArrayList<HPlayer>();
 	public static List<HGame> hGames = new ArrayList<HGame>();
 	

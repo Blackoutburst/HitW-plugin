@@ -64,3 +64,10 @@ commands:
   afk:
     description: Set your status as AFK
     usage: /AFK
+  createnpc:
+    description: Create a new npc
+    usage: /createnpc name skinname
+  deletenpc:
+    description: Remove a npc
+    usage: /delete npc
+ 

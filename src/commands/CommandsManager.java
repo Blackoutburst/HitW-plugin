@@ -3,6 +3,9 @@ package commands;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
+import com.blackoutburst.simplenpc.CreateNPC;
+import com.blackoutburst.simplenpc.DeleteNPC;
+
 public class CommandsManager {
 	
 	public void execute(CommandSender sender, Command command, String label, String[] args) {
@@ -21,6 +24,8 @@ public class CommandsManager {
 			case "play": new CommandPlay().run(sender, args); break;
 			case "l": case "leave": new CommandLeave().run(sender); break;
 			case "duel": new CommandDuel().run(sender, args); break;
+			case "createnpc": new CreateNPC().run(sender, args); break;
+			case "deletenpc": new DeleteNPC().run(sender, args); break;
 			default: return;
 		}
 	}
