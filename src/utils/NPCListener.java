@@ -72,6 +72,22 @@ public class NPCListener implements NPCPacket {
 				    }
 				}, (5L));
 				break;
+			case "old_spawn": 
+				Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
+				    @Override
+				    public void run(){
+				    	p.teleport(new Location(Bukkit.getWorld("old_map"), -574.5f, 7, 665.5f, -90, 0));
+				    }
+				}, (5L));
+			break;
+			case "new_spawn": 
+				Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
+				    @Override
+				    public void run(){
+				    	p.teleport(new Location(Bukkit.getWorld("world"), -7.5f, 55, -1045.5f, 0, 0));
+				    }
+				}, (5L));
+			break;
 			default: return;
 		}
 	}

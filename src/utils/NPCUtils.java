@@ -30,6 +30,7 @@ public class NPCUtils {
 		SkinLoader.loadSkinFromUUID(14, "f7c77d999f154a66a87dc4a51ef30d19"); //Hypixel
 		SkinLoader.loadSkinFromUUID(15, "638bd94631a0487783b3e24e0581d695"); //DeprecatedNether
 		SkinLoader.loadSkinFromUUID(16, "640459a7a5c8417bbb06f6e6d28614a1"); //Jazmin
+		SkinLoader.loadSkinFromUUID(17, "9293868b414c42b2bd8e3bcb791247b9"); //Yaku
 	}
 	
 	public static void spawnNPC(PlayerJoinEvent event) {
@@ -60,6 +61,10 @@ public class NPCUtils {
 		npc = new NPC(UUID.randomUUID(), "spawn").setLocation(new Location(Bukkit.getWorld("world"), -186.5f, 79.0f, -862.5f, 45, 0)).setCapeVisible(false).setNameVisible(false).setSkin(SkinLoader.getSkinById(9));
 		NPCManager.spawnNPC(npc, event.getPlayer());
 		npc = new NPC(UUID.randomUUID(), "spawn").setLocation(new Location(Bukkit.getWorld("world"), 76.5f, 54.0f, -938.5f, 135, 0)).setCapeVisible(false).setNameVisible(false).setSkin(SkinLoader.getSkinById(9));
+		NPCManager.spawnNPC(npc, event.getPlayer());
+		npc = new NPC(UUID.randomUUID(), "old_spawn").setLocation(new Location(Bukkit.getWorld("world"), -7.5f, 54.0f, -1036.5f, 180, 0)).setCapeVisible(false).setNameVisible(false).setSkin(SkinLoader.getSkinById(17));
+		NPCManager.spawnNPC(npc, event.getPlayer());
+		npc = new NPC(UUID.randomUUID(), "new_spawn").setLocation(new Location(Bukkit.getWorld("old_map"), -565.5f, 6.0f, 665.5f, 90, 0)).setCapeVisible(false).setNameVisible(false).setSkin(SkinLoader.getSkinById(9));
 		NPCManager.spawnNPC(npc, event.getPlayer());
 	}
 	
