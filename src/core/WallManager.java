@@ -7,7 +7,6 @@ import java.util.Random;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
-import org.bukkit.World;
 import org.bukkit.inventory.ItemStack;
 
 import main.Main;
@@ -16,7 +15,6 @@ import utils.Utils;
 
 public class WallManager {
 	
-	private static final World WORLD = Bukkit.getWorld("world");
 	private static final Random RNG = new Random();
 	
 	private static void clearHider(HGame game) {
@@ -35,7 +33,7 @@ public class WallManager {
 		for (int x = xS+north-south; x <= xL+north-south; x++) {
 			for (int y = yS; y <= yL; y++) {
 				for (int z = zS-west+east; z <= zL-west+east; z++) {
-					WORLD.getBlockAt(x, y, z).setType(Material.AIR);
+					game.world.getBlockAt(x, y, z).setType(Material.AIR);
 				}
 			}
 		}
@@ -77,8 +75,8 @@ public class WallManager {
 				for (int x = xS+north-south; x <= xL+north-south; x++) {
 					for (int y = yS; y <= yL; y++) {
 						for (int z = zS-west+east; z <= zL-west+east; z++) {
-							WORLD.getBlockAt(x, y, z).setType(Material.STAINED_CLAY);
-							WORLD.getBlockAt(x, y, z).setData((byte)(p.getWallColor()));
+							game.world.getBlockAt(x, y, z).setType(Material.STAINED_CLAY);
+							game.world.getBlockAt(x, y, z).setData((byte)(p.getWallColor()));
 						}
 					}
 				}
@@ -198,13 +196,13 @@ public class WallManager {
 		for (int x = xS; x <= xL; x++) {
 			for (int y = yS; y <= yL; y++) {
 				for (int z = zS; z <= zL; z++) {
-					if (WORLD.getBlockAt(x, y, z).getType().equals(Material.AIR)) {
+					if (game.world.getBlockAt(x, y, z).getType().equals(Material.AIR)) {
 						missed++;
 					}
-					if ((west == 1 || east == 1) && WORLD.getBlockAt(x, y, (int)(game.getPlayfield().z0)+east-west).getType().equals(Material.STAINED_GLASS)) {
+					if ((west == 1 || east == 1) && game.world.getBlockAt(x, y, (int)(game.getPlayfield().z0)+east-west).getType().equals(Material.STAINED_GLASS)) {
 						misplaced++;
 					}
-					if ((south == 1 || north == 1) && WORLD.getBlockAt((int)(game.getPlayfield().x0)-south+north, y, z).getType().equals(Material.STAINED_GLASS)) {
+					if ((south == 1 || north == 1) && game.world.getBlockAt((int)(game.getPlayfield().x0)-south+north, y, z).getType().equals(Material.STAINED_GLASS)) {
 						misplaced++;
 					}
 				}
@@ -325,22 +323,22 @@ public class WallManager {
 		for (int x = xSW; x <= xLW; x++) {
 			for (int y = ySW; y <= yLW; y++) {
 				for (int z = zSW; z <= zLW; z++) {
-					if (WORLD.getBlockAt(x, y, z).getType().equals(Material.AIR)) continue;
+					if (game.world.getBlockAt(x, y, z).getType().equals(Material.AIR)) continue;
 					if (west == 1 || east == 1) {
-						if (WORLD.getBlockAt(x, y, (int)(game.getPlayfield().z0)).getType().equals(Material.STAINED_GLASS)) {
-							WORLD.getBlockAt(x, y, (int)(game.getPlayfield().z0)+east-west).setType(Material.STAINED_GLASS);
-							WORLD.getBlockAt(x, y, (int)(game.getPlayfield().z0)+east-west).setData((byte)(14));
+						if (game.world.getBlockAt(x, y, (int)(game.getPlayfield().z0)).getType().equals(Material.STAINED_GLASS)) {
+							game.world.getBlockAt(x, y, (int)(game.getPlayfield().z0)+east-west).setType(Material.STAINED_GLASS);
+							game.world.getBlockAt(x, y, (int)(game.getPlayfield().z0)+east-west).setData((byte)(14));
 						}
-						WORLD.getBlockAt(x, y, (int)(game.getPlayfield().z0)).setType(WORLD.getBlockAt(x, y, z).getType());
-						WORLD.getBlockAt(x, y, (int)(game.getPlayfield().z0)).setData(WORLD.getBlockAt(x, y, z).getData());
+						game.world.getBlockAt(x, y, (int)(game.getPlayfield().z0)).setType(game.world.getBlockAt(x, y, z).getType());
+						game.world.getBlockAt(x, y, (int)(game.getPlayfield().z0)).setData(game.world.getBlockAt(x, y, z).getData());
 					}
 					if (south == 1 || north == 1) {
-						if (WORLD.getBlockAt((int)(game.getPlayfield().x0), y, z).getType().equals(Material.STAINED_GLASS)) {
-							WORLD.getBlockAt((int)(game.getPlayfield().x0)-south+north, y, z).setType(Material.STAINED_GLASS);
-							WORLD.getBlockAt((int)(game.getPlayfield().x0)-south+north, y, z).setData((byte)(14));
+						if (game.world.getBlockAt((int)(game.getPlayfield().x0), y, z).getType().equals(Material.STAINED_GLASS)) {
+							game.world.getBlockAt((int)(game.getPlayfield().x0)-south+north, y, z).setType(Material.STAINED_GLASS);
+							game.world.getBlockAt((int)(game.getPlayfield().x0)-south+north, y, z).setData((byte)(14));
 						}
-						WORLD.getBlockAt((int)(game.getPlayfield().x0), y, z).setType(WORLD.getBlockAt(x, y, z).getType());
-						WORLD.getBlockAt((int)(game.getPlayfield().x0), y, z).setData(WORLD.getBlockAt(x, y, z).getData());
+						game.world.getBlockAt((int)(game.getPlayfield().x0), y, z).setType(game.world.getBlockAt(x, y, z).getType());
+						game.world.getBlockAt((int)(game.getPlayfield().x0), y, z).setData(game.world.getBlockAt(x, y, z).getData());
 					}
 				}
 			}
@@ -348,8 +346,8 @@ public class WallManager {
 		for (int x = xS; x <= xL; x++) {
 			for (int y = yS; y <= yL; y++) {
 				for (int z = zS; z <= zL; z++) {
-					if (WORLD.getBlockAt(x, y, z).getType().equals(Material.STAINED_GLASS)) {
-						WORLD.getBlockAt(x, y, z).setData((byte)(13));
+					if (game.world.getBlockAt(x, y, z).getType().equals(Material.STAINED_GLASS)) {
+						game.world.getBlockAt(x, y, z).setData((byte)(13));
 					}
 				}
 			}
@@ -370,7 +368,7 @@ public class WallManager {
 		for (int x = xS; x <= xL; x++) {
 			for (int y = yS; y <= yL; y++) {
 				for (int z = zS; z <= zL; z++) {
-					if (WORLD.getBlockAt(x, y, z).getType().equals(Material.AIR)) {
+					if (game.world.getBlockAt(x, y, z).getType().equals(Material.AIR)) {
 						hole++;
 					}
 				}
@@ -396,8 +394,8 @@ public class WallManager {
 					for (int x = xS; x <= xL; x++) {
 						for (int y = yS; y <= yL; y++) {
 							for (int z = zS; z <= zL; z++) {
-								WORLD.getBlockAt(x, y, z).setType(Material.STAINED_GLASS);
-								WORLD.getBlockAt(x, y, z).setData((byte) p.getGlassColor());
+								game.world.getBlockAt(x, y, z).setType(Material.STAINED_GLASS);
+								game.world.getBlockAt(x, y, z).setData((byte) p.getGlassColor());
 							}
 						}
 					}
@@ -407,8 +405,8 @@ public class WallManager {
 			for (int x = xS; x <= xL; x++) {
 				for (int y = yS; y <= yL; y++) {
 					for (int z = zS; z <= zL; z++) {
-						WORLD.getBlockAt(x, y, z).setType(Material.STAINED_GLASS);
-						WORLD.getBlockAt(x, y, z).setData((byte) p.getGlassColor());
+						game.world.getBlockAt(x, y, z).setType(Material.STAINED_GLASS);
+						game.world.getBlockAt(x, y, z).setData((byte) p.getGlassColor());
 					}
 				}
 			}
@@ -437,7 +435,7 @@ public class WallManager {
 				Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
 					@Override
 					public void run(){
-						WORLD.playSound(p.getPlayer().getLocation(), Sound.ORB_PICKUP, 1f, 1f);
+						game.world.playSound(p.getPlayer().getLocation(), Sound.ORB_PICKUP, 1f, 1f);
 						
 						if (p.isInParty()) {
 							for (HPlayer hp : p.getParty()) {
@@ -449,7 +447,7 @@ public class WallManager {
 						
 						for (int x = xS-south; x <= xL+north; x++) {
 							for (int z = zS-west; z <= zL+east; z++) {
-								WORLD.getBlockAt(x, y, z).setType(Material.AIR);
+								game.world.getBlockAt(x, y, z).setType(Material.AIR);
 							}
 						}
 					}
@@ -467,7 +465,7 @@ public class WallManager {
 			for (int x = xS-south; x <= xL+north; x++) {
 				for (int y = yS; y <= yL; y++) {
 					for (int z = zS-west; z <= zL+east; z++) {
-						WORLD.getBlockAt(x, y, z).setType(Material.AIR);
+						game.world.getBlockAt(x, y, z).setType(Material.AIR);
 					}
 				}
 			}
@@ -486,7 +484,7 @@ public class WallManager {
 		for (int x = xS; x <= xL; x++) {
 			for (int y = yS; y <= yL; y++) {
 				for (int z = zS; z <= zL; z++) {
-					WORLD.getBlockAt(x, y, z).setType(Material.QUARTZ_BLOCK);
+					game.world.getBlockAt(x, y, z).setType(Material.QUARTZ_BLOCK);
 				}
 			}
 		}
@@ -505,8 +503,8 @@ public class WallManager {
 		for (int x = xS; x <= xL; x++) {
 			for (int y = yS; y <= yL; y++) {
 				for (int z = zS; z <= zL; z++) {
-					WORLD.getBlockAt(x, y, z).setType(Material.STAINED_CLAY);
-					WORLD.getBlockAt(x, y, z).setData((byte)(p.getWallColor()));
+					game.world.getBlockAt(x, y, z).setType(Material.STAINED_CLAY);
+					game.world.getBlockAt(x, y, z).setData((byte)(p.getWallColor()));
 				}
 			}
 		}
@@ -525,10 +523,10 @@ public class WallManager {
 					int rng = RNG.nextInt(8);
 					
 					if (rng == 1 && checkHole(game) < hole)
-						WORLD.getBlockAt(x, y, (int) game.getWall().z0).setType(Material.AIR);
+						game.world.getBlockAt(x, y, (int) game.getWall().z0).setType(Material.AIR);
 					if (x == xS && y == yS || x == xL && y == yS) {
-						WORLD.getBlockAt(x, y, (int) game.getWall().z0).setType(Material.STAINED_CLAY);
-						WORLD.getBlockAt(x, y, (int) game.getWall().z0).setData((byte)(p.getWallColor()));
+						game.world.getBlockAt(x, y, (int) game.getWall().z0).setType(Material.STAINED_CLAY);
+						game.world.getBlockAt(x, y, (int) game.getWall().z0).setData((byte)(p.getWallColor()));
 					}
 				}
 			}
@@ -537,10 +535,10 @@ public class WallManager {
 					int rng = RNG.nextInt(8);
 					
 					if (rng == 1 && checkHole(game) < hole)
-						WORLD.getBlockAt(x, y, (int) game.getWall().z0).setType(Material.AIR);
+						game.world.getBlockAt(x, y, (int) game.getWall().z0).setType(Material.AIR);
 					if (x == xS && y == yS || x == xL && y == yS) {
-						WORLD.getBlockAt(x, y, (int) game.getWall().z0).setType(Material.STAINED_CLAY);
-						WORLD.getBlockAt(x, y, (int) game.getWall().z0).setData((byte)(p.getWallColor()));
+						game.world.getBlockAt(x, y, (int) game.getWall().z0).setType(Material.STAINED_CLAY);
+						game.world.getBlockAt(x, y, (int) game.getWall().z0).setData((byte)(p.getWallColor()));
 					}
 				}
 			}
@@ -558,10 +556,10 @@ public class WallManager {
 				int rng = RNG.nextInt(8);
 
 				if (rng == 1 && checkHole(game) < hole)
-					WORLD.getBlockAt((int) game.getWall().x0, y, z).setType(Material.AIR);
+					game.world.getBlockAt((int) game.getWall().x0, y, z).setType(Material.AIR);
 				if (z == zS && y == yS || z == zL && y == yS) {
-					WORLD.getBlockAt((int) game.getWall().x0, y, z).setType(Material.STAINED_CLAY);
-					WORLD.getBlockAt((int) game.getWall().x0, y, z).setData((byte)(p.getWallColor()));
+					game.world.getBlockAt((int) game.getWall().x0, y, z).setType(Material.STAINED_CLAY);
+					game.world.getBlockAt((int) game.getWall().x0, y, z).setData((byte)(p.getWallColor()));
 				}
 			}
 		}
@@ -570,10 +568,10 @@ public class WallManager {
 				int rng = RNG.nextInt(8);
 				
 				if (rng == 1 && checkHole(game) < hole)
-					WORLD.getBlockAt((int) game.getWall().x0, y, z).setType(Material.AIR);
+					game.world.getBlockAt((int) game.getWall().x0, y, z).setType(Material.AIR);
 				if (z == zS && y == yS || z == zL && y == yS) {
-					WORLD.getBlockAt((int) game.getWall().x0, y, z).setType(Material.STAINED_CLAY);
-					WORLD.getBlockAt((int) game.getWall().x0, y, z).setData((byte)(p.getWallColor()));
+					game.world.getBlockAt((int) game.getWall().x0, y, z).setType(Material.STAINED_CLAY);
+					game.world.getBlockAt((int) game.getWall().x0, y, z).setData((byte)(p.getWallColor()));
 				}
 			}
 		}

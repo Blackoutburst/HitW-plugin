@@ -34,7 +34,7 @@ public class BlockDamage {
 				@Override
 				public void run(){
             		event.getBlock().setType(Material.AIR);
-            		Bukkit.getWorld("world").playSound(event.getPlayer().getLocation(), Sound.GLASS, 1f, 1f);
+            		event.getPlayer().getLocation().getWorld().playSound(event.getPlayer().getLocation(), Sound.GLASS, 1f, 1f);
 				}
 			}, (long)((p.getBrushLag() * 20) / 1000));
 		}

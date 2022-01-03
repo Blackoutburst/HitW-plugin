@@ -6,7 +6,6 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -300,7 +299,7 @@ public class HPlayer {
 			Utils.giveConfigItem(this.player);
 		} else {
 			if (new File("./plugins/HitW/songs/"+songName+".nbs").exists()) {
-				Location loc = new Location(Bukkit.getWorld("world"), (game.getWall().x0 + game.getWall().x1) / 2, (game.getWall().y0 + game.getWall().y1) / 2, (game.getWall().z0 + game.getWall().z1) / 2);
+				Location loc = new Location(this.player.getLocation().getWorld(), (game.getWall().x0 + game.getWall().x1) / 2, (game.getWall().y0 + game.getWall().y1) / 2, (game.getWall().z0 + game.getWall().z1) / 2);
 				
 				
 				song = NBSDecoder.parse(new File("./plugins/HitW/songs/"+songName+".nbs"));

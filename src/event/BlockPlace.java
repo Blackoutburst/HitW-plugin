@@ -1,9 +1,7 @@
 package event;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
-import org.bukkit.block.Biome;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.ItemStack;
 
@@ -16,10 +14,6 @@ public class BlockPlace {
 	
 	public void execute(BlockPlaceEvent event) {
 		HPlayer p = HPlayer.getHPlayer(event.getPlayer());
-		
-		if (!p.isInGame() && !p.getPlayer().isOp() && Bukkit.getWorld("world").getBiome((int)(event.getBlock().getLocation().getX()), (int)(event.getBlock().getLocation().getZ())).equals(Biome.JUNGLE)) {
-			event.setCancelled(true);
-		}
 		
 		if (!p.isInGame()) return;
 		

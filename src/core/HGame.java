@@ -4,12 +4,14 @@ import java.util.Collections;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.World;
 
 import main.Main;
 import utils.ScoreboardManager;
 import utils.Utils;
 
 public class HGame {
+	protected World world;
 	protected Direction direction;
 	protected HPlayer owner;
 	protected Area wall;
@@ -23,7 +25,8 @@ public class HGame {
 	private String type;
 	protected boolean isClassic;
 	
-	public HGame(Direction direction, Area wall, Area area, Area playfield, String name, int[] holes, boolean isClassic) {
+	public HGame(World world, Direction direction, Area wall, Area area, Area playfield, String name, int[] holes, boolean isClassic) {
+		this.world = world;
 		this.direction = direction;
 		this.owner = null;
 		this.wall = wall;
@@ -36,6 +39,14 @@ public class HGame {
 		this.wallPulled = false;
 		this.type = "";
 		this.isClassic = isClassic;
+	}
+	
+	public World getWorld() {
+		return world;
+	}
+
+	public void setWorld(World world) {
+		this.world = world;
 	}
 
 	public Direction getDirection() {

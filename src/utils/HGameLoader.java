@@ -3,6 +3,8 @@ package utils;
 import java.io.File;
 import java.util.Set;
 
+import org.bukkit.Bukkit;
+import org.bukkit.World;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import core.Area;
@@ -17,6 +19,7 @@ public class HGameLoader {
 		Set<String> walls = config.getConfigurationSection("games").getKeys(false);
 		
 		for (String index : walls) {
+			World world = Bukkit.getWorld(config.getString("games."+index+".world"));
 			Float posA[] = Utils.stringArrToFloatArr(config.getString("games."+index+".area").split(", "));
 			Area area = new Area(posA[0], posA[1], posA[2], posA[3], posA[4], posA[5]);
 			Float posP[] = Utils.stringArrToFloatArr(config.getString("games."+index+".play").split(", "));
@@ -33,7 +36,7 @@ public class HGameLoader {
 				case "west": direction = Direction.WEST; break;
 				default: continue;
 			}
-			Main.hGames.add(new HGame(direction, wall, area, playfield, name, holes, false));
+			Main.hGames.add(new HGame(world, direction, wall, area, playfield, name, holes, false));
 		}
 	}
 }
