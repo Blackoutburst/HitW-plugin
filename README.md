@@ -220,7 +220,6 @@ And to all the cool people and friend I've met along the way
  - Dobg
  - Arcxire
  - Lapis
- - Jazmin
  - Glampkoo
  - Bertje
  - Venom
