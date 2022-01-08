@@ -106,10 +106,7 @@ public class GameUtils {
     }
 	
 	public static void displayCountdown(HPlayer p, int seconds, HGame game) {
-		if (p.isTitle())
-			sendTitle(p.getPlayer(), "", "§6The game will start in §a"+seconds+" §6seconds!", 0, 20, 0);
-		else
-			p.getPlayer().sendMessage("§6The game will start in §a"+seconds+" §6seconds!");
+		sendTitle(p.getPlayer(), "", "§6The game will start in §a"+seconds+" §6seconds!", 0, 20, 0);
 		
 		seconds++;
 		for (int i = seconds - 1; i >= 0; i--) {
@@ -121,11 +118,7 @@ public class GameUtils {
 						this.cancel();
 						return;
 					}
-					if (p.isTitle()) {
-						sendTitle(p.getPlayer(), getCountdownNumber(number), "", 0, 20, 0);
-					} else {
-						p.getPlayer().sendMessage(getCountdownNumber(number));
-					}
+					sendTitle(p.getPlayer(), getCountdownNumber(number), "", 0, 20, 0);
 				}
 			}.runTaskLaterAsynchronously(Main.getPlugin(Main.class), 20L * (seconds - i));
 		}

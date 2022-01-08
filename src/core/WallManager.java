@@ -261,7 +261,7 @@ public class WallManager {
 						hp.setMissed(hp.getMissed() + missed);
 						hp.setScore(hp.getScore() + score);
 						hp.setWall(hp.getWall() + 1);
-						hp.getPlayer().sendMessage("§4Missing: §6+"+missed+" §r| §4Misplaced: §6"+misplaced+" §r| §aScore: §6"+score+" §r| §b("+Utils.ROUND.format((Float.valueOf(Duration.between(hp.getWallBegin(), hp.getWallEnd()).toMillis()) / 1000.0f))+"s)");
+						hp.getPlayer().sendMessage("§4Missing: §6"+missed+" §r| §4Misplaced: §6"+misplaced+" §r| §aScore: §6+"+score+" §r| §b("+Utils.ROUND.format((Float.valueOf(Duration.between(hp.getWallBegin(), hp.getWallEnd()).toMillis()) / 1000.0f))+"s)");
 						hp.getPlayer().playSound(hp.getPlayer().getLocation(), Sound.NOTE_BASS_GUITAR, 1f, 1f);
 						if (leverTrigger && ((game.getName().equals("Finals") && p.wall > 7) || !game.getName().equals("Finals")))
 							hp.getWallTime().add(Float.valueOf(Duration.between(hp.getWallBegin(), hp.getWallEnd()).toMillis()) / 1000.0f);
@@ -271,7 +271,7 @@ public class WallManager {
 					p.setMissed(p.getMissed() + missed);
 					p.setScore(p.getScore() + score);
 					p.setWall(p.getWall() + 1);
-					p.getPlayer().sendMessage("§4Missing: §6+"+missed+" §r| §4Misplaced: §6"+misplaced+" §r| §aScore: §6"+score+" §r| §b("+Utils.ROUND.format((Float.valueOf(Duration.between(p.getWallBegin(), p.getWallEnd()).toMillis()) / 1000.0f))+"s)");
+					p.getPlayer().sendMessage("§4Missing: §6"+missed+" §r| §4Misplaced: §6"+misplaced+" §r| §aScore: §6+"+score+" §r| §b("+Utils.ROUND.format((Float.valueOf(Duration.between(p.getWallBegin(), p.getWallEnd()).toMillis()) / 1000.0f))+"s)");
 					p.getPlayer().playSound(p.getPlayer().getLocation(), Sound.NOTE_BASS_GUITAR, 1f, 1f);
 					if (leverTrigger && ((game.getName().equals("Finals") && p.wall > 7) || !game.getName().equals("Finals")))
 						p.getWallTime().add(Float.valueOf(Duration.between(p.getWallBegin(), p.getWallEnd()).toMillis()) / 1000.0f);
