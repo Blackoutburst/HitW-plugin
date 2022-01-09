@@ -29,7 +29,7 @@ public class NPCUtils {
 		SkinLoader.loadSkinFromUUID(13, "527f18702ca942258a8f928c0077ab80"); //Fuby
 		SkinLoader.loadSkinFromUUID(14, "f7c77d999f154a66a87dc4a51ef30d19"); //Hypixel
 		SkinLoader.loadSkinFromUUID(15, "638bd94631a0487783b3e24e0581d695"); //DeprecatedNether
-		SkinLoader.loadSkinFromUUID(16, "640459a7a5c8417bbb06f6e6d28614a1"); //Jazmin
+		SkinLoader.loadSkinFromUUID(16, "3bd62e7edecd4baaa402ac84712e32cb"); //Ugy
 		SkinLoader.loadSkinFromUUID(17, "9293868b414c42b2bd8e3bcb791247b9"); //Yaku
 	}
 	
@@ -91,7 +91,7 @@ public class NPCUtils {
 		NPCManager.spawnNPC(npc, event.getPlayer());
 		npc = new NPC(UUID.randomUUID(), "§7Alon").setLocation(new Location(Bukkit.getWorld("world"), 35.5f, 55.0f, -1042.5f, 0, 0)).setCapeVisible(false).setSkin(SkinLoader.getSkinById(12));
 		NPCManager.spawnNPC(npc, event.getPlayer());
-		npc = new NPC(UUID.randomUUID(), "§eJazmin").setLocation(new Location(Bukkit.getWorld("world"), 35.5f, 55.0f, -1034.5f, 180, 0)).setCapeVisible(false).setSkin(SkinLoader.getSkinById(16));
+		npc = new NPC(UUID.randomUUID(), "§eUgy").setLocation(new Location(Bukkit.getWorld("world"), 35.5f, 55.0f, -1034.5f, 180, 0)).setCapeVisible(false).setSkin(SkinLoader.getSkinById(16));
 		NPCManager.spawnNPC(npc, event.getPlayer());
 		npc = new NPC(UUID.randomUUID(), "§r").setLocation(new Location(Bukkit.getWorld("world"), 37.5f, 55.0f, -1038.5f, 90, 0)).setNameVisible(false).setCapeVisible(false).setSkin(SkinLoader.getSkinById(15));
 		NPCManager.spawnNPC(npc, event.getPlayer());
