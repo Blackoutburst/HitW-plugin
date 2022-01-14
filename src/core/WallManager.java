@@ -222,6 +222,8 @@ public class WallManager {
 			return;
 		}
 		
+		final boolean bufferWall = missed / checkHole(game) < 0.6 && p.wall < 8;
+		
 		if (score >= 0) {
 			if (missed == 0 && misplaced == 0) {
 				if (p.isInParty()) {
@@ -237,7 +239,7 @@ public class WallManager {
 						}
 						hp.getPlayer().sendMessage("§aPerfect Wall §6+"+score+" §b("+Utils.ROUND.format((Float.valueOf(Duration.between(hp.getWallBegin(), hp.getWallEnd()).toMillis()) / 1000.0f))+"s)");
 						hp.getPlayer().playSound(hp.getPlayer().getLocation(), Sound.LEVEL_UP, 1f, 1f);
-						if (leverTrigger && ((game.getName().equals("Finals") && p.wall > 7) || !game.getName().equals("Finals")))
+						if (leverTrigger)
 							hp.getWallTime().add(Float.valueOf(Duration.between(hp.getWallBegin(), hp.getWallEnd()).toMillis()) / 1000.0f);
 					}
 				} else {
@@ -251,29 +253,41 @@ public class WallManager {
 					}
 					p.getPlayer().sendMessage("§aPerfect Wall §6+"+score+" §r| §b("+Utils.ROUND.format((Float.valueOf(Duration.between(p.getWallBegin(), p.getWallEnd()).toMillis()) / 1000.0f))+"s)");
 					p.getPlayer().playSound(p.getPlayer().getLocation(), Sound.LEVEL_UP, 1f, 1f);
-					if (leverTrigger && ((game.getName().equals("Finals") && p.wall > 7) || !game.getName().equals("Finals")))
+					if (leverTrigger)
 						p.getWallTime().add(Float.valueOf(Duration.between(p.getWallBegin(), p.getWallEnd()).toMillis()) / 1000.0f);
 				}
 			} else {
 				if (p.isInParty()) {
 					for (HPlayer hp : p.getParty()) {
-						hp.setMisplaced(hp.getMisplaced() + misplaced);
-						hp.setMissed(hp.getMissed() + missed);
+						if (!bufferWall) {
+							hp.setMisplaced(hp.getMisplaced() + misplaced);
+							hp.setMissed(hp.getMissed() + missed);
+						}
 						hp.setScore(hp.getScore() + score);
 						hp.setWall(hp.getWall() + 1);
-						hp.getPlayer().sendMessage("§4Missing: §6"+missed+" §r| §4Misplaced: §6"+misplaced+" §r| §aScore: §6+"+score+" §r| §b("+Utils.ROUND.format((Float.valueOf(Duration.between(hp.getWallBegin(), hp.getWallEnd()).toMillis()) / 1000.0f))+"s)");
+						if (!bufferWall) {
+							hp.getPlayer().sendMessage("§4Missing: §6"+missed+" §r| §4Misplaced: §6"+misplaced+" §r| §aScore: §6+"+score+" §r| §b("+Utils.ROUND.format((Float.valueOf(Duration.between(p.getWallBegin(), p.getWallEnd()).toMillis()) / 1000.0f))+"s)");
+						} else {
+							hp.getPlayer().sendMessage("§4Missing: §6"+missed+" §r| §4Misplaced: §6"+misplaced+" §r| §aScore: §6+"+score+" §r| §b("+Utils.ROUND.format((Float.valueOf(Duration.between(p.getWallBegin(), p.getWallEnd()).toMillis()) / 1000.0f))+"s) §d(Buffer Wall)");
+						}
 						hp.getPlayer().playSound(hp.getPlayer().getLocation(), Sound.NOTE_BASS_GUITAR, 1f, 1f);
-						if (leverTrigger && ((game.getName().equals("Finals") && p.wall > 7) || !game.getName().equals("Finals")))
+						if (leverTrigger && !bufferWall)
 							hp.getWallTime().add(Float.valueOf(Duration.between(hp.getWallBegin(), hp.getWallEnd()).toMillis()) / 1000.0f);
 					}
 				} else {
-					p.setMisplaced(p.getMisplaced() + misplaced);
-					p.setMissed(p.getMissed() + missed);
+					if (!bufferWall) {
+						p.setMisplaced(p.getMisplaced() + misplaced);
+						p.setMissed(p.getMissed() + missed);
+					}
 					p.setScore(p.getScore() + score);
 					p.setWall(p.getWall() + 1);
-					p.getPlayer().sendMessage("§4Missing: §6"+missed+" §r| §4Misplaced: §6"+misplaced+" §r| §aScore: §6+"+score+" §r| §b("+Utils.ROUND.format((Float.valueOf(Duration.between(p.getWallBegin(), p.getWallEnd()).toMillis()) / 1000.0f))+"s)");
+					if (!bufferWall) {
+						p.getPlayer().sendMessage("§4Missing: §6"+missed+" §r| §4Misplaced: §6"+misplaced+" §r| §aScore: §6+"+score+" §r| §b("+Utils.ROUND.format((Float.valueOf(Duration.between(p.getWallBegin(), p.getWallEnd()).toMillis()) / 1000.0f))+"s)");
+					} else {
+						p.getPlayer().sendMessage("§4Missing: §6"+missed+" §r| §4Misplaced: §6"+misplaced+" §r| §aScore: §6+"+score+" §r| §b("+Utils.ROUND.format((Float.valueOf(Duration.between(p.getWallBegin(), p.getWallEnd()).toMillis()) / 1000.0f))+"s) §d(Buffer Wall)");
+					}
 					p.getPlayer().playSound(p.getPlayer().getLocation(), Sound.NOTE_BASS_GUITAR, 1f, 1f);
-					if (leverTrigger && ((game.getName().equals("Finals") && p.wall > 7) || !game.getName().equals("Finals")))
+					if (leverTrigger && !bufferWall)
 						p.getWallTime().add(Float.valueOf(Duration.between(p.getWallBegin(), p.getWallEnd()).toMillis()) / 1000.0f);
 				}
 			}
