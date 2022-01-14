@@ -62,6 +62,8 @@ public class NPCUtils {
 		NPCManager.spawnNPC(npc, event.getPlayer());
 		npc = new NPC(UUID.randomUUID(), "spawn").setLocation(new Location(Bukkit.getWorld("world"), 76.5f, 54.0f, -938.5f, 135, 0)).setCapeVisible(false).setNameVisible(false).setSkin(SkinLoader.getSkinById(9));
 		NPCManager.spawnNPC(npc, event.getPlayer());
+		npc = new NPC(UUID.randomUUID(), "spawn").setLocation(new Location(Bukkit.getWorld("world"), -400.5f, 54.0f, -842.5f, 135, 0)).setCapeVisible(false).setNameVisible(false).setSkin(SkinLoader.getSkinById(9));
+		NPCManager.spawnNPC(npc, event.getPlayer());
 		npc = new NPC(UUID.randomUUID(), "old_spawn").setLocation(new Location(Bukkit.getWorld("world"), -7.5f, 54.0f, -1036.5f, 180, 0)).setCapeVisible(false).setNameVisible(false).setSkin(SkinLoader.getSkinById(17));
 		NPCManager.spawnNPC(npc, event.getPlayer());
 		npc = new NPC(UUID.randomUUID(), "new_spawn").setLocation(new Location(Bukkit.getWorld("old_map"), -565.5f, 6.0f, 665.5f, 90, 0)).setCapeVisible(false).setNameVisible(false).setSkin(SkinLoader.getSkinById(9));
