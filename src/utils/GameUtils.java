@@ -174,10 +174,10 @@ public class GameUtils {
 					} else {
 						game.getOwner().setInGame(false, game);
 					}
-					game.setOwner(null);
+					game.setOwner(null, true);
 				}
 				if (game.getOwner() == null) continue;
-				if (!game.getOwner().getPlayer().isOnline()) {game.setOwner(null);}
+				if (!game.getOwner().getPlayer().isOnline()) {game.setOwner(null, true);}
 			}
 		}
 		if (!inArea) ScoreboardManager.updateStage(player.getBoard(), "none");
@@ -213,10 +213,10 @@ public class GameUtils {
 					} else {
 						game.getOwner().setInGame(false, game);
 					}
-					game.setOwner(null);
+					game.setOwner(null, true);
 				}
 				if (game.getOwner() == null) continue;
-				if (!game.getOwner().getPlayer().isOnline()) {game.setOwner(null);}
+				if (!game.getOwner().getPlayer().isOnline()) {game.setOwner(null, true);}
 			}
 		}
 		if (!inArea) ScoreboardManager.updateStage(player.getBoard(), "none");
@@ -257,7 +257,7 @@ public class GameUtils {
 		for (HGame game : Main.hGames) {
 			if (game.getOwner() == p) {
 				game.getOwner().setInGame(false, game);
-				game.setOwner(null);
+				game.setOwner(null, true);
 			}
 		}
 	}

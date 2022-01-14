@@ -58,6 +58,7 @@ public class CoreAPI {
 			int F = playerData.getInt("score.F", 0);
 			int WQ = playerData.getInt("score.WQ", 0);
 			int L = playerData.getInt("score.L", 0);
+			int WF = playerData.getInt("score.WF", 0);
 			String name = playerData.getString("name");
 			String qh = "";
 			for (int i = 1; i <= 100; i++) {qh += playerData.getInt("qualification_history."+i, 0)+",";}
@@ -71,17 +72,22 @@ public class CoreAPI {
 			String lh = "";
 			for (int i = 1; i <= 100; i++) {lh += playerData.getInt("lobby_history."+i, 0)+",";}
 			lh = lh.substring(0, lh.length() - 1);
+			String wfh = "";
+			for (int i = 1; i <= 100; i++) {wfh += playerData.getInt("wide_finals_history."+i, 0)+",";}
+			wfh = wfh.substring(0, wfh.length() - 1);
 			message = "{"
 					+ "   \"qualification_history\":["+qh+"],"
 					+ "   \"finals_history\":["+fh+"],"
 					+ "   \"wide_qualification_history\":["+wqh+"],"
 					+ "   \"lobby_history\":["+lh+"],"
+					+ "   \"wide_finals_history\":["+wfh+"],"
 					+ "   \"name\":"+name+","
 					+ "   \"scores\":{"
 					+ "      \"qualification\":"+Q+","
 					+ "      \"finals\":"+F+","
 					+ "      \"wide_qualification\":"+WQ+","
-					+ "      \"lobby\":"+L
+					+ "      \"lobby\":"+L+","
+					+ "      \"wide_finals\":"+WF
 					+ "   }"
 					+ "}";
 	  		out.write(message.getBytes("UTF-8"));

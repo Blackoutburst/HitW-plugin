@@ -110,7 +110,7 @@ public class CommandDuel {
 		WallManager.resetPlayField(game, p, true);
 		
 		game.setWallPulled(false);
-		game.setOwner(p);
+		game.setOwner(p, false);
 		game.setClassic(true);
 
 		GameUtils.preparePlayers(p);

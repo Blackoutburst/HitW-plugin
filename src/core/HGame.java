@@ -155,10 +155,10 @@ public class HGame {
 		}
 	}
 	
-	private void savePlayerScore(HPlayer owner, String type) {
+	private void savePlayerScore(HPlayer owner, String type, boolean manualEnd) {
 		switch (type) {
 			case "Qualification": 
-				HPlayer.saveScore(owner, "qualification_history");
+				if (!manualEnd) HPlayer.saveScore(owner, "qualification_history");
 				if (owner.score > owner.scoreQualification) {
 					owner.getPlayer().sendMessage("§6New PB §b(+"+(owner.score - owner.scoreQualification)+")");
 					owner.setScoreQualification(owner.score);
@@ -166,7 +166,7 @@ public class HGame {
 				}
 			break;
 			case "Finals": 
-				HPlayer.saveScore(owner, "finals_history");
+				if (!manualEnd) HPlayer.saveScore(owner, "finals_history");
 				if (owner.score > owner.scoreFinals) {
 					owner.getPlayer().sendMessage("§6New PB §b(+"+(owner.score - owner.scoreFinals)+")");
 					owner.setScoreFinals(owner.score);
@@ -174,7 +174,7 @@ public class HGame {
 				}
 			break;
 			case "Wide Qualification": 
-				HPlayer.saveScore(owner, "wide_qualification_history");
+				if (!manualEnd) HPlayer.saveScore(owner, "wide_qualification_history");
 				if (owner.score > owner.scoreWideQualification) {
 					owner.getPlayer().sendMessage("§6New PB §b(+"+(owner.score - owner.scoreWideQualification)+")");
 					owner.setScoreWideQualification(owner.score);
@@ -182,9 +182,16 @@ public class HGame {
 				}
 			break;
 			case "Lobby Wall": 
-				HPlayer.saveScore(owner, "lobby_history");
+				if (!manualEnd) HPlayer.saveScore(owner, "lobby_history");
 				if (owner.score > owner.scoreLobby) {
 					owner.getPlayer().sendMessage("§6New PB §b(+"+(owner.score - owner.scoreLobby)+")");
+					owner.setScoreLobby(owner.score);
+					HPlayer.updatePlayerData(owner);
+				}
+			case "Wide Finals": 
+				if (!manualEnd) HPlayer.saveScore(owner, "wide_finals_history");
+				if (owner.score > owner.scoreLobby) {
+					owner.getPlayer().sendMessage("§6New PB §b(+"+(owner.score - owner.scoreWideFinals)+")");
 					owner.setScoreLobby(owner.score);
 					HPlayer.updatePlayerData(owner);
 				}
@@ -192,7 +199,7 @@ public class HGame {
 		}
 	}
 	
-	public void setOwner(HPlayer owner) {
+	public void setOwner(HPlayer owner, boolean manualEnd) {
 		HGame game = this;
 		HPlayer player = this.owner;
 		if (owner == null) {
@@ -203,7 +210,7 @@ public class HGame {
 				printEndStats();
 			
 			if (this.isClassic() && !this.owner.inParty)
-				savePlayerScore(this.owner, this.name);
+				savePlayerScore(this.owner, this.name, manualEnd);
 			
 			this.type = "none";
 			this.setClassic(false);

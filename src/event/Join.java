@@ -61,6 +61,7 @@ public class Join {
 		int scoreQualification = 0;
 		int scoreWideQualification = 0;
 		int scoreLobby = 0;
+		int scoreWideFinals = 0;
 		
 		if (new File("./plugins/HitW/player data/"+p.getUniqueId().toString().replace("-", "")+".yml").exists()) {
 			YamlConfiguration playerData = YamlConfiguration.loadConfiguration(new File("./plugins/HitW/player data/"+p.getUniqueId().toString().replace("-", "")+".yml"));
@@ -81,16 +82,17 @@ public class Join {
 			scoreFinals = playerData.getInt("score.F");
 			scoreWideQualification = playerData.getInt("score.WQ");
 			scoreLobby = playerData.getInt("score.L");
+			scoreWideFinals = playerData.getInt("score.WF");
 			
 			newHp = new HPlayer(p, wallColor, glassColor, leverDelay, memTime, brushLag, fly, title, 
 					rightSided, oldAnimation, blind, destroy, autoLeave, board, rank, songName,
-					scoreQualification, scoreFinals, scoreWideQualification, scoreLobby);
+					scoreQualification, scoreFinals, scoreWideQualification, scoreLobby, scoreWideFinals);
 			HPlayer.updatePlayerData(newHp);
 		} else {
 			Bukkit.broadcastMessage("§dWelcome "+p.getDisplayName()+" §dto the server!");
 			newHp = new HPlayer(p, wallColor, glassColor, leverDelay, memTime, brushLag, fly, title, 
 					rightSided, oldAnimation, blind, destroy, autoLeave, board, rank, songName,
-					scoreQualification, scoreFinals, scoreWideQualification, scoreLobby);
+					scoreQualification, scoreFinals, scoreWideQualification, scoreLobby, scoreWideFinals);
 			HPlayer.updatePlayerData(newHp);
 		}
 		Main.hPlayers.add(newHp);

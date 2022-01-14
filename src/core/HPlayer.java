@@ -63,10 +63,11 @@ public class HPlayer {
 	protected int scoreFinals = 0;
 	protected int scoreWideQualification = 0;
 	protected int scoreLobby = 0;
+	protected int scoreWideFinals = 0;
 	
 	public HPlayer(Player player, short wallColor, short glassColor, float leverDelay, float memTime, float brushLag,
 			boolean fly, boolean title, boolean rightSided, boolean oldAnimation, boolean blind, boolean destroy, boolean autoLeave, 
-			Board board, String rank, String songName, int scoreQualification, int scoreFinals, int scoreWideQualification, int scoreLobby) {
+			Board board, String rank, String songName, int scoreQualification, int scoreFinals, int scoreWideQualification, int scoreLobby, int scoreWideFinals) {
 		this.player = player;
 		this.wallColor = wallColor;
 		this.glassColor = glassColor;
@@ -107,6 +108,7 @@ public class HPlayer {
 		this.scoreFinals = scoreFinals;
 		this.scoreWideQualification = scoreWideQualification;
 		this.scoreLobby = scoreLobby;
+		this.scoreWideFinals = scoreWideFinals;
 	}
 
 	public static HPlayer getHPlayer(Player p) {
@@ -146,6 +148,7 @@ public class HPlayer {
 				config.set("score.F", p.scoreFinals);
 				config.set("score.WQ", p.scoreWideQualification);
 				config.set("score.L", p.scoreLobby);
+				config.set("score.WF", p.scoreLobby);
 				config.save(f);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -190,6 +193,7 @@ public class HPlayer {
 		this.scoreFinals = playerData.getInt("score.F");
 		this.scoreWideQualification = playerData.getInt("score.WQ");
 		this.scoreLobby = playerData.getInt("score.L");
+		this.scoreWideFinals = playerData.getInt("score.WF");
 	}
 
 	public String getDisplayName() {

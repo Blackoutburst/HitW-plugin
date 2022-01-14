@@ -19,7 +19,7 @@ public class CommandPlay {
 		WallManager.resetPlayField(game, p, true);
 		
 		game.setWallPulled(false);
-		game.setOwner(p);
+		game.setOwner(p, false);
 
 		GameUtils.preparePlayers(p);
 		GameUtils.setCountdown(p, game, 5);

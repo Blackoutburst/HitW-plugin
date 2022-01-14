@@ -65,7 +65,7 @@ public class GameUpdater {
             	showLastSecond(p);
             	if (p.getTime() <= 0) {
             		this.cancel();
-            		game.setOwner(null);
+            		game.setOwner(null, false);
             		return;
             	}
             }
@@ -91,7 +91,7 @@ public class GameUpdater {
             	
             	if (p.getScore() >= p.getScoreLimit()) {
             		this.cancel();
-            		game.setOwner(null);
+            		game.setOwner(null, false);
             		return;
             	}
             }
