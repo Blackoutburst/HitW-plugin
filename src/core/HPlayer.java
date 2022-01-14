@@ -148,7 +148,7 @@ public class HPlayer {
 				config.set("score.F", p.scoreFinals);
 				config.set("score.WQ", p.scoreWideQualification);
 				config.set("score.L", p.scoreLobby);
-				config.set("score.WF", p.scoreLobby);
+				config.set("score.WF", p.scoreWideFinals);
 				config.save(f);
 		} catch (IOException e) {
 			e.printStackTrace();
