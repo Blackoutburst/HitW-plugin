@@ -222,7 +222,7 @@ public class WallManager {
 			return;
 		}
 		
-		final boolean bufferWall = missed / checkHole(game) < 0.6 && p.wall < 8;
+		final boolean bufferWall = missed / checkHole(game) > 0.4 && p.wall < 8;
 		
 		if (score >= 0) {
 			if (missed == 0 && misplaced == 0) {

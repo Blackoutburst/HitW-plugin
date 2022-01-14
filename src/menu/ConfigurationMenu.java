@@ -58,6 +58,7 @@ public class ConfigurationMenu {
 				toggle(p.isTitle(), inv, p, "§6Title", 24);
 		        break;		
 			case 25: case 16:
+				p.getPlayer().setAllowFlight(p.getPlayer().getAllowFlight() ? false : true);
 				p.setFly(p.getPlayer().getAllowFlight() ? false : true);
 				toggle(p.getPlayer().getAllowFlight(), inv, p, "§6Fly", 25);
 		        break;
@@ -222,7 +223,7 @@ public class ConfigurationMenu {
         lore.add("§6Your play field is filled with glass");
         lore.add("§6You have to break block to match the wall pattern");
         lore.add("");
-        setSkull(Material.SKULL_ITEM, 1, (short) 3, "§r§aBreak mode", lore, 13, inv, "exfortnitemain");
+        setSkull(Material.SKULL_ITEM, 1, (short) 3, "§r§aBreak mode", lore, 13, inv, "swalyx");
         
         lore.clear();
         lore.add("§6Toggle Auto leave");
