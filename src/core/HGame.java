@@ -190,9 +190,9 @@ public class HGame {
 				}
 			case "Wide Finals": 
 				if (!manualEnd) HPlayer.saveScore(owner, "wide_finals_history");
-				if (owner.score > owner.scoreLobby) {
+				if (owner.score > owner.scoreWideFinals) {
 					owner.getPlayer().sendMessage("§6New PB §b(+"+(owner.score - owner.scoreWideFinals)+")");
-					owner.setScoreLobby(owner.score);
+					owner.setScoreWideFinals(owner.score);
 					HPlayer.updatePlayerData(owner);
 				}
 			break;

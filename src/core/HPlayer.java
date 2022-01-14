@@ -549,5 +549,13 @@ public class HPlayer {
 		this.scoreLobby = scoreLobby;
 	}
 	
+	public int getScoreWideFinals() {
+		return scoreWideFinals;
+	}
+
+	public void setScoreWideFinals(int scoreWideFinals) {
+		this.scoreWideFinals = scoreWideFinals;
+	}
+	
 	
 }
