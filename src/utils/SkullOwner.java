@@ -9,8 +9,6 @@ import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.json.simple.parser.ParseException;
 
-import com.blackout.npcapi.utils.SkinLoader;
-
 public class SkullOwner {
 
 	public static String Arcxire;
