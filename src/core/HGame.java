@@ -188,6 +188,7 @@ public class HGame {
 					owner.setScoreLobby(owner.score);
 					HPlayer.updatePlayerData(owner);
 				}
+			break;
 			case "Wide Finals": 
 				if (!manualEnd) HPlayer.saveScore(owner, "wide_finals_history");
 				if (owner.score > owner.scoreWideFinals) {
