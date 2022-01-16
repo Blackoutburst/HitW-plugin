@@ -24,6 +24,7 @@ import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import utils.GameUtils;
 import utils.ScoreboardManager;
+import utils.SkullOwner;
 import utils.Utils;
 
 public class CommandDuel {
@@ -87,7 +88,7 @@ public class CommandDuel {
         lore.add("§6Qualification game");
         skull.setLore(lore);
         skull.setDisplayName("§r§aQualification");
-        skull.setOwner("puffleman3");
+        skull.setOwner(SkullOwner.Puffleman);
         item.setItemMeta(skull);
         inv.setItem(11, item);
         
@@ -98,7 +99,7 @@ public class CommandDuel {
         lore.add("§6Finals game");
         skull.setLore(lore);
         skull.setDisplayName("§r§aFinals");
-        skull.setOwner("Arcxire");
+        skull.setOwner(SkullOwner.Arcxire);
         item.setItemMeta(skull);
         inv.setItem(15, item);
         

@@ -106,21 +106,21 @@ public class NPCListener implements NPCPacket {
         item = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
         SkullMeta skull = (SkullMeta) item.getItemMeta();
         skull.setDisplayName("§r§aWide Qualification");
-        skull.setOwner("Astele");
+        skull.setOwner(SkullOwner.Astele);
         item.setItemMeta(skull);
         inv.setItem(11, item);
         
         item = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
         skull = (SkullMeta) item.getItemMeta();
         skull.setDisplayName("§r§aWide Finals");
-        skull.setOwner("Khantrast");
+        skull.setOwner(SkullOwner.Khantrast);
         item.setItemMeta(skull);
         inv.setItem(13, item);
         
         item = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
         skull = (SkullMeta) item.getItemMeta();
         skull.setDisplayName("§r§aLobby walls");
-        skull.setOwner("Shingblad");
+        skull.setOwner(SkullOwner.Shingblad);
         item.setItemMeta(skull);
         inv.setItem(15, item);
         
@@ -158,21 +158,21 @@ public class NPCListener implements NPCPacket {
         item = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
         SkullMeta skull = (SkullMeta) item.getItemMeta();
         skull.setDisplayName("§r§aQualification");
-        skull.setOwner("NamelessTeddy");
+        skull.setOwner(SkullOwner.Teddy);
         item.setItemMeta(skull);
         inv.setItem(11, item);
         
         item = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
         skull = (SkullMeta) item.getItemMeta();
         skull.setDisplayName("§r§aFinals");
-        skull.setOwner("Sparklizm");
+        skull.setOwner(SkullOwner.Sparklizm);
         item.setItemMeta(skull);
         inv.setItem(13, item);
         
         item = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
         skull = (SkullMeta) item.getItemMeta();
         skull.setDisplayName("§r§aLobby");
-        skull.setOwner("Shingblad");
+        skull.setOwner(SkullOwner.Shingblad);
         item.setItemMeta(skull);
         inv.setItem(15, item);
         

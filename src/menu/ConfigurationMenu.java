@@ -14,6 +14,7 @@ import core.HPlayer;
 import main.Main;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
+import utils.SkullOwner;
 import utils.Utils;
 
 public class ConfigurationMenu {
@@ -202,14 +203,14 @@ public class ConfigurationMenu {
 	private static void setFirstLine(ArrayList<String> lore, Inventory inv) {
 		lore.add("§6Toggle old walls animations");
         lore.add("§6Like how Hitw used to look");
-        setSkull(Material.SKULL_ITEM, 1, (short) 3, "§r§aOld walls animations", lore, 10, inv, "NamelessTeddy");
+        setSkull(Material.SKULL_ITEM, 1, (short) 3, "§r§aOld walls animations", lore, 10, inv, SkullOwner.Teddy);
         
         lore.clear();
         lore.add("§6Toggle right sided walls");
         lore.add("§6Every walls you play will be flipped");
         lore.add("");
         lore.add("§6Good for right to left player");
-        setSkull(Material.SKULL_ITEM, 1, (short) 3, "§r§aRight sided walls", lore, 11, inv, "MasonMC");
+        setSkull(Material.SKULL_ITEM, 1, (short) 3, "§r§aRight sided walls", lore, 11, inv, SkullOwner.Mason);
         
         lore.clear();
         lore.add("§6Toggle Blind mode");
@@ -224,7 +225,7 @@ public class ConfigurationMenu {
         lore.add("§6Your play field is filled with glass");
         lore.add("§6You have to break block to match the wall pattern");
         lore.add("");
-        setSkull(Material.SKULL_ITEM, 1, (short) 3, "§r§aBreak mode", lore, 13, inv, "swalyx");
+        setSkull(Material.SKULL_ITEM, 1, (short) 3, "§r§aBreak mode", lore, 13, inv, SkullOwner.Jazmin);
         
         lore.clear();
         lore.add("§6Toggle Auto leave");
