@@ -17,6 +17,8 @@ public class HGame {
 	protected Area wall;
 	protected Area area;
 	protected Area playfield;
+	protected CustomArea customWall;
+	protected CustomArea customPlayfield;
 	protected String name;
 	protected int[] holes;
 	private boolean incrementingHoles;
@@ -24,8 +26,9 @@ public class HGame {
 	private boolean wallPulled;
 	private String type;
 	protected boolean isClassic;
+	protected boolean customGame;
 	
-	public HGame(World world, Direction direction, Area wall, Area area, Area playfield, String name, int[] holes, boolean isClassic) {
+	public HGame(World world, Direction direction, Area wall, Area area, Area playfield, String name, int[] holes, boolean isClassic, boolean customGame) {
 		this.world = world;
 		this.direction = direction;
 		this.owner = null;
@@ -39,6 +42,24 @@ public class HGame {
 		this.wallPulled = false;
 		this.type = "";
 		this.isClassic = isClassic;
+		this.customGame = customGame;
+	}
+	
+	public HGame(World world, Direction direction, CustomArea wall, Area area, CustomArea playfield, String name, int[] holes, boolean isClassic, boolean customGame) {
+		this.world = world;
+		this.direction = direction;
+		this.owner = null;
+		this.customWall = wall;
+		this.area = area;
+		this.customPlayfield = playfield;
+		this.name = name;
+		this.holes = holes;
+		this.incrementingHoles = false;
+		this.leverBusy = false;
+		this.wallPulled = false;
+		this.type = "";
+		this.isClassic = isClassic;
+		this.customGame = customGame;
 	}
 	
 	public World getWorld() {
@@ -309,5 +330,32 @@ public class HGame {
 	public void setClassic(boolean isClassic) {
 		this.isClassic = isClassic;
 	}
-	
+
+	public boolean isCustomGame() {
+		return customGame;
+	}
+
+	public void setCustomGame(boolean customGame) {
+		this.customGame = customGame;
+	}
+
+	public CustomArea getCustomWall() {
+		return customWall;
+	}
+
+	public void setCustomWall(CustomArea customWall) {
+		this.customWall = customWall;
+	}
+
+	public CustomArea getCustomPlayfield() {
+		return customPlayfield;
+	}
+
+	public void setCustomPlayfield(CustomArea customPlayfield) {
+		this.customPlayfield = customPlayfield;
+	}
+
+	public void setOwner(HPlayer owner) {
+		this.owner = owner;
+	}
 }
