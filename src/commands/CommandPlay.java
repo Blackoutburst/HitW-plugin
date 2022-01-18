@@ -159,6 +159,8 @@ public class CommandPlay {
 				game.getName().equals("Triple Square") || game.getName().equals("Upside down T") ||
 				game.getName().equals("Diagonal") || game.getName().equals("Frog"))
 			game.setCustomGame(true);
+		else
+			game.setCustomGame(false);
 		
 		if (args.length >= 1) {
 			switch(args[0]) {
