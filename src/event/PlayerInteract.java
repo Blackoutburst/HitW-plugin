@@ -9,6 +9,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.material.Stairs;
 
+import core.CustomWallManager;
 import core.HGame;
 import core.HPlayer;
 import core.WallManager;
@@ -80,7 +81,11 @@ public class PlayerInteract {
 	
 	public void pullWall(HPlayer p, HGame game) {
 		if (!game.isWallPulled()) {
-			WallManager.pullWall(p, game, p.getTime() < 3 ? true : false, true);
+			if (game.isCustomGame()) {
+				CustomWallManager.pullWall(p, game, p.getTime() < 3 ? true : false, true);
+			} else {
+				WallManager.pullWall(p, game, p.getTime() < 3 ? true : false, true);
+			}
 		}
 	}
 }

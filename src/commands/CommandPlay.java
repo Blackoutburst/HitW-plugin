@@ -4,6 +4,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import core.CustomWallManager;
 import core.GameUpdater;
 import core.HGame;
 import core.HPlayer;
@@ -15,8 +16,13 @@ import utils.ScoreboardManager;
 public class CommandPlay {
 	
 	private void preStart(HPlayer p, HGame game) {
-		WallManager.resetWall(game);
-		WallManager.resetPlayField(game, p, true);
+		if (game.isCustomGame()) {
+			CustomWallManager.resetWall(game);
+			CustomWallManager.resetPlayField(game, p, true);
+		} else {
+			WallManager.resetWall(game);
+			WallManager.resetPlayField(game, p, true);
+		}
 		
 		game.setWallPulled(false);
 		game.setOwner(p, false);
@@ -147,6 +153,12 @@ public class CommandPlay {
 		if (game == null) {sender.sendMessage("§cPlease enter any game area before using this command !");return;}
 		if (game.getOwner() != null) {sender.sendMessage("§cThis game is already used by " + game.getOwner().getDisplayName() + " §c!");return;}
 		if (!p.canUsePlay()) {sender.sendMessage("§cPlease wait before using this command again !");return;}
+		
+		if (game.getName().equals("1x1") || game.getName().equals("3x1") || game.getName().equals("3x3") ||
+				game.getName().equals("Tall Qualification") || game.getName().equals("Circle") ||
+				game.getName().equals("Triple Square") || game.getName().equals("Upside down T") ||
+				game.getName().equals("Diagonal") || game.getName().equals("Frog"))
+			game.setCustomGame(true);
 		
 		if (args.length >= 1) {
 			switch(args[0]) {

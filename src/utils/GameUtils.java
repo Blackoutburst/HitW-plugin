@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import core.CustomWallManager;
 import core.HGame;
 import core.HPlayer;
 import core.WallManager;
@@ -38,15 +39,33 @@ public class GameUtils {
 	}
 	
 	public static void gameOptions(HPlayer leader, HPlayer p, HGame game) {
-		WallManager.resetPlayField(game, p, true);
+		if (game.isCustomGame()) {
+			CustomWallManager.resetPlayField(game, p, true);
+		} else {
+			WallManager.resetPlayField(game, p, true);
+		}
 		
-		if (leader.isDestroy() && !leader.isBlind())
-			WallManager.fillPlayField(game, p);
+		if (leader.isDestroy() && !leader.isBlind()) {
+			if (game.isCustomGame()) {
+				CustomWallManager.fillPlayField(game, p);
+			} else {
+				WallManager.fillPlayField(game, p);
+			}
+		}
 		
-		if (leader.isBlind())
-			WallManager.hideWall(p, game);
+		if (leader.isBlind()) {
+			if (game.isCustomGame()) {
+				WallManager.hideWall(p, game);
+			} else {
+				CustomWallManager.hideWall(p, game);
+			}
+		}
 		
-		WallManager.generateWall(p, game, false);
+		if (game.isCustomGame()) {
+			WallManager.generateWall(p, game, false);
+		} else {
+			CustomWallManager.generateWall(p, game, false);
+		}
 	}
 	public static void setCountdown(HPlayer p, HGame game, int sec) {
 		if (p.isInParty())

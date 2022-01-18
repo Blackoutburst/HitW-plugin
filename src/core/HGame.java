@@ -225,7 +225,11 @@ public class HGame {
 		HGame game = this;
 		HPlayer player = this.owner;
 		if (owner == null) {
-			WallManager.pullWall(this.owner, this, true, false);
+			if (game.isCustomGame()) {
+				CustomWallManager.pullWall(this.owner, this, true, false);
+			} else {
+				WallManager.pullWall(this.owner, this, true, false);
+			}
 			GameUpdater.stopGame(this.owner, this);
 			
 			if (this.owner.getWallTime().size() > 0 && !this.owner.inDuel)
@@ -243,8 +247,13 @@ public class HGame {
 			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
 				@Override
 				public void run(){
-					WallManager.resetWall(game);
-					WallManager.resetPlayField(game, player, true);
+					if (game.isCustomGame()) {
+						CustomWallManager.resetWall(game);
+						CustomWallManager.resetPlayField(game, player, true);
+					} else {
+						WallManager.resetWall(game);
+						WallManager.resetPlayField(game, player, true);
+					}
 				}
 			}, (30L));
 		}
