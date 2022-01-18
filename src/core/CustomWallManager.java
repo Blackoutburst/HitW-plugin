@@ -285,27 +285,33 @@ public class CustomWallManager {
 		int west = game.direction == Direction.WEST ? 1 : 0;
 		int east = game.direction == Direction.EAST ? 1 : 0;
 		
+		int index = 0;
 		for(Location loc : game.getCustomWall().locations) {
 			final int x = loc.getBlockX();
 			final int y = loc.getBlockY();
 			final int z = loc.getBlockZ();
 		
+			final int playFieldZ = game.getCustomPlayfield().locations.get(index).getBlockZ();
+			final int playFieldX = game.getCustomPlayfield().locations.get(index).getBlockX();
+			index++;
+			
 			if (game.world.getBlockAt(x, y, z).getType().equals(Material.AIR)) continue;
+			
 			if (west == 1 || east == 1) {
-				if (game.world.getBlockAt(x, y, z).getType().equals(Material.STAINED_GLASS)) {
-					game.world.getBlockAt(x, y, z+east-west).setType(Material.STAINED_GLASS);
-					game.world.getBlockAt(x, y, z+east-west).setData((byte)(14));
+				if (game.world.getBlockAt(x, y, playFieldZ).getType().equals(Material.STAINED_GLASS)) {
+					game.world.getBlockAt(x, y, playFieldZ+east-west).setType(Material.STAINED_GLASS);
+					game.world.getBlockAt(x, y, playFieldZ+east-west).setData((byte)(14));
 				}
-				game.world.getBlockAt(x, y, z).setType(game.world.getBlockAt(x, y, z).getType());
-				game.world.getBlockAt(x, y, z).setData(game.world.getBlockAt(x, y, z).getData());
+				game.world.getBlockAt(x, y, playFieldZ).setType(game.world.getBlockAt(x, y, z).getType());
+				game.world.getBlockAt(x, y, playFieldZ).setData(game.world.getBlockAt(x, y, z).getData());
 			}
 			if (south == 1 || north == 1) {
-				if (game.world.getBlockAt(x, y, z).getType().equals(Material.STAINED_GLASS)) {
-					game.world.getBlockAt(x-south+north, y, z).setType(Material.STAINED_GLASS);
-					game.world.getBlockAt(x-south+north, y, z).setData((byte)(14));
+				if (game.world.getBlockAt(playFieldX, y, z).getType().equals(Material.STAINED_GLASS)) {
+					game.world.getBlockAt(playFieldX-south+north, y, z).setType(Material.STAINED_GLASS);
+					game.world.getBlockAt(playFieldX-south+north, y, z).setData((byte)(14));
 				}
-				game.world.getBlockAt(x, y, z).setType(game.world.getBlockAt(x, y, z).getType());
-				game.world.getBlockAt(x, y, z).setData(game.world.getBlockAt(x, y, z).getData());
+				game.world.getBlockAt(playFieldX, y, z).setType(game.world.getBlockAt(x, y, z).getType());
+				game.world.getBlockAt(playFieldX, y, z).setData(game.world.getBlockAt(x, y, z).getData());
 			}
 		}
 		
