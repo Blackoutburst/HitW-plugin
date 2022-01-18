@@ -70,4 +70,10 @@ commands:
   deletenpc:
     description: Remove a npc
     usage: /delete npc
+  scanplayfield:
+    description: Scan the world for gift spawnpoint (Debug command)
+    usage: /scanPlayField <x1> <y1> <z1> <x2> <y2> <z2>
+  scanwall:
+    description: Scan the world for gift spawnpoint (Debug command)
+    usage: /scanWall <x1> <y1> <z1> <x2> <y2> <z2>
  
