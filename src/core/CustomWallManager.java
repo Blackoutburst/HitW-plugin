@@ -86,6 +86,9 @@ public class CustomWallManager {
 		
 		long delay = 10L;
 		
+		if (game.getName().equals("1x1") || game.getName().equals("3x1") || game.getName().equals("3x3"))
+			delay = 0L;
+		
 		if (!game.isIncrementingHoles()) {
 			if (p.isInParty()) {
 				delay = (long) (20 * p.getParty().get(0).getLeverDelay());
