@@ -74,7 +74,7 @@ public class HGameLoader {
 	
 	private static List<Location> loadCustomArea(String idx, String name) {
 		List<Location> locs = new ArrayList<Location>();
-		YamlConfiguration config = YamlConfiguration.loadConfiguration(new File("./plugins/HitW/walls.yml"));
+		YamlConfiguration config = YamlConfiguration.loadConfiguration(new File("./plugins/HitW/customWalls.yml"));
 		Set<String> loc = config.getConfigurationSection("games."+idx+"."+name).getKeys(false);
 		
 		for (String index : loc) {
