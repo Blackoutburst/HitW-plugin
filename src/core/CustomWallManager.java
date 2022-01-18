@@ -298,20 +298,20 @@ public class CustomWallManager {
 			if (game.world.getBlockAt(x, y, z).getType().equals(Material.AIR)) continue;
 			
 			if (west == 1 || east == 1) {
-				if (game.world.getBlockAt(x, y, playFieldZ).getType().equals(Material.STAINED_GLASS)) {
-					game.world.getBlockAt(x, y, playFieldZ+east-west).setType(Material.STAINED_GLASS);
-					game.world.getBlockAt(x, y, playFieldZ+east-west).setData((byte)(14));
+				if (game.world.getBlockAt(playFieldX, y, playFieldZ).getType().equals(Material.STAINED_GLASS)) {
+					game.world.getBlockAt(playFieldX, y, playFieldZ+east-west).setType(Material.STAINED_GLASS);
+					game.world.getBlockAt(playFieldX, y, playFieldZ+east-west).setData((byte)(14));
 				}
-				game.world.getBlockAt(x, y, playFieldZ).setType(game.world.getBlockAt(x, y, z).getType());
-				game.world.getBlockAt(x, y, playFieldZ).setData(game.world.getBlockAt(x, y, z).getData());
+				game.world.getBlockAt(playFieldX, y, playFieldZ).setType(game.world.getBlockAt(x, y, z).getType());
+				game.world.getBlockAt(playFieldX, y, playFieldZ).setData(game.world.getBlockAt(x, y, z).getData());
 			}
 			if (south == 1 || north == 1) {
-				if (game.world.getBlockAt(playFieldX, y, z).getType().equals(Material.STAINED_GLASS)) {
-					game.world.getBlockAt(playFieldX-south+north, y, z).setType(Material.STAINED_GLASS);
-					game.world.getBlockAt(playFieldX-south+north, y, z).setData((byte)(14));
+				if (game.world.getBlockAt(playFieldX, y, playFieldZ).getType().equals(Material.STAINED_GLASS)) {
+					game.world.getBlockAt(playFieldX-south+north, y, playFieldZ).setType(Material.STAINED_GLASS);
+					game.world.getBlockAt(playFieldX-south+north, y, playFieldZ).setData((byte)(14));
 				}
-				game.world.getBlockAt(playFieldX, y, z).setType(game.world.getBlockAt(x, y, z).getType());
-				game.world.getBlockAt(playFieldX, y, z).setData(game.world.getBlockAt(x, y, z).getData());
+				game.world.getBlockAt(playFieldX, y, playFieldZ).setType(game.world.getBlockAt(x, y, z).getType());
+				game.world.getBlockAt(playFieldX, y, playFieldZ).setData(game.world.getBlockAt(x, y, z).getData());
 			}
 		}
 		
@@ -357,12 +357,18 @@ public class CustomWallManager {
 	}
 	
 	public static void resetPlayField(HGame game, HPlayer p, boolean bypasAnimation) {
+		int north = game.direction == Direction.NORTH ? 1 : 0;
+		int south = game.direction == Direction.SOUTH ? 1 : 0;
+		int west = game.direction == Direction.WEST ? 1 : 0;
+		int east = game.direction == Direction.EAST ? 1 : 0;
+		
 		for(Location loc : game.getCustomPlayfield().locations) {
 			final int x = loc.getBlockX();
 			final int y = loc.getBlockY();
 			final int z = loc.getBlockZ();
 			
 			game.world.getBlockAt(x, y, z).setType(Material.AIR);
+			game.world.getBlockAt(x + north - south, y, z - west + east).setType(Material.AIR);
 		}
 		
 		game.setWallPulled(false);
