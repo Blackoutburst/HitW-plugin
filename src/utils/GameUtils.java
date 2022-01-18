@@ -40,7 +40,7 @@ public class GameUtils {
 	
 	public static void gameOptions(HPlayer leader, HPlayer p, HGame game) {
 		if (game.isCustomGame()) {
-			CustomWallManager.resetPlayField(game, p, true);
+			CustomWallManager.resetPlayField(game, p);
 		} else {
 			WallManager.resetPlayField(game, p, true);
 		}

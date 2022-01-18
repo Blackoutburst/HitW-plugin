@@ -74,7 +74,7 @@ public class CustomWallManager {
 					p.setWallBegin(Instant.now());
 				}
 				if (leader.isDestroy()) {
-					resetPlayField(game, p, false);
+					resetPlayField(game, p);
 					fillPlayField(game, p);
 				}
 			}
@@ -105,10 +105,10 @@ public class CustomWallManager {
 				if (game.owner == null)
 					return;
 				if (leader.isDestroy()) {
-					resetPlayField(game, p, false);
+					resetPlayField(game, p);
 					fillPlayField(game, p);
 				} else {
-					resetPlayField(game, p, false);
+					resetPlayField(game, p);
 				}
 				if (leader.isBlind()) {
 					hideWall(p, game);
@@ -182,7 +182,7 @@ public class CustomWallManager {
 			score = 0;
 		
 		if (missed == 0 && misplaced == 0 && score == 0) {
-			resetPlayField(game, p, true);
+			resetPlayField(game, p);
 			return;
 		}
 		
@@ -356,7 +356,7 @@ public class CustomWallManager {
 		}
 	}
 	
-	public static void resetPlayField(HGame game, HPlayer p, boolean bypasAnimation) {
+	public static void resetPlayField(HGame game, HPlayer p) {
 		int north = game.direction == Direction.NORTH ? 1 : 0;
 		int south = game.direction == Direction.SOUTH ? 1 : 0;
 		int west = game.direction == Direction.WEST ? 1 : 0;

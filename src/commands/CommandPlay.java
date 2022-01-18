@@ -18,7 +18,7 @@ public class CommandPlay {
 	private void preStart(HPlayer p, HGame game) {
 		if (game.isCustomGame()) {
 			CustomWallManager.resetWall(game);
-			CustomWallManager.resetPlayField(game, p, true);
+			CustomWallManager.resetPlayField(game, p);
 		} else {
 			WallManager.resetWall(game);
 			WallManager.resetPlayField(game, p, true);
@@ -157,7 +157,7 @@ public class CommandPlay {
 		if (game.getName().equals("1x1") || game.getName().equals("3x1") || game.getName().equals("3x3") ||
 				game.getName().equals("Tall Qualification") || game.getName().equals("Circle") ||
 				game.getName().equals("Triple Square") || game.getName().equals("Upside down T") ||
-				game.getName().equals("Diagonal") || game.getName().equals("Frog"))
+				game.getName().equals("Diagonal") || game.getName().equals("Frog")  || game.getName().equals("4 ways"))
 			game.setCustomGame(true);
 		else
 			game.setCustomGame(false);

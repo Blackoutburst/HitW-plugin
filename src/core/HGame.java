@@ -249,7 +249,7 @@ public class HGame {
 				public void run(){
 					if (game.isCustomGame()) {
 						CustomWallManager.resetWall(game);
-						CustomWallManager.resetPlayField(game, player, true);
+						CustomWallManager.resetPlayField(game, player);
 					} else {
 						WallManager.resetWall(game);
 						WallManager.resetPlayField(game, player, true);
