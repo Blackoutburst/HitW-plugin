@@ -28,10 +28,10 @@ public class CommandScanWall {
         YamlConfiguration file = YamlConfiguration.loadConfiguration(new File("plugins/HitW/TempWall.yml"));
 
         for (int i = 0; i < spawnpoints.size(); i++) {
-	        file.set("block."+i+".world", worldName);
-	        file.set("block."+i+".x", spawnpoints.get(i).getBlockX());
-	        file.set("block."+i+".y", spawnpoints.get(i).getBlockY());
-	        file.set("block."+i+".z", spawnpoints.get(i).getBlockZ());
+	        file.set("wall."+i+".world", worldName);
+	        file.set("wall."+i+".x", spawnpoints.get(i).getBlockX());
+	        file.set("wall."+i+".y", spawnpoints.get(i).getBlockY());
+	        file.set("wall."+i+".z", spawnpoints.get(i).getBlockZ());
         }
         try {
             file.save(new File("plugins/HitW/TempWall.yml"));
@@ -65,7 +65,7 @@ public class CommandScanWall {
             for (int y = y1; y <= y2; y++) {
                 for (int z = z1; z <= z2; z++) {
                     Block b = world.getBlockAt(new Location(world, x, y, z));
-                    if (b.getType().equals(Material.SPONGE)) {
+                    if (b.getType().equals(Material.QUARTZ_BLOCK)) {
                     	spawnpoints.add(new Location(world, x, y, z));
                     }
                 }

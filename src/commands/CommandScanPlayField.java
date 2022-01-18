@@ -28,10 +28,10 @@ public class CommandScanPlayField {
         YamlConfiguration file = YamlConfiguration.loadConfiguration(new File("plugins/HitW/TempPlayField.yml"));
 
         for (int i = 0; i < spawnpoints.size(); i++) {
-	        file.set("block."+i+".world", worldName);
-	        file.set("block."+i+".x", spawnpoints.get(i).getBlockX());
-	        file.set("block."+i+".y", spawnpoints.get(i).getBlockY());
-	        file.set("block."+i+".z", spawnpoints.get(i).getBlockZ());
+	        file.set("play."+i+".world", worldName);
+	        file.set("play."+i+".x", spawnpoints.get(i).getBlockX());
+	        file.set("play."+i+".y", spawnpoints.get(i).getBlockY());
+	        file.set("play."+i+".z", spawnpoints.get(i).getBlockZ());
         }
         try {
             file.save(new File("plugins/HitW/TempPlayField.yml"));
