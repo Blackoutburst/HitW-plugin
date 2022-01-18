@@ -34,7 +34,12 @@ public class BlockPlace {
 			return;
 		}
 		
-		if (!GameUtils.inPlayArea(event.getBlock().getLocation(), game)) {
+		if (game.isCustomGame() && !GameUtils.inCustomPlayArea(event.getBlock().getLocation(), game)) {
+			event.getBlock().setType(Material.AIR);
+			p.getPlayer().playSound(event.getPlayer().getLocation(), Sound.LAVA_POP, 1f, 1f);
+			p.setChoke(p.getChoke() + 1);
+			ScoreboardManager.updateScoreboard(p);
+		} else if (!GameUtils.inPlayArea(event.getBlock().getLocation(), game)) {
 			event.getBlock().setType(Material.AIR);
 			p.getPlayer().playSound(event.getPlayer().getLocation(), Sound.LAVA_POP, 1f, 1f);
 			p.setChoke(p.getChoke() + 1);

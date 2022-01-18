@@ -55,16 +55,16 @@ public class GameUtils {
 		
 		if (leader.isBlind()) {
 			if (game.isCustomGame()) {
-				WallManager.hideWall(p, game);
-			} else {
 				CustomWallManager.hideWall(p, game);
+			} else {
+				WallManager.hideWall(p, game);
 			}
 		}
 		
 		if (game.isCustomGame()) {
-			WallManager.generateWall(p, game, false);
-		} else {
 			CustomWallManager.generateWall(p, game, false);
+		} else {
+			WallManager.generateWall(p, game, false);
 		}
 	}
 	public static void setCountdown(HPlayer p, HGame game, int sec) {
@@ -141,6 +141,25 @@ public class GameUtils {
 				}
 			}.runTaskLaterAsynchronously(Main.getPlugin(Main.class), 20L * (seconds - i));
 		}
+	}
+	
+	public static boolean inCustomPlayArea(Location loc, HGame game) {
+		boolean inArea = false;
+		
+		final int bx = loc.getBlockX();
+		final int by =  loc.getBlockY();
+		final int bz = loc.getBlockZ();
+		
+		for(Location l : game.getCustomWall().locations) {
+			final int x = l.getBlockX();
+			final int y = l.getBlockY();
+			final int z = l.getBlockZ();
+			
+			if (x == bx && y == by && z == bz)
+				inArea = true;
+		}
+		
+		return (inArea);
 	}
 	
 	public static boolean inPlayArea(Location loc, HGame game) {
