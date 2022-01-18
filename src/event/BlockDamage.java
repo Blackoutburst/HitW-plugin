@@ -37,7 +37,7 @@ public class BlockDamage {
             		event.getPlayer().getLocation().getWorld().playSound(event.getPlayer().getLocation(), Sound.GLASS, 1f, 1f);
 				}
 			}, (long)((p.getBrushLag() * 20) / 1000));
-		} else if (GameUtils.inPlayArea(event.getBlock().getLocation(), game) && event.getBlock().getType().equals(Material.STAINED_GLASS)) {
+		} else if (!game.isCustomGame() && GameUtils.inPlayArea(event.getBlock().getLocation(), game) && event.getBlock().getType().equals(Material.STAINED_GLASS)) {
 			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
 				@Override
 				public void run(){
