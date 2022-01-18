@@ -150,7 +150,7 @@ public class GameUtils {
 		final int by =  loc.getBlockY();
 		final int bz = loc.getBlockZ();
 		
-		for(Location l : game.getCustomWall().locations) {
+		for(Location l : game.getCustomPlayfield().locations) {
 			final int x = l.getBlockX();
 			final int y = l.getBlockY();
 			final int z = l.getBlockZ();
