@@ -26,6 +26,8 @@ public class CommandsManager {
 			case "duel": new CommandDuel().run(sender, args); break;
 			case "createnpc": new CreateNPC().run(sender, args); break;
 			case "deletenpc": new DeleteNPC().run(sender, args); break;
+			case "scanplayfield": new CommandScanPlayField().run(sender, args); break;
+			case "scanwall": new CommandScanWall().run(sender, args); break;
 			default: return;
 		}
 	}

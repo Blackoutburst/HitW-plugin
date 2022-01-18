@@ -40,7 +40,7 @@ public class CommandScanPlayField {
         }
     }
 
-    public boolean execute(CommandSender sender, String[] args) {
+    public boolean run(CommandSender sender, String[] args) {
         if (args.length < 6) {
         	sender.sendMessage("§cInvalid usage try §e/scan x1 y1 z1 x2 y2 z2");
         	return false;
