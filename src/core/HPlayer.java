@@ -303,8 +303,7 @@ public class HPlayer {
 			Utils.giveConfigItem(this.player);
 		} else {
 			if (new File("./plugins/HitW/songs/"+songName+".nbs").exists()) {
-				Location loc = new Location(this.player.getLocation().getWorld(), (game.getWall().x0 + game.getWall().x1) / 2, (game.getWall().y0 + game.getWall().y1) / 2, (game.getWall().z0 + game.getWall().z1) / 2);
-				
+				Location loc = new Location(this.player.getLocation().getWorld(), (game.getArea().x0 + game.getArea().x1) / 2, (game.getArea().y0 + game.getArea().y1) / 2, (game.getArea().z0 + game.getArea().z1) / 2);
 				
 				song = NBSDecoder.parse(new File("./plugins/HitW/songs/"+songName+".nbs"));
 				rsp = new PositionSongPlayer(song);
