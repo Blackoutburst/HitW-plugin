@@ -139,7 +139,7 @@ public class NPCListener implements NPCPacket {
 			case 11: p.getPlayer().teleport(new Location(Bukkit.getWorld("world"), 2.5f, 55, -817.5f, 0, 0)); break;
 			case 13: p.getPlayer().teleport(new Location(Bukkit.getWorld("world"), -402.5f, 55, -848.5f, 0, 0)); break;
 			case 15: p.getPlayer().teleport(new Location(Bukkit.getWorld("world"), 74.5f, 55, -944.5f, 0, 0)); break;
-			case 31: p.getPlayer().teleport(new Location(Bukkit.getWorld("world"), 352.5f, 55, -1097.5f, 90, 0)); break;
+			case 31: p.getPlayer().teleport(new Location(Bukkit.getWorld("world"), -352.5f, 55, -1097.5f, 90, 0)); break;
 			default: break;
 		}
 	}
