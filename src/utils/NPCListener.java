@@ -94,13 +94,13 @@ public class NPCListener implements NPCPacket {
 	
 	
 	private void openCustomGUI(HPlayer p) {
-		Inventory inv = Main.getPlugin(Main.class).getServer().createInventory(null, 27, ChatColor.BLACK + "Custom walls locations");
+		Inventory inv = Main.getPlugin(Main.class).getServer().createInventory(null, 45, ChatColor.BLACK + "Custom walls locations");
 		ItemStack item = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short) 15);
 		ItemMeta meta = item.getItemMeta();
         meta.setDisplayName("§r");
         item.setItemMeta(meta);
         
-        for (int i = 0; i < 27; i++)
+        for (int i = 0; i < 45; i++)
         	inv.setItem(i, item);
         
         item = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
@@ -124,6 +124,13 @@ public class NPCListener implements NPCPacket {
         item.setItemMeta(skull);
         inv.setItem(15, item);
         
+        item = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
+        skull = (SkullMeta) item.getItemMeta();
+        skull.setDisplayName("§r§aPrototype walls");
+        skull.setOwner(SkullOwner.FrogOp);
+        item.setItemMeta(skull);
+        inv.setItem(31, item);
+        
         p.getPlayer().openInventory(inv);
 	}
 	
@@ -132,6 +139,7 @@ public class NPCListener implements NPCPacket {
 			case 11: p.getPlayer().teleport(new Location(Bukkit.getWorld("world"), 2.5f, 55, -817.5f, 0, 0)); break;
 			case 13: p.getPlayer().teleport(new Location(Bukkit.getWorld("world"), -402.5f, 55, -848.5f, 0, 0)); break;
 			case 15: p.getPlayer().teleport(new Location(Bukkit.getWorld("world"), 74.5f, 55, -944.5f, 0, 0)); break;
+			case 31: p.getPlayer().teleport(new Location(Bukkit.getWorld("world"), 352.5f, 55, -1097.5f, 90, 0)); break;
 			default: break;
 		}
 	}

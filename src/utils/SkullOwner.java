@@ -20,6 +20,7 @@ public class SkullOwner {
 	public static String Sparklizm;
 	public static String Mason;
 	public static String Jazmin;
+	public static String FrogOp;
 	
 	public static void loadSkullOwner() {
 		Arcxire = getNameFromUUID("c46f6438006049d4830ca6fa732303fc");
@@ -31,6 +32,7 @@ public class SkullOwner {
 		Sparklizm = getNameFromUUID("8b8eb178c169486c97924255c26c0967");
 		Mason = getNameFromUUID("bedb53e2dd754786a2ac1ec80023aabe");
 		Jazmin = getNameFromUUID("640459a7a5c8417bbb06f6e6d28614a1");
+		FrogOp = getNameFromUUID("2931cb0ba0104d9b97730d22a61ddc10");
 	}
 	
 	private static String getNameFromUUID(String uuid) {
