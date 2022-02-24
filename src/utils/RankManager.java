@@ -17,18 +17,6 @@ public class RankManager {
 			return (rank);
 		}
 		
-		if (player.getUniqueId().toString().replace("-", "").toString().equals("6e8e9eb5f45e4e058362d02f92c1da72")) {
-			rank = ChatColor.DARK_GRAY+"["+ChatColor.GRAY+"0"+ChatColor.DARK_GRAY+"] "+ChatColor.GRAY;
-			setDisplayName(player, rank + player.getName() + ChatColor.RESET);
-			return (rank);
-		}
-		
-		if (player.getUniqueId().toString().replace("-", "").toString().equals("5c8e599738764d8081cc4f1b81e16209")) {
-			rank = ChatColor.DARK_GRAY+"["+ChatColor.GRAY+"0"+ChatColor.DARK_GRAY+"] "+ChatColor.GRAY;
-			setDisplayName(player, rank + player.getName() + ChatColor.RESET);
-			return (rank);
-		}
-		
 		String output = Request.getPlayerInfo(player.getUniqueId().toString().replace("-", "").toString());
 		
 		if (output == null) {
