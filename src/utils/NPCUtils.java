@@ -13,7 +13,7 @@ import com.blackout.npcapi.utils.SkinLoader;
 public class NPCUtils {
 
 	public static void loadSkins() {
-		SkinLoader.loadSkinFromUUID(0, "16d455475ddf42d48e9ffdb45cd69fa5"); //Simon
+		SkinLoader.loadSkinFromUUID(0, "ab0ce1c342e847f18212e159fdbc2576"); //Simon
 		SkinLoader.loadSkinFromUUID(1, "2f066b0e58fd4db6a24bfbce5ab5bdb4"); //Puffleman
 		SkinLoader.loadSkinFromUUID(2, "c46f6438006049d4830ca6fa732303fc"); //Arcxire
 		SkinLoader.loadSkinFromUUID(3, "bb88e17c171f4f36b4ff6e056abe4fff"); //Cosmic
@@ -73,7 +73,7 @@ public class NPCUtils {
 	}
 	
 	private static void spawnHallOfFame(PlayerJoinEvent event) {
-		NPC npc = new NPC(UUID.randomUUID(), "§2Simon").setLocation(new Location(Bukkit.getWorld("world"), 15.5f, 55.0f, -1042.5f, 0, 0)).setCapeVisible(false).setSkin(SkinLoader.getSkinById(0));
+		NPC npc = new NPC(UUID.randomUUID(), "§4Winday").setLocation(new Location(Bukkit.getWorld("world"), 15.5f, 55.0f, -1042.5f, 0, 0)).setCapeVisible(false).setSkin(SkinLoader.getSkinById(0));
 		NPCManager.spawnNPC(npc, event.getPlayer());
 		npc = new NPC(UUID.randomUUID(), "§9Puffleman").setLocation(new Location(Bukkit.getWorld("world"), 15.5f, 55.0f, -1034.5f, 180, 0)).setCapeVisible(false).setSkin(SkinLoader.getSkinById(1));
 		NPCManager.spawnNPC(npc, event.getPlayer());
@@ -102,7 +102,7 @@ public class NPCUtils {
 	}
 	
 	private static void spawnTournamentWinner(PlayerJoinEvent event) {
-		NPC npc = new NPC(UUID.randomUUID(), "§2Simon").setLocation(new Location(Bukkit.getWorld("world"), -30.5f, 55.0f, -1042.5f, 0, 0)).setCapeVisible(false).setSkin(SkinLoader.getSkinById(0));
+		NPC npc = new NPC(UUID.randomUUID(), "§9Puffleman").setLocation(new Location(Bukkit.getWorld("world"), -30.5f, 55.0f, -1042.5f, 0, 0)).setCapeVisible(false).setSkin(SkinLoader.getSkinById(1));
 		NPCManager.spawnNPC(npc, event.getPlayer());
 		npc = new NPC(UUID.randomUUID(), "§4Mason").setLocation(new Location(Bukkit.getWorld("world"), -30.5f, 55.0f, -1034.5f, 180, 0)).setCapeVisible(false).setSkin(SkinLoader.getSkinById(7));
 		NPCManager.spawnNPC(npc, event.getPlayer());
