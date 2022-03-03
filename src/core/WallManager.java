@@ -257,6 +257,9 @@ public class WallManager {
 						p.getWallTime().add(Float.valueOf(Duration.between(p.getWallBegin(), p.getWallEnd()).toMillis()) / 1000.0f);
 				}
 			} else {
+				if (p.isPerfectOnly()) {
+					score = 0;
+				}
 				if (p.isInParty()) {
 					for (HPlayer hp : p.getParty()) {
 						if (!bufferWall) {
