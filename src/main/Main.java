@@ -88,11 +88,6 @@ public class Main extends JavaPlugin implements Listener {
 	}
 
 	@EventHandler
-	public void onPlayerChat(AsyncPlayerChatEvent event) {
-		event.setFormat("%s: %s");
-	}
-	
-	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		new Join().execute(event);
 	}
