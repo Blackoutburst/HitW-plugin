@@ -67,22 +67,22 @@ public class ConfigurationMenu {
 				p.setPerfectOnly(p.isPerfectOnly() ? false : true);
 				toggle(p.isPerfectOnly(), inv, p, "§6Perfect mode", 37);
 		        break;
-			case 45: 
+			case 46: 
 				SongMenu.menu(p, "Song played");
 				break;
-			case 46: 
+			case 47: 
 				ColorMenu.menu(p, "Glass Color", Material.STAINED_GLASS);
 				break;
-			case 47:
+			case 48:
 				ColorMenu.menu(p, "Wall Color", Material.STAINED_CLAY);
 				break;
-			case 48:
+			case 49:
 				commandMessage("lag", p.getBrushLag(), p.getPlayer());
 				break;
-			case 49:
+			case 50:
 				commandMessage("memtime", p.getMemTime(), p.getPlayer());
 				break;
-			case 50:
+			case 51:
 				commandMessage("delay", p.getLeverDelay(), p.getPlayer());
 				break;
 			default: return;
@@ -140,17 +140,17 @@ public class ConfigurationMenu {
         lore.add("§6Click to change song");
         lore.add("");
         lore.add("§eCurrent song §7: §b"+p.getSongName());
-        setItem(Material.JUKEBOX, 1, (short) 0, "§r§aSong", lore, 45, inv);
+        setItem(Material.JUKEBOX, 1, (short) 0, "§r§aSong", lore, 46, inv);
         
         lore.clear();
         lore.add("§6Click to change the glass color");
         lore.add("§6used when you play");
-        setItem(Material.STAINED_GLASS, 1, p.getGlassColor(), "§r§aGlass color", lore, 46, inv);
+        setItem(Material.STAINED_GLASS, 1, p.getGlassColor(), "§r§aGlass color", lore, 47, inv);
         
         lore.clear();
         lore.add("§6Click to change the wall color");
         lore.add("§6used when you play");
-        setItem(Material.STAINED_CLAY, 1, p.getWallColor(), "§r§aWall color", lore, 47, inv);
+        setItem(Material.STAINED_CLAY, 1, p.getWallColor(), "§r§aWall color", lore, 48, inv);
         
         lore.clear();
         lore.add("§6Click to change brushing lag");
@@ -158,7 +158,7 @@ public class ConfigurationMenu {
         lore.add("§6after clicking them");
         lore.add("§3(current "+p.getBrushLag()+"ms)");
         lore.add("§e(default 100.0ms)");
-        setItem(Material.EMPTY_MAP, 1, (short) 0, "§r§aBrushing lag", lore, 48, inv);
+        setItem(Material.EMPTY_MAP, 1, (short) 0, "§r§aBrushing lag", lore, 49, inv);
         
         lore.clear();
         lore.add("§6Click to change memory time");
@@ -166,14 +166,14 @@ public class ConfigurationMenu {
         lore.add("§6in blind mode");
         lore.add("§3(current "+p.getMemTime()+"s)");
         lore.add("§e(default 1.0s)");
-        setItem(Material.EMPTY_MAP, 1, (short) 0, "§r§aMemory time", lore, 49, inv);
+        setItem(Material.EMPTY_MAP, 1, (short) 0, "§r§aMemory time", lore, 50, inv);
         
         lore.clear();
         lore.add("§6Click to change lever delay");
         lore.add("§6How long the lever take to reset");
         lore.add("§3(current "+p.getLeverDelay()+"s)");
         lore.add("§e(default 0.5s)");
-        setItem(Material.LEVER, 1, (short) 0, "§r§aLever delay", lore, 50, inv);
+        setItem(Material.LEVER, 1, (short) 0, "§r§aLever delay", lore, 51, inv);
         
         lore.clear();
         lore.add("§e§l§m--------------------");

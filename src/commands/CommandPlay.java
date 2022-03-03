@@ -144,34 +144,36 @@ public class CommandPlay {
 	}
 	
 	public void run(CommandSender sender, String[] args) {
-		HPlayer p = HPlayer.getHPlayer((Player) sender);
-		HGame game = GameUtils.getGameArea(p.getPlayer());
-		
-		if (p.isInGame()) {sender.sendMessage("§cLeave your previous game before starting a new one !");return;}
-		if (GameUtils.ownGame(p)) {sender.sendMessage("§cLeave your previous game before starting a new one !");return;}
-		if (p.isInParty() && !p.isPartyLeader()) {sender.sendMessage("§cOnly the party leader can start a game !");return;}
-		if (game == null) {sender.sendMessage("§cPlease enter any game area before using this command !");return;}
-		if (game.getOwner() != null) {sender.sendMessage("§cThis game is already used by " + game.getOwner().getDisplayName() + " §c!");return;}
-		if (!p.canUsePlay()) {sender.sendMessage("§cPlease wait before using this command again !");return;}
-		
-		if (game.getName().equals("1x1") || game.getName().equals("3x1") || game.getName().equals("3x3") ||
-				game.getName().equals("Tall Qualification") || game.getName().equals("Circle") ||
-				game.getName().equals("Triple Square") || game.getName().equals("Upside down T") ||
-				game.getName().equals("Diagonal") || game.getName().equals("Frog")  || game.getName().equals("4 ways"))
-			game.setCustomGame(true);
-		else
-			game.setCustomGame(false);
-		
-		if (args.length >= 1) {
-			switch(args[0]) {
-				case "classic": time(p, args, game, true); p.setUsePlay(false); break;
-				case "score": score(p, args, game); p.setUsePlay(false); break;
-				case "time": time(p, args, game, false); p.setUsePlay(false); break;
-				default: sender.sendMessage("§cUnknown parrameter : " + args[0] + " !"); break;
+		if (sender instanceof Player) {
+			HPlayer p = HPlayer.getHPlayer((Player) sender);
+			HGame game = GameUtils.getGameArea(p.getPlayer());
+			
+			if (p.isInGame()) {sender.sendMessage("§cLeave your previous game before starting a new one !");return;}
+			if (GameUtils.ownGame(p)) {sender.sendMessage("§cLeave your previous game before starting a new one !");return;}
+			if (p.isInParty() && !p.isPartyLeader()) {sender.sendMessage("§cOnly the party leader can start a game !");return;}
+			if (game == null) {sender.sendMessage("§cPlease enter any game area before using this command !");return;}
+			if (game.getOwner() != null) {sender.sendMessage("§cThis game is already used by " + game.getOwner().getDisplayName() + " §c!");return;}
+			if (!p.canUsePlay()) {sender.sendMessage("§cPlease wait before using this command again !");return;}
+			
+			if (game.getName().equals("1x1") || game.getName().equals("3x1") || game.getName().equals("3x3") ||
+					game.getName().equals("Tall Qualification") || game.getName().equals("Circle") ||
+					game.getName().equals("Triple Square") || game.getName().equals("Upside down T") ||
+					game.getName().equals("Diagonal") || game.getName().equals("Frog")  || game.getName().equals("4 ways"))
+				game.setCustomGame(true);
+			else
+				game.setCustomGame(false);
+			
+			if (args.length >= 1) {
+				switch(args[0]) {
+					case "classic": time(p, args, game, true); p.setUsePlay(false); break;
+					case "score": score(p, args, game); p.setUsePlay(false); break;
+					case "time": time(p, args, game, false); p.setUsePlay(false); break;
+					default: sender.sendMessage("§cUnknown parrameter : " + args[0] + " !"); break;
+				}
+			} else {
+				p.setUsePlay(false);
+				endless(p, game);
 			}
-		} else {
-			p.setUsePlay(false);
-			endless(p, game);
 		}
 	}
 }
