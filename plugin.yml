@@ -64,6 +64,9 @@ commands:
   afk:
     description: Set your status as AFK
     usage: /AFK
+  perfect:
+    description: Toggle pefect mode
+    usage: /perfectK
   createnpc:
     description: Create a new npc
     usage: /createnpc name skinname

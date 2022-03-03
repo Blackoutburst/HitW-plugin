@@ -28,6 +28,7 @@ public class CommandsManager {
 			case "deletenpc": new DeleteNPC().run(sender, args); break;
 			case "scanplayfield": new CommandScanPlayField().run(sender, args); break;
 			case "scanwall": new CommandScanWall().run(sender, args); break;
+			case "perfect": new CommandPerfect().run(sender); break;
 			default: return;
 		}
 	}

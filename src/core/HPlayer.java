@@ -58,6 +58,7 @@ public class HPlayer {
 	protected Song song;
 	protected String songName;
 	protected boolean usePlay;
+	protected boolean perfectOnly;
 	
 	protected int scoreQualification = 0;
 	protected int scoreFinals = 0;
@@ -67,7 +68,8 @@ public class HPlayer {
 	
 	public HPlayer(Player player, short wallColor, short glassColor, float leverDelay, float memTime, float brushLag,
 			boolean fly, boolean title, boolean rightSided, boolean oldAnimation, boolean blind, boolean destroy, boolean autoLeave, 
-			Board board, String rank, String songName, int scoreQualification, int scoreFinals, int scoreWideQualification, int scoreLobby, int scoreWideFinals) {
+			Board board, String rank, String songName, int scoreQualification, int scoreFinals, int scoreWideQualification, int scoreLobby, int scoreWideFinals,
+			boolean perfectOnly) {
 		this.player = player;
 		this.wallColor = wallColor;
 		this.glassColor = glassColor;
@@ -109,6 +111,7 @@ public class HPlayer {
 		this.scoreWideQualification = scoreWideQualification;
 		this.scoreLobby = scoreLobby;
 		this.scoreWideFinals = scoreWideFinals;
+		this.perfectOnly = perfectOnly;
 	}
 
 	public static HPlayer getHPlayer(Player p) {
@@ -142,6 +145,7 @@ public class HPlayer {
 				config.set("blind", p.blind);
 				config.set("destroy", p.destroy);
 				config.set("autoLeave", p.autoLeave);
+				config.set("perfectOnly", p.perfectOnly);
 				config.set("songName", p.songName);
 				config.set("score", null);
 				config.set("score.Q", p.scoreQualification);
@@ -188,6 +192,7 @@ public class HPlayer {
 		this.blind = playerData.getBoolean("blind");
 		this.destroy = playerData.getBoolean("destroy");
 		this.autoLeave = playerData.getBoolean("autoLeave");
+		this.perfectOnly = playerData.getBoolean("perfectOnly");
 		this.songName = playerData.getString("songName");
 		this.scoreQualification = playerData.getInt("score.Q");
 		this.scoreFinals = playerData.getInt("score.F");
@@ -474,6 +479,14 @@ public class HPlayer {
 
 	public void setAutoLeave(boolean autoLeave) {
 		this.autoLeave = autoLeave;
+	}
+	
+	public boolean isPerfectOnly() {
+		return perfectOnly;
+	}
+	
+	public void setPerfectOnly(boolean perfectOnly) {
+		this.perfectOnly = perfectOnly;
 	}
 
 	public HPlayer getOpponent() {

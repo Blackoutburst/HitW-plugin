@@ -196,6 +196,7 @@ public class CommandDuel {
 				hp.setBlind(p1.isBlind());
 				hp.setOldAnimation(p1.isOldAnimation());
 				hp.setDestroy(p1.isDestroy());
+				hp.setPerfectOnly(p1.isPerfectOnly());
 				hp.setAutoLeave(false);
 				hp.setInDuel(true);
 				hp.setTime(120);
@@ -214,6 +215,7 @@ public class CommandDuel {
 		p2.setBlind(p1.isBlind());
 		p2.setOldAnimation(p1.isOldAnimation());
 		p2.setDestroy(p1.isDestroy());
+		p2.setPerfectOnly(p1.isPerfectOnly());
 		p2.setAutoLeave(false);
 		p2.setInDuel(true);
 		if (p2.isInParty()) {
@@ -222,6 +224,7 @@ public class CommandDuel {
 				hp.setBlind(p1.isBlind());
 				hp.setOldAnimation(p1.isOldAnimation());
 				hp.setDestroy(p1.isDestroy());
+				hp.setPerfectOnly(p1.isPerfectOnly());
 				hp.setAutoLeave(false);
 				hp.setInDuel(true);
 				hp.setTime(120);
