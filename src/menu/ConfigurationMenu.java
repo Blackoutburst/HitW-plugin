@@ -63,6 +63,10 @@ public class ConfigurationMenu {
 				p.setFly(p.getPlayer().getAllowFlight() ? false : true);
 				toggle(p.getPlayer().getAllowFlight(), inv, p, "§6Fly", 25);
 		        break;
+			case 28: case 37:
+				p.setPerfectOnly(p.isPerfectOnly() ? false : true);
+				toggle(p.isPerfectOnly(), inv, p, "§6Perfect mode", 37);
+		        break;
 			case 45: 
 				SongMenu.menu(p, "Song played");
 				break;
@@ -115,11 +119,23 @@ public class ConfigurationMenu {
         setFirstLine(lore, inv);
         setSecondLine(lore, inv, p);
         setThirdLine(lore, inv, p);
+        setFourthLine(lore, inv, p);
         
         p.getPlayer().openInventory(inv);
 	}
 	
 	private static void setThirdLine(ArrayList<String> lore, Inventory inv, HPlayer p) {
+        lore.clear();
+        lore.add("§6Toggle Perfect mode");
+        lore.add("§6Only perfect wall give score");
+        setItem(Material.GOLD_BLOCK, 1, (short) 0, "§r§aPerfect mode", lore, 28, inv);
+        
+		lore.clear();
+        lore.add("§6Perfect mode");
+        setItem(Material.INK_SACK, 1, (short) (p.isPerfectOnly() ? 10 : 8), "§r§aClick to Toggle", lore, 37, inv);
+	}
+	
+	private static void setFourthLine(ArrayList<String> lore, Inventory inv, HPlayer p) {
         lore.clear();
         lore.add("§6Click to change song");
         lore.add("");
