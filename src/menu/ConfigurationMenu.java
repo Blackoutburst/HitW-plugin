@@ -225,7 +225,7 @@ public class ConfigurationMenu {
         lore.add("§6Your play field is filled with glass");
         lore.add("§6You have to break block to match the wall pattern");
         lore.add("");
-        setSkull(Material.SKULL_ITEM, 1, (short) 3, "§r§aBreak mode", lore, 13, inv, SkullOwner.Jazmin);
+        setItem(Material.GLASS, 1, (short) 0, "§r§aBreak mode", lore, 13, inv);
         
         lore.clear();
         lore.add("§6Toggle Auto leave");

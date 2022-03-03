@@ -19,7 +19,6 @@ public class SkullOwner {
 	public static String Teddy;
 	public static String Sparklizm;
 	public static String Mason;
-	public static String Jazmin;
 	public static String FrogOp;
 	
 	public static void loadSkullOwner() {
@@ -31,7 +30,6 @@ public class SkullOwner {
 		Teddy = getNameFromUUID("082e28e178724b21ba12b3231f7a872c");
 		Sparklizm = getNameFromUUID("8b8eb178c169486c97924255c26c0967");
 		Mason = getNameFromUUID("bedb53e2dd754786a2ac1ec80023aabe");
-		Jazmin = getNameFromUUID("640459a7a5c8417bbb06f6e6d28614a1");
 		FrogOp = getNameFromUUID("2931cb0ba0104d9b97730d22a61ddc10");
 	}
 	
