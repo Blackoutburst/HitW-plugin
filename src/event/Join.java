@@ -55,6 +55,7 @@ public class Join {
 		boolean destroy = false;
 		boolean autoLeave = true;
 		boolean perfectOnly = false;
+		boolean invisibleGlass = false;
 		String songName = "Hyperdron - Inter-Dimensional Existence Kontrol";
 		HPlayer newHp = null;
 		
@@ -79,6 +80,7 @@ public class Join {
 			destroy = playerData.getBoolean("destroy");
 			autoLeave = playerData.getBoolean("autoLeave");
 			perfectOnly = playerData.getBoolean("perfectOnly");
+			invisibleGlass = playerData.getBoolean("invisibleGlass");
 			songName = playerData.getString("songName");
 			scoreQualification = playerData.getInt("score.Q");
 			scoreFinals = playerData.getInt("score.F");
@@ -88,13 +90,13 @@ public class Join {
 			
 			newHp = new HPlayer(p, wallColor, glassColor, leverDelay, memTime, brushLag, fly, title, 
 					rightSided, oldAnimation, blind, destroy, autoLeave, board, rank, songName,
-					scoreQualification, scoreFinals, scoreWideQualification, scoreLobby, scoreWideFinals, perfectOnly);
+					scoreQualification, scoreFinals, scoreWideQualification, scoreLobby, scoreWideFinals, perfectOnly, invisibleGlass);
 			HPlayer.updatePlayerData(newHp);
 		} else {
 			Bukkit.broadcastMessage("§dWelcome "+p.getDisplayName()+" §dto the server!");
 			newHp = new HPlayer(p, wallColor, glassColor, leverDelay, memTime, brushLag, fly, title, 
 					rightSided, oldAnimation, blind, destroy, autoLeave, board, rank, songName,
-					scoreQualification, scoreFinals, scoreWideQualification, scoreLobby, scoreWideFinals, perfectOnly);
+					scoreQualification, scoreFinals, scoreWideQualification, scoreLobby, scoreWideFinals, perfectOnly, invisibleGlass);
 			HPlayer.updatePlayerData(newHp);
 		}
 		Main.hPlayers.add(newHp);

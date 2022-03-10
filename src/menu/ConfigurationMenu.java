@@ -67,6 +67,10 @@ public class ConfigurationMenu {
 				p.setPerfectOnly(p.isPerfectOnly() ? false : true);
 				toggle(p.isPerfectOnly(), inv, p, "§6Perfect mode", 37);
 		        break;
+			case 29: case 38:
+				p.setInvisibleGlass(p.isInvisibleGlass() ? false : true);
+				toggle(p.isInvisibleGlass(), inv, p, "§6Invisible glass", 38);
+		        break;
 			case 46: 
 				SongMenu.menu(p, "Song played");
 				break;
@@ -133,6 +137,15 @@ public class ConfigurationMenu {
 		lore.clear();
         lore.add("§6Perfect mode");
         setItem(Material.INK_SACK, 1, (short) (p.isPerfectOnly() ? 10 : 8), "§r§aClick to Toggle", lore, 37, inv);
+        
+        
+        lore.clear();
+        lore.add("§6Toggle Invisible glass");
+        setItem(Material.BARRIER, 1, (short) 0, "§r§aInvisible glass", lore, 29, inv);
+        
+		lore.clear();
+        lore.add("§6Invisible glass");
+        setItem(Material.INK_SACK, 1, (short) (p.isInvisibleGlass() ? 10 : 8), "§r§aClick to Toggle", lore, 38, inv);
 	}
 	
 	private static void setFourthLine(ArrayList<String> lore, Inventory inv, HPlayer p) {

@@ -29,7 +29,8 @@ public class BlockDamage {
 			return;
 		}
 		
-		if (game.isCustomGame() && GameUtils.inCustomPlayArea(event.getBlock().getLocation(), game) && event.getBlock().getType().equals(Material.STAINED_GLASS)) {
+		if ((game.isCustomGame() && GameUtils.inCustomPlayArea(event.getBlock().getLocation(), game)) && 
+				event.getBlock().getType().equals(Material.STAINED_GLASS) || event.getBlock().getType().equals(Material.BARRIER)) {
 			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
 				@Override
 				public void run(){
@@ -37,7 +38,8 @@ public class BlockDamage {
             		event.getPlayer().getLocation().getWorld().playSound(event.getPlayer().getLocation(), Sound.GLASS, 1f, 1f);
 				}
 			}, (long)((p.getBrushLag() * 20) / 1000));
-		} else if (!game.isCustomGame() && GameUtils.inPlayArea(event.getBlock().getLocation(), game) && event.getBlock().getType().equals(Material.STAINED_GLASS)) {
+		} else if ((!game.isCustomGame() && GameUtils.inPlayArea(event.getBlock().getLocation(), game)) && 
+				event.getBlock().getType().equals(Material.STAINED_GLASS) || event.getBlock().getType().equals(Material.BARRIER)) {
 			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
 				@Override
 				public void run(){

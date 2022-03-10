@@ -46,7 +46,12 @@ public class BlockPlace {
 			ScoreboardManager.updateScoreboard(p);
 		}
 		
-		ItemStack stack = new ItemStack(Material.STAINED_GLASS, 50, p.getGlassColor());
+		ItemStack stack;
+		if (p.isInvisibleGlass()) {
+			stack = new ItemStack(Material.BARRIER, 50);
+		} else {
+			stack = new ItemStack(Material.STAINED_GLASS, 50, p.getGlassColor());
+		}
 		p.getPlayer().getInventory().setItem(0, stack);
 	}
 }

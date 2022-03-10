@@ -64,12 +64,22 @@ public class CustomWallManager {
 			
 				if (p.isInParty()) {
 					for (HPlayer hp : p.getParty()) {
-						ItemStack stack = new ItemStack(Material.STAINED_GLASS, 50, hp.getGlassColor());
+						ItemStack stack;
+						if (hp.isInvisibleGlass()) {
+							stack = new ItemStack(Material.BARRIER, 50);
+						} else {
+							stack = new ItemStack(Material.STAINED_GLASS, 50, hp.getGlassColor());
+						}
 						hp.getPlayer().getInventory().setItem(0, stack);
 						hp.setWallBegin(Instant.now());
 					}
 				} else {
-					ItemStack stack = new ItemStack(Material.STAINED_GLASS, 50, p.getGlassColor());
+					ItemStack stack;
+					if (p.isInvisibleGlass()) {
+						stack = new ItemStack(Material.BARRIER, 50);
+					} else {
+						stack = new ItemStack(Material.STAINED_GLASS, 50, p.getGlassColor());
+					}
 					p.getPlayer().getInventory().setItem(0, stack);
 					p.setWallBegin(Instant.now());
 				}
@@ -115,12 +125,22 @@ public class CustomWallManager {
 				} else {
 					if (p.isInParty()) {
 						for (HPlayer hp : p.getParty()) {
-							ItemStack stack = new ItemStack(Material.STAINED_GLASS, 50, hp.getGlassColor());
+							ItemStack stack;
+							if (hp.isInvisibleGlass()) {
+								stack = new ItemStack(Material.BARRIER, 50);
+							} else {
+								stack = new ItemStack(Material.STAINED_GLASS, 50, hp.getGlassColor());
+							}
 							hp.getPlayer().getInventory().setItem(0, stack);
 							hp.setWallBegin(Instant.now());
 						}
 					} else {
-						ItemStack stack = new ItemStack(Material.STAINED_GLASS, 50, p.getGlassColor());
+						ItemStack stack;
+						if (p.isInvisibleGlass()) {
+							stack = new ItemStack(Material.BARRIER, 50);
+						} else {
+							stack = new ItemStack(Material.STAINED_GLASS, 50, p.getGlassColor());
+						}
 						p.getPlayer().getInventory().setItem(0, stack);
 						p.setWallBegin(Instant.now());
 					}

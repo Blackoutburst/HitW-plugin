@@ -59,6 +59,7 @@ public class HPlayer {
 	protected String songName;
 	protected boolean usePlay;
 	protected boolean perfectOnly;
+	protected boolean invisibleGlass;
 	
 	protected int scoreQualification = 0;
 	protected int scoreFinals = 0;
@@ -69,7 +70,7 @@ public class HPlayer {
 	public HPlayer(Player player, short wallColor, short glassColor, float leverDelay, float memTime, float brushLag,
 			boolean fly, boolean title, boolean rightSided, boolean oldAnimation, boolean blind, boolean destroy, boolean autoLeave, 
 			Board board, String rank, String songName, int scoreQualification, int scoreFinals, int scoreWideQualification, int scoreLobby, int scoreWideFinals,
-			boolean perfectOnly) {
+			boolean perfectOnly, boolean invisibleGlass) {
 		this.player = player;
 		this.wallColor = wallColor;
 		this.glassColor = glassColor;
@@ -112,6 +113,7 @@ public class HPlayer {
 		this.scoreLobby = scoreLobby;
 		this.scoreWideFinals = scoreWideFinals;
 		this.perfectOnly = perfectOnly;
+		this.invisibleGlass = invisibleGlass;
 	}
 
 	public static HPlayer getHPlayer(Player p) {
@@ -146,6 +148,7 @@ public class HPlayer {
 				config.set("destroy", p.destroy);
 				config.set("autoLeave", p.autoLeave);
 				config.set("perfectOnly", p.perfectOnly);
+				config.set("invisibleGlass", p.invisibleGlass);
 				config.set("songName", p.songName);
 				config.set("score", null);
 				config.set("score.Q", p.scoreQualification);
@@ -193,6 +196,7 @@ public class HPlayer {
 		this.destroy = playerData.getBoolean("destroy");
 		this.autoLeave = playerData.getBoolean("autoLeave");
 		this.perfectOnly = playerData.getBoolean("perfectOnly");
+		this.invisibleGlass = playerData.getBoolean("invisibleGlass");
 		this.songName = playerData.getString("songName");
 		this.scoreQualification = playerData.getInt("score.Q");
 		this.scoreFinals = playerData.getInt("score.F");
@@ -293,6 +297,14 @@ public class HPlayer {
 		this.blind = blind;
 	}
 
+	public boolean isInvisibleGlass() {
+		return invisibleGlass;
+	}
+	
+	public void setInvisibleGlass(boolean invisibleGlass) {
+		this.invisibleGlass = invisibleGlass;
+	}
+	
 	public boolean isInGame() {
 		return inGame;
 	}
