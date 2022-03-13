@@ -45,8 +45,7 @@ public class CoreAPI {
 	  		
 	  		String uuid = in.readLine();
 	  		File playerFile = new File("./plugins/HitW/player data/"+uuid+".yml");
-	  		
-	  		
+	  			
 	  		String message = "";
 	  		if (!playerFile.exists()) {
 	  			message = "Unknown player\n";
@@ -97,5 +96,4 @@ public class CoreAPI {
 	  		out.close();
 		}
 	}
-	
 }
