@@ -75,19 +75,19 @@ public class CoreAPI {
 			for (int i = 1; i <= 100; i++) {wfh += playerData.getInt("wide_finals_history."+i, 0)+",";}
 			wfh = wfh.substring(0, wfh.length() - 1);
 			message = "{"
-					+ "   \"qualification_history\":["+qh+"],"
-					+ "   \"finals_history\":["+fh+"],"
-					+ "   \"wide_qualification_history\":["+wqh+"],"
-					+ "   \"lobby_history\":["+lh+"],"
-					+ "   \"wide_finals_history\":["+wfh+"],"
-					+ "   \"name\":"+name+","
-					+ "   \"scores\":{"
-					+ "      \"qualification\":"+Q+","
-					+ "      \"finals\":"+F+","
-					+ "      \"wide_qualification\":"+WQ+","
-					+ "      \"lobby\":"+L+","
-					+ "      \"wide_finals\":"+WF
-					+ "   }"
+					+ "\"qualification_history\":["+qh+"],"
+					+ "\"finals_history\":["+fh+"],"
+					+ "\"wide_qualification_history\":["+wqh+"],"
+					+ "\"lobby_history\":["+lh+"],"
+					+ "\"wide_finals_history\":["+wfh+"],"
+					+ "\"name\":\""+name+"\","
+					+ "\"scores\":{"
+					+ "\"qualification\":"+Q+","
+					+ "\"finals\":"+F+","
+					+ "\"wide_qualification\":"+WQ+","
+					+ "\"lobby\":"+L+","
+					+ "\"wide_finals\":"+WF
+					+ "}"
 					+ "}";
 	  		out.write(message.getBytes("UTF-8"));
 	  		
