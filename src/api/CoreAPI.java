@@ -81,6 +81,7 @@ public class CoreAPI {
 					+ "\"lobby_history\":["+lh+"],"
 					+ "\"wide_finals_history\":["+wfh+"],"
 					+ "\"name\":\""+name+"\","
+					+ "\"uuid\":\""+uuid+"\","
 					+ "\"scores\":{"
 					+ "\"qualification\":"+Q+","
 					+ "\"finals\":"+F+","
