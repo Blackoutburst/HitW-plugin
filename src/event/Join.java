@@ -28,7 +28,7 @@ public class Join {
 		Main.npcplayers.add(pnpc);
 		NPCFile.loadNPC(pnpc);
 		
-		event.getPlayer().teleport(new Location(Bukkit.getWorld("world"), -7.5f, 55, -1045.5f, 0, 0));
+		event.getPlayer().teleport(new Location(Bukkit.getWorld("world"), -7.5f, 55, -1054.5f, 0, 0));
 		Utils.giveConfigItem(event.getPlayer());
 		addHPlayer(event.getPlayer());
 		HPlayer p = HPlayer.getHPlayer(event.getPlayer());

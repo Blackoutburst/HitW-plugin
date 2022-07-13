@@ -13,7 +13,7 @@ import com.blackout.npcapi.utils.SkinLoader;
 public class NPCUtils {
 
 	public static void loadSkins() {
-		SkinLoader.loadSkinFromUUID(0, "ab0ce1c342e847f18212e159fdbc2576"); //Simon
+		SkinLoader.loadSkinFromUUID(0, "ab0ce1c342e847f18212e159fdbc2576"); //Winday
 		SkinLoader.loadSkinFromUUID(1, "2f066b0e58fd4db6a24bfbce5ab5bdb4"); //Puffleman
 		SkinLoader.loadSkinFromUUID(2, "c46f6438006049d4830ca6fa732303fc"); //Arcxire
 		SkinLoader.loadSkinFromUUID(3, "bb88e17c171f4f36b4ff6e056abe4fff"); //Cosmic
@@ -31,6 +31,7 @@ public class NPCUtils {
 		SkinLoader.loadSkinFromUUID(15, "638bd94631a0487783b3e24e0581d695"); //DeprecatedNether
 		SkinLoader.loadSkinFromUUID(16, "3bd62e7edecd4baaa402ac84712e32cb"); //Ugy
 		SkinLoader.loadSkinFromUUID(17, "9293868b414c42b2bd8e3bcb791247b9"); //Yaku
+		SkinLoader.loadSkinFromUUID(18, "2b8709d535f545c78c101c82f5f0d7b3"); //Simon
 	}
 	
 	public static void spawnNPC(PlayerJoinEvent event) {
@@ -40,9 +41,9 @@ public class NPCUtils {
 	}
 	
 	private static void spawnTeleportNPC(PlayerJoinEvent event) {
-		NPC npc = new NPC(UUID.randomUUID(), "qualification").setLocation(new Location(Bukkit.getWorld("world"), -2.5f, 55.0f, -1031.5f, 180, 0)).setCapeVisible(false).setNameVisible(false).setSkin(SkinLoader.getSkinById(1));
+		NPC npc = new NPC(UUID.randomUUID(), "qualification").setLocation(new Location(Bukkit.getWorld("world"), -2.5f, 55.0f, -1023.5f, 180, 0)).setCapeVisible(false).setNameVisible(false).setSkin(SkinLoader.getSkinById(1));
 		NPCManager.spawnNPC(npc, event.getPlayer());
-		npc = new NPC(UUID.randomUUID(), "finals").setLocation(new Location(Bukkit.getWorld("world"), -12.5f, 55.0f, -1031.5f, 180, 0)).setCapeVisible(false).setNameVisible(false).setSkin(SkinLoader.getSkinById(2));
+		npc = new NPC(UUID.randomUUID(), "finals").setLocation(new Location(Bukkit.getWorld("world"), -12.5f, 55.0f, -1023.5f, 180, 0)).setCapeVisible(false).setNameVisible(false).setSkin(SkinLoader.getSkinById(18));
 		NPCManager.spawnNPC(npc, event.getPlayer());
 		npc = new NPC(UUID.randomUUID(), "spawn").setLocation(new Location(Bukkit.getWorld("world"), -5.5f, 54.0f, -1007.5f, 135, 0)).setCapeVisible(false).setNameVisible(false).setSkin(SkinLoader.getSkinById(9));
 		NPCManager.spawnNPC(npc, event.getPlayer());
@@ -66,9 +67,11 @@ public class NPCUtils {
 		NPCManager.spawnNPC(npc, event.getPlayer());
 		npc = new NPC(UUID.randomUUID(), "spawn").setLocation(new Location(Bukkit.getWorld("world"), -355.5f, 55.0f, -1095.5f, -135, 0)).setCapeVisible(false).setNameVisible(false).setSkin(SkinLoader.getSkinById(9));
 		NPCManager.spawnNPC(npc, event.getPlayer());
-		npc = new NPC(UUID.randomUUID(), "old_spawn").setLocation(new Location(Bukkit.getWorld("world"), -7.5f, 54.0f, -1036.5f, 180, 0)).setCapeVisible(false).setNameVisible(false).setSkin(SkinLoader.getSkinById(17));
+		npc = new NPC(UUID.randomUUID(), "old_spawn").setLocation(new Location(Bukkit.getWorld("world"), -17.5f, 55.0f, -1052.5f, -45, 0)).setCapeVisible(false).setNameVisible(false).setSkin(SkinLoader.getSkinById(17));
 		NPCManager.spawnNPC(npc, event.getPlayer());
 		npc = new NPC(UUID.randomUUID(), "new_spawn").setLocation(new Location(Bukkit.getWorld("old_map"), -565.5f, 6.0f, 665.5f, 90, 0)).setCapeVisible(false).setNameVisible(false).setSkin(SkinLoader.getSkinById(9));
+		NPCManager.spawnNPC(npc, event.getPlayer());
+		npc = new NPC(UUID.randomUUID(), "nothing").setLocation(new Location(Bukkit.getWorld("world"), 2.5f, 55.0f, -1052.5f, 45, 0)).setCapeVisible(false).setNameVisible(false).setSkin(SkinLoader.getSkinById(18));
 		NPCManager.spawnNPC(npc, event.getPlayer());
 	}
 	
