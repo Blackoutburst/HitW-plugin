@@ -85,6 +85,7 @@ public class HGame {
 	private void endStatsMessage(HPlayer p) {
 		ScoreboardManager.updateScoreboard(p);
 		Collections.sort(p.getWallTime());
+		final String gameType = p.board.get(11).replace("Stage: §a", "");
 		float average = 0;
 		
 		for (Float f : p.getWallTime()) {
@@ -94,8 +95,17 @@ public class HGame {
 		
 		p.getPlayer().sendMessage("§a§l§m---------------------------------------------");
 		p.getPlayer().sendMessage(Utils.centerText("§6§lGame summary"));
-		p.getPlayer().sendMessage("§6Stage: §f"+p.board.get(11).replace("Stage: §a", ""));
-		p.getPlayer().sendMessage("§6Score: §f"+p.score);
+		p.getPlayer().sendMessage("§6Stage: §f"+gameType);
+		
+		switch (gameType) {
+			case "Qualification": p.getPlayer().sendMessage("§6Score: §f"+p.score + ((p.score > p.scoreQualification) ? " §5(+" : " §5(") + (p.score - p.scoreQualification)+")"); break;
+			case "Finals": p.getPlayer().sendMessage("§6Score: §f"+p.score + ((p.score > p.scoreFinals) ? " §5(+" : " §5(") + (p.score - p.scoreFinals)+")"); break;
+			case "Wide Qualification": p.getPlayer().sendMessage("§6Score: §f"+p.score + ((p.score > p.scoreWideQualification) ? " §5(+" : " §5(") + (p.score - p.scoreWideQualification)+")"); break;
+			case "Lobby Wall": p.getPlayer().sendMessage("§6Score: §f"+p.score + ((p.score > p.scoreLobby) ? " §5(+" : " §5(") + (p.score - p.scoreLobby)+")");break;
+			case "Wide Finals": p.getPlayer().sendMessage("§6Score: §f"+p.score + ((p.score > p.scoreWideFinals) ? " §5(+" : " §5(") + (p.score - p.scoreWideFinals)+")"); break;
+			default: p.getPlayer().sendMessage("§6Score: §f"+p.score);
+		}
+		
 		
 		if (p.time > 0) {
 			int minutes = p.time / 60;

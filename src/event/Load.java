@@ -2,7 +2,6 @@ package event;
 
 import java.io.File;
 
-import api.CoreAPI;
 import utils.HGameLoader;
 import utils.NPCUtils;
 import utils.SkullOwner;
@@ -17,6 +16,5 @@ public class Load {
 		NPCUtils.loadSkins();
 		HGameLoader.loadHGames();
 		SkullOwner.loadSkullOwner();
-		new CoreAPI().startServer();
 	}
 }
