@@ -18,7 +18,7 @@ public class SongMenu {
 		Inventory inv = Main.getPlugin(Main.class).getServer().createInventory(null, 54, ChatColor.BLACK + name);
 		ItemStack item = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short) 15);
 		ItemMeta meta = item.getItemMeta();
-        meta.setDisplayName("§r");
+        meta.setDisplayName("Â§r");
         item.setItemMeta(meta);
         
         for (int i = 0; i < 54; i++)
@@ -27,9 +27,9 @@ public class SongMenu {
         item = new ItemStack(Material.BARRIER, 1, (short) 0);
         meta = item.getItemMeta();
         ArrayList<String> lore = new ArrayList<String>();
-        lore.add("§bNo song will be played");
+        lore.add("Â§bNo song will be played");
         meta.setLore(lore);
-        meta.setDisplayName("§r§aNone");
+        meta.setDisplayName("Â§rÂ§aNone");
         item.setItemMeta(meta);
         inv.setItem(10, item);
         p.getPlayer().openInventory(inv);
@@ -38,9 +38,9 @@ public class SongMenu {
         meta = item.getItemMeta();
         meta.addItemFlags(ItemFlag.values());
         lore = new ArrayList<String>();
-        lore.add("§bInter-Dimensional Existence Kontrol");
+        lore.add("Â§bInter-Dimensional Existence Kontrol");
         meta.setLore(lore);
-        meta.setDisplayName("§r§aHyperdron");
+        meta.setDisplayName("Â§rÂ§aHyperdron");
         item.setItemMeta(meta);
         inv.setItem(11, item);
         p.getPlayer().openInventory(inv);
@@ -49,9 +49,9 @@ public class SongMenu {
         meta = item.getItemMeta();
         meta.addItemFlags(ItemFlag.values());
         lore = new ArrayList<String>();
-        lore.add("§bVoting");
+        lore.add("Â§bVoting");
         meta.setLore(lore);
-        meta.setDisplayName("§r§aShinkoNet");
+        meta.setDisplayName("Â§rÂ§aShinkoNet");
         item.setItemMeta(meta);
         inv.setItem(12, item);
         p.getPlayer().openInventory(inv);

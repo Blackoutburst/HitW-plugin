@@ -31,16 +31,16 @@ public class CommandDuel {
 	
 	private static void duelRequest(HPlayer p, String duelName) {
 		p.setDuelType(duelName);
-		p.getPlayer().sendMessage("§eDuel request send to " + p.getOpponent().getDisplayName());
+		p.getPlayer().sendMessage("Â§eDuel request send to " + p.getOpponent().getDisplayName());
 		
-		TextComponent msg = new TextComponent(Utils.centerText("§eClick §bhere §eto accept"));
+		TextComponent msg = new TextComponent(Utils.centerText("Â§eClick Â§bhere Â§eto accept"));
 		msg.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/duel accept " + p.getPlayer().getName()));
-		p.getOpponent().getPlayer().sendMessage("§a§l§m---------------------------------------------");
+		p.getOpponent().getPlayer().sendMessage("Â§aÂ§lÂ§m---------------------------------------------");
 		p.getOpponent().getPlayer().sendMessage(" ");
-		p.getOpponent().getPlayer().sendMessage(Utils.centerText(Bukkit.getPlayer(p.getPlayer().getName()).getDisplayName() + " §einvited you to a §b" + duelName + " §eduel !"));
+		p.getOpponent().getPlayer().sendMessage(Utils.centerText(Bukkit.getPlayer(p.getPlayer().getName()).getDisplayName() + " Â§einvited you to a Â§b" + duelName + " Â§eduel !"));
 		p.getOpponent().getPlayer().spigot().sendMessage(msg);
 		p.getOpponent().getPlayer().sendMessage(" ");
-		p.getOpponent().getPlayer().sendMessage("§a§l§m---------------------------------------------");
+		p.getOpponent().getPlayer().sendMessage("Â§aÂ§lÂ§m---------------------------------------------");
 		p.getOpponent().setDuelInvite(true);
 		
 		new BukkitRunnable(){
@@ -57,14 +57,14 @@ public class CommandDuel {
 				if (!Main.QDuelBusy)
 					duelRequest(p, "Qualification");
 				else
-					p.getPlayer().sendMessage("§cThis duel arena is busy right now, try again in a few minute !");
+					p.getPlayer().sendMessage("Â§cThis duel arena is busy right now, try again in a few minute !");
 				p.getPlayer().closeInventory();
 			break;
 			case 15:
 				if (!Main.FDuelBusy)
 					duelRequest(p, "Finals");
 				else
-					p.getPlayer().sendMessage("§cThis duel arena is busy right now, try again in a few minute !");
+					p.getPlayer().sendMessage("Â§cThis duel arena is busy right now, try again in a few minute !");
 				p.getPlayer().closeInventory();
 			break;
 			default: break;
@@ -75,7 +75,7 @@ public class CommandDuel {
 		Inventory inv = Main.getPlugin(Main.class).getServer().createInventory(null, 27, ChatColor.BLACK + "Duel Game");
 		ItemStack item = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short) 15);
 		ItemMeta meta = item.getItemMeta();
-        meta.setDisplayName("§r");
+        meta.setDisplayName("Â§r");
         item.setItemMeta(meta);
         
         for (int i = 0; i < 27; i++)
@@ -84,10 +84,10 @@ public class CommandDuel {
         item = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
         SkullMeta skull = (SkullMeta) item.getItemMeta();
         List<String> lore = new ArrayList<String>();
-        lore.add("§6Duel you opponent in a");
-        lore.add("§6Qualification game");
+        lore.add("Â§6Duel you opponent in a");
+        lore.add("Â§6Qualification game");
         skull.setLore(lore);
-        skull.setDisplayName("§r§aQualification");
+        skull.setDisplayName("Â§rÂ§aQualification");
         skull.setOwner(SkullOwner.Puffleman);
         item.setItemMeta(skull);
         inv.setItem(11, item);
@@ -95,10 +95,10 @@ public class CommandDuel {
         item = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
         skull = (SkullMeta) item.getItemMeta();
         lore = new ArrayList<String>();
-        lore.add("§6Duel you opponent in a");
-        lore.add("§6Finals game");
+        lore.add("Â§6Duel you opponent in a");
+        lore.add("Â§6Finals game");
         skull.setLore(lore);
-        skull.setDisplayName("§r§aFinals");
+        skull.setDisplayName("Â§rÂ§aFinals");
         skull.setOwner(SkullOwner.Arcxire);
         item.setItemMeta(skull);
         inv.setItem(15, item);
@@ -202,13 +202,13 @@ public class CommandDuel {
 				hp.setInDuel(true);
 				hp.setTime(120);
 				hp.getPlayer().teleport(A);
-				hp.getBoard().setTitle("§6-= Duel =-");
+				hp.getBoard().setTitle("Â§6-= Duel =-");
 				ScoreboardManager.setDuelScoreboard(stage, hp);
 			}
 		} else {
 			p1.setTime(120);
 			p1.getPlayer().teleport(A);
-			p1.getBoard().setTitle("§6-= Duel =-");
+			p1.getBoard().setTitle("Â§6-= Duel =-");
 			ScoreboardManager.setDuelScoreboard(stage, p1);
 		}
 		
@@ -232,49 +232,49 @@ public class CommandDuel {
 				hp.setInDuel(true);
 				hp.setTime(120);
 				hp.getPlayer().teleport(B);
-				hp.getBoard().setTitle("§6-= Duel =-");
+				hp.getBoard().setTitle("Â§6-= Duel =-");
 				ScoreboardManager.setDuelScoreboard(stage, hp);
 			}
 		} else {
 			p2.setTime(120);
 			p2.getPlayer().teleport(B);
-			p2.getBoard().setTitle("§6-= Duel =-");
+			p2.getBoard().setTitle("Â§6-= Duel =-");
 			ScoreboardManager.setDuelScoreboard(stage, p2);
 		}
 	}
 	
 	private void accept(HPlayer p, String[] args) {
 		HPlayer opponent = HPlayer.getHPlayer(Bukkit.getPlayer(args[1]));
-		if (opponent == null) {p.getPlayer().sendMessage("§cUnknow player §r" + args[0] + " §c!"); return;}
+		if (opponent == null) {p.getPlayer().sendMessage("Â§cUnknow player Â§r" + args[0] + " Â§c!"); return;}
 		
 		p.setDuelInvite(false);
 		p.setInDuel(true);
 		p.setOpponent(opponent);
 		p.getOpponent().setInDuel(true);
-		opponent.getPlayer().sendMessage("§a§l§m---------------------------------------------");
+		opponent.getPlayer().sendMessage("Â§aÂ§lÂ§m---------------------------------------------");
 		opponent.getPlayer().sendMessage("");
-		opponent.getPlayer().sendMessage(Utils.centerText(Bukkit.getPlayer(p.getPlayer().getName()).getDisplayName() + " §eaccepted your duel invitation !"));
+		opponent.getPlayer().sendMessage(Utils.centerText(Bukkit.getPlayer(p.getPlayer().getName()).getDisplayName() + " Â§eaccepted your duel invitation !"));
 		opponent.getPlayer().sendMessage("");
-		opponent.getPlayer().sendMessage("§a§l§m---------------------------------------------");
+		opponent.getPlayer().sendMessage("Â§aÂ§lÂ§m---------------------------------------------");
 		preGame(p, opponent.getDuelType());
 	}
 	
 	public void run(CommandSender sender, String[] args) {
 		HPlayer hsender = HPlayer.getHPlayer((Player) sender);
-		if (args.length == 0) {sender.sendMessage("§cMissing arguments, try §r/duel [player] §c!"); return;}
+		if (args.length == 0) {sender.sendMessage("Â§cMissing arguments, try Â§r/duel [player] Â§c!"); return;}
 		HPlayer opponent = HPlayer.getHPlayer(Bukkit.getPlayer(args[0]));
 		if (args.length == 1) {
-			if (opponent == null) {sender.sendMessage("§cUnknow player §r" + args[0] + " §c!"); return;}
-			if (opponent == hsender) {sender.sendMessage("§cYou can't duel yourself !"); return;}
+			if (opponent == null) {sender.sendMessage("Â§cUnknow player Â§r" + args[0] + " Â§c!"); return;}
+			if (opponent == hsender) {sender.sendMessage("Â§cYou can't duel yourself !"); return;}
 			
-			if (opponent.isInParty() && !opponent.isPartyLeader()) {sender.sendMessage("§cYou need to duel the party leader (" + opponent.getParty().get(0).getDisplayName() + "§c) !"); return;}
+			if (opponent.isInParty() && !opponent.isPartyLeader()) {sender.sendMessage("Â§cYou need to duel the party leader (" + opponent.getParty().get(0).getDisplayName() + "Â§c) !"); return;}
 			
 			hsender.setOpponent(opponent);
 			openDuelGUI(hsender);
 		}
 		
 		if (args.length == 2 && args[0].equalsIgnoreCase("accept")) {
-			if (!hsender.isDuelInvite()) {sender.sendMessage("§cNobody invited you tu a duel !"); return;}
+			if (!hsender.isDuelInvite()) {sender.sendMessage("Â§cNobody invited you tu a duel !"); return;}
 			accept(hsender, args);
 		}
 	}

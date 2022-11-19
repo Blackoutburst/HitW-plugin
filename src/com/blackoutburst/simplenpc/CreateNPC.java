@@ -15,12 +15,12 @@ public class CreateNPC {
 
 	public boolean run(CommandSender sender, String[] args) {
 		if (args.length != 2) {
-			System.out.println("§cInvalid usage! Try §e/createnpc §6[name] [skinname]");
+			System.out.println("Â§cInvalid usage! Try Â§e/createnpc Â§6[name] [skinname]");
 			return (true);
 		}
 		
 		if (!sender.isOp()) {
-			System.out.println("§cMissing permission!");
+			System.out.println("Â§cMissing permission!");
 			return (true);
 		}
 		
@@ -28,7 +28,7 @@ public class CreateNPC {
 		if (sender instanceof Player) {
 			player = (Player) sender;
 		} else {
-			System.out.println("§cOnly players can run this command!");
+			System.out.println("Â§cOnly players can run this command!");
 			return (true);
 		}
 		
@@ -44,7 +44,7 @@ public class CreateNPC {
 			p.npcs.add(npc);
 		}
 		NPCFile.saveSeat(npc, args[1]);
-		System.out.println("§aCreated a new npc: "+args[0]+" with the skin of: "+args[1]);
+		System.out.println("Â§aCreated a new npc: "+args[0]+" with the skin of: "+args[1]);
 		
 		return (true);
 	}

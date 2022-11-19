@@ -48,8 +48,8 @@ public class CommandPlay {
 	}
 	
 	private void score(HPlayer p, String[] args, HGame game) {
-		if (args.length < 2) {p.getPlayer().sendMessage("§cInvalid usage try §b/play score §r[value] §c!");return;}
-		try {Integer.valueOf(args[1]);} catch(Exception e) {p.getPlayer().sendMessage("§cThe score limit must be a valid number");return;}
+		if (args.length < 2) {p.getPlayer().sendMessage("Â§cInvalid usage try Â§b/play score Â§r[value] Â§c!");return;}
+		try {Integer.valueOf(args[1]);} catch(Exception e) {p.getPlayer().sendMessage("Â§cThe score limit must be a valid number");return;}
 		
 		preStart(p, game);
 		p.setScoreLimit(Integer.valueOf(args[1]));
@@ -82,8 +82,8 @@ public class CommandPlay {
 	
 	private void time(HPlayer p, String[] args, HGame game, boolean isClassic) {
 		if (!isClassic) {
-			if (args.length < 2) {p.getPlayer().sendMessage("§cInvalid usage try §b/play time §r[value] §c!");return;}
-			try {Integer.valueOf(args[1]);} catch(Exception e) {p.getPlayer().sendMessage("§cThe time limit must be a valid number");return;}
+			if (args.length < 2) {p.getPlayer().sendMessage("Â§cInvalid usage try Â§b/play time Â§r[value] Â§c!");return;}
+			try {Integer.valueOf(args[1]);} catch(Exception e) {p.getPlayer().sendMessage("Â§cThe time limit must be a valid number");return;}
 		}
 		game.setClassic(isClassic);
 		preStart(p, game);
@@ -148,12 +148,12 @@ public class CommandPlay {
 			HPlayer p = HPlayer.getHPlayer((Player) sender);
 			HGame game = GameUtils.getGameArea(p.getPlayer());
 			
-			if (p.isInGame()) {sender.sendMessage("§cLeave your previous game before starting a new one !");return;}
-			if (GameUtils.ownGame(p)) {sender.sendMessage("§cLeave your previous game before starting a new one !");return;}
-			if (p.isInParty() && !p.isPartyLeader()) {sender.sendMessage("§cOnly the party leader can start a game !");return;}
-			if (game == null) {sender.sendMessage("§cPlease enter any game area before using this command !");return;}
-			if (game.getOwner() != null) {sender.sendMessage("§cThis game is already used by " + game.getOwner().getDisplayName() + " §c!");return;}
-			if (!p.canUsePlay()) {sender.sendMessage("§cPlease wait before using this command again !");return;}
+			if (p.isInGame()) {sender.sendMessage("Â§cLeave your previous game before starting a new one !");return;}
+			if (GameUtils.ownGame(p)) {sender.sendMessage("Â§cLeave your previous game before starting a new one !");return;}
+			if (p.isInParty() && !p.isPartyLeader()) {sender.sendMessage("Â§cOnly the party leader can start a game !");return;}
+			if (game == null) {sender.sendMessage("Â§cPlease enter any game area before using this command !");return;}
+			if (game.getOwner() != null) {sender.sendMessage("Â§cThis game is already used by " + game.getOwner().getDisplayName() + " Â§c!");return;}
+			if (!p.canUsePlay()) {sender.sendMessage("Â§cPlease wait before using this command again !");return;}
 			
 			if (game.getName().equals("1x1") || game.getName().equals("3x1") || game.getName().equals("3x3") ||
 					game.getName().equals("Tall Qualification") || game.getName().equals("Circle") ||
@@ -168,7 +168,7 @@ public class CommandPlay {
 					case "classic": time(p, args, game, true); p.setUsePlay(false); break;
 					case "score": score(p, args, game); p.setUsePlay(false); break;
 					case "time": time(p, args, game, false); p.setUsePlay(false); break;
-					default: sender.sendMessage("§cUnknown parrameter : " + args[0] + " !"); break;
+					default: sender.sendMessage("Â§cUnknown parrameter : " + args[0] + " !"); break;
 				}
 			} else {
 				p.setUsePlay(false);

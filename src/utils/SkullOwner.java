@@ -34,7 +34,7 @@ public class SkullOwner {
 	}
 	
 	private static String getNameFromUUID(String uuid) {
-		String url = "https://api.mojang.com/user/profiles/"+uuid.replace("-", "")+"/names";
+		String url = "https://sessionserver.mojang.com/session/minecraft/profile/"+uuid.replace("-", "");
 		try {
 		    String nameJson = IOUtils.toString(new URL(url));           
 		    JSONArray nameValue = (JSONArray) JSONValue.parseWithException(nameJson);

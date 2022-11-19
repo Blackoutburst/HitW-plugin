@@ -14,9 +14,9 @@ public class CommandPerfect {
 		HPlayer.updatePlayerData(p);
 		
 		if (p.isPerfectOnly()) {
-			sender.sendMessage("§ePerfect mode is now enabled");
+			sender.sendMessage("Â§ePerfect mode is now enabled");
 		} else {
-			sender.sendMessage("§ePerfect mode is now disabled");
+			sender.sendMessage("Â§ePerfect mode is now disabled");
 		}
 	}
 }

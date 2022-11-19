@@ -76,42 +76,42 @@ public class NPCUtils {
 	}
 	
 	private static void spawnHallOfFame(PlayerJoinEvent event) {
-		NPC npc = new NPC(UUID.randomUUID(), "§4Winday").setLocation(new Location(Bukkit.getWorld("world"), 15.5f, 55.0f, -1042.5f, 0, 0)).setCapeVisible(false).setSkin(SkinLoader.getSkinById(0));
+		NPC npc = new NPC(UUID.randomUUID(), "Â§4Winday").setLocation(new Location(Bukkit.getWorld("world"), 15.5f, 55.0f, -1042.5f, 0, 0)).setCapeVisible(false).setSkin(SkinLoader.getSkinById(0));
 		NPCManager.spawnNPC(npc, event.getPlayer());
-		npc = new NPC(UUID.randomUUID(), "§9Puffleman").setLocation(new Location(Bukkit.getWorld("world"), 15.5f, 55.0f, -1034.5f, 180, 0)).setCapeVisible(false).setSkin(SkinLoader.getSkinById(1));
+		npc = new NPC(UUID.randomUUID(), "Â§9Puffleman").setLocation(new Location(Bukkit.getWorld("world"), 15.5f, 55.0f, -1034.5f, 180, 0)).setCapeVisible(false).setSkin(SkinLoader.getSkinById(1));
 		NPCManager.spawnNPC(npc, event.getPlayer());
-		npc = new NPC(UUID.randomUUID(), "§3Arcxire").setLocation(new Location(Bukkit.getWorld("world"), 19.5f, 55.0f, -1042.5f, 0, 0)).setCapeVisible(false).setSkin(SkinLoader.getSkinById(2));
+		npc = new NPC(UUID.randomUUID(), "Â§3Arcxire").setLocation(new Location(Bukkit.getWorld("world"), 19.5f, 55.0f, -1042.5f, 0, 0)).setCapeVisible(false).setSkin(SkinLoader.getSkinById(2));
 		NPCManager.spawnNPC(npc, event.getPlayer());
-		npc = new NPC(UUID.randomUUID(), "§6Cosmic").setLocation(new Location(Bukkit.getWorld("world"), 19.5f, 55.0f, -1034.5f, 180, 0)).setCapeVisible(false).setSkin(SkinLoader.getSkinById(3));
+		npc = new NPC(UUID.randomUUID(), "Â§6Cosmic").setLocation(new Location(Bukkit.getWorld("world"), 19.5f, 55.0f, -1034.5f, 180, 0)).setCapeVisible(false).setSkin(SkinLoader.getSkinById(3));
 		NPCManager.spawnNPC(npc, event.getPlayer());
-		npc = new NPC(UUID.randomUUID(), "§6Teddy").setLocation(new Location(Bukkit.getWorld("world"), 23.5f, 55.0f, -1042.5f, 0, 0)).setCapeVisible(false).setSkin(SkinLoader.getSkinById(4));
+		npc = new NPC(UUID.randomUUID(), "Â§6Teddy").setLocation(new Location(Bukkit.getWorld("world"), 23.5f, 55.0f, -1042.5f, 0, 0)).setCapeVisible(false).setSkin(SkinLoader.getSkinById(4));
 		NPCManager.spawnNPC(npc, event.getPlayer());
-		npc = new NPC(UUID.randomUUID(), "§eSparklizm").setLocation(new Location(Bukkit.getWorld("world"), 23.5f, 55.0f, -1034.5f, 180, 0)).setCapeVisible(false).setSkin(SkinLoader.getSkinById(5));
+		npc = new NPC(UUID.randomUUID(), "Â§eSparklizm").setLocation(new Location(Bukkit.getWorld("world"), 23.5f, 55.0f, -1034.5f, 180, 0)).setCapeVisible(false).setSkin(SkinLoader.getSkinById(5));
 		NPCManager.spawnNPC(npc, event.getPlayer());
-		npc = new NPC(UUID.randomUUID(), "§dDistasted").setLocation(new Location(Bukkit.getWorld("world"), 27.5f, 55.0f, -1042.5f, 0, 0)).setCapeVisible(false).setSkin(SkinLoader.getSkinById(6));
+		npc = new NPC(UUID.randomUUID(), "Â§dDistasted").setLocation(new Location(Bukkit.getWorld("world"), 27.5f, 55.0f, -1042.5f, 0, 0)).setCapeVisible(false).setSkin(SkinLoader.getSkinById(6));
 		NPCManager.spawnNPC(npc, event.getPlayer());
-		npc = new NPC(UUID.randomUUID(), "§4Mason").setLocation(new Location(Bukkit.getWorld("world"), 27.5f, 55.0f, -1034.5f, 180, 0)).setCapeVisible(false).setSkin(SkinLoader.getSkinById(7));
+		npc = new NPC(UUID.randomUUID(), "Â§4Mason").setLocation(new Location(Bukkit.getWorld("world"), 27.5f, 55.0f, -1034.5f, 180, 0)).setCapeVisible(false).setSkin(SkinLoader.getSkinById(7));
 		NPCManager.spawnNPC(npc, event.getPlayer());
-		npc = new NPC(UUID.randomUUID(), "§6Hammy").setLocation(new Location(Bukkit.getWorld("world"), 31.5f, 55.0f, -1042.5f, 0, 0)).setCapeVisible(false).setSkin(SkinLoader.getSkinById(8));
+		npc = new NPC(UUID.randomUUID(), "Â§6Hammy").setLocation(new Location(Bukkit.getWorld("world"), 31.5f, 55.0f, -1042.5f, 0, 0)).setCapeVisible(false).setSkin(SkinLoader.getSkinById(8));
 		NPCManager.spawnNPC(npc, event.getPlayer());
-		npc = new NPC(UUID.randomUUID(), "§5Blackout").setLocation(new Location(Bukkit.getWorld("world"), 31.5f, 55.0f, -1034.5f, 180, 0)).setCapeVisible(false).setSkin(SkinLoader.getSkinById(9));
+		npc = new NPC(UUID.randomUUID(), "Â§5Blackout").setLocation(new Location(Bukkit.getWorld("world"), 31.5f, 55.0f, -1034.5f, 180, 0)).setCapeVisible(false).setSkin(SkinLoader.getSkinById(9));
 		NPCManager.spawnNPC(npc, event.getPlayer());
-		npc = new NPC(UUID.randomUUID(), "§7Alon").setLocation(new Location(Bukkit.getWorld("world"), 35.5f, 55.0f, -1042.5f, 0, 0)).setCapeVisible(false).setSkin(SkinLoader.getSkinById(12));
+		npc = new NPC(UUID.randomUUID(), "Â§7Alon").setLocation(new Location(Bukkit.getWorld("world"), 35.5f, 55.0f, -1042.5f, 0, 0)).setCapeVisible(false).setSkin(SkinLoader.getSkinById(12));
 		NPCManager.spawnNPC(npc, event.getPlayer());
-		npc = new NPC(UUID.randomUUID(), "§eUgy").setLocation(new Location(Bukkit.getWorld("world"), 35.5f, 55.0f, -1034.5f, 180, 0)).setCapeVisible(false).setSkin(SkinLoader.getSkinById(16));
+		npc = new NPC(UUID.randomUUID(), "Â§eUgy").setLocation(new Location(Bukkit.getWorld("world"), 35.5f, 55.0f, -1034.5f, 180, 0)).setCapeVisible(false).setSkin(SkinLoader.getSkinById(16));
 		NPCManager.spawnNPC(npc, event.getPlayer());
-		npc = new NPC(UUID.randomUUID(), "§r").setLocation(new Location(Bukkit.getWorld("world"), 37.5f, 55.0f, -1038.5f, 90, 0)).setNameVisible(false).setCapeVisible(false).setSkin(SkinLoader.getSkinById(15));
+		npc = new NPC(UUID.randomUUID(), "Â§r").setLocation(new Location(Bukkit.getWorld("world"), 37.5f, 55.0f, -1038.5f, 90, 0)).setNameVisible(false).setCapeVisible(false).setSkin(SkinLoader.getSkinById(15));
 		NPCManager.spawnNPC(npc, event.getPlayer());
 	}
 	
 	private static void spawnTournamentWinner(PlayerJoinEvent event) {
-		NPC npc = new NPC(UUID.randomUUID(), "§9Puffleman").setLocation(new Location(Bukkit.getWorld("world"), -30.5f, 55.0f, -1042.5f, 0, 0)).setCapeVisible(false).setSkin(SkinLoader.getSkinById(1));
+		NPC npc = new NPC(UUID.randomUUID(), "Â§9Puffleman").setLocation(new Location(Bukkit.getWorld("world"), -30.5f, 55.0f, -1042.5f, 0, 0)).setCapeVisible(false).setSkin(SkinLoader.getSkinById(1));
 		NPCManager.spawnNPC(npc, event.getPlayer());
-		npc = new NPC(UUID.randomUUID(), "§4Mason").setLocation(new Location(Bukkit.getWorld("world"), -30.5f, 55.0f, -1034.5f, 180, 0)).setCapeVisible(false).setSkin(SkinLoader.getSkinById(7));
+		npc = new NPC(UUID.randomUUID(), "Â§4Mason").setLocation(new Location(Bukkit.getWorld("world"), -30.5f, 55.0f, -1034.5f, 180, 0)).setCapeVisible(false).setSkin(SkinLoader.getSkinById(7));
 		NPCManager.spawnNPC(npc, event.getPlayer());
-		npc = new NPC(UUID.randomUUID(), "§6Steak").setLocation(new Location(Bukkit.getWorld("world"), -34.5f, 55.0f, -1042.5f, 0, 0)).setCapeVisible(false).setSkin(SkinLoader.getSkinById(10));
+		npc = new NPC(UUID.randomUUID(), "Â§6Steak").setLocation(new Location(Bukkit.getWorld("world"), -34.5f, 55.0f, -1042.5f, 0, 0)).setCapeVisible(false).setSkin(SkinLoader.getSkinById(10));
 		NPCManager.spawnNPC(npc, event.getPlayer());
-		npc = new NPC(UUID.randomUUID(), "§fDogette").setLocation(new Location(Bukkit.getWorld("world"), -34.5f, 55.0f, -1034.5f, 180, 0)).setCapeVisible(false).setSkin(SkinLoader.getSkinById(11));
+		npc = new NPC(UUID.randomUUID(), "Â§fDogette").setLocation(new Location(Bukkit.getWorld("world"), -34.5f, 55.0f, -1034.5f, 180, 0)).setCapeVisible(false).setSkin(SkinLoader.getSkinById(11));
 		NPCManager.spawnNPC(npc, event.getPlayer());
 	}
 }

@@ -15,7 +15,7 @@ public class ColorMenu {
 		Inventory inv = Main.getPlugin(Main.class).getServer().createInventory(null, 54, ChatColor.BLACK + name);
 		ItemStack item = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short) 15);
 		ItemMeta meta = item.getItemMeta();
-        meta.setDisplayName("§r");
+        meta.setDisplayName("Â§r");
         item.setItemMeta(meta);
         
         for (int i = 0; i < 54; i++)

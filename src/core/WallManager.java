@@ -255,9 +255,9 @@ public class WallManager {
 						hp.setPerfectWall(hp.getPerfectWall() + 1);
 						
 						if (hp.isTitle()) {
-							GameUtils.sendTitle(hp.getPlayer(), "§aPERFECT!", "", 5, 15, 10);
+							GameUtils.sendTitle(hp.getPlayer(), "Â§aPERFECT!", "", 5, 15, 10);
 						}
-						hp.getPlayer().sendMessage("§aPerfect Wall §6+"+score+" §b("+Utils.ROUND.format((Float.valueOf(Duration.between(hp.getWallBegin(), hp.getWallEnd()).toMillis()) / 1000.0f))+"s)");
+						hp.getPlayer().sendMessage("Â§aPerfect Wall Â§6+"+score+" Â§b("+Utils.ROUND.format((Float.valueOf(Duration.between(hp.getWallBegin(), hp.getWallEnd()).toMillis()) / 1000.0f))+"s)");
 						hp.getPlayer().playSound(hp.getPlayer().getLocation(), Sound.LEVEL_UP, 1f, 1f);
 						if (leverTrigger)
 							hp.getWallTime().add(Float.valueOf(Duration.between(hp.getWallBegin(), hp.getWallEnd()).toMillis()) / 1000.0f);
@@ -269,9 +269,9 @@ public class WallManager {
 					p.setWall(p.getWall() + 1);
 					p.setPerfectWall(p.getPerfectWall() + 1);
 					if (p.isTitle()) {
-						GameUtils.sendTitle(p.getPlayer(), "§aPERFECT!", "", 5, 15, 10);
+						GameUtils.sendTitle(p.getPlayer(), "Â§aPERFECT!", "", 5, 15, 10);
 					}
-					p.getPlayer().sendMessage("§aPerfect Wall §6+"+score+" §r| §b("+Utils.ROUND.format((Float.valueOf(Duration.between(p.getWallBegin(), p.getWallEnd()).toMillis()) / 1000.0f))+"s)");
+					p.getPlayer().sendMessage("Â§aPerfect Wall Â§6+"+score+" Â§r| Â§b("+Utils.ROUND.format((Float.valueOf(Duration.between(p.getWallBegin(), p.getWallEnd()).toMillis()) / 1000.0f))+"s)");
 					p.getPlayer().playSound(p.getPlayer().getLocation(), Sound.LEVEL_UP, 1f, 1f);
 					if (leverTrigger)
 						p.getWallTime().add(Float.valueOf(Duration.between(p.getWallBegin(), p.getWallEnd()).toMillis()) / 1000.0f);
@@ -289,9 +289,9 @@ public class WallManager {
 						hp.setScore(hp.getScore() + score);
 						hp.setWall(hp.getWall() + 1);
 						if (!bufferWall) {
-							hp.getPlayer().sendMessage("§4Missing: §6"+missed+" §r| §4Misplaced: §6"+misplaced+" §r| §aScore: §6+"+score+" §r| §b("+Utils.ROUND.format((Float.valueOf(Duration.between(p.getWallBegin(), p.getWallEnd()).toMillis()) / 1000.0f))+"s)");
+							hp.getPlayer().sendMessage("Â§4Missing: Â§6"+missed+" Â§r| Â§4Misplaced: Â§6"+misplaced+" Â§r| Â§aScore: Â§6+"+score+" Â§r| Â§b("+Utils.ROUND.format((Float.valueOf(Duration.between(p.getWallBegin(), p.getWallEnd()).toMillis()) / 1000.0f))+"s)");
 						} else {
-							hp.getPlayer().sendMessage("§4Missing: §6"+missed+" §r| §4Misplaced: §6"+misplaced+" §r| §aScore: §6+"+score+" §r| §b("+Utils.ROUND.format((Float.valueOf(Duration.between(p.getWallBegin(), p.getWallEnd()).toMillis()) / 1000.0f))+"s) §d(Buffer Wall)");
+							hp.getPlayer().sendMessage("Â§4Missing: Â§6"+missed+" Â§r| Â§4Misplaced: Â§6"+misplaced+" Â§r| Â§aScore: Â§6+"+score+" Â§r| Â§b("+Utils.ROUND.format((Float.valueOf(Duration.between(p.getWallBegin(), p.getWallEnd()).toMillis()) / 1000.0f))+"s) Â§d(Buffer Wall)");
 						}
 						hp.getPlayer().playSound(hp.getPlayer().getLocation(), Sound.NOTE_BASS_GUITAR, 1f, 1f);
 						if (leverTrigger && !bufferWall)
@@ -305,9 +305,9 @@ public class WallManager {
 					p.setScore(p.getScore() + score);
 					p.setWall(p.getWall() + 1);
 					if (!bufferWall) {
-						p.getPlayer().sendMessage("§4Missing: §6"+missed+" §r| §4Misplaced: §6"+misplaced+" §r| §aScore: §6+"+score+" §r| §b("+Utils.ROUND.format((Float.valueOf(Duration.between(p.getWallBegin(), p.getWallEnd()).toMillis()) / 1000.0f))+"s)");
+						p.getPlayer().sendMessage("Â§4Missing: Â§6"+missed+" Â§r| Â§4Misplaced: Â§6"+misplaced+" Â§r| Â§aScore: Â§6+"+score+" Â§r| Â§b("+Utils.ROUND.format((Float.valueOf(Duration.between(p.getWallBegin(), p.getWallEnd()).toMillis()) / 1000.0f))+"s)");
 					} else {
-						p.getPlayer().sendMessage("§4Missing: §6"+missed+" §r| §4Misplaced: §6"+misplaced+" §r| §aScore: §6+"+score+" §r| §b("+Utils.ROUND.format((Float.valueOf(Duration.between(p.getWallBegin(), p.getWallEnd()).toMillis()) / 1000.0f))+"s) §d(Buffer Wall)");
+						p.getPlayer().sendMessage("Â§4Missing: Â§6"+missed+" Â§r| Â§4Misplaced: Â§6"+misplaced+" Â§r| Â§aScore: Â§6+"+score+" Â§r| Â§b("+Utils.ROUND.format((Float.valueOf(Duration.between(p.getWallBegin(), p.getWallEnd()).toMillis()) / 1000.0f))+"s) Â§d(Buffer Wall)");
 					}
 					p.getPlayer().playSound(p.getPlayer().getLocation(), Sound.NOTE_BASS_GUITAR, 1f, 1f);
 					if (leverTrigger && !bufferWall)

@@ -28,7 +28,7 @@ public class NPCListener implements NPCPacket {
 				teleportToLocation(npc.getName(), player);
 				
 				if (ap.player.isOp()) {
-					player.sendMessage("§bYou selected §a"+npc.getName()+" §bid: §a"+npc.getEntityId());
+					player.sendMessage("Â§bYou selected Â§a"+npc.getName()+" Â§bid: Â§a"+npc.getEntityId());
 					SimpleNPCPlayer snp = SimpleNPCPlayer.getFromPlayer(player);
 					snp.selectedID = npc.getEntityId();
 				}
@@ -42,7 +42,7 @@ public class NPCListener implements NPCPacket {
 			if (npcId == npc.getEntityId()) {
 				teleportToLocation(npc.getName(), player);
 				if (ap.player.isOp()) {
-					player.sendMessage("§bYou selected §a"+npc.getName()+" §bid: §a"+npc.getEntityId());
+					player.sendMessage("Â§bYou selected Â§a"+npc.getName()+" Â§bid: Â§a"+npc.getEntityId());
 					SimpleNPCPlayer snp = SimpleNPCPlayer.getFromPlayer(player);
 					snp.selectedID = npc.getEntityId();
 				}
@@ -97,7 +97,7 @@ public class NPCListener implements NPCPacket {
 		Inventory inv = Main.getPlugin(Main.class).getServer().createInventory(null, 45, ChatColor.BLACK + "Custom walls locations");
 		ItemStack item = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short) 15);
 		ItemMeta meta = item.getItemMeta();
-        meta.setDisplayName("§r");
+        meta.setDisplayName("Â§r");
         item.setItemMeta(meta);
         
         for (int i = 0; i < 45; i++)
@@ -105,28 +105,28 @@ public class NPCListener implements NPCPacket {
         
         item = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
         SkullMeta skull = (SkullMeta) item.getItemMeta();
-        skull.setDisplayName("§r§aWide Qualification");
+        skull.setDisplayName("Â§rÂ§aWide Qualification");
         skull.setOwner(SkullOwner.Astele);
         item.setItemMeta(skull);
         inv.setItem(11, item);
         
         item = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
         skull = (SkullMeta) item.getItemMeta();
-        skull.setDisplayName("§r§aWide Finals");
+        skull.setDisplayName("Â§rÂ§aWide Finals");
         skull.setOwner(SkullOwner.Khantrast);
         item.setItemMeta(skull);
         inv.setItem(13, item);
         
         item = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
         skull = (SkullMeta) item.getItemMeta();
-        skull.setDisplayName("§r§aLobby walls");
+        skull.setDisplayName("Â§rÂ§aLobby walls");
         skull.setOwner(SkullOwner.Shingblad);
         item.setItemMeta(skull);
         inv.setItem(15, item);
         
         item = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
         skull = (SkullMeta) item.getItemMeta();
-        skull.setDisplayName("§r§aPrototype walls");
+        skull.setDisplayName("Â§rÂ§aPrototype walls");
         skull.setOwner(SkullOwner.FrogOp);
         item.setItemMeta(skull);
         inv.setItem(31, item);
@@ -157,7 +157,7 @@ public class NPCListener implements NPCPacket {
 		Inventory inv = Main.getPlugin(Main.class).getServer().createInventory(null, 27, ChatColor.BLACK + "Hypixel map locations");
 		ItemStack item = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short) 15);
 		ItemMeta meta = item.getItemMeta();
-        meta.setDisplayName("§r");
+        meta.setDisplayName("Â§r");
         item.setItemMeta(meta);
         
         for (int i = 0; i < 27; i++)
@@ -165,21 +165,21 @@ public class NPCListener implements NPCPacket {
         
         item = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
         SkullMeta skull = (SkullMeta) item.getItemMeta();
-        skull.setDisplayName("§r§aQualification");
+        skull.setDisplayName("Â§rÂ§aQualification");
         skull.setOwner(SkullOwner.Teddy);
         item.setItemMeta(skull);
         inv.setItem(11, item);
         
         item = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
         skull = (SkullMeta) item.getItemMeta();
-        skull.setDisplayName("§r§aFinals");
+        skull.setDisplayName("Â§rÂ§aFinals");
         skull.setOwner(SkullOwner.Sparklizm);
         item.setItemMeta(skull);
         inv.setItem(13, item);
         
         item = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
         skull = (SkullMeta) item.getItemMeta();
-        skull.setDisplayName("§r§aLobby");
+        skull.setDisplayName("Â§rÂ§aLobby");
         skull.setOwner(SkullOwner.Shingblad);
         item.setItemMeta(skull);
         inv.setItem(15, item);

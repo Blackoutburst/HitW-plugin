@@ -15,9 +15,9 @@ public class CommandFly {
 		HPlayer.updatePlayerData(p);
 		
 		if (p.isFly()) {
-			sender.sendMessage("§eYou can now fly");
+			sender.sendMessage("Â§eYou can now fly");
 		} else {
-			sender.sendMessage("§eYou can no longer fly");
+			sender.sendMessage("Â§eYou can no longer fly");
 		}
 	}
 }

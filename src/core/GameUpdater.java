@@ -10,7 +10,7 @@ public class GameUpdater {
 
 	private static void showLastSecond(HPlayer p) {
     	if (p.getTime() <= 5 && p.getTime() > 0) {
-			GameUtils.sendTitle(p.getPlayer(), "", "ง6The game end in งa"+p.getTime()+" ง6seconds!", 0, 20, 0);
+			GameUtils.sendTitle(p.getPlayer(), "", "ยง6The game end in ยงa"+p.getTime()+" ยง6seconds!", 0, 20, 0);
     	}
 	}
 	

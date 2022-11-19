@@ -17,13 +17,6 @@ public class CommandScanWall {
 	
 	private List<Location> spawnpoints = new ArrayList<>();
 	
-	 /**
-     * Save every spawn location inside a file
-     * @param pos index in the yaml file
-     * @param x position x in world
-     * @param y position y in world
-     * @param z position z in world
-     */
     private void saveLocation(String worldName) {
         YamlConfiguration file = YamlConfiguration.loadConfiguration(new File("plugins/HitW/TempWall.yml"));
 

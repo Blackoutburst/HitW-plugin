@@ -85,7 +85,7 @@ public class HGame {
 	private void endStatsMessage(HPlayer p) {
 		ScoreboardManager.updateScoreboard(p);
 		Collections.sort(p.getWallTime());
-		final String gameType = p.board.get(11).replace("Stage: §a", "");
+		final String gameType = p.board.get(11).replace("Stage: Â§a", "");
 		float average = 0;
 		
 		for (Float f : p.getWallTime()) {
@@ -93,17 +93,17 @@ public class HGame {
 		}
 		average = average / p.getWallTime().size();
 		
-		p.getPlayer().sendMessage("§a§l§m---------------------------------------------");
-		p.getPlayer().sendMessage(Utils.centerText("§6§lGame summary"));
-		p.getPlayer().sendMessage("§6Stage: §f"+gameType);
+		p.getPlayer().sendMessage("Â§aÂ§lÂ§m---------------------------------------------");
+		p.getPlayer().sendMessage(Utils.centerText("Â§6Â§lGame summary"));
+		p.getPlayer().sendMessage("Â§6Stage: Â§f"+gameType);
 		
 		switch (gameType) {
-			case "Qualification": p.getPlayer().sendMessage("§6Score: §f"+p.score + ((p.score > p.scoreQualification) ? " §5(+" : " §5(") + (p.score - p.scoreQualification)+")"); break;
-			case "Finals": p.getPlayer().sendMessage("§6Score: §f"+p.score + ((p.score > p.scoreFinals) ? " §5(+" : " §5(") + (p.score - p.scoreFinals)+")"); break;
-			case "Wide Qualification": p.getPlayer().sendMessage("§6Score: §f"+p.score + ((p.score > p.scoreWideQualification) ? " §5(+" : " §5(") + (p.score - p.scoreWideQualification)+")"); break;
-			case "Lobby Wall": p.getPlayer().sendMessage("§6Score: §f"+p.score + ((p.score > p.scoreLobby) ? " §5(+" : " §5(") + (p.score - p.scoreLobby)+")");break;
-			case "Wide Finals": p.getPlayer().sendMessage("§6Score: §f"+p.score + ((p.score > p.scoreWideFinals) ? " §5(+" : " §5(") + (p.score - p.scoreWideFinals)+")"); break;
-			default: p.getPlayer().sendMessage("§6Score: §f"+p.score);
+			case "Qualification": p.getPlayer().sendMessage("Â§6Score: Â§f"+p.score + ((p.score > p.scoreQualification) ? " Â§5(+" : " Â§5(") + (p.score - p.scoreQualification)+")"); break;
+			case "Finals": p.getPlayer().sendMessage("Â§6Score: Â§f"+p.score + ((p.score > p.scoreFinals) ? " Â§5(+" : " Â§5(") + (p.score - p.scoreFinals)+")"); break;
+			case "Wide Qualification": p.getPlayer().sendMessage("Â§6Score: Â§f"+p.score + ((p.score > p.scoreWideQualification) ? " Â§5(+" : " Â§5(") + (p.score - p.scoreWideQualification)+")"); break;
+			case "Lobby Wall": p.getPlayer().sendMessage("Â§6Score: Â§f"+p.score + ((p.score > p.scoreLobby) ? " Â§5(+" : " Â§5(") + (p.score - p.scoreLobby)+")");break;
+			case "Wide Finals": p.getPlayer().sendMessage("Â§6Score: Â§f"+p.score + ((p.score > p.scoreWideFinals) ? " Â§5(+" : " Â§5(") + (p.score - p.scoreWideFinals)+")"); break;
+			default: p.getPlayer().sendMessage("Â§6Score: Â§f"+p.score);
 		}
 		
 		
@@ -111,20 +111,20 @@ public class HGame {
 			int minutes = p.time / 60;
 			int seconds = (p.time) % 60;
 			String str = String.format("%d:%02d", minutes, seconds);
-			p.getPlayer().sendMessage("§6Time: §f"+str);
+			p.getPlayer().sendMessage("Â§6Time: Â§f"+str);
 		}
-		p.getPlayer().sendMessage(Utils.centerText("§b§lWall completion time"));
-		p.getPlayer().sendMessage("§bFastest wall: §f"+Utils.ROUND.format(p.getWallTime().get(0))+"s");
-		p.getPlayer().sendMessage("§bSlowest wall: §f"+Utils.ROUND.format(p.getWallTime().get(p.getWallTime().size()-1))+"s");
-		p.getPlayer().sendMessage("§bAverage: §f"+Utils.ROUND.format(average)+"s");
-		p.getPlayer().sendMessage(Utils.centerText("§a§lWalls"));
-		p.getPlayer().sendMessage("§aNumber of walls: §f"+p.wall);
-		p.getPlayer().sendMessage("§aPerfect walls: §f"+p.perfectWall);
-		p.getPlayer().sendMessage(Utils.centerText("§4§lMistakes"));
-		p.getPlayer().sendMessage("§4Aim chokes: §f"+p.choke);
-		p.getPlayer().sendMessage("§4Misplaced blocks: §f"+p.misplaced);
-		p.getPlayer().sendMessage("§4Missed blocks: §f"+p.missed);
-		p.getPlayer().sendMessage("§a§l§m---------------------------------------------");
+		p.getPlayer().sendMessage(Utils.centerText("Â§bÂ§lWall completion time"));
+		p.getPlayer().sendMessage("Â§bFastest wall: Â§f"+Utils.ROUND.format(p.getWallTime().get(0))+"s");
+		p.getPlayer().sendMessage("Â§bSlowest wall: Â§f"+Utils.ROUND.format(p.getWallTime().get(p.getWallTime().size()-1))+"s");
+		p.getPlayer().sendMessage("Â§bAverage: Â§f"+Utils.ROUND.format(average)+"s");
+		p.getPlayer().sendMessage(Utils.centerText("Â§aÂ§lWalls"));
+		p.getPlayer().sendMessage("Â§aNumber of walls: Â§f"+p.wall);
+		p.getPlayer().sendMessage("Â§aPerfect walls: Â§f"+p.perfectWall);
+		p.getPlayer().sendMessage(Utils.centerText("Â§4Â§lMistakes"));
+		p.getPlayer().sendMessage("Â§4Aim chokes: Â§f"+p.choke);
+		p.getPlayer().sendMessage("Â§4Misplaced blocks: Â§f"+p.misplaced);
+		p.getPlayer().sendMessage("Â§4Missed blocks: Â§f"+p.missed);
+		p.getPlayer().sendMessage("Â§aÂ§lÂ§m---------------------------------------------");
 	}
 	
 	private void printEndStats() {
@@ -139,8 +139,8 @@ public class HGame {
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
 		    @Override
 		    public void run(){
-				String player1 = owner.getPlayer().getDisplayName() + "§r: " + owner.getScore();
-				String player2 = owner.getOpponent().getDisplayName() + "§r: " + owner.getOpponent().getScore();
+				String player1 = owner.getPlayer().getDisplayName() + "Â§r: " + owner.getScore();
+				String player2 = owner.getOpponent().getDisplayName() + "Â§r: " + owner.getOpponent().getScore();
 				
 				if (owner.duelType.equals("Qualification"))
 					Main.QDuelBusy = false;
@@ -151,12 +151,12 @@ public class HGame {
 				owner.duelType = "none";
 				
 				ScoreboardManager.updateScoreboard(p);
-				p.getPlayer().sendMessage("§a§l§m---------------------------------------------");
-				p.getPlayer().sendMessage(Utils.centerText("§4§lDuel"));
+				p.getPlayer().sendMessage("Â§aÂ§lÂ§m---------------------------------------------");
+				p.getPlayer().sendMessage(Utils.centerText("Â§4Â§lDuel"));
 				p.getPlayer().sendMessage("");
-				p.getPlayer().sendMessage(Utils.centerText("§6#1 " + (owner.getScore() > owner.getOpponent().getScore() ? player1 : player2)));
-				p.getPlayer().sendMessage(Utils.centerText("§f#2 " + (owner.getScore() < owner.getOpponent().getScore() ? player1 : player2)));
-				p.getPlayer().sendMessage("§a§l§m---------------------------------------------");
+				p.getPlayer().sendMessage(Utils.centerText("Â§6#1 " + (owner.getScore() > owner.getOpponent().getScore() ? player1 : player2)));
+				p.getPlayer().sendMessage(Utils.centerText("Â§f#2 " + (owner.getScore() < owner.getOpponent().getScore() ? player1 : player2)));
+				p.getPlayer().sendMessage("Â§aÂ§lÂ§m---------------------------------------------");
 		    }
 		}, (5L));
 	}
@@ -191,7 +191,7 @@ public class HGame {
 			case "Qualification": 
 				if (!manualEnd) HPlayer.saveScore(owner, "qualification_history");
 				if (owner.score > owner.scoreQualification) {
-					owner.getPlayer().sendMessage("§6New PB §b(+"+(owner.score - owner.scoreQualification)+")");
+					owner.getPlayer().sendMessage("Â§6New PB Â§b(+"+(owner.score - owner.scoreQualification)+")");
 					owner.setScoreQualification(owner.score);
 					HPlayer.updatePlayerData(owner);
 				}
@@ -199,7 +199,7 @@ public class HGame {
 			case "Finals": 
 				if (!manualEnd) HPlayer.saveScore(owner, "finals_history");
 				if (owner.score > owner.scoreFinals) {
-					owner.getPlayer().sendMessage("§6New PB §b(+"+(owner.score - owner.scoreFinals)+")");
+					owner.getPlayer().sendMessage("Â§6New PB Â§b(+"+(owner.score - owner.scoreFinals)+")");
 					owner.setScoreFinals(owner.score);
 					HPlayer.updatePlayerData(owner);
 				}
@@ -207,7 +207,7 @@ public class HGame {
 			case "Wide Qualification": 
 				if (!manualEnd) HPlayer.saveScore(owner, "wide_qualification_history");
 				if (owner.score > owner.scoreWideQualification) {
-					owner.getPlayer().sendMessage("§6New PB §b(+"+(owner.score - owner.scoreWideQualification)+")");
+					owner.getPlayer().sendMessage("Â§6New PB Â§b(+"+(owner.score - owner.scoreWideQualification)+")");
 					owner.setScoreWideQualification(owner.score);
 					HPlayer.updatePlayerData(owner);
 				}
@@ -215,7 +215,7 @@ public class HGame {
 			case "Lobby Wall": 
 				if (!manualEnd) HPlayer.saveScore(owner, "lobby_history");
 				if (owner.score > owner.scoreLobby) {
-					owner.getPlayer().sendMessage("§6New PB §b(+"+(owner.score - owner.scoreLobby)+")");
+					owner.getPlayer().sendMessage("Â§6New PB Â§b(+"+(owner.score - owner.scoreLobby)+")");
 					owner.setScoreLobby(owner.score);
 					HPlayer.updatePlayerData(owner);
 				}
@@ -223,7 +223,7 @@ public class HGame {
 			case "Wide Finals": 
 				if (!manualEnd) HPlayer.saveScore(owner, "wide_finals_history");
 				if (owner.score > owner.scoreWideFinals) {
-					owner.getPlayer().sendMessage("§6New PB §b(+"+(owner.score - owner.scoreWideFinals)+")");
+					owner.getPlayer().sendMessage("Â§6New PB Â§b(+"+(owner.score - owner.scoreWideFinals)+")");
 					owner.setScoreWideFinals(owner.score);
 					HPlayer.updatePlayerData(owner);
 				}

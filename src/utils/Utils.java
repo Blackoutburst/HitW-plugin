@@ -43,9 +43,9 @@ public class Utils {
 		ItemStack menu = new ItemStack(Material.NETHER_STAR, 1);
 		ItemMeta menuMeta = menu.getItemMeta();
 		
-		menuMeta.setDisplayName("§aConfiguration Menu");
+		menuMeta.setDisplayName("Â§aConfiguration Menu");
 		ArrayList<String> lore = new ArrayList<String>();
-		lore.add("§6Show the configuration menu");
+		lore.add("Â§6Show the configuration menu");
 		menuMeta.setLore(lore);
 		menu.setItemMeta(menuMeta);
 		p.getInventory().setItem(8, menu);

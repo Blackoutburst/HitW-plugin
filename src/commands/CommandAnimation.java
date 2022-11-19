@@ -14,9 +14,9 @@ public class CommandAnimation {
 		HPlayer.updatePlayerData(p);
 		
 		if (p.isOldAnimation()) {
-			sender.sendMessage("§eOld walls animations are now enabled");
+			sender.sendMessage("Â§eOld walls animations are now enabled");
 		} else {
-			sender.sendMessage("§eOld walls animations are now disabled");
+			sender.sendMessage("Â§eOld walls animations are now disabled");
 		}
 	}
 }

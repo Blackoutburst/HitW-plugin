@@ -40,7 +40,7 @@ public class Join {
 	
 	private void addHPlayer(Player p) {
 		String rank = RankManager.loadRank(p);
-		Board board = new Board(p, rank, "§r");
+		Board board = new Board(p, rank, "Â§r");
 		
 		short wallColor = 9;
 		short glassColor = 5;
@@ -93,7 +93,7 @@ public class Join {
 					scoreQualification, scoreFinals, scoreWideQualification, scoreLobby, scoreWideFinals, perfectOnly, invisibleGlass);
 			HPlayer.updatePlayerData(newHp);
 		} else {
-			Bukkit.broadcastMessage("§dWelcome "+p.getDisplayName()+" §dto the server!");
+			Bukkit.broadcastMessage("Â§dWelcome "+p.getDisplayName()+" Â§dto the server!");
 			newHp = new HPlayer(p, wallColor, glassColor, leverDelay, memTime, brushLag, fly, title, 
 					rightSided, oldAnimation, blind, destroy, autoLeave, board, rank, songName,
 					scoreQualification, scoreFinals, scoreWideQualification, scoreLobby, scoreWideFinals, perfectOnly, invisibleGlass);

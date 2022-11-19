@@ -101,17 +101,17 @@ public class GameUtils {
 	
 	public static String getCountdownNumber(int index) {
 		switch(index) {
-			case 10: return "§c10";
-			case 9: return "§c9";
-			case 8: return "§c8";
-			case 7: return "§c7";
-			case 6: return "§c6";
-			case 5: return "§c5";
-			case 4: return "§c4";
-			case 3: return "§63";
-			case 2: return "§62";
-			case 1: return "§a1";
-			case 0: return "§cGo!";
+			case 10: return "Â§c10";
+			case 9: return "Â§c9";
+			case 8: return "Â§c8";
+			case 7: return "Â§c7";
+			case 6: return "Â§c6";
+			case 5: return "Â§c5";
+			case 4: return "Â§c4";
+			case 3: return "Â§63";
+			case 2: return "Â§62";
+			case 1: return "Â§a1";
+			case 0: return "Â§cGo!";
 			default: return "";
 		}
 	}
@@ -130,7 +130,7 @@ public class GameUtils {
     }
 	
 	public static void displayCountdown(HPlayer p, int seconds, HGame game) {
-		sendTitle(p.getPlayer(), "", "§6The game will start in §a"+seconds+" §6seconds!", 0, 20, 0);
+		sendTitle(p.getPlayer(), "", "Â§6The game will start in Â§a"+seconds+" Â§6seconds!", 0, 20, 0);
 		
 		seconds++;
 		for (int i = seconds - 1; i >= 0; i--) {

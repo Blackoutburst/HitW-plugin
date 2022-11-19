@@ -7,7 +7,7 @@ public class ScoreboardManager {
 	
 	public static void updateStage(Board board, String name) {
 		if (board.get(11).contains(name)) return;
-		board.set(11, "Stage: §a" + name);
+		board.set(11, "Stage: Â§a" + name);
 	}
 	
 	public static void updateScoreboard(HPlayer p) {
@@ -19,22 +19,22 @@ public class ScoreboardManager {
 
 		if (p.isInParty()) {
 			for (HPlayer hp : p.getParty()) {
-				hp.getBoard().set(10, "Play Time: §a" + str);
-				hp.getBoard().set(8, "Perfect Walls: §a" + hp.getPerfectWall());
-				hp.getBoard().set(7, "Wall: §a" + hp.getWall());
-				hp.getBoard().set(6, "Score: §a" + hp.getScore());
-				hp.getBoard().set(4, "Missing block: §4" + hp.getMissed());
-				hp.getBoard().set(3, "Misplaced block: §4" + hp.getMisplaced());
-				hp.getBoard().set(2, "Choke: §4" + hp.getChoke());
+				hp.getBoard().set(10, "Play Time: Â§a" + str);
+				hp.getBoard().set(8, "Perfect Walls: Â§a" + hp.getPerfectWall());
+				hp.getBoard().set(7, "Wall: Â§a" + hp.getWall());
+				hp.getBoard().set(6, "Score: Â§a" + hp.getScore());
+				hp.getBoard().set(4, "Missing block: Â§4" + hp.getMissed());
+				hp.getBoard().set(3, "Misplaced block: Â§4" + hp.getMisplaced());
+				hp.getBoard().set(2, "Choke: Â§4" + hp.getChoke());
 			}
 		} else {
-			p.getBoard().set(10, "Play Time: §a" + str);
-			p.getBoard().set(8, "Perfect Walls: §a" + p.getPerfectWall());
-			p.getBoard().set(7, "Wall: §a" + p.getWall());
-			p.getBoard().set(6, "Score: §a" + p.getScore());
-			p.getBoard().set(4, "Missing block: §4" + p.getMissed());
-			p.getBoard().set(3, "Misplaced block: §4" + p.getMisplaced());
-			p.getBoard().set(2, "Choke: §4" + p.getChoke());
+			p.getBoard().set(10, "Play Time: Â§a" + str);
+			p.getBoard().set(8, "Perfect Walls: Â§a" + p.getPerfectWall());
+			p.getBoard().set(7, "Wall: Â§a" + p.getWall());
+			p.getBoard().set(6, "Score: Â§a" + p.getScore());
+			p.getBoard().set(4, "Missing block: Â§4" + p.getMissed());
+			p.getBoard().set(3, "Misplaced block: Â§4" + p.getMisplaced());
+			p.getBoard().set(2, "Choke: Â§4" + p.getChoke());
 		}
 	}
 	
@@ -48,28 +48,28 @@ public class ScoreboardManager {
 			HPlayer leader = p.getParty().get(0);
 			
 			for (HPlayer hp : p.getParty()) {
-				String player1 = leader.getDisplayName().substring(0, 2) + leader.getPlayer().getName() + "§r: " + leader.getScore();
-				String player2 = leader.getOpponent().getDisplayName().substring(0, 2) + leader.getOpponent().getPlayer().getName() + "§r: " + leader.getOpponent().getScore();
+				String player1 = leader.getDisplayName().substring(0, 2) + leader.getPlayer().getName() + "Â§r: " + leader.getScore();
+				String player2 = leader.getOpponent().getDisplayName().substring(0, 2) + leader.getOpponent().getPlayer().getName() + "Â§r: " + leader.getOpponent().getScore();
 				
-				hp.getBoard().set(8, "Play Time: §a" + str);
+				hp.getBoard().set(8, "Play Time: Â§a" + str);
 				hp.getBoard().set(7, " ");
 				hp.getBoard().set(6, leader.getScore() >= leader.getOpponent().getScore() ? player1 : player2);
 				hp.getBoard().set(5, leader.getScore() < leader.getOpponent().getScore() ? player1 : player2);
 				hp.getBoard().set(4, "  ");
-				hp.getBoard().set(3, "Perfect Walls: §a" + leader.getPerfectWall());
-				hp.getBoard().set(2, "Wall: §a" + leader.getWall());
+				hp.getBoard().set(3, "Perfect Walls: Â§a" + leader.getPerfectWall());
+				hp.getBoard().set(2, "Wall: Â§a" + leader.getWall());
 			}
 		} else {
-			String player1 = p.getDisplayName().substring(0, 2) + p.getPlayer().getName() + "§r: " + p.getScore();
-			String player2 = p.getOpponent().getDisplayName().substring(0, 2) + p.getOpponent().getPlayer().getName() + "§r: " + p.getOpponent().getScore();
+			String player1 = p.getDisplayName().substring(0, 2) + p.getPlayer().getName() + "Â§r: " + p.getScore();
+			String player2 = p.getOpponent().getDisplayName().substring(0, 2) + p.getOpponent().getPlayer().getName() + "Â§r: " + p.getOpponent().getScore();
 			
-			p.getBoard().set(8, "Play Time: §a" + str);
+			p.getBoard().set(8, "Play Time: Â§a" + str);
 			p.getBoard().set(7, " ");
 			p.getBoard().set(6, p.getScore() >= p.getOpponent().getScore() ? player1 : player2);
 			p.getBoard().set(5, p.getScore() < p.getOpponent().getScore() ? player1 : player2);
 			p.getBoard().set(4, "  ");
-			p.getBoard().set(3, "Perfect Walls: §a" + p.getPerfectWall());
-			p.getBoard().set(2, "Wall: §a" + p.getWall());
+			p.getBoard().set(3, "Perfect Walls: Â§a" + p.getPerfectWall());
+			p.getBoard().set(2, "Wall: Â§a" + p.getWall());
 		}
 	}
 	
@@ -79,16 +79,16 @@ public class ScoreboardManager {
 		String str = String.format("%d:%02d", minutes, seconds);
 
 		p.getBoard().remove(11);
-		p.getBoard().set(10, "§a§m-----------------");
-		p.getBoard().set(9, "Stage: §a" + stage);
-		p.getBoard().set(8, "Play Time: §a" + str);
+		p.getBoard().set(10, "Â§aÂ§m-----------------");
+		p.getBoard().set(9, "Stage: Â§a" + stage);
+		p.getBoard().set(8, "Play Time: Â§a" + str);
 		p.getBoard().set(7, " ");
-		p.getBoard().set(6, p.getDisplayName().substring(0, 2) + p.getPlayer().getName() + "§r: " + 0);
-		p.getBoard().set(5, p.getOpponent().getDisplayName().substring(0, 2) + p.getOpponent().getPlayer().getName() + "§r: " + 0);
+		p.getBoard().set(6, p.getDisplayName().substring(0, 2) + p.getPlayer().getName() + "Â§r: " + 0);
+		p.getBoard().set(5, p.getOpponent().getDisplayName().substring(0, 2) + p.getOpponent().getPlayer().getName() + "Â§r: " + 0);
 		p.getBoard().set(4, "  ");
-		p.getBoard().set(3, "Perfect Walls: §a" + 0);
-		p.getBoard().set(2, "Wall: §a" + 0);
-		p.getBoard().set(1, "§a§m-----------------§r");
+		p.getBoard().set(3, "Perfect Walls: Â§a" + 0);
+		p.getBoard().set(2, "Wall: Â§a" + 0);
+		p.getBoard().set(1, "Â§aÂ§m-----------------Â§r");
 	}
 	
 	public static void setDefaultScoreboard(Board board) {
@@ -96,17 +96,17 @@ public class ScoreboardManager {
 		int seconds = (0) % 60;
 		String str = String.format("%d:%02d", minutes, seconds);
 
-		board.set(12, "§a§m-----------------");
-		board.set(11, "Stage: §anone");
-		board.set(10, "Play Time: §a" + str);
+		board.set(12, "Â§aÂ§m-----------------");
+		board.set(11, "Stage: Â§anone");
+		board.set(10, "Play Time: Â§a" + str);
 		board.set(9, "  ");
-		board.set(8, "Perfect Walls: §a" + 0);
-		board.set(7, "Wall: §a" + 0);
-		board.set(6, "Score: §a" + 0);
+		board.set(8, "Perfect Walls: Â§a" + 0);
+		board.set(7, "Wall: Â§a" + 0);
+		board.set(6, "Score: Â§a" + 0);
 		board.set(5, "   ");
-		board.set(4, "Missing block: §4" + 0);
-		board.set(3, "Misplaced block: §4" + 0);
-		board.set(2, "Choke: §4" + 0);
-		board.set(1, "§a§m-----------------§r");
+		board.set(4, "Missing block: Â§4" + 0);
+		board.set(3, "Misplaced block: Â§4" + 0);
+		board.set(2, "Choke: Â§4" + 0);
+		board.set(1, "Â§aÂ§m-----------------Â§r");
 	}
 }

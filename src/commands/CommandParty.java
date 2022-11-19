@@ -17,34 +17,34 @@ import utils.Utils;
 public class CommandParty {
 	
 	private void help(CommandSender sender) {
-		sender.sendMessage("§a§l§m---------------------------------------------");
-		sender.sendMessage(Utils.centerText("§6Party commands"));
+		sender.sendMessage("Â§aÂ§lÂ§m---------------------------------------------");
+		sender.sendMessage(Utils.centerText("Â§6Party commands"));
 		sender.sendMessage("");
-		sender.sendMessage("§b/p §r[player] §8- §7Invite another player to your party");
-		sender.sendMessage("§b/p accept §r[player] §8- §7Accept a party invitation");
-		sender.sendMessage("§b/p list §8- §7List the player in your current party");
-		sender.sendMessage("§b/p kick §r[player] §8- §7Remove a player from your party");
-		sender.sendMessage("§b/p leave §8- §7Leave your current party");
-		sender.sendMessage("§b/p disband §8- §7Disband the party");
-		sender.sendMessage("§b/p warp §8- §7Teleport your party member to your position");
-		sender.sendMessage("§a§l§m---------------------------------------------");
+		sender.sendMessage("Â§b/p Â§r[player] Â§8- Â§7Invite another player to your party");
+		sender.sendMessage("Â§b/p accept Â§r[player] Â§8- Â§7Accept a party invitation");
+		sender.sendMessage("Â§b/p list Â§8- Â§7List the player in your current party");
+		sender.sendMessage("Â§b/p kick Â§r[player] Â§8- Â§7Remove a player from your party");
+		sender.sendMessage("Â§b/p leave Â§8- Â§7Leave your current party");
+		sender.sendMessage("Â§b/p disband Â§8- Â§7Disband the party");
+		sender.sendMessage("Â§b/p warp Â§8- Â§7Teleport your party member to your position");
+		sender.sendMessage("Â§aÂ§lÂ§m---------------------------------------------");
 	}
 	
 	private void invite(CommandSender sender, String[] args) {
-		if (args.length < 1) {sender.sendMessage("§cInvalid usage, try /part help");return;}
+		if (args.length < 1) {sender.sendMessage("Â§cInvalid usage, try /part help");return;}
 		HPlayer p = HPlayer.getHPlayer(Bukkit.getPlayer(args[0]));
-		if (p == null) {sender.sendMessage("§cUnknown player " + args[0] + " !");return;}
+		if (p == null) {sender.sendMessage("Â§cUnknown player " + args[0] + " !");return;}
 		
-		if (p.getPlayer().getName() == sender.getName()) {sender.sendMessage("§cYou can't party yourself");return;}
+		if (p.getPlayer().getName() == sender.getName()) {sender.sendMessage("Â§cYou can't party yourself");return;}
 		
-		TextComponent msg = new TextComponent(Utils.centerText("§eClick §bhere §eto accept"));
+		TextComponent msg = new TextComponent(Utils.centerText("Â§eClick Â§bhere Â§eto accept"));
 		msg.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/p accept " + sender.getName()));
-		p.getPlayer().sendMessage("§a§l§m---------------------------------------------");
+		p.getPlayer().sendMessage("Â§aÂ§lÂ§m---------------------------------------------");
 		p.getPlayer().sendMessage(" ");
-		p.getPlayer().sendMessage(Utils.centerText(Bukkit.getPlayer(sender.getName()).getDisplayName() + " §einvited you to a party !"));
+		p.getPlayer().sendMessage(Utils.centerText(Bukkit.getPlayer(sender.getName()).getDisplayName() + " Â§einvited you to a party !"));
 		p.getPlayer().spigot().sendMessage(msg);
 		p.getPlayer().sendMessage(" ");
-		p.getPlayer().sendMessage("§a§l§m---------------------------------------------");
+		p.getPlayer().sendMessage("Â§aÂ§lÂ§m---------------------------------------------");
 		p.setPartyInvite(true);
 		
 		new BukkitRunnable(){
@@ -54,54 +54,54 @@ public class CommandParty {
 			}
 		}.runTaskLater(Main.getPlugin(Main.class), 20L * 30);
 		
-		sender.sendMessage("§eYou invited "+ p.getDisplayName() + " §eto the party");
+		sender.sendMessage("Â§eYou invited "+ p.getDisplayName() + " Â§eto the party");
 		HPlayer hp = HPlayer.getHPlayer(Bukkit.getPlayer(sender.getName()));
 		
 		if (hp.isInParty()) {
 			for (HPlayer hps : hp.getParty()) {
 				if (hps.isPartyLeader()) continue;
-				hps.getPlayer().sendMessage("§e" + sender.getName() + " §einvited "+ p.getDisplayName() + " §eto the party !");
+				hps.getPlayer().sendMessage("Â§e" + sender.getName() + " Â§einvited "+ p.getDisplayName() + " Â§eto the party !");
 			}
 		}
 	}
 	
 	private void accept(CommandSender sender, String[] args) {
-		if (args.length < 2) {sender.sendMessage("§cInvalid usage, try /part help");return;}
+		if (args.length < 2) {sender.sendMessage("Â§cInvalid usage, try /part help");return;}
 		Player p = Bukkit.getPlayer(args[1]);
-		if (p == null) {sender.sendMessage("§cUnknown player " + args[1] + " !");return;}
+		if (p == null) {sender.sendMessage("Â§cUnknown player " + args[1] + " !");return;}
 		
 		HPlayer hsender = HPlayer.getHPlayer(Bukkit.getPlayer(sender.getName()));
 		
-		if (!hsender.isPartyInvite()) {sender.sendMessage("§cYou don't have any pending invitation !");return;}
+		if (!hsender.isPartyInvite()) {sender.sendMessage("Â§cYou don't have any pending invitation !");return;}
 		
-		if (hsender.isInParty()) {sender.sendMessage("§cYou must leave your current party before joining one !");return;}
+		if (hsender.isInParty()) {sender.sendMessage("Â§cYou must leave your current party before joining one !");return;}
 		
 		hsender.setPartyInvite(false);
 		HPlayer hp = HPlayer.getHPlayer(p);
 		
 		if (hp.isInParty()) {
 			for (HPlayer hps : hp.getParty()) {
-				hps.getPlayer().sendMessage("§a§l§m---------------------------------------------");
+				hps.getPlayer().sendMessage("Â§aÂ§lÂ§m---------------------------------------------");
 				hps.getPlayer().sendMessage(" ");
-				hps.getPlayer().sendMessage(Utils.centerText(Bukkit.getPlayer(sender.getName()).getDisplayName() + " §ejoined the party !"));
+				hps.getPlayer().sendMessage(Utils.centerText(Bukkit.getPlayer(sender.getName()).getDisplayName() + " Â§ejoined the party !"));
 				hps.getPlayer().sendMessage(" ");
-				hps.getPlayer().sendMessage("§a§l§m---------------------------------------------");
+				hps.getPlayer().sendMessage("Â§aÂ§lÂ§m---------------------------------------------");
 			}
 		} else {
-			p.getPlayer().sendMessage("§a§l§m---------------------------------------------");
+			p.getPlayer().sendMessage("Â§aÂ§lÂ§m---------------------------------------------");
 			p.getPlayer().sendMessage(" ");
-			p.getPlayer().sendMessage(Utils.centerText(Bukkit.getPlayer(sender.getName()).getDisplayName() + " §ejoined the party !"));
+			p.getPlayer().sendMessage(Utils.centerText(Bukkit.getPlayer(sender.getName()).getDisplayName() + " Â§ejoined the party !"));
 			p.getPlayer().sendMessage(" ");
-			p.getPlayer().sendMessage("§a§l§m---------------------------------------------");
+			p.getPlayer().sendMessage("Â§aÂ§lÂ§m---------------------------------------------");
 			hp.setInParty(true);
 			hp.setPartyLeader(true);
 			hp.getParty().add(hp);
-			hp.getBoard().setTitle("§6-= Coop =-");
+			hp.getBoard().setTitle("Â§6-= Coop =-");
 		}
 		hp.getParty().add(hsender);
 		hsender.setInParty(true);
-		hsender.getBoard().setTitle("§6-= Coop =-");
-		sender.sendMessage("§eYou joined "+ p.getDisplayName() +" §eparty !");
+		hsender.getBoard().setTitle("Â§6-= Coop =-");
+		sender.sendMessage("Â§eYou joined "+ p.getDisplayName() +" Â§eparty !");
 		
 		for (HPlayer hps : hp.getParty()) {
 			hps.setParty(new ArrayList<>(hp.getParty()));
@@ -111,36 +111,36 @@ public class CommandParty {
 	private void list(CommandSender sender) {
 		HPlayer hsender = HPlayer.getHPlayer(Bukkit.getPlayer(sender.getName()));
 		
-		if (!hsender.isInParty()) {sender.sendMessage("§cYou are not in a party right now !");return;}
+		if (!hsender.isInParty()) {sender.sendMessage("Â§cYou are not in a party right now !");return;}
 		
-		sender.sendMessage("§a§l§m---------------------------------------------");
+		sender.sendMessage("Â§aÂ§lÂ§m---------------------------------------------");
 		for (HPlayer hps : hsender.getParty()) {
 			if (hps.isPartyLeader()) {
-				sender.sendMessage(Utils.centerText("§6Party leader"));
+				sender.sendMessage(Utils.centerText("Â§6Party leader"));
 				sender.sendMessage(hps.getDisplayName());
 				sender.sendMessage("");
-				sender.sendMessage(Utils.centerText("§6Party members (" + (hsender.getParty().size() - 1) + ")"));
+				sender.sendMessage(Utils.centerText("Â§6Party members (" + (hsender.getParty().size() - 1) + ")"));
 			} else {
 				sender.sendMessage(hps.getDisplayName());
 			}
 		}
-		sender.sendMessage("§a§l§m---------------------------------------------");
+		sender.sendMessage("Â§aÂ§lÂ§m---------------------------------------------");
 	}
 	
 	private void kick(CommandSender sender, String[] args) {
-		if (args.length < 2) {sender.sendMessage("§cInvalid usage, try /part help");return;}
+		if (args.length < 2) {sender.sendMessage("Â§cInvalid usage, try /part help");return;}
 		
 		HPlayer hsender = HPlayer.getHPlayer(Bukkit.getPlayer(sender.getName()));
-		if (!hsender.isInParty()) {sender.sendMessage("§cYou are not in a party right now !");return;}
-		if (!hsender.isPartyLeader()) {sender.sendMessage("§cOnly the party leader can do that !");return;}
+		if (!hsender.isInParty()) {sender.sendMessage("Â§cYou are not in a party right now !");return;}
+		if (!hsender.isPartyLeader()) {sender.sendMessage("Â§cOnly the party leader can do that !");return;}
 		
 		Player p = Bukkit.getPlayer(args[1]);
 		HPlayer hp = HPlayer.getHPlayer(p);
-		if (p == null) {sender.sendMessage("§cUnknown player " + args[1] + " !");return;}
+		if (p == null) {sender.sendMessage("Â§cUnknown player " + args[1] + " !");return;}
 		
 		if (p.getName() == sender.getName()) {disband(sender);return;}
 		
-		p.sendMessage("§eYou got kicked from the party !");
+		p.sendMessage("Â§eYou got kicked from the party !");
 		hp.getParty().clear();
 		hp.setInParty(false);
 		hp.setInGame(false, null);
@@ -150,11 +150,11 @@ public class CommandParty {
 		
 		for (HPlayer hps : hsender.getParty()) {
 			hps.setParty(new ArrayList<>(hsender.getParty()));
-			hps.getPlayer().sendMessage("§a§l§m---------------------------------------------");
+			hps.getPlayer().sendMessage("Â§aÂ§lÂ§m---------------------------------------------");
 			hps.getPlayer().sendMessage(" ");
-			hps.getPlayer().sendMessage(Utils.centerText(p.getDisplayName() + " §egot kicked from the party !"));
+			hps.getPlayer().sendMessage(Utils.centerText(p.getDisplayName() + " Â§egot kicked from the party !"));
 			hps.getPlayer().sendMessage(" ");
-			hps.getPlayer().sendMessage("§a§l§m---------------------------------------------");
+			hps.getPlayer().sendMessage("Â§aÂ§lÂ§m---------------------------------------------");
 		}
 		
 		if (hsender.getParty().size() == 1) {
@@ -164,13 +164,13 @@ public class CommandParty {
 	
 	private void leave(CommandSender sender) {
 		HPlayer hsender = HPlayer.getHPlayer(Bukkit.getPlayer(sender.getName()));
-		if (!hsender.isInParty()) {sender.sendMessage("§cYou are not in a party right now !");return;}
+		if (!hsender.isInParty()) {sender.sendMessage("Â§cYou are not in a party right now !");return;}
 		
 		if (hsender.isPartyLeader()) {disband(sender);return;}
 		
 		HPlayer leader = hsender.getParty().get(0);
 		
-		hsender.getPlayer().sendMessage("§eYou leaved the party");
+		hsender.getPlayer().sendMessage("Â§eYou leaved the party");
 		hsender.getParty().clear();
 		hsender.setInParty(false);
 		hsender.setInGame(false, null);
@@ -180,11 +180,11 @@ public class CommandParty {
 		
 		for (HPlayer hps : leader.getParty()) {
 			hps.setParty(new ArrayList<>(leader.getParty()));
-			hps.getPlayer().sendMessage("§a§l§m---------------------------------------------");
+			hps.getPlayer().sendMessage("Â§aÂ§lÂ§m---------------------------------------------");
 			hps.getPlayer().sendMessage("");
-			hps.getPlayer().sendMessage(Utils.centerText(hsender.getDisplayName()+" §eleft the party"));
+			hps.getPlayer().sendMessage(Utils.centerText(hsender.getDisplayName()+" Â§eleft the party"));
 			hps.getPlayer().sendMessage("");
-			hps.getPlayer().sendMessage("§a§l§m---------------------------------------------");
+			hps.getPlayer().sendMessage("Â§aÂ§lÂ§m---------------------------------------------");
 		}
 		if (leader.getParty().size() == 1) {
 			disband(leader.getPlayer());
@@ -193,17 +193,17 @@ public class CommandParty {
 	
 	private void disband(CommandSender sender) {
 		HPlayer hsender = HPlayer.getHPlayer(Bukkit.getPlayer(sender.getName()));
-		if (!hsender.isInParty()) {sender.sendMessage("§cYou are not in a party right now !");return;}
-		if (!hsender.isPartyLeader()) {sender.sendMessage("§cOnly the party leader can do that !");return;}
+		if (!hsender.isInParty()) {sender.sendMessage("Â§cYou are not in a party right now !");return;}
+		if (!hsender.isPartyLeader()) {sender.sendMessage("Â§cOnly the party leader can do that !");return;}
 		
 		List<HPlayer> party = new ArrayList<>(hsender.getParty());
 		
 		for (HPlayer hps : party) {
-			hps.getPlayer().sendMessage("§a§l§m---------------------------------------------");
+			hps.getPlayer().sendMessage("Â§aÂ§lÂ§m---------------------------------------------");
 			hps.getPlayer().sendMessage("");
-			hps.getPlayer().sendMessage(Utils.centerText("§eThe party got disbanded"));
+			hps.getPlayer().sendMessage(Utils.centerText("Â§eThe party got disbanded"));
 			hps.getPlayer().sendMessage("");
-			hps.getPlayer().sendMessage("§a§l§m---------------------------------------------");
+			hps.getPlayer().sendMessage("Â§aÂ§lÂ§m---------------------------------------------");
 			hps.setInParty(false);
 			hps.setInGame(false, null);
 			hps.getBoard().setTitle(hps.getDisplayName());
@@ -214,19 +214,19 @@ public class CommandParty {
 	
 	private void warp(CommandSender sender) {
 		HPlayer hsender = HPlayer.getHPlayer(Bukkit.getPlayer(sender.getName()));
-		if (!hsender.isInParty()) {sender.sendMessage("§cYou are not in a party right now !");return;}
-		if (!hsender.isPartyLeader()) {sender.sendMessage("§cOnly the party leader can do that !");return;}
+		if (!hsender.isInParty()) {sender.sendMessage("Â§cYou are not in a party right now !");return;}
+		if (!hsender.isPartyLeader()) {sender.sendMessage("Â§cOnly the party leader can do that !");return;}
 		
-		sender.sendMessage("§eYou warped everyone to your position");
+		sender.sendMessage("Â§eYou warped everyone to your position");
 		
 		for (HPlayer hps : hsender.getParty()) {
 			if (hps.isPartyLeader()) continue;
 			hps.getPlayer().teleport(hsender.getPlayer().getLocation());
-			hps.getPlayer().sendMessage("§a§l§m---------------------------------------------");
+			hps.getPlayer().sendMessage("Â§aÂ§lÂ§m---------------------------------------------");
 			hps.getPlayer().sendMessage("");
-			hps.getPlayer().sendMessage(Utils.centerText(hsender.getDisplayName()+" §ewarped you"));
+			hps.getPlayer().sendMessage(Utils.centerText(hsender.getDisplayName()+" Â§ewarped you"));
 			hps.getPlayer().sendMessage("");
-			hps.getPlayer().sendMessage("§a§l§m---------------------------------------------");
+			hps.getPlayer().sendMessage("Â§aÂ§lÂ§m---------------------------------------------");
 		}
  	}
 	
@@ -265,11 +265,11 @@ public class CommandParty {
 		
 		for (HPlayer hps : leader.getParty()) {
 			hps.setParty(new ArrayList<>(leader.getParty()));
-			hps.getPlayer().sendMessage("§a§l§m---------------------------------------------");
+			hps.getPlayer().sendMessage("Â§aÂ§lÂ§m---------------------------------------------");
 			hps.getPlayer().sendMessage("");
-			hps.getPlayer().sendMessage(Utils.centerText(hsender.getDisplayName()+" §eleft the party"));
+			hps.getPlayer().sendMessage(Utils.centerText(hsender.getDisplayName()+" Â§eleft the party"));
 			hps.getPlayer().sendMessage("");
-			hps.getPlayer().sendMessage("§a§l§m---------------------------------------------");
+			hps.getPlayer().sendMessage("Â§aÂ§lÂ§m---------------------------------------------");
 		}
 		if (leader.getParty().size() == 1) {
 			autodisband(leader.getPlayer());
@@ -284,11 +284,11 @@ public class CommandParty {
 		List<HPlayer> party = new ArrayList<>(hsender.getParty());
 		
 		for (HPlayer hps : party) {
-			hps.getPlayer().sendMessage("§a§l§m---------------------------------------------");
+			hps.getPlayer().sendMessage("Â§aÂ§lÂ§m---------------------------------------------");
 			hps.getPlayer().sendMessage("");
-			hps.getPlayer().sendMessage(Utils.centerText("§eThe party got disbanded"));
+			hps.getPlayer().sendMessage(Utils.centerText("Â§eThe party got disbanded"));
 			hps.getPlayer().sendMessage("");
-			hps.getPlayer().sendMessage("§a§l§m---------------------------------------------");
+			hps.getPlayer().sendMessage("Â§aÂ§lÂ§m---------------------------------------------");
 			hps.setInParty(false);
 			hps.setInGame(false, null);
 			hps.getBoard().setTitle(hps.getDisplayName());

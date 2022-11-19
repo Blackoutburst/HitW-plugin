@@ -12,7 +12,7 @@ public class DeleteNPC {
 
 	public boolean run(CommandSender sender, String[] args) {
 		if (!sender.isOp()) {
-			System.out.println("§cMissing permission!");
+			System.out.println("Â§cMissing permission!");
 			return (true);
 		}
 		
@@ -20,14 +20,14 @@ public class DeleteNPC {
 		if (sender instanceof Player) {
 			player = (Player) sender;
 		} else {
-			System.out.println("§cOnly players can run this command!");
+			System.out.println("Â§cOnly players can run this command!");
 			return (true);
 		}
 		
 		SimpleNPCPlayer snp = SimpleNPCPlayer.getFromPlayer(player);
 		
 		if (snp.selectedID == -1) {
-			System.out.println("§cYou must select a NPC before runnnig this command");
+			System.out.println("Â§cYou must select a NPC before runnnig this command");
 			return (true);
 		}
 		

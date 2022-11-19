@@ -17,13 +17,6 @@ public class CommandScanPlayField {
 	
 	private List<Location> spawnpoints = new ArrayList<>();
 	
-	 /**
-     * Save every spawn location inside a file
-     * @param pos index in the yaml file
-     * @param x position x in world
-     * @param y position y in world
-     * @param z position z in world
-     */
     private void saveLocation(String worldName) {
         YamlConfiguration file = YamlConfiguration.loadConfiguration(new File("plugins/HitW/TempPlayField.yml"));
 
@@ -42,7 +35,7 @@ public class CommandScanPlayField {
 
     public boolean run(CommandSender sender, String[] args) {
         if (args.length < 6) {
-        	sender.sendMessage("§cInvalid usage try §e/scan x1 y1 z1 x2 y2 z2");
+        	sender.sendMessage("Â§cInvalid usage try Â§e/scan x1 y1 z1 x2 y2 z2");
         	return false;
         }
 
@@ -57,7 +50,7 @@ public class CommandScanPlayField {
         Player player = (Player) sender;
         World world = player.getWorld();
 
-        sender.sendMessage("§bStarting scan");
+        sender.sendMessage("Â§bStarting scan");
 
         File tmp = new File("plugins/Quake/"+world.getName()+".yml");
         if (tmp.exists()) tmp.delete();
@@ -72,7 +65,7 @@ public class CommandScanPlayField {
             }
         }
         saveLocation(world.getName());
-        sender.sendMessage("§bPlay Field scan complete found §6"+spawnpoints.size()+" §blocation");
+        sender.sendMessage("Â§bPlay Field scan complete found Â§6"+spawnpoints.size()+" Â§blocation");
 
         return (true);
     }

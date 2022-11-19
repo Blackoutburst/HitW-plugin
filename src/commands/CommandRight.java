@@ -14,9 +14,9 @@ public class CommandRight {
 		HPlayer.updatePlayerData(p);
 		
 		if (p.isRightSided()) {
-			sender.sendMessage("§eRight sided walls are now enabled");
+			sender.sendMessage("Â§eRight sided walls are now enabled");
 		} else {
-			sender.sendMessage("§eright sided walls are now disabled");
+			sender.sendMessage("Â§eright sided walls are now disabled");
 		}
 	}
 }
