@@ -37,9 +37,7 @@ public class SkullOwner {
 		String url = "https://sessionserver.mojang.com/session/minecraft/profile/"+uuid.replace("-", "");
 		try {
 		    String nameJson = IOUtils.toString(new URL(url));           
-		    JSONArray nameValue = (JSONArray) JSONValue.parseWithException(nameJson);
-		    String playerSlot = nameValue.get(nameValue.size()-1).toString();
-		    JSONObject nameObject = (JSONObject) JSONValue.parseWithException(playerSlot);
+		    JSONObject nameObject = (JSONObject) JSONValue.parseWithException(nameJson);
 		    return nameObject.get("name").toString();
 		} catch (IOException | ParseException e) {
 		    e.printStackTrace();

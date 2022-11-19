@@ -8,7 +8,7 @@ import java.net.URLConnection;
 
 public class Request {
 	
-	private static final String API = "you api key";
+	private static final String API = "your api key";
 	
 	public static String getPlayerInfo(String uuid) {
 		try {
