@@ -1,0 +1,82 @@
+main: main.Main
+name: HitW
+version: 2.0
+api-version: 1.13
+author: Blackoutburst
+description: Hole in the Wall plugin
+depend: [NPCAPI]
+depend: [NoteBlockAPI]
+commands:
+  discord:
+    description: Send HitW discord invite link
+    usage: /discord
+  lag:
+    description: Set brushing lag
+    usage: /lag
+  memtime:
+    description: Set memory time
+    usage: /memtime
+  delay:
+    description: Set lever delay
+    usage: /delay
+  fly:
+    description: Toggle fly
+    usage: /fly
+  title:
+    description: Toggle title
+    usage: /title
+  animation:
+    description: Toggle old walls animations
+    usage: /animation
+  right:
+    description: Toggle right sided walls
+    usage: /right
+  blind:
+    description: Toggle blind mode
+    usage: /blind
+  coop:
+    description: Create a coop
+    usage: /coop
+  p:
+    description: Create a coop
+    usage: /p
+  party:
+    description: Create a coop
+    usage: /party
+  spawn:
+    description: Teleport the player to spawn
+    usage: /spawn
+  lobby:
+    description: Teleport the player to spawn
+    usage: /lobby
+  play:
+    description: Start a game
+    usage: /play
+  leave:
+    description: Stop a game
+    usage: /leave
+  l:
+    description: Stop a game
+    usage: /l
+  duel:
+    description: Duel someone
+    usage: /duel
+  afk:
+    description: Set your status as AFK
+    usage: /AFK
+  perfect:
+    description: Toggle pefect mode
+    usage: /perfectK
+  createnpc:
+    description: Create a new npc
+    usage: /createnpc name skinname
+  deletenpc:
+    description: Remove a npc
+    usage: /delete npc
+  scanplayfield:
+    description: Scan the world for gift spawnpoint (Debug command)
+    usage: /scanPlayField <x1> <y1> <z1> <x2> <y2> <z2>
+  scanwall:
+    description: Scan the world for gift spawnpoint (Debug command)
+    usage: /scanWall <x1> <y1> <z1> <x2> <y2> <z2>
+ 
