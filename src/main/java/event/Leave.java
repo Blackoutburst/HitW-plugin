@@ -1,5 +1,7 @@
 package event;
 
+import analytics.AnalyticsActions;
+import analytics.AnalyticsWatcher;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import com.blackout.npcapi.core.PacketInteractListener;
@@ -12,6 +14,12 @@ import utils.GameUtils;
 
 public class Leave {
 	public void execute(PlayerQuitEvent event) {
+		AnalyticsWatcher.appendLine(
+				System.currentTimeMillis()+ "," +
+					AnalyticsActions.PLAYER_LEAVE.data + "," +
+					event.getPlayer().getUniqueId().toString().replace("-", "")
+		);
+
 		Main.npcplayers.remove(SimpleNPCPlayer.getFromPlayer(event.getPlayer()));
 		CommandParty.autoLeave(event.getPlayer());
 		HPlayer p = HPlayer.getHPlayer(event.getPlayer());

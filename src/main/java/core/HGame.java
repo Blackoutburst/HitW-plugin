@@ -2,6 +2,9 @@ package core;
 
 import java.util.Collections;
 
+import analytics.AnalyticsActions;
+import analytics.AnalyticsWallType;
+import analytics.AnalyticsWatcher;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -245,8 +248,17 @@ public class HGame {
 			if (this.owner.getWallTime().size() > 0 && !this.owner.inDuel)
 				printEndStats();
 			
-			if (this.isClassic() && !this.owner.inParty)
+			if (this.isClassic() && !this.owner.inParty) {
 				savePlayerScore(this.owner, this.name, manualEnd);
+
+				if (AnalyticsWallType.getFromStringName(game.getName()) != null) {
+					AnalyticsWatcher.appendLine(
+							System.currentTimeMillis() + "," +
+									(manualEnd ? AnalyticsActions.GAME_MANUAL_END.data : AnalyticsActions.GAME_NATURAL_END.data) + "," +
+									AnalyticsWallType.getFromStringName(game.getName()).data
+					);
+				}
+			}
 
 			GameEndEvent gameEndEvent = new GameEndEvent(this, player, manualEnd);
 			Bukkit.getPluginManager().callEvent(gameEndEvent);

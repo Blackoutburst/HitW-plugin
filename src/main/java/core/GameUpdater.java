@@ -1,5 +1,8 @@
 package core;
 
+import analytics.AnalyticsActions;
+import analytics.AnalyticsWallType;
+import analytics.AnalyticsWatcher;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import main.Main;

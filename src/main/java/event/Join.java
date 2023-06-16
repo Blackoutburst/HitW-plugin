@@ -2,6 +2,8 @@ package event;
 
 import java.io.File;
 
+import analytics.AnalyticsActions;
+import analytics.AnalyticsWatcher;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -24,6 +26,12 @@ import utils.Utils;
 public class Join {
 	
 	public void execute(PlayerJoinEvent event) {
+		AnalyticsWatcher.appendLine(
+				System.currentTimeMillis()+ "," +
+					AnalyticsActions.PLAYER_JOIN.data + "," +
+					event.getPlayer().getUniqueId().toString().replace("-", "")
+		);
+
 		SimpleNPCPlayer pnpc = new SimpleNPCPlayer(event.getPlayer());
 		Main.npcplayers.add(pnpc);
 		NPCFile.loadNPC(pnpc);
