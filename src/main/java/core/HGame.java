@@ -247,13 +247,17 @@ public class HGame {
 			
 			if (this.isClassic() && !this.owner.inParty)
 				savePlayerScore(this.owner, this.name, manualEnd);
-			
+
+			GameEndEvent gameEndEvent = new GameEndEvent(this, player, manualEnd);
+			Bukkit.getPluginManager().callEvent(gameEndEvent);
+
 			this.type = "none";
 			this.setClassic(false);
-			
-			if (this.owner.inDuel)
+
+			if (this.owner.inDuel) {
 				endDuel();
-			
+			}
+
 			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
 				@Override
 				public void run(){
