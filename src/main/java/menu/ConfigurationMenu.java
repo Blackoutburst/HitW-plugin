@@ -201,7 +201,7 @@ public class ConfigurationMenu {
         lore.add("§6Wide Qualification score§r:§b "+p.getScoreWideQualification());
         lore.add("§6Wide Finals score§r:§b "+p.getScoreWideFinals());
         lore.add("§6Lobby score§r:§b "+p.getScoreLobby());
-        lore.add("§6Credit:§b " + formattedCredit);
+        lore.add("§6Credits:§b " + formattedCredit);
         lore.add("§e§l§m--------------------");
         setSkull(Material.SKULL_ITEM, 1, (short) 3, "§r§aYour stats", lore, 52, inv, p.getPlayer().getName());
 	}

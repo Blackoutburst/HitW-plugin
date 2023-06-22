@@ -100,7 +100,7 @@ public class ScoreboardManager {
 		String formattedCredit = numberFormat.format(CreditImporter.getCredits(player));
 
 
-		board.set(13, "Credit: §6§l" + formattedCredit);
+		board.set(13, "Credits: §6§l" + formattedCredit);
 	}
 
 	public static void setDefaultScoreboard(Board board, HPlayer player) {
@@ -113,7 +113,7 @@ public class ScoreboardManager {
 		String formattedCredit = numberFormat.format(CreditImporter.getCredits(player));
 
 		board.set(14, "§a§m-----------------");
-		board.set(13, "Credit: §6§l" + formattedCredit);
+		board.set(13, "Credits: §6§l" + formattedCredit);
 		board.set(12, "     ");
 		board.set(11, "Stage: §anone");
 		board.set(10, "Play Time: §a" + str);
