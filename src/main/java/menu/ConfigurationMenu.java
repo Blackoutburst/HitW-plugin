@@ -1,6 +1,8 @@
 package menu;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -14,6 +16,7 @@ import core.HPlayer;
 import main.Main;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
+import reflect.CreditImporter;
 import utils.SkullOwner;
 import utils.Utils;
 
@@ -187,7 +190,10 @@ public class ConfigurationMenu {
         lore.add("§3(current "+p.getLeverDelay()+"s)");
         lore.add("§e(default 0.5s)");
         setItem(Material.LEVER, 1, (short) 0, "§r§aLever delay", lore, 51, inv);
-        
+
+        NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.US);
+        String formattedCredit = numberFormat.format(CreditImporter.getCredits(p));
+
         lore.clear();
         lore.add("§e§l§m--------------------");
 		lore.add("§6Qualification score§r:§b "+p.getScoreQualification());
@@ -195,6 +201,7 @@ public class ConfigurationMenu {
         lore.add("§6Wide Qualification score§r:§b "+p.getScoreWideQualification());
         lore.add("§6Wide Finals score§r:§b "+p.getScoreWideFinals());
         lore.add("§6Lobby score§r:§b "+p.getScoreLobby());
+        lore.add("§6Credit:§b " + formattedCredit);
         lore.add("§e§l§m--------------------");
         setSkull(Material.SKULL_ITEM, 1, (short) 3, "§r§aYour stats", lore, 52, inv, p.getPlayer().getName());
 	}

@@ -131,11 +131,20 @@ public class HGame {
 	}
 	
 	private void printEndStats() {
-		if (this.owner.inParty)
-			for (HPlayer hp : this.owner.party)
+		final HPlayer owner = this.owner;
+
+		if (owner.inParty)
+			for (HPlayer hp : owner.party)
 				endStatsMessage(hp);
 		else
-			endStatsMessage(this.owner);
+			endStatsMessage(owner);
+
+		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
+			@Override
+			public void run(){
+				ScoreboardManager.updateCredit(owner.board, owner);
+			}
+		}, (5L));
 	}
 	
 	private void duelResult(HPlayer p, HPlayer owner) {
@@ -170,7 +179,7 @@ public class HGame {
 			public void run(){
 				p.inDuel = false;
 				p.restorePlayerData();
-				ScoreboardManager.setDefaultScoreboard(p.getBoard());
+				ScoreboardManager.setDefaultScoreboard(p.getBoard(), p);
 				p.getBoard().setTitle(p.getDisplayName());
 				p.getPlayer().teleport(new Location(Bukkit.getWorld("world"), -7.5f, 55, -1045.5f, 0, 0));
 			}
