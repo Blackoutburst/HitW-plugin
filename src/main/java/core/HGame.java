@@ -2,6 +2,9 @@ package core;
 
 import java.util.Collections;
 
+import analytics.AnalyticsActions;
+import analytics.AnalyticsWallType;
+import analytics.AnalyticsWatcher;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -128,11 +131,20 @@ public class HGame {
 	}
 	
 	private void printEndStats() {
-		if (this.owner.inParty)
-			for (HPlayer hp : this.owner.party)
+		final HPlayer owner = this.owner;
+
+		if (owner.inParty)
+			for (HPlayer hp : owner.party)
 				endStatsMessage(hp);
 		else
-			endStatsMessage(this.owner);
+			endStatsMessage(owner);
+
+		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.getPlugin(Main.class), new Runnable(){
+			@Override
+			public void run(){
+				ScoreboardManager.updateCredit(owner.board, owner);
+			}
+		}, (5L));
 	}
 	
 	private void duelResult(HPlayer p, HPlayer owner) {
@@ -167,7 +179,7 @@ public class HGame {
 			public void run(){
 				p.inDuel = false;
 				p.restorePlayerData();
-				ScoreboardManager.setDefaultScoreboard(p.getBoard());
+				ScoreboardManager.setDefaultScoreboard(p.getBoard(), p);
 				p.getBoard().setTitle(p.getDisplayName());
 				p.getPlayer().teleport(new Location(Bukkit.getWorld("world"), -7.5f, 55, -1045.5f, 0, 0));
 			}
@@ -245,8 +257,17 @@ public class HGame {
 			if (this.owner.getWallTime().size() > 0 && !this.owner.inDuel)
 				printEndStats();
 			
-			if (this.isClassic() && !this.owner.inParty)
+			if (this.isClassic() && !this.owner.inParty) {
 				savePlayerScore(this.owner, this.name, manualEnd);
+
+				if (AnalyticsWallType.getFromStringName(game.getName()) != null) {
+					AnalyticsWatcher.appendLine(
+							System.currentTimeMillis() + "," +
+									(manualEnd ? AnalyticsActions.GAME_MANUAL_END.data : AnalyticsActions.GAME_NATURAL_END.data) + "," +
+									AnalyticsWallType.getFromStringName(game.getName()).data
+					);
+				}
+			}
 
 			GameEndEvent gameEndEvent = new GameEndEvent(this, player, manualEnd);
 			Bukkit.getPluginManager().callEvent(gameEndEvent);

@@ -2,6 +2,8 @@ package event;
 
 import java.io.File;
 
+import analytics.AnalyticsActions;
+import analytics.AnalyticsWatcher;
 import com.xxmicloxx.NoteBlockAPI.NoteBlockAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -25,6 +27,12 @@ import utils.Utils;
 public class Join {
 	
 	public void execute(PlayerJoinEvent event) {
+		AnalyticsWatcher.appendLine(
+				System.currentTimeMillis()+ "," +
+					AnalyticsActions.PLAYER_JOIN.data + "," +
+					event.getPlayer().getUniqueId().toString().replace("-", "")
+		);
+
 		SimpleNPCPlayer pnpc = new SimpleNPCPlayer(event.getPlayer());
 		Main.npcplayers.add(pnpc);
 		NPCFile.loadNPC(pnpc);
@@ -38,7 +46,7 @@ public class Join {
 			rsp.setPlaying(false);
 			rsp.destroy();
 		});
-		
+
 		PacketInteractListener.init(event.getPlayer(), new NPCListener());
 		NPCUtils.spawnNPC(event);
 	}
@@ -105,7 +113,7 @@ public class Join {
 			HPlayer.updatePlayerData(newHp);
 		}
 		Main.hPlayers.add(newHp);
-		ScoreboardManager.setDefaultScoreboard(board);
+		ScoreboardManager.setDefaultScoreboard(board, newHp);
 		
 		for (HPlayer hp : Main.hPlayers) {
 			hp.getBoard().addTeam(hp, newHp);
