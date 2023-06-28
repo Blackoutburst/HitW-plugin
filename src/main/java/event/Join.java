@@ -4,6 +4,7 @@ import java.io.File;
 
 import analytics.AnalyticsActions;
 import analytics.AnalyticsWatcher;
+import com.xxmicloxx.NoteBlockAPI.NoteBlockAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -41,7 +42,11 @@ public class Join {
 		addHPlayer(event.getPlayer());
 		HPlayer p = HPlayer.getHPlayer(event.getPlayer());
 		event.getPlayer().setAllowFlight(p.isFly());
-		
+		NoteBlockAPI.getSongPlayersByPlayer(event.getPlayer()).forEach(rsp -> {
+			rsp.setPlaying(false);
+			rsp.destroy();
+		});
+
 		PacketInteractListener.init(event.getPlayer(), new NPCListener());
 		NPCUtils.spawnNPC(event);
 	}

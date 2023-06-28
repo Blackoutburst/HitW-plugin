@@ -224,7 +224,7 @@ public class CommandPlay {
                         p.setUsePlay(false);
                         break;
                     default:
-                        sender.sendMessage("§cUnknown parrameter : " + args[0] + " !");
+                        sender.sendMessage("§cUnknown parameter : " + args[0] + " !");
                         break;
                 }
             } else {

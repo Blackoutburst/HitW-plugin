@@ -1,5 +1,6 @@
 package event;
 
+import com.xxmicloxx.NoteBlockAPI.NoteBlockAPI;
 import analytics.AnalyticsActions;
 import analytics.AnalyticsWatcher;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -26,5 +27,9 @@ public class Leave {
 		Main.hPlayers.remove(p);
 		GameUtils.stopGames(p);
 		PacketInteractListener.remove(event.getPlayer());
+		NoteBlockAPI.getSongPlayersByPlayer(event.getPlayer()).forEach(rsp -> {
+			rsp.setPlaying(false);
+			rsp.destroy();
+		});
 	}
 }
