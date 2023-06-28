@@ -168,7 +168,7 @@ public class CommandPlay {
 					case "classic": time(p, args, game, true); p.setUsePlay(false); break;
 					case "score": score(p, args, game); p.setUsePlay(false); break;
 					case "time": time(p, args, game, false); p.setUsePlay(false); break;
-					default: sender.sendMessage("§cUnknown parrameter : " + args[0] + " !"); break;
+					default: sender.sendMessage("§cUnknown parameter : " + args[0] + " !"); break;
 				}
 			} else {
 				p.setUsePlay(false);

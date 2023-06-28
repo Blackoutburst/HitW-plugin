@@ -1,5 +1,6 @@
 package event;
 
+import com.xxmicloxx.NoteBlockAPI.NoteBlockAPI;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import com.blackout.npcapi.core.PacketInteractListener;
@@ -18,5 +19,9 @@ public class Leave {
 		Main.hPlayers.remove(p);
 		GameUtils.stopGames(p);
 		PacketInteractListener.remove(event.getPlayer());
+		NoteBlockAPI.getSongPlayersByPlayer(event.getPlayer()).forEach(rsp -> {
+			rsp.setPlaying(false);
+			rsp.destroy();
+		});
 	}
 }

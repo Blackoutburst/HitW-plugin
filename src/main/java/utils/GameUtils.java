@@ -2,6 +2,7 @@ package utils;
 
 import java.time.Instant;
 
+import core.*;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
@@ -9,10 +10,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import core.CustomWallManager;
-import core.HGame;
-import core.HPlayer;
-import core.WallManager;
 import main.Main;
 import net.minecraft.server.v1_8_R3.IChatBaseComponent;
 import net.minecraft.server.v1_8_R3.IChatBaseComponent.ChatSerializer;
@@ -297,11 +294,18 @@ public class GameUtils {
 	}
 	
 	public static void stopGames(HPlayer p) {
+		p.setUsePlay(false);
 		for (HGame game : Main.hGames) {
 			if (game.getOwner() == p) {
 				game.getOwner().setInGame(false, game);
 				game.setOwner(null, true);
 			}
 		}
+		new BukkitRunnable(){
+			@Override
+			public void run(){
+				p.setUsePlay(true);
+			}
+		}.runTaskLater(Main.getPlugin(Main.class), 20L);
 	}
 }
