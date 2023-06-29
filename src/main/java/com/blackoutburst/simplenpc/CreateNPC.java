@@ -1,7 +1,14 @@
 package com.blackoutburst.simplenpc;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.UUID;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -31,8 +38,32 @@ public class CreateNPC {
 			System.out.println("§cOnly players can run this command!");
 			return (true);
 		}
-		
-		SkinLoader.loadSkinFromName(Main.skinId, args[1]);
+
+		String uuid;
+
+		try {
+			URL url = new URL("https://api.mojang.com/users/profiles/minecraft/" + args[1]);
+			URLConnection con = url.openConnection();
+			InputStream is = con.getInputStream();
+			BufferedReader br = new BufferedReader(new InputStreamReader(is));
+			StringBuilder builder = new StringBuilder();
+			String line;
+
+			while((line = br.readLine()) != null) {
+				builder.append(line);
+				builder.append(System.getProperty("line.separator"));
+			}
+
+			is.close();
+			br.close();
+			JsonObject json = (new JsonParser()).parse(builder.toString()).getAsJsonObject();
+			uuid = json.get("id").getAsString();
+		} catch (Exception e) {
+			System.err.println("Could not get player uuid!");
+			return true;
+		}
+
+		SkinLoader.loadSkinFromUUID(Main.skinId, uuid);
 		
 		NPC npc = new NPC(UUID.randomUUID(), args[0])
 		.setLocation(player.getLocation())
@@ -43,7 +74,7 @@ public class CreateNPC {
 			NPCManager.spawnNPC(npc, p.player);
 			p.npcs.add(npc);
 		}
-		NPCFile.saveSeat(npc, args[1]);
+		NPCFile.saveSeat(npc, uuid);
 		System.out.println("§aCreated a new npc: "+args[0]+" with the skin of: "+args[1]);
 		
 		return (true);
