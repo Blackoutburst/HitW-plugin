@@ -2,6 +2,8 @@ package event;
 
 import java.io.File;
 
+import analytics.AnalyticsActions;
+import analytics.AnalyticsWatcher;
 import com.xxmicloxx.NoteBlockAPI.NoteBlockAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -25,9 +27,13 @@ import utils.Utils;
 public class Join {
 	
 	public void execute(PlayerJoinEvent event) {
+		AnalyticsWatcher.appendLine(
+				System.currentTimeMillis()+ "," +
+					AnalyticsActions.PLAYER_JOIN.data + "," +
+					event.getPlayer().getUniqueId().toString().replace("-", "")
+		);
 		HPlayer p = HPlayer.addHPlayer(event.getPlayer());
-
-
+		
 		event.getPlayer().teleport(new Location(Bukkit.getWorld("world"), -7.5f, 55, -1054.5f, 0, 0));
 		Utils.giveConfigItem(event.getPlayer());
 		event.getPlayer().setAllowFlight(p.isFly());

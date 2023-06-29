@@ -2,6 +2,10 @@ package utils;
 
 import core.Board;
 import core.HPlayer;
+import reflect.CreditImporter;
+
+import java.text.NumberFormat;
+import java.util.Locale;
 
 public class ScoreboardManager {
 	
@@ -90,13 +94,27 @@ public class ScoreboardManager {
 		p.getBoard().set(2, "Wall: §a" + 0);
 		p.getBoard().set(1, "§a§m-----------------§r");
 	}
-	
-	public static void setDefaultScoreboard(Board board) {
+
+	public static void updateCredit(Board board, HPlayer player) {
+		NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.US);
+		String formattedCredit = numberFormat.format(CreditImporter.getCredits(player));
+
+
+		board.set(13, "Credits: §6§l" + formattedCredit);
+	}
+
+	public static void setDefaultScoreboard(Board board, HPlayer player) {
 		int minutes = 0 / 60;
 		int seconds = (0) % 60;
 		String str = String.format("%d:%02d", minutes, seconds);
 
-		board.set(12, "§a§m-----------------");
+
+		NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.US);
+		String formattedCredit = numberFormat.format(CreditImporter.getCredits(player));
+
+		board.set(14, "§a§m-----------------");
+		board.set(13, "Credits: §6§l" + formattedCredit);
+		board.set(12, "     ");
 		board.set(11, "Stage: §anone");
 		board.set(10, "Play Time: §a" + str);
 		board.set(9, "  ");
