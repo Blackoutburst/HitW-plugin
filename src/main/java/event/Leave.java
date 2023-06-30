@@ -27,9 +27,6 @@ public class Leave {
 		Main.hPlayers.remove(p);
 		GameUtils.stopGames(p);
 		PacketInteractListener.remove(event.getPlayer());
-		NoteBlockAPI.getSongPlayersByPlayer(event.getPlayer()).forEach(rsp -> {
-			rsp.setPlaying(false);
-			rsp.destroy();
-		});
+		NoteBlockAPI.stopPlaying(p.getPlayer());
 	}
 }

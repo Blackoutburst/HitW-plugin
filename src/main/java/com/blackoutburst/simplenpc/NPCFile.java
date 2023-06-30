@@ -34,23 +34,25 @@ public class NPCFile {
 			float pitch = (float)(npcsFile.getDouble("npc."+s+".pitch"));
 			float yaw = (float)(npcsFile.getDouble("npc."+s+".yaw"));
 			String name = npcsFile.getString("npc."+s+".name");
-			String skinName = npcsFile.getString("npc."+s+".skin");
+			String skinUUID = npcsFile.getString("npc."+s+".skin");
 			
 			Location loc = new Location(world, x, y, z, yaw, pitch);
 			
-			SkinLoader.loadSkinFromName(Main.skinId, skinName);
+			SkinLoader.loadSkinFromUUID(Main.skinId, skinUUID);
 			
 			NPC npc = new NPC(uuid, name)
 			.setLocation(loc)
 			.setSkin(SkinLoader.getSkinById(Main.skinId++))
 			.setCapeVisible(false);
-			
+
+			if (npc.getSkin() == null) continue;
+
 			NPCManager.spawnNPC(npc, p.player);
 			p.npcs.add(npc);
 		}
 	}
 	
-	public static void saveSeat(NPC s, String skinName) {
+	public static void saveSeat(NPC s, String uuid) {
 		YamlConfiguration npcsFile = YamlConfiguration.loadConfiguration(new File("plugins/SimpleNPC/npc.yml"));
 		
 		npcsFile.set("npc."+s.getUUID().toString()+".location.world", s.getLocation().getWorld().getName());
@@ -60,7 +62,7 @@ public class NPCFile {
 		npcsFile.set("npc."+s.getUUID().toString()+".pitch", s.getLocation().getPitch());
 		npcsFile.set("npc."+s.getUUID().toString()+".yaw", s.getLocation().getYaw());
 		npcsFile.set("npc."+s.getUUID().toString()+".name", s.getName());
-		npcsFile.set("npc."+s.getUUID().toString()+".skin", skinName);
+		npcsFile.set("npc."+s.getUUID().toString()+".skin", uuid);
 		
 		try {
 			npcsFile.save(new File("plugins/SimpleNPC/npc.yml"));
